@@ -107,6 +107,7 @@
       if (isNaN(d)) return;
 
       const entryMonday = getMonday(d);
+      // Only sessions in this week or next week
       if (entryMonday.getTime() !== baseWeekStart.getTime() && entryMonday.getTime() !== nextWeekStart.getTime()) return;
 
       const weekKey = formatDate(entryMonday);
@@ -131,86 +132,94 @@
 
       const today = new Date();
       const baseMonday = getMonday(today);
+      const nextMonday = new Date(baseMonday);
+      nextMonday.setDate(nextMonday.getDate() + 7);
+
       const groupedData = groupByWeek(data, baseMonday);
       cachedGroupedData = groupedData;
 
-      const weekKeys = Object.keys(groupedData).sort();
+      const currentWeekKey = formatDate(baseMonday);
+      const nextWeekKey = formatDate(nextMonday);
 
-      if (weekKeys.length === 0) {
-        contentDiv.innerHTML = '<p class="text-center text-gray-700">No teaching sessions scheduled at all.</p>';
+      const currentWeekSessions = groupedData[currentWeekKey] || [];
+      const nextWeekSessions = groupedData[nextWeekKey] || [];
+
+      // If teaching this week, show this week and next week (if any)
+      if (currentWeekSessions.length > 0) {
+        [currentWeekKey, nextWeekKey].forEach(weekKey => {
+          if (groupedData[weekKey] && groupedData[weekKey].length > 0) {
+            appendWeekSection(weekKey, groupedData[weekKey]);
+          }
+        });
         return;
       }
 
-      const currentWeekKey = formatDate(baseMonday);
-      const currentWeekSessions = groupedData[currentWeekKey];
-
-      if (!currentWeekSessions || currentWeekSessions.length === 0) {
-        // Find earliest session date after today
-        let earliestFutureSessionDate = null;
-
-        // Flatten all sessions for current and next week keys (just in case)
-        const allSessions = Object.values(groupedData).flat();
-
-        allSessions.forEach(session => {
-          const sessionDate = new Date(session.date);
-          if (sessionDate > today) {
-            if (!earliestFutureSessionDate || sessionDate < earliestFutureSessionDate) {
-              earliestFutureSessionDate = sessionDate;
-            }
-          }
-        });
-
-        if (earliestFutureSessionDate) {
-          contentDiv.innerHTML = `<p class="text-center text-gray-700">There is no scheduled teaching this week, the next session is on ${formatDateDisplay(earliestFutureSessionDate)}.</p>`;
-          return;
-        } else {
-          contentDiv.innerHTML = '<p class="text-center text-gray-700">No scheduled teaching sessions available.</p>';
-          return;
-        }
+      // No teaching this week but teaching next week, show next week only
+      if (currentWeekSessions.length === 0 && nextWeekSessions.length > 0) {
+        appendWeekSection(nextWeekKey, nextWeekSessions);
+        return;
       }
 
-      // Otherwise, show current week and next week sessions (if any)
-      weekKeys.forEach(weekStart => {
-        const sessions = groupedData[weekStart];
-        const weekStartDate = new Date(weekStart);
-
-        const section = document.createElement('section');
-        section.className = 'bg-white border-l-4 border-indigo-500 rounded-lg p-2 sm:p-4 md:p-6 shadow-lg w-full md:w-[48%]';
-
-        const heading = document.createElement('h2');
-        heading.className = 'text-lg sm:text-xl md:text-2xl font-semibold text-indigo-700 mb-4';
-        heading.textContent = `Week commencing ${formatDateDisplay(weekStartDate)}`;
-        section.appendChild(heading);
-
-        const box = document.createElement('div');
-        box.className = 'space-y-4';
-
-        sessions.sort((a,b) => new Date(a.date) - new Date(b.date));
-        sessions.forEach(({dayOfWeek, name, topic}) => {
-          const entry = document.createElement('div');
-          entry.className = 'p-4 bg-indigo-50 border border-indigo-200 rounded-lg shadow-sm';
-
-          const teamsLink = teamsLinks[dayOfWeek];
-          const linkButton = teamsLink ? `<a href="${teamsLink}" target="_blank" class="mt-2 inline-block bg-indigo-600 text-white px-4 py-1 rounded hover:bg-indigo-700">Join ${dayOfWeek} Session</a>` : '';
-
-          entry.innerHTML = `
-            <p class="font-bold text-indigo-900">${dayOfWeek}</p>
-            <p class="text-gray-800"><strong>Topic:</strong> ${topic}</p>
-            <p class="text-gray-600"><strong>Teacher:</strong> ${name}</p>
-            ${linkButton}
-          `;
-
-          box.appendChild(entry);
-        });
-
-        section.appendChild(box);
-        contentDiv.appendChild(section);
+      // No teaching this or next week: find next session date anywhere in future and show message
+      // Find all sessions with date > today
+      const futureSessions = data.filter(entry => {
+        if (!entry.date) return false;
+        const d = new Date(entry.date);
+        return d > today;
       });
+
+      if (futureSessions.length > 0) {
+        // Find earliest date
+        let earliestDate = new Date(futureSessions[0].date);
+        futureSessions.forEach(entry => {
+          const d = new Date(entry.date);
+          if (d < earliestDate) earliestDate = d;
+        });
+        contentDiv.innerHTML = `<p class="text-center text-gray-700">There is no scheduled teaching this week or next week, the next session is on ${formatDateDisplay(earliestDate)}.</p>`;
+      } else {
+        contentDiv.innerHTML = `<p class="text-center text-gray-700">No scheduled teaching sessions available.</p>`;
+      }
 
     } catch (e) {
       contentDiv.innerHTML = '<p class="text-red-600 text-center">Failed to load teaching sessions.</p>';
       console.error(e);
     }
+  }
+
+  function appendWeekSection(weekKey, sessions) {
+    const weekStartDate = new Date(weekKey);
+
+    const section = document.createElement('section');
+    section.className = 'bg-white border-l-4 border-indigo-500 rounded-lg p-2 sm:p-4 md:p-6 shadow-lg w-full md:w-[48%]';
+
+    const heading = document.createElement('h2');
+    heading.className = 'text-lg sm:text-xl md:text-2xl font-semibold text-indigo-700 mb-4';
+    heading.textContent = `Week commencing ${formatDateDisplay(weekStartDate)}`;
+    section.appendChild(heading);
+
+    const box = document.createElement('div');
+    box.className = 'space-y-4';
+
+    sessions.sort((a,b) => new Date(a.date) - new Date(b.date));
+    sessions.forEach(({dayOfWeek, name, topic}) => {
+      const entry = document.createElement('div');
+      entry.className = 'p-4 bg-indigo-50 border border-indigo-200 rounded-lg shadow-sm';
+
+      const teamsLink = teamsLinks[dayOfWeek];
+      const linkButton = teamsLink ? `<a href="${teamsLink}" target="_blank" class="mt-2 inline-block bg-indigo-600 text-white px-4 py-1 rounded hover:bg-indigo-700">Join ${dayOfWeek} Session</a>` : '';
+
+      entry.innerHTML = `
+        <p class="font-bold text-indigo-900">${dayOfWeek}</p>
+        <p class="text-gray-800"><strong>Topic:</strong> ${topic}</p>
+        <p class="text-gray-600"><strong>Teacher:</strong> ${name}</p>
+        ${linkButton}
+      `;
+
+      box.appendChild(entry);
+    });
+
+    section.appendChild(box);
+    contentDiv.appendChild(section);
   }
 
   function generateEmail() {
