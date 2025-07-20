@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,7 +22,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      background: #f8fafc;
+      background: #f1f5f9; /* updated: light grey background */
       z-index: 50;
       padding: 1rem 2rem;
       box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
@@ -47,7 +47,8 @@
     Mid Yorkshire Anaesthetics and Critical Care Teaching Programme
   </h1>
 
-  <div class="flex flex-wrap gap-4 mb-10 justify-center w-full max-w-xl mx-auto overflow-visible">
+  <!-- Updated: mt-6 adds space between banner and buttons -->
+  <div class="flex flex-wrap gap-4 mt-6 mb-10 justify-center w-full max-w-xl mx-auto overflow-visible">
     <a href="https://docs.google.com/spreadsheets/d/1sDtcdb8EzoWcLlKoXMwgguJr4o-4JjMpWHtKBZtfq6I/edit?usp=sharing" target="_blank"
        class="min-w-[140px] bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded shadow transition duration-300 text-center whitespace-normal">
       Sign Up to Teach
@@ -64,9 +65,8 @@
 
   <div id="content" class="w-full px-4 flex flex-wrap gap-6 justify-center"></div>
 
+<!-- JavaScript remains unchanged -->
 <script>
-  // (JavaScript unchanged from before)
-
   const API_URL = "https://api.sheetbest.com/sheets/7b5d00ef-5595-4217-be52-91b9a20921a8";
   const contentDiv = document.getElementById("content");
   let cachedGroupedData = {};
@@ -233,3 +233,4 @@
 
 </body>
 </html>
+
