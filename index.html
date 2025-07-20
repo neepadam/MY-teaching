@@ -168,7 +168,7 @@
           entry.innerHTML = `
             <p class="font-bold text-indigo-900">${dayOfWeek}</p>
             <p class="text-gray-800"><strong>Topic:</strong> ${topic}</p>
-            <p class="text-gray-600"><strong>Teacher:</strong> ${name}</p>
+            <p class="text-gray-600"><strong>Presenter:</strong> ${name}</p>
             ${linkButton}
           `;
 
@@ -207,7 +207,7 @@
 
     sessions.forEach(({ dayOfWeek, topic, name }) => {
       const link = teamsLinks[dayOfWeek] || "N/A";
-      body += `${dayOfWeek}:%0D%0A  Topic: ${topic}%0D%0A  Teacher: ${name}%0D%0A  Link: ${link}%0D%0A%0D%0A`;
+      body += `${dayOfWeek}:%0D%0A  Topic: ${topic}%0D%0A  Presenter: ${name}%0D%0A  Link: ${link}%0D%0A%0D%0A`;
     });
 
     body += `Please continue to sign up to help teach on the programme: ${signUpLink}%0D%0A%0D%0A`;
