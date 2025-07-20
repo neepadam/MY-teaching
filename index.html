@@ -65,8 +65,6 @@
   <div id="content" class="w-full px-4 flex flex-wrap gap-6 justify-center"></div>
 
 <script>
-  // (JavaScript unchanged from before)
-
   const API_URL = "https://api.sheetbest.com/sheets/7b5d00ef-5595-4217-be52-91b9a20921a8";
   const contentDiv = document.getElementById("content");
   let cachedGroupedData = {};
@@ -137,11 +135,29 @@
       cachedGroupedData = groupedData;
 
       const weekKeys = Object.keys(groupedData).sort();
+
       if (weekKeys.length === 0) {
-        contentDiv.innerHTML = '<p class="text-center text-gray-700">No teaching sessions scheduled for this week or next.</p>';
+        contentDiv.innerHTML = '<p class="text-center text-gray-700">No teaching sessions scheduled at all.</p>';
         return;
       }
 
+      // Check if current week has sessions
+      const currentWeekKey = formatDate(baseMonday);
+      if (!groupedData[currentWeekKey]) {
+        // Find the next week with sessions after current week
+        const futureWeeks = weekKeys.filter(week => week > currentWeekKey);
+        if (futureWeeks.length > 0) {
+          const nextSessionDate = new Date(futureWeeks[0]);
+          contentDiv.innerHTML = `<p class="text-center text-gray-700">There is no scheduled teaching this week, the next session is on ${formatDateDisplay(nextSessionDate)}.</p>`;
+          return;
+        } else {
+          // No future sessions either
+          contentDiv.innerHTML = '<p class="text-center text-gray-700">No scheduled teaching sessions available.</p>';
+          return;
+        }
+      }
+
+      // If current week sessions exist, show them and next week's if available
       weekKeys.forEach(weekStart => {
         const sessions = groupedData[weekStart];
         const weekStartDate = new Date(weekStart);
