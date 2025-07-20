@@ -35,15 +35,17 @@
   Mid Yorkshire Anaesthetics and Critical Care Teaching Programme
 </h1>
 
-  <div class="flex flex-wrap gap-4 mb-10 justify-center w-full">
-    
-    <a href="https://docs.google.com/spreadsheets/d/1sDtcdb8EzoWcLlKoXMwgguJr4o-4JjMpWHtKBZtfq6I/edit?usp=sharing" target="_blank" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded shadow transition duration-300">
+  <div class="flex flex-row flex-nowrap gap-4 mb-10 justify-center w-full max-w-lg mx-auto">
+    <a href="https://docs.google.com/spreadsheets/d/1sDtcdb8EzoWcLlKoXMwgguJr4o-4JjMpWHtKBZtfq6I/edit?usp=sharing" target="_blank"
+       class="flex-1 min-w-0 bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 sm:px-6 sm:py-3 rounded shadow transition duration-300 text-center truncate">
       Sign Up to Teach
     </a>
-    <a href="https://forms.gle/YZ1YL8WSWW5vSHpY8" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded shadow transition duration-300">
+    <a href="https://forms.gle/YZ1YL8WSWW5vSHpY8" target="_blank"
+       class="flex-1 min-w-0 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 sm:px-6 sm:py-3 rounded shadow transition duration-300 text-center truncate">
       Generate Attendance Certificate
     </a>
-    <button id="emailButton" onclick="generateEmail()" class="bg-yellow-600 hover:bg-yellow-700 text-white font-semibold px-6 py-3 rounded shadow transition duration-300">
+    <button id="emailButton" onclick="generateEmail()"
+       class="flex-1 min-w-0 bg-yellow-600 hover:bg-yellow-700 text-white font-semibold px-4 py-2 sm:px-6 sm:py-3 rounded shadow transition duration-300 truncate">
       Email Next Week's Schedule
     </button>
   </div>
@@ -169,38 +171,38 @@
     }
   }
 
-function generateEmail() {
-  const today = new Date();
-  const baseMonday = getMonday(today);
-  const nextMonday = new Date(baseMonday);
-  nextMonday.setDate(nextMonday.getDate() + 7);
+  function generateEmail() {
+    const today = new Date();
+    const baseMonday = getMonday(today);
+    const nextMonday = new Date(baseMonday);
+    nextMonday.setDate(nextMonday.getDate() + 7);
 
-  const weekKey = formatDate(nextMonday);
-  const sessions = cachedGroupedData[weekKey] || [];
+    const weekKey = formatDate(nextMonday);
+    const sessions = cachedGroupedData[weekKey] || [];
 
-  if (sessions.length === 0) {
-    alert("No sessions scheduled for next week.");
-    return;
+    if (sessions.length === 0) {
+      alert("No sessions scheduled for next week.");
+      return;
+    }
+
+    const subject = encodeURIComponent("Next Week's Teaching Sessions");
+    const signUpLink = "https://docs.google.com/spreadsheets/d/1sDtcdb8EzoWcLlKoXMwgguJr4o-4JjMpWHtKBZtfq6I/edit?usp=sharing";
+
+    let body = `Hi everyone,%0D%0A%0D%0A`;
+    body += `I hope you have had a great weekend. The schedule for this week's teaching is as follows:%0D%0A%0D%0A`;
+
+    sessions.forEach(({ dayOfWeek, topic, name }) => {
+      const link = teamsLinks[dayOfWeek] || "N/A";
+      body += `${dayOfWeek}:%0D%0A  Topic: ${topic}%0D%0A  Teacher: ${name}%0D%0A  Link: ${link}%0D%0A%0D%0A`;
+    });
+
+    body += `Please continue to sign up to help teach on the programme: ${signUpLink}%0D%0A%0D%0A`;
+    body += `All the best,%0D%0A%0D%0AAdam%0D%0A`;
+    body += `%0D%0ADr Adam Neep%0D%0AConsultant in ICM and Anaesthesia%0D%0AGMC: 7135243`;
+
+    const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+    window.location.href = mailtoLink;
   }
-
-  const subject = encodeURIComponent("Next Week's Teaching Sessions");
-  const signUpLink = "https://docs.google.com/spreadsheets/d/1sDtcdb8EzoWcLlKoXMwgguJr4o-4JjMpWHtKBZtfq6I/edit?usp=sharing";
-
-  let body = `Hi everyone,%0D%0A%0D%0A`;
-  body += `I hope you have had a great weekend. The schedule for this week's teaching is as follows:%0D%0A%0D%0A`;
-
-  sessions.forEach(({ dayOfWeek, topic, name }) => {
-    const link = teamsLinks[dayOfWeek] || "N/A";
-    body += `${dayOfWeek}:%0D%0A  Topic: ${topic}%0D%0A  Teacher: ${name}%0D%0A  Link: ${link}%0D%0A%0D%0A`;
-  });
-
-  body += `Please continue to sign up to help teach on the programme: ${signUpLink}%0D%0A%0D%0A`;
-  body += `All the best,%0D%0A%0D%0AAdam%0D%0A`;
-  body += `%0D%0ADr Adam Neep%0D%0AConsultant in ICM and Anaesthesia%0D%0AGMC: 7135243`;
-
-  const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
-  window.location.href = mailtoLink;
-}
 
   document.getElementById('headline').addEventListener('dblclick', () => {
     const password = prompt("Please enter the password to email next week's schedule:");
@@ -217,4 +219,3 @@ function generateEmail() {
 
 </body>
 </html>
-
