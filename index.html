@@ -7,18 +7,17 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     html, body {
-      height: 100%;
       margin: 0;
+      background: linear-gradient(to right, #f8fafc, #e0f2fe);
+      /* Removed fixed height */
     }
     body {
-      background: linear-gradient(to right, #f8fafc, #e0f2fe);
-      min-height: 100vh;
-      /* Removed flex and centering so page scrolls naturally */
+      padding: 2rem;
+      font-family: sans-serif;
+      /* Removed flex & centering to allow natural page flow */
     }
     #content {
-      flex-grow: 1;
-      overflow-y: auto;
-      max-height: 100vh;
+      /* Removed overflow and max-height to avoid separate scroll */
       padding-bottom: 2rem;
       width: 100%;
       max-width: 112rem; /* 7xl max width */
@@ -28,7 +27,7 @@
     }
   </style>
 </head>
-<body class="p-8 w-full">
+<body class="w-full">
 
   <h1 id="headline" class="text-lg sm:text-xl md:text-4xl lg:text-5xl font-extrabold text-indigo-900 mb-6 drop-shadow text-center w-full cursor-pointer">
     Mid Yorkshire Anaesthetics and Critical Care Teaching Programme
