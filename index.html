@@ -35,9 +35,8 @@
   Mid Yorkshire Anaesthetics and Critical Care Teaching Programme
 </h1>
 
-
   <div class="flex flex-wrap gap-4 mb-10 justify-center w-full">
-   
+    
     <a href="https://docs.google.com/spreadsheets/d/1sDtcdb8EzoWcLlKoXMwgguJr4o-4JjMpWHtKBZtfq6I/edit?usp=sharing" target="_blank" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded shadow transition duration-300">
       Sign Up to Teach
     </a>
@@ -135,7 +134,7 @@
         section.className = 'bg-white border-l-4 border-indigo-500 rounded-lg p-6 shadow-lg w-full md:w-[48%]';
 
         const heading = document.createElement('h2');
-        heading.className = 'text-2xl font-semibold text-indigo-700 mb-4';
+        heading.className = 'text-xl sm:text-2xl font-semibold text-indigo-700 mb-4';
         heading.textContent = `Week commencing ${formatDateDisplay(weekStartDate)}`;
         section.appendChild(heading);
 
@@ -189,7 +188,7 @@ function generateEmail() {
 
   let body = `Hi everyone,%0D%0A%0D%0A`;
   body += `I hope you have had a great weekend. The schedule for this week's teaching is as follows:%0D%0A%0D%0A`;
-  
+
   sessions.forEach(({ dayOfWeek, topic, name }) => {
     const link = teamsLinks[dayOfWeek] || "N/A";
     body += `${dayOfWeek}:%0D%0A  Topic: ${topic}%0D%0A  Teacher: ${name}%0D%0A  Link: ${link}%0D%0A%0D%0A`;
@@ -202,7 +201,6 @@ function generateEmail() {
   const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
   window.location.href = mailtoLink;
 }
-
 
   document.getElementById('headline').addEventListener('dblclick', () => {
     const password = prompt("Please enter the password to email next week's schedule:");
@@ -219,3 +217,4 @@ function generateEmail() {
 
 </body>
 </html>
+
