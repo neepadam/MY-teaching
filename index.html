@@ -141,23 +141,35 @@
         return;
       }
 
-      // Check if current week has sessions
       const currentWeekKey = formatDate(baseMonday);
-      if (!groupedData[currentWeekKey]) {
-        // Find the next week with sessions after current week
-        const futureWeeks = weekKeys.filter(week => week > currentWeekKey);
-        if (futureWeeks.length > 0) {
-          const nextSessionDate = new Date(futureWeeks[0]);
-          contentDiv.innerHTML = `<p class="text-center text-gray-700">There is no scheduled teaching this week, the next session is on ${formatDateDisplay(nextSessionDate)}.</p>`;
+      const currentWeekSessions = groupedData[currentWeekKey];
+
+      if (!currentWeekSessions || currentWeekSessions.length === 0) {
+        // Find earliest session date after today
+        let earliestFutureSessionDate = null;
+
+        // Flatten all sessions for current and next week keys (just in case)
+        const allSessions = Object.values(groupedData).flat();
+
+        allSessions.forEach(session => {
+          const sessionDate = new Date(session.date);
+          if (sessionDate > today) {
+            if (!earliestFutureSessionDate || sessionDate < earliestFutureSessionDate) {
+              earliestFutureSessionDate = sessionDate;
+            }
+          }
+        });
+
+        if (earliestFutureSessionDate) {
+          contentDiv.innerHTML = `<p class="text-center text-gray-700">There is no scheduled teaching this week, the next session is on ${formatDateDisplay(earliestFutureSessionDate)}.</p>`;
           return;
         } else {
-          // No future sessions either
           contentDiv.innerHTML = '<p class="text-center text-gray-700">No scheduled teaching sessions available.</p>';
           return;
         }
       }
 
-      // If current week sessions exist, show them and next week's if available
+      // Otherwise, show current week and next week sessions (if any)
       weekKeys.forEach(weekStart => {
         const sessions = groupedData[weekStart];
         const weekStartDate = new Date(weekStart);
