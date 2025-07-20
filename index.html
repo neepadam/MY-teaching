@@ -12,10 +12,8 @@
     }
     body {
       background: linear-gradient(to right, #f8fafc, #e0f2fe);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      min-height: 100vh;
+      /* Removed flex and centering so page scrolls naturally */
     }
     #content {
       flex-grow: 1;
@@ -30,7 +28,7 @@
     }
   </style>
 </head>
-<body class="p-8 flex flex-col items-center w-full">
+<body class="p-8 w-full">
 
   <h1 id="headline" class="text-lg sm:text-xl md:text-4xl lg:text-5xl font-extrabold text-indigo-900 mb-6 drop-shadow text-center w-full cursor-pointer">
     Mid Yorkshire Anaesthetics and Critical Care Teaching Programme
