@@ -1,219 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MY-ACE: Mid Yorkshire Anaesthetics and Critical Care Education</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Comfortaa', sans-serif;
-            background: linear-gradient(to right, #f8fafc, #e0f2fe);
-        }
-        #headline {
-            background: #f1f5f9;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MY-ACE: Mid Yorkshire Anaesthetics and Critical Care Education</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Comfortaa', sans-serif;
+    }
+  </style>
 </head>
-<body class="flex flex-col min-h-screen">
-    <header class="bg-white shadow-md">
-        <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-blue-600">MY-ACE</a>
-            <div class="space-x-4">
-                <a href="#" class="text-gray-600 hover:text-blue-600">Home</a>
-                <a href="#" class="text-gray-600 hover:text-blue-600">Courses</a>
-                <a href="#" class="text-gray-600 hover:text-blue-600">About</a>
-                <a href="#" class="text-gray-600 hover:text-blue-600">Contact</a>
-            </div>
-        </nav>
-    </header>
+<body class="flex flex-col min-h-screen bg-gradient-to-r from-sky-50 to-blue-100">
 
-    <main class="flex-grow container mx-auto px-4 py-8">
-        <h1 id="headline" class="text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl text-center text-blue-600 font-bold p-4 mb-8 rounded-lg">
-            MY-ACE: Mid Yorkshire Anaesthetics and Critical Care Education
-        </h1>
+  <!-- Header -->
+  <header class="bg-white shadow-md py-4">
+    <nav class="container mx-auto px-4 flex justify-between items-center">
+      <a class="text-2xl font-bold text-blue-800">MY‑ACE</a>
+      <div class="space-x-6">
+        <a href="#" class="text-gray-700 hover:text-blue-600">Home</a>
+        <a href="#" class="text-gray-700 hover:text-blue-600">Sessions</a>
+        <a href="#" class="text-gray-700 hover:text-blue-600">Faculty</a>
+        <a href="#" class="text-gray-700 hover:text-blue-600">Contact</a>
+      </div>
+    </nav>
+  </header>
 
-        <div class="flex flex-wrap gap-4 justify-center mb-8">
-            <a href="https://docs.google.com/spreadsheets/d/1sDtcdb8EzoWcLlKoXMwgguJr4o-4JjMpWHtKBZtfq6I/edit?usp=sharing" target="_blank"
-               class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded shadow transition duration-300">
-                Sign Up to Teach
-            </a>
-            <a href="https://forms.gle/YZ1YL8WSWW5vSHpY8" target="_blank"
-               class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded shadow transition duration-300">
-                Generate Certificate
-           
-            </button>
-        </div>
+  <!-- Hero Section -->
+  <section class="container mx-auto py-10 text-center">
+    <h1 class="text-4xl font-bold text-blue-700 mb-4">Delivering Excellence in Anaesthesia & Critical Care Education</h1>
+    <p class="text-lg text-gray-600">Based in Mid Yorkshire — Inspiring clinicians, empowering learning.</p>
+  </section>
 
-  <div id="content" class="w-full px-4 flex flex-wrap gap-6 justify-center"></div>
+  <!-- CTA Buttons -->
+  <section class="container mx-auto flex justify-center space-x-4 py-6">
+    <a href="https://docs.google.com/spreadsheets/d/1sDtcdb8EzoWcLlKoXMwgguJr4o-4JjMpWHtKBZtfq6I/edit?usp=sharing" target="_blank"
+       class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow">
+      Sign Up to Teach
+    </a>
+    <a href="https://forms.gle/YZ1YL8WSWW5vSHpY8" target="_blank"
+       class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow">
+      Generate Certificate
+    </a>
+  </section>
 
-<!-- JavaScript remains unchanged -->
-<script>
-  const API_URL = "https://api.sheetbest.com/sheets/7b5d00ef-5595-4217-be52-91b9a20921a8";
-  const contentDiv = document.getElementById("content");
-  let cachedGroupedData = {};
+  <!-- Dynamic Teaching Sessions -->
+  <section class="container mx-auto py-8 px-4">
+    <h2 class="text-2xl font-semibold text-blue-800 mb-6">Featured Teaching Sessions</h2>
+    <div id="content" class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"></div>
+  </section>
 
-  const teamsLinks = {
-    Tuesday: "https://teams.microsoft.com/l/tuesday-link",
-    Wednesday: "https://teams.microsoft.com/l/wednesday-link",
-    Thursday: "https://teams.microsoft.com/l/thursday-link"
-  };
+  <!-- Script for Fetching and Displaying Data -->
+  <script>
+    const API_URL = "https://api.sheetbest.com/sheets/7b5d00ef-5595-4217-be52-91b9a20921a8";
+    const contentDiv = document.getElementById("content");
+    let cachedGroupedData = {};
 
-  function formatDateDisplay(date) {
-    return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-  }
+    const teamsLinks = {
+      Tuesday: "https://teams.microsoft.com/l/tuesday-link",
+      Wednesday: "https://teams.microsoft.com/l/wednesday-link",
+      Thursday: "https://teams.microsoft.com/l/thursday-link"
+    };
 
-  function formatDate(date) {
-    return date.toISOString().split("T")[0];
-  }
+    function formatDateDisplay(date) {
+      return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
 
-  function getMonday(date) {
-    const d = new Date(date);
-    const day = d.getDay();
-    const diff = day === 0 ? -6 : 1 - day;
-    d.setDate(d.getDate() + diff);
-    return new Date(d.setHours(0, 0, 0, 0));
-  }
+    function formatDate(date) {
+      return date.toISOString().split("T")[0];
+    }
 
-  function getDayOfWeek(date) {
-    return date.toLocaleDateString('en-US', { weekday: 'long' });
-  }
+    function getMonday(date) {
+      const d = new Date(date);
+      const day = d.getDay();
+      const diff = day === 0 ? -6 : 1 - day;
+      d.setDate(d.getDate() + diff);
+      return new Date(d.setHours(0, 0, 0, 0));
+    }
 
-  function groupByWeek(data, baseMonday) {
-    const grouped = {};
-    const baseWeekStart = getMonday(baseMonday);
-    const nextWeekStart = new Date(baseWeekStart);
-    nextWeekStart.setDate(nextWeekStart.getDate() + 7);
+    function getDayOfWeek(date) {
+      return date.toLocaleDateString('en-US', { weekday: 'long' });
+    }
 
-    data.forEach(entry => {
-      if (!entry.date || !entry.name || !entry.topic) return;
-      const d = new Date(entry.date);
-      if (isNaN(d)) return;
+    function groupByWeek(data, baseMonday) {
+      const grouped = {};
+      const baseWeekStart = getMonday(baseMonday);
+      const nextWeekStart = new Date(baseWeekStart);
+      nextWeekStart.setDate(nextWeekStart.getDate() + 7);
 
-      const entryMonday = getMonday(d);
-      if (entryMonday.getTime() !== baseWeekStart.getTime() && entryMonday.getTime() !== nextWeekStart.getTime()) return;
+      data.forEach(entry => {
+        if (!entry.date || !entry.name || !entry.topic) return;
+        const d = new Date(entry.date);
+        if (isNaN(d)) return;
 
-      const weekKey = formatDate(entryMonday);
-      if (!grouped[weekKey]) grouped[weekKey] = [];
+        const entryMonday = getMonday(d);
+        if (entryMonday.getTime() !== baseWeekStart.getTime() && entryMonday.getTime() !== nextWeekStart.getTime()) return;
 
-      grouped[weekKey].push({
-        date: formatDate(d),
-        dayOfWeek: getDayOfWeek(d),
-        name: entry.name,
-        topic: entry.topic
+        const weekKey = formatDate(entryMonday);
+        if (!grouped[weekKey]) grouped[weekKey] = [];
+
+        grouped[weekKey].push({
+          date: formatDate(d),
+          dayOfWeek: getDayOfWeek(d),
+          name: entry.name,
+          topic: entry.topic
+        });
       });
-    });
 
-    return grouped;
-  }
+      return grouped;
+    }
 
-  async function init() {
-    try {
-      const res = await fetch(API_URL);
-      const data = await res.json();
-      contentDiv.innerHTML = '';
+    async function init() {
+      try {
+        const res = await fetch(API_URL);
+        const data = await res.json();
+        contentDiv.innerHTML = '';
 
+        const today = new Date();
+        const baseMonday = getMonday(today);
+        const groupedData = groupByWeek(data, baseMonday);
+        cachedGroupedData = groupedData;
+
+        const weekKeys = Object.keys(groupedData).sort();
+        if (weekKeys.length === 0) {
+          contentDiv.innerHTML = '<p class="text-center text-gray-700">No teaching sessions scheduled for this week or next.</p>';
+          return;
+        }
+
+        weekKeys.forEach(weekStart => {
+          const sessions = groupedData[weekStart];
+          const weekStartDate = new Date(weekStart);
+
+          const section = document.createElement('div');
+          section.className = 'bg-white border-l-4 border-blue-500 rounded-lg p-4 shadow-md';
+
+          const heading = document.createElement('h3');
+          heading.className = 'text-lg font-semibold text-blue-800 mb-2';
+          heading.textContent = `Week commencing ${formatDateDisplay(weekStartDate)}`;
+          section.appendChild(heading);
+
+          sessions.sort((a, b) => new Date(a.date) - new Date(b.date));
+          sessions.forEach(({ dayOfWeek, name, topic }) => {
+            const entry = document.createElement('div');
+            entry.className = 'mb-3 p-3 bg-blue-50 border border-blue-200 rounded';
+
+            const teamsLink = teamsLinks[dayOfWeek];
+            const linkButton = teamsLink ? `<a href="${teamsLink}" target="_blank" class="inline-block mt-2 text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">Join ${dayOfWeek}</a>` : '';
+
+            entry.innerHTML = `
+              <p class="text-blue-900 font-bold">${dayOfWeek}</p>
+              <p><strong>Topic:</strong> ${topic}</p>
+              <p><strong>Presenter:</strong> ${name}</p>
+              ${linkButton}
+            `;
+
+            section.appendChild(entry);
+          });
+
+          contentDiv.appendChild(section);
+        });
+
+      } catch (e) {
+        contentDiv.innerHTML = '<p class="text-red-600 text-center">Failed to load teaching sessions.</p>';
+        console.error(e);
+      }
+    }
+
+    function generateEmail() {
       const today = new Date();
       const baseMonday = getMonday(today);
-      const groupedData = groupByWeek(data, baseMonday);
-      cachedGroupedData = groupedData;
+      const nextMonday = new Date(baseMonday);
+      nextMonday.setDate(nextMonday.getDate() + 7);
 
-      const weekKeys = Object.keys(groupedData).sort();
-      if (weekKeys.length === 0) {
-        contentDiv.innerHTML = '<p class="text-center text-gray-700">No teaching sessions scheduled for this week or next.</p>';
+      const weekKey = formatDate(nextMonday);
+      const sessions = cachedGroupedData[weekKey] || [];
+
+      if (sessions.length === 0) {
+        alert("No sessions scheduled for next week.");
         return;
       }
 
-      weekKeys.forEach(weekStart => {
-        const sessions = groupedData[weekStart];
-        const weekStartDate = new Date(weekStart);
+      const subject = encodeURIComponent("Next Week's Teaching Sessions");
+      const signUpLink = "https://docs.google.com/spreadsheets/d/1sDtcdb8EzoWcLlKoXMwgguJr4o-4JjMpWHtKBZtfq6I/edit?usp=sharing";
 
-        const section = document.createElement('section');
-        section.className = 'bg-white border-l-4 border-indigo-500 rounded-lg p-2 sm:p-4 md:p-6 shadow-lg w-full md:w-[48%]';
+      let body = `Hi everyone,%0D%0A%0D%0A`;
+      body += `I hope you have had a great weekend. The schedule for this week's teaching is as follows:%0D%0A%0D%0A`;
 
-        const heading = document.createElement('h2');
-        heading.className = 'text-lg sm:text-xl md:text-2xl font-semibold text-indigo-700 mb-4';
-        heading.textContent = `Week commencing ${formatDateDisplay(weekStartDate)}`;
-        section.appendChild(heading);
-
-        const box = document.createElement('div');
-        box.className = 'space-y-4';
-
-        sessions.sort((a,b) => new Date(a.date) - new Date(b.date));
-        sessions.forEach(({dayOfWeek, name, topic}) => {
-          const entry = document.createElement('div');
-          entry.className = 'p-4 bg-indigo-50 border border-indigo-200 rounded-lg shadow-sm';
-
-          const teamsLink = teamsLinks[dayOfWeek];
-          const linkButton = teamsLink ? `<a href="${teamsLink}" target="_blank" class="mt-2 inline-block bg-indigo-600 text-white px-4 py-1 rounded hover:bg-indigo-700">Join ${dayOfWeek} Session</a>` : '';
-
-          entry.innerHTML = `
-            <p class="font-bold text-indigo-900">${dayOfWeek}</p>
-            <p class="text-gray-800"><strong>Topic:</strong> ${topic}</p>
-            <p class="text-gray-600"><strong>Presenter:</strong> ${name}</p>
-            ${linkButton}
-          `;
-
-          box.appendChild(entry);
-        });
-
-        section.appendChild(box);
-        contentDiv.appendChild(section);
+      sessions.forEach(({ dayOfWeek, topic, name }) => {
+        const link = teamsLinks[dayOfWeek] || "N/A";
+        body += `${dayOfWeek}:%0D%0A  Topic: ${topic}%0D%0A  Presenter: ${name}%0D%0A  Link: ${link}%0D%0A%0D%0A`;
       });
 
-    } catch (e) {
-      contentDiv.innerHTML = '<p class="text-red-600 text-center">Failed to load teaching sessions.</p>';
-      console.error(e);
-    }
-  }
+      body += `Please continue to sign up to help teach on the programme: ${signUpLink}%0D%0A%0D%0A`;
+      body += `All the best,%0D%0A%0D%0AAdam%0D%0A`;
+      body += `%0D%0ADr Adam Neep%0D%0AConsultant in ICM and Anaesthesia%0D%0AGMC: 7135243`;
 
-  function generateEmail() {
-    const today = new Date();
-    const baseMonday = getMonday(today);
-    const nextMonday = new Date(baseMonday);
-    nextMonday.setDate(nextMonday.getDate() + 7);
-
-    const weekKey = formatDate(nextMonday);
-    const sessions = cachedGroupedData[weekKey] || [];
-
-    if (sessions.length === 0) {
-      alert("No sessions scheduled for next week.");
-      return;
+      const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+      window.location.href = mailtoLink;
     }
 
-    const subject = encodeURIComponent("Next Week's Teaching Sessions");
-    const signUpLink = "https://docs.google.com/spreadsheets/d/1sDtcdb8EzoWcLlKoXMwgguJr4o-4JjMpWHtKBZtfq6I/edit?usp=sharing";
-
-    let body = `Hi everyone,%0D%0A%0D%0A`;
-    body += `I hope you have had a great weekend. The schedule for this week's teaching is as follows:%0D%0A%0D%0A`;
-
-    sessions.forEach(({ dayOfWeek, topic, name }) => {
-      const link = teamsLinks[dayOfWeek] || "N/A";
-      body += `${dayOfWeek}:%0D%0A  Topic: ${topic}%0D%0A  Presenter: ${name}%0D%0A  Link: ${link}%0D%0A%0D%0A`;
+    document.addEventListener('dblclick', () => {
+      const password = prompt("Please enter the password to email next week's schedule:");
+      const correctPassword = "MySecret123";
+      if (password === correctPassword) {
+        generateEmail();
+      } else {
+        alert("Incorrect password.");
+      }
     });
 
-    body += `Please continue to sign up to help teach on the programme: ${signUpLink}%0D%0A%0D%0A`;
-    body += `All the best,%0D%0A%0D%0AAdam%0D%0A`;
-    body += `%0D%0ADr Adam Neep%0D%0AConsultant in ICM and Anaesthesia%0D%0AGMC: 7135243`;
-
-    const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
-    window.location.href = mailtoLink;
-  }
-
-  document.getElementById('headline').addEventListener('dblclick', () => {
-    const password = prompt("Please enter the password to email next week's schedule:");
-    const correctPassword = "MySecret123";
-    if (password === correctPassword) {
-      generateEmail();
-    } else {
-      alert("Incorrect password.");
-    }
-  });
-
-  init();
-</script>
+    init();
+  </script>
 
 </body>
 </html>
