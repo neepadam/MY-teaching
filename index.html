@@ -28,23 +28,25 @@
     </nav>
   </header>
 
-  <!-- Hero Section -->
+<!-- Hero Section with Background Image and Overlay -->
 <section class="relative h-48 sm:h-64 md:h-80 flex items-center justify-center text-center text-white overflow-hidden bg-cover bg-center" 
-         style="background-image: url('hero.jpg');">
+         style="background-image: url('images/hero.jpg');">
   
-  <!-- Overlay -->
-  <div class="absolute inset-0 bg-black/60"></div>
+  <!-- Overlay (darkens the whole image) -->
+  <div class="absolute inset-0 bg-black/40"></div>
   
-  <!-- Text Content -->
-  <div class="relative z-10 px-4 sm:px-6">
-    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 leading-tight drop-shadow-lg">
-  Mid Yorkshire Anaesthetics and Critical Care Education
-</h1>
-    <p class="text-sm sm:text-base md:text-lg">
+  <!-- Text Content with its own semi-transparent background -->
+  <div class="relative z-10 px-4 sm:px-6 bg-black/50 p-4 rounded-lg">
+    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 leading-tight text-white">
+      Mid Yorkshire Anaesthetics and Critical Care Education
+    </h1>
+    <p class="text-sm sm:text-base md:text-lg text-white">
       Inspiring Mastery Through Collaborative Education
     </p>
   </div>
+  
 </section>
+
 
 
   <!-- CTA Buttons -->
