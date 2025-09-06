@@ -181,7 +181,7 @@
           dayOfWeek: getDayOfWeek(d),
           name: entry.name,
           topic: entry.topic,
-          notes: entry.notes || ""
+          
         });
       });
 
@@ -233,7 +233,6 @@
               <p class="text-blue-900 font-bold">${dayOfWeek}</p>
               <p><strong>Topic:</strong> ${topic}</p>
               <p><strong>Presenter:</strong> ${name}</p>
-               ${notes ? `<p class="text-sm text-gray-600 italic">Notes: ${notes}</p>` : ""}
               ${linkButton}
             `;
 
