@@ -178,13 +178,13 @@
         const weekKey = formatDate(entryMonday);
         if (!grouped[weekKey]) grouped[weekKey] = [];
 
-        grouped[weekKey].push({
-          date: formatDate(d),
-          dayOfWeek: getDayOfWeek(d),
-          name: entry.name,
-          topic: entry.topic,
-          
-        });
+       grouped[weekKey].push({
+  date: formatDate(d),
+  dayOfWeek: getDayOfWeek(d),
+  name: entry.name,
+  topic: entry.topic,
+  notes: entry.notes || ""   
+});
       });
 
       return grouped;
@@ -222,24 +222,29 @@
           section.appendChild(heading);
 
           sessions.sort((a, b) => new Date(a.date) - new Date(b.date));
-          sessions.forEach(({ dayOfWeek, name, topic }) => {
-            const entry = document.createElement("div");
-            entry.className = "mb-3 p-3 bg-blue-50 border border-blue-200 rounded";
+ sessions.forEach((session) => {
+  const { dayOfWeek, name, topic } = session;
+  const notes = session.notes || "";  // 👈 safe fallback
 
-            const teamsLink = teamsLinks[dayOfWeek];
-            const linkButton = teamsLink
-              ? `<a href="${teamsLink}" target="_blank" class="inline-block mt-2 text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">Join ${dayOfWeek}</a>`
-              : "";
+  const entry = document.createElement("div");
+  entry.className = "mb-3 p-3 bg-blue-50 border border-blue-200 rounded";
 
-            entry.innerHTML = `
-              <p class="text-blue-900 font-bold">${dayOfWeek}</p>
-              <p><strong>Topic:</strong> ${topic}</p>
-              <p><strong>Presenter:</strong> ${name}</p>
-              ${linkButton}
-            `;
+  const teamsLink = teamsLinks[dayOfWeek];
+  const linkButton = teamsLink
+    ? `<a href="${teamsLink}" target="_blank" class="inline-block mt-2 text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">Join ${dayOfWeek}</a>`
+    : "";
 
-            section.appendChild(entry);
-          });
+  entry.innerHTML = `
+    <p class="text-blue-900 font-bold">${dayOfWeek}</p>
+    <p><strong>Topic:</strong> ${topic}</p>
+    <p><strong>Presenter:</strong> ${name}</p>
+    ${notes ? `<p class="text-sm text-gray-600 italic">Notes: ${notes}</p>` : ""}
+    ${linkButton}
+  `;
+
+  section.appendChild(entry);
+});
+
 
           contentDiv.appendChild(section);
         });
