@@ -121,187 +121,203 @@
   </section>
 
   <!-- JavaScript -->
-  <script>
-    const API_URL =
-  "https://opensheet.elk.sh/1sDtcdb8EzoWcLlKoXMwgguJr4o-4JjMpWHtKBZtfq6I/Sheet1";
-    const contentDiv = document.getElementById("content");
-    let cachedGroupedData = {};
+<script>
+  const API_URL =
+    "https://opensheet.elk.sh/1sDtcdb8EzoWcLlKoXMwgguJr4o-4JjMpWHtKBZtfq6I/Sheet1";
+  const contentDiv = document.getElementById("content");
+  let cachedGroupedData = {};
 
-    const teamsLinks = {
-      Tuesday: "https://teams.microsoft.com/l/tuesday-link",
-      Wednesday: "https://teams.microsoft.com/l/wednesday-link",
-      Thursday: "https://teams.microsoft.com/l/thursday-link",
-    };
+  const teamsLinks = {
+    Tuesday: "https://teams.microsoft.com/l/tuesday-link",
+    Wednesday: "https://teams.microsoft.com/l/wednesday-link",
+    Thursday: "https://teams.microsoft.com/l/thursday-link",
+  };
 
-    function formatDateDisplay(date) {
-      return date.toLocaleDateString("en-GB", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
+  function formatDateDisplay(date) {
+    return date.toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  }
+
+  function formatDate(date) {
+    return date.toISOString().split("T")[0];
+  }
+
+  function getMonday(date) {
+    const d = new Date(date);
+    const day = d.getDay();
+    const diff = day === 0 ? -6 : 1 - day;
+    d.setDate(d.getDate() + diff);
+    return new Date(d.setHours(0, 0, 0, 0));
+  }
+
+  // ✅ Added helper for ordinals
+  function getOrdinal(n) {
+    const s = ["th", "st", "nd", "rd"];
+    const v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+  }
+
+  // ✅ Updated to use ordinals
+  function getDayOfWeek(date) {
+    const weekday = date.toLocaleDateString("en-GB", { weekday: "long" });
+    const day = date.getDate();
+    return `${weekday} ${getOrdinal(day)}`;
+  }
+
+  function groupByWeek(data, baseMonday) {
+    const grouped = {};
+    const baseWeekStart = getMonday(baseMonday);
+    const nextWeekStart = new Date(baseWeekStart);
+    nextWeekStart.setDate(nextWeekStart.getDate() + 7);
+
+    data.forEach((entry) => {
+      if (!entry.date || !entry.name || !entry.topic) return;
+      const d = new Date(entry.date);
+      if (isNaN(d)) return;
+
+      const entryMonday = getMonday(d);
+      if (
+        entryMonday.getTime() !== baseWeekStart.getTime() &&
+        entryMonday.getTime() !== nextWeekStart.getTime()
+      )
+        return;
+
+      const weekKey = formatDate(entryMonday);
+      if (!grouped[weekKey]) grouped[weekKey] = [];
+
+      grouped[weekKey].push({
+        date: formatDate(d),
+        dayOfWeek: getDayOfWeek(d),
+        name: entry.name,
+        topic: entry.topic,
+        notes: entry.notes || "", // ✅ Notes supported
       });
-    }
+    });
 
-    function formatDate(date) {
-      return date.toISOString().split("T")[0];
-    }
+    return grouped;
+  }
 
-    function getMonday(date) {
-      const d = new Date(date);
-      const day = d.getDay();
-      const diff = day === 0 ? -6 : 1 - day;
-      d.setDate(d.getDate() + diff);
-      return new Date(d.setHours(0, 0, 0, 0));
-    }
+  async function init() {
+    try {
+      const res = await fetch(API_URL);
+      const data = await res.json();
+      contentDiv.innerHTML = "";
 
-    function getDayOfWeek(date) {
-      return date.toLocaleDateString("en-US", { weekday: "long" });
-    }
-
-    function groupByWeek(data, baseMonday) {
-      const grouped = {};
-      const baseWeekStart = getMonday(baseMonday);
-      const nextWeekStart = new Date(baseWeekStart);
-      nextWeekStart.setDate(nextWeekStart.getDate() + 7);
-
-      data.forEach((entry) => {
-        if (!entry.date || !entry.name || !entry.topic) return;
-        const d = new Date(entry.date);
-        if (isNaN(d)) return;
-
-        const entryMonday = getMonday(d);
-        if (
-          entryMonday.getTime() !== baseWeekStart.getTime() &&
-          entryMonday.getTime() !== nextWeekStart.getTime()
-        )
-          return;
-
-        const weekKey = formatDate(entryMonday);
-        if (!grouped[weekKey]) grouped[weekKey] = [];
-
-       grouped[weekKey].push({
-  date: formatDate(d),
-  dayOfWeek: getDayOfWeek(d),
-  name: entry.name,
-  topic: entry.topic,
-  notes: entry.notes || ""   
-});
-      });
-
-      return grouped;
-    }
-
-    async function init() {
-      try {
-        const res = await fetch(API_URL);
-        const data = await res.json();
-        contentDiv.innerHTML = "";
-
-        const today = new Date();
-        const baseMonday = getMonday(today);
-        const groupedData = groupByWeek(data, baseMonday);
-        cachedGroupedData = groupedData;
-
-        const weekKeys = Object.keys(groupedData).sort();
-        if (weekKeys.length === 0) {
-          contentDiv.innerHTML =
-            '<p class="text-center text-gray-700">Teaching programme starts on the 23rd September 2025.</p>';
-          return;
-        }
-
-        weekKeys.forEach((weekStart) => {
-          const sessions = groupedData[weekStart];
-          const weekStartDate = new Date(weekStart);
-
-          const section = document.createElement("div");
-          section.className =
-            "w-full bg-white border-l-4 border-blue-500 rounded-lg p-4 shadow-md";
-
-          const heading = document.createElement("h3");
-          heading.className = "text-lg font-semibold text-blue-800 mb-2";
-          heading.textContent = `Week commencing ${formatDateDisplay(weekStartDate)}`;
-          section.appendChild(heading);
-
-          sessions.sort((a, b) => new Date(a.date) - new Date(b.date));
- sessions.forEach((session) => {
-  const { dayOfWeek, name, topic } = session;
-  const notes = session.notes || "";  // 👈 safe fallback
-
-  const entry = document.createElement("div");
-  entry.className = "mb-3 p-3 bg-blue-50 border border-blue-200 rounded";
-
-  const teamsLink = teamsLinks[dayOfWeek];
-  const linkButton = teamsLink
-    ? `<a href="${teamsLink}" target="_blank" class="inline-block mt-2 text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">Join ${dayOfWeek}</a>`
-    : "";
-
-  entry.innerHTML = `
-    <p class="text-blue-900 font-bold">${dayOfWeek}</p>
-    <p><strong>Topic:</strong> ${topic}</p>
-    <p><strong>Presenter:</strong> ${name}</p>
-    ${notes ? `<p class="text-sm text-gray-600 italic">Notes: ${notes}</p>` : ""}
-    ${linkButton}
-  `;
-
-  section.appendChild(entry);
-});
-
-
-          contentDiv.appendChild(section);
-        });
-      } catch (e) {
-        contentDiv.innerHTML =
-          '<p class="text-red-600 text-center">Failed to load teaching sessions.</p>';
-        console.error(e);
-      }
-    }
-
-    function generateEmail() {
       const today = new Date();
       const baseMonday = getMonday(today);
-      const nextMonday = new Date(baseMonday);
-      nextMonday.setDate(nextMonday.getDate() + 7);
+      const groupedData = groupByWeek(data, baseMonday);
+      cachedGroupedData = groupedData;
 
-      const weekKey = formatDate(nextMonday);
-      const sessions = cachedGroupedData[weekKey] || [];
-
-      if (sessions.length === 0) {
-        alert("No sessions scheduled for next week.");
+      const weekKeys = Object.keys(groupedData).sort();
+      if (weekKeys.length === 0) {
+        contentDiv.innerHTML =
+          '<p class="text-center text-gray-700">Teaching programme starts on the 23rd September 2025.</p>';
         return;
       }
 
-      const subject = encodeURIComponent("Next Week's Teaching Sessions");
-      const signUpLink =
-        "https://docs.google.com/spreadsheets/d/1sDtcdb8EzoWcLlKoXMwgguJr4o-4JjMpWHtKBZtfq6I/edit?usp=sharing";
+      weekKeys.forEach((weekStart) => {
+        const sessions = groupedData[weekStart];
+        const weekStartDate = new Date(weekStart);
 
-      let body = `Hi everyone,%0D%0A%0D%0A`;
-      body += `I hope you have had a great weekend. The schedule for this week's teaching is as follows:%0D%0A%0D%0A`;
+        const section = document.createElement("div");
+        section.className =
+          "w-full bg-white border-l-4 border-blue-500 rounded-lg p-4 shadow-md";
 
-      sessions.forEach(({ dayOfWeek, topic, name }) => {
-        const link = teamsLinks[dayOfWeek] || "N/A";
-        body += `${dayOfWeek}:%0D%0A  Topic: ${topic}%0D%0A  Presenter: ${name}%0D%0A  Link: ${link}%0D%0A%0D%0A`;
+        const heading = document.createElement("h3");
+        heading.className = "text-lg font-semibold text-blue-800 mb-2";
+        heading.textContent = `Week commencing ${formatDateDisplay(
+          weekStartDate
+        )}`;
+        section.appendChild(heading);
+
+        sessions.sort((a, b) => new Date(a.date) - new Date(b.date));
+        sessions.forEach((session) => {
+          const { dayOfWeek, name, topic } = session;
+          const notes = session.notes || ""; // safe fallback
+
+          const entry = document.createElement("div");
+          entry.className = "mb-3 p-3 bg-blue-50 border border-blue-200 rounded";
+
+          const teamsLink = teamsLinks[dayOfWeek];
+          const linkButton = teamsLink
+            ? `<a href="${teamsLink}" target="_blank" class="inline-block mt-2 text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">Join ${dayOfWeek}</a>`
+            : "";
+
+          entry.innerHTML = `
+            <p class="text-blue-900 font-bold">${dayOfWeek}</p>
+            <p><strong>Topic:</strong> ${topic}</p>
+            <p><strong>Presenter:</strong> ${name}</p>
+            ${
+              notes
+                ? `<p class="text-sm text-gray-600 italic">Notes: ${notes}</p>`
+                : ""
+            }
+            ${linkButton}
+          `;
+
+          section.appendChild(entry);
+        });
+
+        contentDiv.appendChild(section);
       });
+    } catch (e) {
+      contentDiv.innerHTML =
+        '<p class="text-red-600 text-center">Failed to load teaching sessions.</p>';
+      console.error(e);
+    }
+  }
 
-      body += `Please continue to sign up to help teach on the programme: ${signUpLink}%0D%0A%0D%0A`;
-      body += `All the best,%0D%0A%0D%0AAdam%0D%0A`;
-      body += `%0D%0ADr Adam Neep%0D%0AConsultant in ICM and Anaesthesia%0D%0AGMC: 7135243`;
+  function generateEmail() {
+    const today = new Date();
+    const baseMonday = getMonday(today);
+    const nextMonday = new Date(baseMonday);
+    nextMonday.setDate(nextMonday.getDate() + 7);
 
-      const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
-      window.location.href = mailtoLink;
+    const weekKey = formatDate(nextMonday);
+    const sessions = cachedGroupedData[weekKey] || [];
+
+    if (sessions.length === 0) {
+      alert("No sessions scheduled for next week.");
+      return;
     }
 
-    document.addEventListener("dblclick", () => {
-      const password = prompt(
-        "Please enter the password to email next week's schedule:"
-      );
-      const correctPassword = "MySecret123";
-      if (password === correctPassword) {
-        generateEmail();
-      } else {
-        alert("Incorrect password.");
-      }
+    const subject = encodeURIComponent("Next Week's Teaching Sessions");
+    const signUpLink =
+      "https://docs.google.com/spreadsheets/d/1sDtcdb8EzoWcLlKoXMwgguJr4o-4JjMpWHtKBZtfq6I/edit?usp=sharing";
+
+    let body = `Hi everyone,%0D%0A%0D%0A`;
+    body += `I hope you have had a great weekend. The schedule for this week's teaching is as follows:%0D%0A%0D%0A`;
+
+    sessions.forEach(({ dayOfWeek, topic, name }) => {
+      const link = teamsLinks[dayOfWeek] || "N/A";
+      body += `${dayOfWeek}:%0D%0A  Topic: ${topic}%0D%0A  Presenter: ${name}%0D%0A  Link: ${link}%0D%0A%0D%0A`;
     });
 
-    init();
-  </script>
+    body += `Please continue to sign up to help teach on the programme: ${signUpLink}%0D%0A%0D%0A`;
+    body += `All the best,%0D%0A%0D%0AAdam%0D%0A`;
+    body += `%0D%0ADr Adam Neep%0D%0AConsultant in ICM and Anaesthesia%0D%0AGMC: 7135243`;
+
+    const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+    window.location.href = mailtoLink;
+  }
+
+  document.addEventListener("dblclick", () => {
+    const password = prompt(
+      "Please enter the password to email next week's schedule:"
+    );
+    const correctPassword = "MySecret123";
+    if (password === correctPassword) {
+      generateEmail();
+    } else {
+      alert("Incorrect password.");
+    }
+  });
+
+  init();
+</script>
+
 </body>
 </html>
