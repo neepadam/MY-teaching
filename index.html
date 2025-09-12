@@ -11,7 +11,9 @@
   />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Inter', sans-serif; }
+    body {
+      font-family: 'Inter', sans-serif;
+    }
   </style>
 </head>
 <body class="flex flex-col min-h-screen bg-gradient-to-r from-sky-50 to-blue-100">
@@ -71,18 +73,14 @@
       <!-- Side Column -->
       <aside class="w-full lg:w-1/4 bg-white rounded-lg shadow-md p-4 text-sm self-start space-y-6">
         <div class="border-l-4 border-blue-500 pl-3">
-          <h3 class="text-lg font-semibold text-blue-700 mb-3">
-            Joint ICU & Respiratory Teaching
-          </h3>
+          <h3 class="text-lg font-semibold text-blue-700 mb-3">Joint ICU & Respiratory Teaching</h3>
           <ul class="list-disc list-inside text-gray-700 space-y-1">
             <li>12 Sept 2025 – A case of PJP pneumonia by Dr Mike Kitchen</li>
             <li>31 Oct 2025 - Topic TBC</li>
           </ul>
         </div>
         <div class="border-l-4 border-green-500 pl-3">
-          <h3 class="text-lg font-semibold text-green-700 mb-3">
-            Upcoming courses at Mid Yorks
-          </h3>
+          <h3 class="text-lg font-semibold text-green-700 mb-3">Upcoming courses at Mid Yorks</h3>
           <ul class="list-disc list-inside text-gray-700 space-y-1">
             <li>EPIC II - 25 Sept 2025</li>
             <li>Yorkshire Difficult Airway - 26 Sep 2025</li>
@@ -94,9 +92,7 @@
           </ul>
         </div>
         <div class="border-l-4 border-blue-500 pl-3">
-          <h3 class="text-lg font-semibold text-blue-700 mb-3">
-            Courses across Y&H
-          </h3>
+          <h3 class="text-lg font-semibold text-blue-700 mb-3">Courses across Y&H</h3>
           <ul class="list-disc list-inside text-gray-700 space-y-1">
             <li>
               <a href="https://bookwhen.com/courses-calendar" target="_blank" class="text-blue-600 hover:underline">
@@ -109,6 +105,7 @@
     </div>
   </section>
 
+  <!-- JavaScript -->
   <script>
     const API_URL = "https://opensheet.elk.sh/1sDtcdb8EzoWcLlKoXMwgguJr4o-4JjMpWHtKBZtfq6I/Sheet1";
     const contentDiv = document.getElementById("content");
@@ -118,7 +115,7 @@
       Tuesday: "https://teams.microsoft.com/l/tuesday-link",
       Wednesday: "https://teams.microsoft.com/l/wednesday-link",
       Thursday: "https://teams.microsoft.com/l/thursday-link",
-      Friday: "https://gbr01.safelinks.protection.outlook.com/ap/t-59584e83/...&reserved=0",
+      Friday: "https://gbr01.safelinks.protection.outlook.com/ap/t-59584e83/?url=https%3A%2F%2Fteams.microsoft.com%2Fl%2Fmeetup-join%2F19%253ameeting_NzJjYmU4NTUtOTlkOS00ZmZhLThhOTgtY2NhMWQ5NzU2NGYx%2540thread.v2%2F0%3Fcontext%3D%257b%2522Tid%2522%253a%252237c354b2-85b0-47f5-b222-07b48d774ee3%2522%252c%2522Oid%2522%253a%252282b7c20f-d71e-49ee-8881-7789eb2cdd23%2522%257d&data=05%7C02%7Cadam.neep%40nhs.net%7Ca898d90e9aa144547b3508ddf103386d%7C37c354b285b047f5b22207b48d774ee3%7C0%7C0%7C638931718312734956%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=lupD9bc6wtdmD3F3gveOOf%2B3GHvwtJdKSiwOwOHg2wI%3D&reserved=0",
     };
 
     function formatDateDisplay(date) {
@@ -131,10 +128,11 @@
 
     function getMonday(date) {
       const d = new Date(date);
+      d.setHours(0,0,0,0); // local midnight
       const day = d.getDay();
-      const diff = day === 0 ? -6 : 1 - day; // Sunday=0, Monday=1
+      const diff = day === 0 ? -6 : 1 - day; // Sunday = 0
       d.setDate(d.getDate() + diff);
-      return new Date(d.setHours(0, 0, 0, 0));
+      return d;
     }
 
     function getDayOfWeek(date) {
@@ -144,25 +142,26 @@
     function groupByWeek(data) {
       const grouped = {};
       const today = new Date();
-      const currentMonday = getMonday(today);
-      const nextMonday = new Date(currentMonday);
+      const thisMonday = getMonday(today);
+      const nextMonday = new Date(thisMonday);
       nextMonday.setDate(nextMonday.getDate() + 7);
 
       data.forEach(entry => {
         if (!entry.date || !entry.name || !entry.topic) return;
-        const d = new Date(entry.date);
-        if (isNaN(d)) return;
-        const entryMonday = getMonday(d);
+        const entryDate = new Date(entry.date);
+        if (isNaN(entryDate)) return;
 
-        // Include only current or next week
-        if (entryMonday.getTime() !== currentMonday.getTime() &&
+        const entryMonday = getMonday(entryDate);
+        // Only current week or next week
+        if (entryMonday.getTime() !== thisMonday.getTime() &&
             entryMonday.getTime() !== nextMonday.getTime()) return;
 
         const weekKey = formatDate(entryMonday);
         if (!grouped[weekKey]) grouped[weekKey] = [];
+
         grouped[weekKey].push({
-          date: formatDate(d),
-          dayOfWeek: getDayOfWeek(d),
+          date: formatDate(entryDate),
+          dayOfWeek: getDayOfWeek(entryDate),
           name: entry.name,
           topic: entry.topic,
           notes: entry.notes || ""
@@ -175,12 +174,11 @@
     async function init() {
       const loading = document.getElementById("loading");
       loading.style.display = "flex";
-
       try {
         const res = await fetch(API_URL);
         const data = await res.json();
-        contentDiv.innerHTML = "";
         loading.style.display = "none";
+        contentDiv.innerHTML = "";
 
         const groupedData = groupByWeek(data);
         cachedGroupedData = groupedData;
@@ -194,20 +192,19 @@
 
         weekKeys.forEach(weekStart => {
           const sessions = groupedData[weekStart];
-          const weekStartDate = new Date(weekStart);
+          const mondayOfWeek = new Date(weekStart);
 
           const section = document.createElement("div");
           section.className = "w-full bg-white border-l-4 border-blue-500 rounded-lg p-4 shadow-md";
 
           const heading = document.createElement("h3");
           heading.className = "text-lg font-semibold text-blue-800 mb-2";
-          heading.textContent = `Week commencing ${formatDateDisplay(weekStartDate)}`;
+          heading.textContent = `Week commencing ${formatDateDisplay(mondayOfWeek)}`;
           section.appendChild(heading);
 
           sessions.sort((a,b) => new Date(a.date) - new Date(b.date));
           sessions.forEach(session => {
-            const { dayOfWeek, name, topic } = session;
-            const notes = session.notes || "";
+            const { dayOfWeek, name, topic, notes } = session;
             const entry = document.createElement("div");
             entry.className = "mb-3 p-3 bg-blue-50 border border-blue-200 rounded";
             const teamsLink = teamsLinks[dayOfWeek];
@@ -234,14 +231,14 @@
 
     function generateEmail() {
       const today = new Date();
-      const currentMonday = getMonday(today);
-      const nextMonday = new Date(currentMonday);
+      const thisMonday = getMonday(today);
+      const nextMonday = new Date(thisMonday);
       nextMonday.setDate(nextMonday.getDate() + 7);
 
       const weekKey = formatDate(nextMonday);
       const sessions = cachedGroupedData[weekKey] || [];
 
-      if (!sessions.length) {
+      if (sessions.length === 0) {
         alert("No sessions scheduled for next week.");
         return;
       }
@@ -261,13 +258,18 @@
       body += `All the best,%0D%0A%0D%0AAdam%0D%0A`;
       body += `%0D%0ADr Adam Neep%0D%0AConsultant in ICM and Anaesthesia%0D%0AGMC: 7135243`;
 
-      window.location.href = `mailto:?subject=${subject}&body=${body}`;
+      const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+      window.location.href = mailtoLink;
     }
 
     document.addEventListener("dblclick", () => {
       const password = prompt("Please enter the password to email next week's schedule:");
-      if (password === "MySecret123") generateEmail();
-      else alert("Incorrect password.");
+      const correctPassword = "MySecret123";
+      if (password === correctPassword) {
+        generateEmail();
+      } else {
+        alert("Incorrect password.");
+      }
     });
 
     init();
