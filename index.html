@@ -215,7 +215,8 @@
 
           const heading = document.createElement("h3");
           heading.className = "text-lg font-semibold text-blue-800 mb-2";
-          heading.textContent = `Week commencing ${formatDateDisplay(weekStartDate)}`;
+          const mondayOfWeek = getMonday(weekStartDate);
+heading.textContent = `Week commencing ${formatDateDisplay(mondayOfWeek)}`;
           section.appendChild(heading);
 
           sessions.sort((a,b) => new Date(a.date) - new Date(b.date));
