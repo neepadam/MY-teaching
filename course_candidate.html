@@ -1,45 +1,30 @@
-<section class="p-6">
-  <h2 class="text-3xl font-bold mb-6">Candidate Sessions</h2>
-  <div id="sessions-container" class="space-y-4"></div>
-</section>
+rows.forEach(row => {
+  if (!row.trim()) return; // skip empty lines
+  const [session, releaseDateStr, candidateLink] = row.split(',');
+  const releaseDate = new Date(releaseDateStr.trim());
+  const now = new Date();
 
-<script>
-const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSOiaZs2zXb0ownwahMmPaYZhV_LfYDc9egeNZmhcVZTXAXH9xtOp--ulFMvgKWcUapG63GoMtFImOb/pub?gid=0&single=true&output=csv';
+  const div = document.createElement('div');
+  div.className = 'p-4 bg-white rounded shadow';
 
-fetch(sheetUrl)
-  .then(res => res.text())
-  .then(csvText => {
-    const container = document.getElementById('sessions-container');
-    const rows = csvText.split('\n').slice(1); // skip header
+  const h3 = document.createElement('h3');
+  h3.textContent = session.trim();
+  h3.className = 'text-xl font-semibold mb-2';
+  div.appendChild(h3);
 
-    rows.forEach(row => {
-      if (!row.trim()) return; // skip empty lines
-      const [session, releaseDateStr] = row.split(',');
-      const releaseDate = new Date(releaseDateStr.trim());
-      const now = new Date();
+  const p = document.createElement('p');
+  if (now >= releaseDate) {
+    const a = document.createElement('a');
+    a.href = candidateLink.trim(); // <--- Dropbox link from sheet
+    a.textContent = "Access Session";
+    a.target = "_blank"; // open in new tab
+    a.className = "text-blue-500 hover:underline";
+    p.appendChild(a);
+  } else {
+    p.textContent = `Available on ${releaseDate.toDateString()}`;
+    p.className = 'text-gray-500 italic';
+  }
+  div.appendChild(p);
 
-      const div = document.createElement('div');
-      div.className = 'p-4 bg-white rounded shadow';
-
-      const h3 = document.createElement('h3');
-      h3.textContent = session.trim();
-      h3.className = 'text-xl font-semibold mb-2';
-      div.appendChild(h3);
-
-      const p = document.createElement('p');
-      if (now >= releaseDate) {
-        const a = document.createElement('a');
-        a.href = `${session.trim().toLowerCase().replace(/ /g,'_')}.html`; // candidate session page
-        a.textContent = "Access Session";
-        a.className = "text-blue-500 hover:underline";
-        p.appendChild(a);
-      } else {
-        p.textContent = `Available on ${releaseDate.toDateString()}`;
-        p.className = 'text-gray-500 italic';
-      }
-      div.appendChild(p);
-
-      container.appendChild(div);
-    });
-  });
-</script>
+  container.appendChild(div);
+});
