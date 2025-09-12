@@ -1,30 +1,53 @@
-rows.forEach(row => {
-  if (!row.trim()) return; // skip empty lines
-  const [session, releaseDateStr, candidateLink] = row.split(',');
-  const releaseDate = new Date(releaseDateStr.trim());
-  const now = new Date();
+<section class="p-6 bg-gray-100 min-h-screen">
+  <h2 class="text-3xl font-bold mb-6">Candidate Sessions</h2>
+  <div id="sessions-container" class="space-y-4"></div>
+</section>
 
-  const div = document.createElement('div');
-  div.className = 'p-4 bg-white rounded shadow';
+<script>
+// Your published Google Sheet CSV URL
+const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSOiaZs2zXb0ownwahMmPaYZhV_LfYDc9egeNZmhcVZTXAXH9xtOp--ulFMvgKWcUapG63GoMtFImOb/pub?gid=0&single=true&output=csv';
 
-  const h3 = document.createElement('h3');
-  h3.textContent = session.trim();
-  h3.className = 'text-xl font-semibold mb-2';
-  div.appendChild(h3);
+fetch(sheetUrl)
+  .then(res => res.text())
+  .then(csvText => {
+    const container = document.getElementById('sessions-container');
+    const rows = csvText.split('\n').slice(1); // skip header
 
-  const p = document.createElement('p');
-  if (now >= releaseDate) {
-    const a = document.createElement('a');
-    a.href = candidateLink.trim(); // <--- Dropbox link from sheet
-    a.textContent = "Access Session";
-    a.target = "_blank"; // open in new tab
-    a.className = "text-blue-500 hover:underline";
-    p.appendChild(a);
-  } else {
-    p.textContent = `Available on ${releaseDate.toDateString()}`;
-    p.className = 'text-gray-500 italic';
-  }
-  div.appendChild(p);
+    rows.forEach(row => {
+      if (!row.trim()) return; // skip empty lines
 
-  container.appendChild(div);
-});
+      // Split into 3 columns: session, release date, candidate link
+      const [session, releaseDateStr, candidateLink] = row.split(',');
+
+      const releaseDate = new Date(releaseDateStr.trim());
+      const now = new Date();
+
+      const div = document.createElement('div');
+      div.className = 'p-4 bg-white rounded shadow';
+
+      const h3 = document.createElement('h3');
+      h3.textContent = session.trim();
+      h3.className = 'text-xl font-semibold mb-2';
+      div.appendChild(h3);
+
+      const p = document.createElement('p');
+
+      if (now >= releaseDate) {
+        // Show Dropbox link
+        const a = document.createElement('a');
+        a.href = candidateLink.trim();  // link from sheet
+        a.target = "_blank";
+        a.textContent = "Access Session";
+        a.className = "text-blue-500 hover:underline";
+        p.appendChild(a);
+      } else {
+        // Show "coming soon" message
+        p.textContent = `Available on ${releaseDate.toDateString()}`;
+        p.className = 'text-gray-500 italic';
+      }
+
+      div.appendChild(p);
+      container.appendChild(div);
+    });
+  });
+</script>
