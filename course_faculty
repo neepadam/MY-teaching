@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Faculty Materials</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="p-8 font-sans bg-gray-50">
+<h2 class="text-3xl mb-6 font-bold">Faculty Materials</h2>
+
+<!-- Sessions 1–8 -->
+<!-- Repeat this block for each session -->
+<h3 class="text-xl mt-6 mb-2 font-semibold">Session 1 - Candidate Files</h3>
+<div class="border rounded-lg shadow p-2 overflow-auto h-64">
+  <iframe src="https://drive.google.com/embeddedfolderview?id=FOLDER_ID_SESSION1_CANDIDATE#grid" width="100%" height="100%" frameborder="0"></iframe>
+</div>
+<h3 class="text-xl mt-2 mb-2 font-semibold">Session 1 - Faculty Files</h3>
+<div class="border rounded-lg shadow p-2 overflow-auto h-64">
+  <iframe src="https://drive.google.com/embeddedfolderview?id=FOLDER_ID_SESSION1_FACULTY#grid" width="100%" height="100%" frameborder="0"></iframe>
+</div>
+
+<h3 class="text-xl mt-6 mb-2 font-semibold">Session 2 - Candidate Files</h3>
+<div class="border rounded-lg shadow p-2 overflow-auto h-64">
+  <iframe src="https://drive.google.com/embeddedfolderview?id=FOLDER_ID_SESSION2_CANDIDATE#grid" width="100%" height="100%" frameborder="0"></iframe>
+</div>
+<h3 class="text-xl mt-2 mb-2 font-semibold">Session 2 - Faculty Files</h3>
+<div class="border rounded-lg shadow p-2 overflow-auto h-64">
+  <iframe src="https://drive.google.com/embeddedfolderview?id=FOLDER_ID_SESSION2_FACULTY#grid" width="100%" height="100%" frameborder="0"></iframe>
+</div>
+
+<!-- Repeat for Sessions 3–8 in the same way -->
