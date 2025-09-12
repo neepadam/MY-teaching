@@ -4,7 +4,7 @@
 </section>
 
 <script>
-const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/<sheet-id>/pub?output=csv'; // replace <sheet-id>
+const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSOiaZs2zXb0ownwahMmPaYZhV_LfYDc9egeNZmhcVZTXAXH9xtOp--ulFMvgKWcUapG63GoMtFImOb/pub?gid=0&single=true&output=csv';
 
 fetch(sheetUrl)
   .then(res => res.text())
@@ -29,7 +29,7 @@ fetch(sheetUrl)
       const p = document.createElement('p');
       if (now >= releaseDate) {
         const a = document.createElement('a');
-        a.href = `${session.trim().toLowerCase().replace(' ', '_')}.html`; // assumes candidate session page naming
+        a.href = `${session.trim().toLowerCase().replace(/ /g,'_')}.html`; // candidate session page
         a.textContent = "Access Session";
         a.className = "text-blue-500 hover:underline";
         p.appendChild(a);
