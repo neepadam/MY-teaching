@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Course Login</title>
+<script>
+function login() {
+  const pw = document.getElementById("password").value.trim();
+  if (pw === "candidate123") {
+    window.location.href = "course_candidate.html";
+  } else if (pw === "faculty123") {
+    window.location.href = "course_faculty.html";
+  } else {
+    alert("Incorrect password. Please try again.");
+  }
+}
+</script>
+</head>
+<body class="p-8 font-sans">
+<h2 class="text-2xl mb-4">Course Portal</h2>
+<p class="mb-2">Enter the password:</p>
+<input type="password" id="password" class="border p-1 mr-2">
+<button onclick="login()" class="bg-blue-500 text-white px-4 py-1 rounded">Enter</button>
+</body>
+</html>
