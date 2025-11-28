@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CVC Checklist Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-6">
+
+  <div class="max-w-4xl mx-auto bg-white shadow p-6 rounded">
+    <h1 class="text-3xl font-bold mb-6">CVC Checklist → Clinical Note Generator</h1>
+
+    <!-- ================== PROCEDURE CHECKLIST ================== -->
+
+    <!-- BEFORE THE PROCEDURE -->
+    <h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-4">BEFORE THE PROCEDURE</h2>
+
+    <div class="grid grid-cols-2 gap-4 mt-3">
+      <!-- Identity -->
+      <div class="font-medium">Patient identity checked?</div>
+      <select id="identity" class="border p-2 rounded">
+        <option>Yes</option><option>No</option><option>N/A</option>
+      </select>
+
+      <!-- Consent -->
+      <div class="font-medium">Appropriate consent completed?</div>
+      <select id="consent" class="border p-2 rounded">
+        <option>Yes</option><option>No</option><option>N/A</option>
+      </select>
+
+      <!-- Equipment -->
+      <div class="font-medium">All equipment available?</div>
+      <select id="equipment" class="border p-2 rounded">
+        <option>Yes</option><option>No</option><option>N/A</option>
+      </select>
+
+      <!-- Line type -->
+      <div class="font-medium">Correct type/size of line available?</div>
+      <select id="linetype" class="border p-2 rounded">
+        <option>Yes</option><option>No</option><option>N/A</option>
+      </select>
+
+      <!-- Coagulopathy -->
+      <div class="font-medium">Is there a coagulopathy?</div>
+      <select id="coag" class="border p-2 rounded">
+        <option>Yes</option><option>No</option><option>N/A</option>
+      </select>
+
+      <!-- Allergies -->
+      <div class="font-medium">Known drug allergies?</div>
+      <select id="allergies" class="border p-2 rounded">
+        <option>Yes</option><option>No</option><option>N/A</option>
+      </select>
+
+      <!-- Infection control -->
+      <div class="font-medium">Infection control precautions in place?</div>
+      <select id="infection" class="border p-2 rounded">
+        <option>Yes</option><option>No</option><option>N/A</option>
+      </select>
+
+      <!-- Help -->
+      <div class="font-medium">Is help required?</div>
+      <select id="help" class="border p-2 rounded">
+        <option>Yes</option><option>No</option><option>N/A</option>
+      </select>
+    </div>
+
+    <!-- TIME OUT -->
+    <h2 class="text-xl font-bold bg-yellow-400 text-black p-2 mt-8">TIME OUT</h2>
+
+    <div class="grid grid-cols-2 gap-4 mt-3">
+      <div class="font-medium">Team members identified / roles allocated?</div>
+      <select id="teamroles" class="border p-2 rounded">
+        <option>Yes</option><option>No</option><option>N/A</option>
+      </select>
+
+      <div class="font-medium">Is patient position optimal?</div>
+      <select id="position" class="border p-2 rounded">
+        <option>Yes</option><option>No</option><option>N/A</option>
+      </select>
+
+      <div class="font-medium text-red-600">
+        Operator confirms guidewire will be removed:
+      </div>
+      <select id="guidewire_planned" class="border p-2 rounded">
+        <option>Yes</option><option>No</option><option>N/A</option>
+      </select>
+
+      <div class="font-medium">Ultrasound available and set up?</div>
+      <select id="ultrasound" class="border p-2 rounded">
+        <option>Yes</option><option>No</option><option>N/A</option>
+      </select>
+    </div>
+
+    <!-- SIGN OUT -->
+    <h2 class="text-xl font-bold bg-green-600 text-white p-2 mt-8">SIGN OUT</h2>
+
+    <div class="grid grid-cols-2 gap-4 mt-3">
+      <div class="font-medium">Able to aspirate blood from all lumens?</div>
+      <select id="aspirate" class="border p-2 rounded">
+        <option>Yes</option><option>No</option><option>N/A</option>
+      </select>
+
+      <div class="font-medium">Correct caps / connectors used?</div>
+      <select id="caps" class="border p-2 rounded">
+        <option>Yes</option><option>No</option><option>N/A</option>
+      </select>
+
+      <div class="font-medium">Correct dressing applied?</div>
+      <select id="dressing" class="border p-2 rounded">
+        <option>Yes</option><option>No</option><option>N/A</option>
+      </select>
+
+      <div class="font-medium">Guidewire confirmed as removed?</div>
+      <select id="guidewire_removed" class="border p-2 rounded">
+        <option>Yes</option><option>No</option><option>N/A</option>
+      </select>
+
+      <div class="font-medium">Chest X-ray required?</div>
+      <select id="cxr_required" class="border p-2 rounded">
+        <option>Yes</option><option>No</option><option>N/A</option>
+      </select>
+
+      <div class="font-medium">If CXR required, line position satisfactory?</div>
+      <select id="cxr_satisfactory" class="border p-2 rounded">
+        <option>Yes</option><option>No</option><option>N/A</option>
+      </select>
+
+      <div class="font-medium">Pneumothorax excluded?</div>
+      <select id="pneumo" class="border p-2 rounded">
+        <option>Yes</option><option>No</option><option>N/A</option>
+      </select>
+
+      <div class="font-medium">CVP waveform present / venous pressure recorded?</div>
+      <select id="cvp" class="border p-2 rounded">
+        <option>Yes</option><option>No</option><option>N/A</option>
+      </select>
+
+      <div class="font-medium">Ultrasound confirms placement?</div>
+      <select id="us_confirm" class="border p-2 rounded">
+        <option>Yes</option><option>No</option><option>N/A</option>
+      </select>
+
+      <div class="font-medium">Paired venous/arterial gases taken?</div>
+      <select id="bloodgas" class="border p-2 rounded">
+        <option>Yes</option><option>No</option><option>N/A</option>
+      </select>
+    </div>
+
+    <!-- GENERATE BUTTON -->
+    <button onclick="generateNote()"
+            class="mt-8 bg-blue-600 text-white px-4 py-2 rounded">
+      Generate Text Note
+    </button>
+
+    <!-- OUTPUT -->
+    <div class="mt-6">
+      <textarea id="output" class="w-full h-80 border p-3 rounded font-mono"
+                readonly></textarea>
+
+      <button onclick="copyText()" class="mt-3 bg-green-600 text-white px-4 py-2 rounded">
+        Copy to Clipboard
+      </button>
+    </div>
+
+  </div>
+
+
+<script>
+function generateNote() {
+  const fields = [
+    ["Patient identity checked", identity.value],
+    ["Consent completed", consent.value],
+    ["Equipment available", equipment.value],
+    ["Correct line type/size", linetype.value],
+    ["Coagulopathy present", coag.value],
+    ["Drug allergies", allergies.value],
+    ["Infection control in place", infection.value],
+    ["Help required", help.value],
+
+    ["Team roles allocated", teamroles.value],
+    ["Patient position optimal", position.value],
+    ["Guidewire removal confirmed (pre-procedure)", guidewire_planned.value],
+    ["Ultrasound available", ultrasound.value],
+
+    ["Aspirated all lumens", aspirate.value],
+    ["Correct caps/connectors", caps.value],
+    ["Dressing applied", dressing.value],
+    ["Guidewire removed (post-procedure)", guidewire_removed.value],
+    ["Chest X-ray required", cxr_required.value],
+    ["CXR satisfactory", cxr_satisfactory.value],
+    ["Pneumothorax excluded", pneumo.value],
+    ["CVP waveform present / venous pressure obtained", cvp.value],
+    ["Ultrasound confirms placement", us_confirm.value],
+    ["Paired blood gases taken", bloodgas.value],
+  ];
+
+  let output = "CENTRAL LINE SAFETY CHECKLIST\n\n";
+  fields.forEach(([label, value]) => {
+    output += `• ${label}: ${value}\n`;
+  });
+
+  document.getElementById("output").value = output;
+}
+
+function copyText() {
+  navigator.clipboard.writeText(document.getElementById("output").value);
+}
+</script>
+
+</body>
+</html>
