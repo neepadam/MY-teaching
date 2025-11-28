@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Central Line Insertion Form</title>
+  <title>Central Line – WHO Checklist</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -12,61 +12,96 @@
   <div class="max-w-2xl mx-auto bg-white rounded-xl shadow p-6">
 
     <h1 class="text-3xl font-bold text-blue-800 mb-6 text-center">
-      Central Line Insertion Form
+      Central Line Safety Checklist
     </h1>
 
     <!-- FORM -->
-    <form id="centralLineForm" class="space-y-6">
+    <form id="centralLineForm" class="space-y-8">
 
-      <!-- Patient & Clinician -->
+      <!-- ================= BEFORE ================= -->
       <div>
-        <label class="block font-semibold mb-1">Patient name / initials</label>
-        <input type="text" id="patient" class="w-full border rounded p-2">
+        <h2 class="text-xl font-bold text-purple-700 mb-3">BEFORE (Preparation)</h2>
+
+        <div class="space-y-2">
+          <p class="font-semibold">Indication documented?</p>
+          <div class="flex space-x-4">
+            <label><input type="radio" name="indication" value="Yes"> Yes</label>
+            <label><input type="radio" name="indication" value="No"> No</label>
+            <label><input type="radio" name="indication" value="N/A"> N/A</label>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <p class="font-semibold">Consent / best-interests decision completed?</p>
+          <div class="flex space-x-4">
+            <label><input type="radio" name="consent" value="Yes"> Yes</label>
+            <label><input type="radio" name="consent" value="No"> No</label>
+            <label><input type="radio" name="consent" value="N/A"> N/A</label>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <p class="font-semibold">Patient checked (ID / allergies)?</p>
+          <div class="flex space-x-4">
+            <label><input type="radio" name="identity" value="Yes"> Yes</label>
+            <label><input type="radio" name="identity" value="No"> No</label>
+            <label><input type="radio" name="identity" value="N/A"> N/A</label>
+          </div>
+        </div>
+
       </div>
 
+      <!-- ================= TIME OUT ================= -->
       <div>
-        <label class="block font-semibold mb-1">Clinician inserting line</label>
-        <input type="text" id="clinician" class="w-full border rounded p-2">
-      </div>
+        <h2 class="text-xl font-bold text-blue-700 mb-3">TIME OUT (Immediately Before Procedure)</h2>
 
-      <!-- Tick boxes -->
-      <div class="space-y-2">
-        <p class="font-semibold">Indication for central line documented?</p>
-        <div class="flex space-x-4">
-          <label><input type="radio" name="indication" value="Yes"> Yes</label>
-          <label><input type="radio" name="indication" value="No"> No</label>
-          <label><input type="radio" name="indication" value="N/A"> N/A</label>
+        <div class="space-y-2">
+          <p class="font-semibold">Full aseptic technique (hat, mask, gown, gloves, sterile field)?</p>
+          <div class="flex space-x-4">
+            <label><input type="radio" name="aseptic" value="Yes"> Yes</label>
+            <label><input type="radio" name="aseptic" value="No"> No</label>
+          </div>
         </div>
-      </div>
 
-      <div class="space-y-2">
-        <p class="font-semibold">Ultrasound used?</p>
-        <div class="flex space-x-4">
-          <label><input type="radio" name="ultrasound" value="Yes"> Yes</label>
-          <label><input type="radio" name="ultrasound" value="No"> No</label>
+        <div class="space-y-2">
+          <p class="font-semibold">Ultrasound used?</p>
+          <div class="flex space-x-4">
+            <label><input type="radio" name="us" value="Yes"> Yes</label>
+            <label><input type="radio" name="us" value="No"> No</label>
+          </div>
         </div>
-      </div>
 
-      <div class="space-y-2">
-        <p class="font-semibold">Full aseptic technique?</p>
-        <div class="flex space-x-4">
-          <label><input type="radio" name="aseptic" value="Yes"> Yes</label>
-          <label><input type="radio" name="aseptic" value="No"> No</label>
+        <div>
+          <label class="block font-semibold mb-1">Intended site and side</label>
+          <input type="text" id="site" class="w-full border rounded p-2" placeholder="e.g. Right IJ, Left femoral">
         </div>
+
       </div>
 
-      <div class="space-y-2">
-        <p class="font-semibold">Post-procedure CXR required?</p>
-        <div class="flex space-x-4">
-          <label><input type="radio" name="cxr" value="Yes"> Yes</label>
-          <label><input type="radio" name="cxr" value="No"> No</label>
-        </div>
-      </div>
-
-      <!-- Free text -->
+      <!-- ================= SIGN OUT ================= -->
       <div>
-        <label class="block font-semibold mb-1">Additional comments</label>
-        <textarea id="comments" rows="3" class="w-full border rounded p-2"></textarea>
+        <h2 class="text-xl font-bold text-green-700 mb-3">SIGN OUT (After Procedure)</h2>
+
+        <div class="space-y-2">
+          <p class="font-semibold">Line secured and dressing applied?</p>
+          <div class="flex space-x-4">
+            <label><input type="radio" name="secure" value="Yes"> Yes</label>
+            <label><input type="radio" name="secure" value="No"> No</label>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <p class="font-semibold">Post-procedure CXR required?</p>
+          <div class="flex space-x-4">
+            <label><input type="radio" name="cxr" value="Yes"> Yes</label>
+            <label><input type="radio" name="cxr" value="No"> No</label>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold mb-1">Comments / difficulties</label>
+          <textarea id="comments" rows="3" class="w-full border rounded p-2"></textarea>
+        </div>
       </div>
 
       <!-- Generate button -->
@@ -82,7 +117,7 @@
     <div id="outputSection" class="mt-8 hidden">
       <h2 class="text-xl font-bold text-blue-700 mb-3">Generated Note</h2>
 
-      <textarea id="outputText" class="w-full border rounded p-3 h-48"></textarea>
+      <textarea id="outputText" class="w-full border rounded p-3 h-60"></textarea>
 
       <button onclick="copyNote()"
               class="mt-4 w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold">
@@ -93,30 +128,33 @@
   </div>
 
 <script>
+function val(name) {
+  return document.querySelector(`input[name='${name}']:checked`)?.value || "N/A";
+}
+
 function generateNote() {
-  const patient = document.getElementById("patient").value || "N/A";
-  const clinician = document.getElementById("clinician").value || "N/A";
-  const indication = document.querySelector("input[name='indication']:checked")?.value || "N/A";
-  const ultrasound = document.querySelector("input[name='ultrasound']:checked")?.value || "N/A";
-  const aseptic = document.querySelector("input[name='aseptic']:checked")?.value || "N/A";
-  const cxr = document.querySelector("input[name='cxr']:checked")?.value || "N/A";
-  const comments = document.getElementById("comments").value || "";
 
-  const note = 
-`CENTRAL LINE INSERTION
+  const note =
+`CENTRAL LINE SAFETY CHECKLIST
 
-Patient: ${patient}
-Clinician: ${clinician}
+=== BEFORE ===
+Indication documented: ${val("indication")}
+Consent / best-interests decision: ${val("consent")}
+Patient ID & allergies checked: ${val("identity")}
 
-Indication documented: ${indication}
-Ultrasound used: ${ultrasound}
-Full aseptic technique: ${aseptic}
-CXR required: ${cxr}
+=== TIME OUT ===
+Full aseptic technique: ${val("aseptic")}
+Ultrasound used: ${val("us")}
+Intended site: ${document.getElementById("site").value || "N/A"}
 
-Additional comments:
-${comments}
+=== SIGN OUT ===
+Line secured & dressing applied: ${val("secure")}
+Post-procedure CXR required: ${val("cxr")}
 
-Line inserted successfully with no immediate complications.`;
+Comments / difficulties:
+${document.getElementById("comments").value}
+
+Procedure completed with no immediate complications.`;
 
   document.getElementById("outputText").value = note;
   document.getElementById("outputSection").classList.remove("hidden");
@@ -125,7 +163,6 @@ Line inserted successfully with no immediate complications.`;
 function copyNote() {
   const text = document.getElementById("outputText");
   text.select();
-  text.setSelectionRange(0, 99999);
   navigator.clipboard.writeText(text.value);
   alert("Note copied to clipboard");
 }
@@ -133,4 +170,5 @@ function copyNote() {
 
 </body>
 </html>
+
 
