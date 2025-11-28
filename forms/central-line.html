@@ -1,175 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Central Line – WHO Checklist</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Central Line Checklist</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<body class="bg-gray-100 py-10">
 
-<body class="bg-gray-100 min-h-screen p-6">
+  <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+    <h1 class="text-3xl font-bold mb-6 text-center">Central Line Insertion Checklist</h1>
 
-  <div class="max-w-2xl mx-auto bg-white rounded-xl shadow p-6">
+    <form id="central-line-form" class="space-y-6">
 
-    <h1 class="text-3xl font-bold text-blue-800 mb-6 text-center">
-      Central Line Safety Checklist
-    </h1>
-
-    <!-- FORM -->
-    <form id="centralLineForm" class="space-y-8">
-
-      <!-- ================= BEFORE ================= -->
+      <!-- Before Procedure -->
       <div>
-        <h2 class="text-xl font-bold text-purple-700 mb-3">BEFORE (Preparation)</h2>
-
+        <h2 class="text-xl font-semibold mb-3">Before Procedure</h2>
         <div class="space-y-2">
-          <p class="font-semibold">Indication documented?</p>
-          <div class="flex space-x-4">
-            <label><input type="radio" name="indication" value="Yes"> Yes</label>
-            <label><input type="radio" name="indication" value="No"> No</label>
-            <label><input type="radio" name="indication" value="N/A"> N/A</label>
-          </div>
-        </div>
-
-        <div class="space-y-2">
-          <p class="font-semibold">Consent / best-interests decision completed?</p>
-          <div class="flex space-x-4">
-            <label><input type="radio" name="consent" value="Yes"> Yes</label>
-            <label><input type="radio" name="consent" value="No"> No</label>
-            <label><input type="radio" name="consent" value="N/A"> N/A</label>
-          </div>
-        </div>
-
-        <div class="space-y-2">
-          <p class="font-semibold">Patient checked (ID / allergies)?</p>
-          <div class="flex space-x-4">
-            <label><input type="radio" name="identity" value="Yes"> Yes</label>
-            <label><input type="radio" name="identity" value="No"> No</label>
-            <label><input type="radio" name="identity" value="N/A"> N/A</label>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ================= TIME OUT ================= -->
-      <div>
-        <h2 class="text-xl font-bold text-blue-700 mb-3">TIME OUT (Immediately Before Procedure)</h2>
-
-        <div class="space-y-2">
-          <p class="font-semibold">Full aseptic technique (hat, mask, gown, gloves, sterile field)?</p>
-          <div class="flex space-x-4">
-            <label><input type="radio" name="aseptic" value="Yes"> Yes</label>
-            <label><input type="radio" name="aseptic" value="No"> No</label>
-          </div>
-        </div>
-
-        <div class="space-y-2">
-          <p class="font-semibold">Ultrasound used?</p>
-          <div class="flex space-x-4">
-            <label><input type="radio" name="us" value="Yes"> Yes</label>
-            <label><input type="radio" name="us" value="No"> No</label>
-          </div>
-        </div>
-
-        <div>
-          <label class="block font-semibold mb-1">Intended site and side</label>
-          <input type="text" id="site" class="w-full border rounded p-2" placeholder="e.g. Right IJ, Left femoral">
-        </div>
-
-      </div>
-
-      <!-- ================= SIGN OUT ================= -->
-      <div>
-        <h2 class="text-xl font-bold text-green-700 mb-3">SIGN OUT (After Procedure)</h2>
-
-        <div class="space-y-2">
-          <p class="font-semibold">Line secured and dressing applied?</p>
-          <div class="flex space-x-4">
-            <label><input type="radio" name="secure" value="Yes"> Yes</label>
-            <label><input type="radio" name="secure" value="No"> No</label>
-          </div>
-        </div>
-
-        <div class="space-y-2">
-          <p class="font-semibold">Post-procedure CXR required?</p>
-          <div class="flex space-x-4">
-            <label><input type="radio" name="cxr" value="Yes"> Yes</label>
-            <label><input type="radio" name="cxr" value="No"> No</label>
-          </div>
-        </div>
-
-        <div>
-          <label class="block font-semibold mb-1">Comments / difficulties</label>
-          <textarea id="comments" rows="3" class="w-full border rounded p-2"></textarea>
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" name="hand-wash" class="form-checkbox h-5 w-5 text-blue-600">
+            <span>Hand hygiene performed</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" name="equipment-prepared" class="form-checkbox h-5 w-5 text-blue-600">
+            <span>All equipment prepared</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" name="consent-obtained" class="form-checkbox h-5 w-5 text-blue-600">
+            <span>Patient consent obtained</span>
+          </label>
         </div>
       </div>
 
-      <!-- Generate button -->
-      <button type="button"
-              onclick="generateNote()"
-              class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold">
-        Generate Clinical Note
-      </button>
+      <!-- During Procedure -->
+      <div>
+        <h2 class="text-xl font-semibold mb-3">During Procedure</h2>
+        <div class="space-y-2">
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" name="sterile-gloves" class="form-checkbox h-5 w-5 text-blue-600">
+            <span>Sterile gloves worn</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" name="ultrasound-used" class="form-checkbox h-5 w-5 text-blue-600">
+            <span>Ultrasound guidance used</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" name="skin-prepped" class="form-checkbox h-5 w-5 text-blue-600">
+            <span>Skin prepared with antiseptic</span>
+          </label>
+        </div>
+      </div>
 
+      <!-- After Procedure -->
+      <div>
+        <h2 class="text-xl font-semibold mb-3">After Procedure</h2>
+        <div class="space-y-2">
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" name="dressing-applied" class="form-checkbox h-5 w-5 text-blue-600">
+            <span>Dressing applied and secure</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" name="line-flushed" class="form-checkbox h-5 w-5 text-blue-600">
+            <span>Line flushed and capped</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" name="documentation-completed" class="form-checkbox h-5 w-5 text-blue-600">
+            <span>Documentation completed</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700">
+          Submit Checklist
+        </button>
+      </div>
     </form>
-
-    <!-- Output -->
-    <div id="outputSection" class="mt-8 hidden">
-      <h2 class="text-xl font-bold text-blue-700 mb-3">Generated Note</h2>
-
-      <textarea id="outputText" class="w-full border rounded p-3 h-60"></textarea>
-
-      <button onclick="copyNote()"
-              class="mt-4 w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold">
-        Copy Note
-      </button>
-    </div>
-
   </div>
 
-<script>
-function val(name) {
-  return document.querySelector(`input[name='${name}']:checked`)?.value || "N/A";
-}
-
-function generateNote() {
-
-  const note =
-`CENTRAL LINE SAFETY CHECKLIST
-
-=== BEFORE ===
-Indication documented: ${val("indication")}
-Consent / best-interests decision: ${val("consent")}
-Patient ID & allergies checked: ${val("identity")}
-
-=== TIME OUT ===
-Full aseptic technique: ${val("aseptic")}
-Ultrasound used: ${val("us")}
-Intended site: ${document.getElementById("site").value || "N/A"}
-
-=== SIGN OUT ===
-Line secured & dressing applied: ${val("secure")}
-Post-procedure CXR required: ${val("cxr")}
-
-Comments / difficulties:
-${document.getElementById("comments").value}
-
-Procedure completed with no immediate complications.`;
-
-  document.getElementById("outputText").value = note;
-  document.getElementById("outputSection").classList.remove("hidden");
-}
-
-function copyNote() {
-  const text = document.getElementById("outputText");
-  text.select();
-  navigator.clipboard.writeText(text.value);
-  alert("Note copied to clipboard");
-}
-</script>
+  <script>
+    const form = document.getElementById('central-line-form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Checklist submitted!');
+    });
+  </script>
 
 </body>
 </html>
-
-
-
