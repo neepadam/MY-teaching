@@ -413,7 +413,7 @@ function getValue(name) {
 }
 
 function generateNote() {
-  let output = "CENTRAL LINE SAFETY CHECKLIST\n\n";
+  let output = "CENTRAL LINE INSERTION\n\n";
 
   // Procedure details
   output += `Procedure Date: ${document.getElementById('proc_date').value}\n`;
@@ -422,45 +422,7 @@ function generateNote() {
   output += `Assistant: ${document.getElementById('assistant').value}\n`;
   output += `Supervisor: ${document.getElementById('supervisor').value}\n\n`;
 
-  // BEFORE THE PROCEDURE
-  output += "=== BEFORE THE PROCEDURE ===\n";
-  output += `• Patient identity checked: ${getValue("identity")}\n`;
-  output += `• Consent completed: ${getValue("consent")}\n`;
-  output += `• Equipment available: ${getValue("equipment")}\n`;
-  output += `• Correct line type/size: ${getValue("linetype")}\n`;
-  output += `• Coagulopathy present: ${getValue("coag")}\n`;
-  output += `• Drug allergies: ${getValue("allergies")}\n`;
-  output += `• Infection control: ${getValue("infection")}\n`;
-  output += `• Help required: ${getValue("help")}\n\n`;
-
-  // TIME OUT
-  output += "=== TIME OUT ===\n";
-  output += `• Team roles allocated: ${getValue("teamroles")}\n`;
-  output += `• Patient position optimal: ${getValue("position")}\n`;
-  output += `• Guidewire removal confirmed (pre): ${getValue("guidewire_planned")}\n`;
-  output += `• Ultrasound available: ${getValue("ultrasound")}\n\n`;
-
-  // SIGN OUT
-  output += "=== SIGN OUT ===\n";
-  output += `• Aspirated all lumens: ${getValue("aspirate")}\n`;
-  output += `• Caps/connectors correct: ${getValue("caps")}\n`;
-  output += `• Dressing applied: ${getValue("dressing")}\n`;
-  output += `• Guidewire removed (post): ${getValue("guidewire_removed")}\n`;
-  output += `• Chest X-ray required: ${getValue("cxr_required")}\n`;
-  output += `• CXR satisfactory: ${getValue("cxr_satisfactory")}\n`;
-  output += `• Pneumothorax excluded: ${getValue("pneumo")}\n`;
-
-  // CVP waveform + free text value
-  const cvpChoice = getValue("cvp_check");
-  const cvpValue = document.getElementById("cvp_value")?.value || "";
-  output += `• CVP waveform / venous pressure: ${cvpChoice}${cvpValue ? " (" + cvpValue + " cmH₂O)" : ""}\n`;
-
-  // Paired gases
-  const venousGas = document.getElementById("venous_gas")?.value || "";
-  const arterialGas = document.getElementById("arterial_gas")?.value || "";
-  output += `• Paired gases taken: Venous ${venousGas ? venousGas + " mmHg" : "N/A"}, Arterial ${arterialGas ? arterialGas + " mmHg" : "N/A"}\n\n`;
-
-  // === LINE INSERTION DETAILS ===
+// === LINE INSERTION DETAILS ===
   output += "=== LINE INSERTION DETAILS ===\n";
 
   // Location
@@ -515,9 +477,53 @@ function generateNote() {
 
   const antt_reason = document.getElementById("antt_reason").value;
   if (antt_reason.trim() !== "") {
-    output += `• ANTT exception reason: ${antt_reason}\n`;
+    output += `• ANTT exception reason: ${antt_reason}\n\n`;
   }
 
+
+
+  
+  output += "CENTRAL LINE SAFETY CHECKLIST\n\n`;
+
+  // BEFORE THE PROCEDURE
+  output += "=== BEFORE THE PROCEDURE ===\n";
+  output += `• Patient identity checked: ${getValue("identity")}\n`;
+  output += `• Consent completed: ${getValue("consent")}\n`;
+  output += `• Equipment available: ${getValue("equipment")}\n`;
+  output += `• Correct line type/size: ${getValue("linetype")}\n`;
+  output += `• Coagulopathy present: ${getValue("coag")}\n`;
+  output += `• Drug allergies: ${getValue("allergies")}\n`;
+  output += `• Infection control: ${getValue("infection")}\n`;
+  output += `• Help required: ${getValue("help")}\n\n`;
+
+  // TIME OUT
+  output += "=== TIME OUT ===\n";
+  output += `• Team roles allocated: ${getValue("teamroles")}\n`;
+  output += `• Patient position optimal: ${getValue("position")}\n`;
+  output += `• Guidewire removal confirmed (pre): ${getValue("guidewire_planned")}\n`;
+  output += `• Ultrasound available: ${getValue("ultrasound")}\n\n`;
+
+  // SIGN OUT
+  output += "=== SIGN OUT ===\n";
+  output += `• Aspirated all lumens: ${getValue("aspirate")}\n`;
+  output += `• Caps/connectors correct: ${getValue("caps")}\n`;
+  output += `• Dressing applied: ${getValue("dressing")}\n`;
+  output += `• Guidewire removed (post): ${getValue("guidewire_removed")}\n`;
+  output += `• Chest X-ray required: ${getValue("cxr_required")}\n`;
+  output += `• CXR satisfactory: ${getValue("cxr_satisfactory")}\n`;
+  output += `• Pneumothorax excluded: ${getValue("pneumo")}\n`;
+
+  // CVP waveform + free text value
+  const cvpChoice = getValue("cvp_check");
+  const cvpValue = document.getElementById("cvp_value")?.value || "";
+  output += `• CVP waveform / venous pressure: ${cvpChoice}${cvpValue ? " (" + cvpValue + " cmH₂O)" : ""}\n`;
+
+  // Paired gases
+  const venousGas = document.getElementById("venous_gas")?.value || "";
+  const arterialGas = document.getElementById("arterial_gas")?.value || "";
+  output += `• Paired gases taken: Venous ${venousGas ? venousGas + " mmHg" : "N/A"}, Arterial ${arterialGas ? arterialGas + " mmHg" : "N/A"}\n\n`;
+
+  
   // Final
   document.getElementById("output").value = output;
 }
