@@ -204,6 +204,8 @@
           <label><input type="checkbox" name="cvp" value="Yes" onchange="onlyOne(this)"> Yes</label>
           <label><input type="checkbox" name="cvp" value="No" onchange="onlyOne(this)"> No</label>
           <label><input type="checkbox" name="cvp" value="Not performed" onchange="onlyOne(this)"> N/A</label>
+        <input type="text" id="cvp_value" class="border p-2 rounded w-24" placeholder="0">
+    <span>cmH<sub>2</sub>O</span>
         </div>
       </div>
 
@@ -296,7 +298,10 @@ function generateNote() {
   output += `• Chest X-ray required: ${getValue("cxr_required")}\n`;
   output += `• CXR satisfactory: ${getValue("cxr_satisfactory")}\n`;
   output += `• Pneumothorax excluded: ${getValue("pneumo")}\n`;
-  output += `• CVP waveform / venous pressure: ${getValue("cvp")}\n`;
+const cvpValue = document.getElementById("cvp_value").value;
+output += `• CVP waveform / venous pressure: ${getValue("cvp")}`;
+if(cvpValue) output += ` (${cvpValue} cmH2O)`;
+output += "\n";
   output += `• Ultrasound confirms placement: ${getValue("us_confirm")}\n`;
   output += `• Paired gases taken: ${getValue("bloodgas")}\n`;
 
