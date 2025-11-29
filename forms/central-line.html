@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>CVC Checklist & Central Line Note</title>
+  <title>CVC Checklist Generator</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -11,14 +11,12 @@
   <div class="max-w-4xl mx-auto bg-white shadow p-6 rounded">
     <h1 class="text-3xl font-bold mb-6">CVC Checklist → Clinical Note Generator</h1>
 
-    <!-- ================== CHECKLIST ================== -->
-
     <!-- BEFORE THE PROCEDURE -->
     <h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-4">BEFORE THE PROCEDURE</h2>
 
-    <div class="grid grid-cols-1 gap-4 mt-3">
+    <div class="grid grid-cols-1 gap-4 mt-4">
 
-      <!-- Patient identity -->
+      <!-- Each block follows same structure -->
       <div>
         <div class="font-medium">Patient identity checked?</div>
         <div class="flex gap-4 mt-1">
@@ -28,7 +26,6 @@
         </div>
       </div>
 
-      <!-- Consent -->
       <div>
         <div class="font-medium">Appropriate consent completed?</div>
         <div class="flex gap-4 mt-1">
@@ -38,7 +35,6 @@
         </div>
       </div>
 
-      <!-- Equipment -->
       <div>
         <div class="font-medium">All equipment available?</div>
         <div class="flex gap-4 mt-1">
@@ -48,7 +44,6 @@
         </div>
       </div>
 
-      <!-- Line type -->
       <div>
         <div class="font-medium">Correct type/size of line available?</div>
         <div class="flex gap-4 mt-1">
@@ -58,7 +53,6 @@
         </div>
       </div>
 
-      <!-- Coagulopathy -->
       <div>
         <div class="font-medium">Is there a coagulopathy?</div>
         <div class="flex gap-4 mt-1">
@@ -68,7 +62,6 @@
         </div>
       </div>
 
-      <!-- Allergies -->
       <div>
         <div class="font-medium">Known drug allergies?</div>
         <div class="flex gap-4 mt-1">
@@ -78,7 +71,6 @@
         </div>
       </div>
 
-      <!-- Infection -->
       <div>
         <div class="font-medium">Infection control precautions in place?</div>
         <div class="flex gap-4 mt-1">
@@ -88,7 +80,6 @@
         </div>
       </div>
 
-      <!-- Help -->
       <div>
         <div class="font-medium">Is help required?</div>
         <div class="flex gap-4 mt-1">
@@ -103,9 +94,8 @@
     <!-- TIME OUT -->
     <h2 class="text-xl font-bold bg-yellow-400 text-black p-2 mt-8">TIME OUT</h2>
 
-    <div class="grid grid-cols-1 gap-4 mt-3">
+    <div class="grid grid-cols-1 gap-4 mt-4">
 
-      <!-- Team roles -->
       <div>
         <div class="font-medium">Team members identified / roles allocated?</div>
         <div class="flex gap-4 mt-1">
@@ -115,7 +105,6 @@
         </div>
       </div>
 
-      <!-- Position -->
       <div>
         <div class="font-medium">Is patient position optimal?</div>
         <div class="flex gap-4 mt-1">
@@ -125,7 +114,6 @@
         </div>
       </div>
 
-      <!-- Guidewire planned -->
       <div>
         <div class="font-medium text-red-600">Operator confirms guidewire will be removed:</div>
         <div class="flex gap-4 mt-1">
@@ -135,7 +123,6 @@
         </div>
       </div>
 
-      <!-- Ultrasound -->
       <div>
         <div class="font-medium">Ultrasound available and set up?</div>
         <div class="flex gap-4 mt-1">
@@ -150,9 +137,8 @@
     <!-- SIGN OUT -->
     <h2 class="text-xl font-bold bg-green-600 text-white p-2 mt-8">SIGN OUT</h2>
 
-    <div class="grid grid-cols-1 gap-4 mt-3">
+    <div class="grid grid-cols-1 gap-4 mt-4">
 
-      <!-- Aspirate -->
       <div>
         <div class="font-medium">Able to aspirate blood from all lumens?</div>
         <div class="flex gap-4 mt-1">
@@ -162,7 +148,6 @@
         </div>
       </div>
 
-      <!-- Caps -->
       <div>
         <div class="font-medium">Correct caps / connectors used?</div>
         <div class="flex gap-4 mt-1">
@@ -172,7 +157,6 @@
         </div>
       </div>
 
-      <!-- Dressing -->
       <div>
         <div class="font-medium">Correct dressing applied?</div>
         <div class="flex gap-4 mt-1">
@@ -182,7 +166,6 @@
         </div>
       </div>
 
-      <!-- Guidewire removed -->
       <div>
         <div class="font-medium">Guidewire confirmed as removed?</div>
         <div class="flex gap-4 mt-1">
@@ -192,7 +175,6 @@
         </div>
       </div>
 
-      <!-- CXR required -->
       <div>
         <div class="font-medium">Chest X-ray required?</div>
         <div class="flex gap-4 mt-1">
@@ -202,7 +184,6 @@
         </div>
       </div>
 
-      <!-- CXR satisfactory -->
       <div>
         <div class="font-medium">If CXR required, line position satisfactory?</div>
         <div class="flex gap-4 mt-1">
@@ -212,7 +193,6 @@
         </div>
       </div>
 
-      <!-- Pneumothorax -->
       <div>
         <div class="font-medium">Pneumothorax excluded?</div>
         <div class="flex gap-4 mt-1">
@@ -222,7 +202,6 @@
         </div>
       </div>
 
-      <!-- CVP -->
       <div>
         <div class="font-medium">CVP waveform present / venous pressure recorded?</div>
         <div class="flex gap-4 mt-1">
@@ -232,7 +211,6 @@
         </div>
       </div>
 
-      <!-- US confirm -->
       <div>
         <div class="font-medium">Ultrasound confirms placement?</div>
         <div class="flex gap-4 mt-1">
@@ -242,7 +220,6 @@
         </div>
       </div>
 
-      <!-- Blood gases -->
       <div>
         <div class="font-medium">Paired venous/arterial gases taken?</div>
         <div class="flex gap-4 mt-1">
@@ -254,43 +231,18 @@
 
     </div>
 
-    <!-- CHECKLIST GENERATE BUTTON -->
-    <button onclick="generateChecklist()"
+    <!-- GENERATE BUTTON -->
+    <button onclick="generateNote()"
             class="mt-8 bg-blue-600 text-white px-4 py-2 rounded">
-      Generate Checklist Text
+      Generate Text Note
     </button>
-
-
-    <!-- CENTRAL LINE PROCEDURE NOTE -->
-    <h2 class="text-2xl font-bold mt-10">Central Line Procedure Note</h2>
-
-    <div class="grid grid-cols-2 gap-4 mt-4">
-      <div class="font-medium">Patient name:</div>
-      <input id="cl_name" class="border p-2 rounded">
-
-      <div class="font-medium">Site:</div>
-      <input id="cl_site" class="border p-2 rounded">
-
-      <div class="font-medium">Indication:</div>
-      <input id="cl_indication" class="border p-2 rounded">
-
-      <div class="font-medium">Technique (e.g. USG):</div>
-      <input id="cl_technique" class="border p-2 rounded">
-    </div>
-
-    <button onclick="generateCentralLine()"
-            class="mt-4 bg-purple-600 text-white px-4 py-2 rounded">
-      Generate Central Line Note
-    </button>
-
 
     <!-- OUTPUT -->
-    <div id="outputContainer" class="hidden mt-6">
-      <textarea id="outputText"
-                class="w-full h-80 border p-3 rounded font-mono"></textarea>
+    <div class="mt-6">
+      <textarea id="output" class="w-full h-80 border p-3 rounded font-mono"
+                readonly></textarea>
 
-      <button onclick="copyNote()"
-              class="mt-3 bg-green-600 text-white px-4 py-2 rounded">
+      <button onclick="copyText()" class="mt-3 bg-green-600 text-white px-4 py-2 rounded">
         Copy to Clipboard
       </button>
     </div>
@@ -299,7 +251,7 @@
 
 
 <script>
-// Make Yes/No/N/A checkboxes mutually exclusive
+// enforce Yes/No/N/A exclusivity
 function onlyOne(checkbox) {
   const group = document.getElementsByName(checkbox.name);
   group.forEach(box => {
@@ -307,91 +259,50 @@ function onlyOne(checkbox) {
   });
 }
 
-// Extract selected value
+// get selected checkbox value
 function getValue(name) {
   const boxes = document.getElementsByName(name);
-  for (let b of boxes) {
-    if (b.checked) return b.value;
-  }
+  for (let b of boxes) if (b.checked) return b.value;
   return "Not selected";
 }
 
-// Generate checklist text
-function generateChecklist() {
-  const fields = [
-    ["Patient identity checked", getValue("identity")],
-    ["Consent completed", getValue("consent")],
-    ["Equipment available", getValue("equipment")],
-    ["Correct line type/size", getValue("linetype")],
-    ["Coagulopathy present", getValue("coag")],
-    ["Drug allergies", getValue("allergies")],
-    ["Infection control precautions", getValue("infection")],
-    ["Help required", getValue("help")],
-
-    ["Team roles allocated", getValue("teamroles")],
-    ["Patient position optimal", getValue("position")],
-    ["Guidewire removal confirmed (pre-procedure)", getValue("guidewire_planned")],
-    ["Ultrasound available", getValue("ultrasound")],
-
-    ["Aspirated all lumens", getValue("aspirate")],
-    ["Correct caps/connectors", getValue("caps")],
-    ["Dressing applied", getValue("dressing")],
-    ["Guidewire removed (post-procedure)", getValue("guidewire_removed")],
-    ["Chest X-ray required", getValue("cxr_required")],
-    ["CXR satisfactory", getValue("cxr_satisfactory")],
-    ["Pneumothorax excluded", getValue("pneumo")],
-    ["CVP waveform present", getValue("cvp")],
-    ["Ultrasound confirms placement", getValue("us_confirm")],
-    ["Paired blood gases taken", getValue("bloodgas")],
-  ];
+function generateNote() {
 
   let output = "CENTRAL LINE SAFETY CHECKLIST\n\n";
-  fields.forEach(([label, value]) => output += `• ${label}: ${value}\n`);
 
-  showOutput(output);
+  output += "=== BEFORE THE PROCEDURE ===\n";
+  output += `• Patient identity checked: ${getValue("identity")}\n`;
+  output += `• Consent completed: ${getValue("consent")}\n`;
+  output += `• Equipment available: ${getValue("equipment")}\n`;
+  output += `• Correct line type/size: ${getValue("linetype")}\n`;
+  output += `• Coagulopathy present: ${getValue("coag")}\n`;
+  output += `• Drug allergies: ${getValue("allergies")}\n`;
+  output += `• Infection control: ${getValue("infection")}\n`;
+  output += `• Help required: ${getValue("help")}\n\n`;
+
+  output += "=== TIME OUT ===\n";
+  output += `• Team roles allocated: ${getValue("teamroles")}\n`;
+  output += `• Patient position optimal: ${getValue("position")}\n`;
+  output += `• Guidewire removal confirmed (pre): ${getValue("guidewire_planned")}\n`;
+  output += `• Ultrasound available: ${getValue("ultrasound")}\n\n`;
+
+  output += "=== SIGN OUT ===\n";
+  output += `• Aspirated all lumens: ${getValue("aspirate")}\n`;
+  output += `• Caps/connectors correct: ${getValue("caps")}\n`;
+  output += `• Dressing applied: ${getValue("dressing")}\n`;
+  output += `• Guidewire removed (post): ${getValue("guidewire_removed")}\n`;
+  output += `• Chest X-ray required: ${getValue("cxr_required")}\n`;
+  output += `• CXR satisfactory: ${getValue("cxr_satisfactory")}\n`;
+  output += `• Pneumothorax excluded: ${getValue("pneumo")}\n`;
+  output += `• CVP waveform / venous pressure: ${getValue("cvp")}\n`;
+  output += `• Ultrasound confirms placement: ${getValue("us_confirm")}\n`;
+  output += `• Paired gases taken: ${getValue("bloodgas")}\n`;
+
+  document.getElementById("output").value = output;
 }
 
-
-// Generate central line procedure note
-function generateCentralLine() {
-  const name = cl_name.value;
-  const site = cl_site.value;
-  const indication = cl_indication.value;
-  const technique = cl_technique.value;
-
-  const note = 
-`CENTRAL LINE INSERTION NOTE
-Patient: ${name}
-Indication: ${indication}
-Site: ${site}
-
-Procedure:
-- ${technique} cannulation performed under sterile conditions.
-- Skin prepared with 2% chlorhexidine.
-- Full aseptic technique used with gown, gloves, mask, hat and drape.
-- Local anaesthetic infiltrated.
-- Needle inserted with good venous backflow.
-- Guidewire passed easily.
-- Line inserted and sutured in place.
-
-Outcome:
-- Patient tolerated procedure well.
-- No immediate complications.
-- Position to be confirmed with chest X-ray if required.`;
-
-  showOutput(note);
-}
-
-
-// Output + copy
-function showOutput(text) {
-  outputText.value = text;
-  outputContainer.classList.remove("hidden");
-}
-
-function copyNote() {
-  outputText.select();
-  navigator.clipboard.writeText(outputText.value);
+function copyText() {
+  navigator.clipboard.writeText(document.getElementById("output").value);
 }
 </script>
 
