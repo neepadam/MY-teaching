@@ -295,6 +295,12 @@ function generateNote() {
 
   let output = "CENTRAL LINE SAFETY CHECKLIST\n\n";
 
+out += `Procedure Date: ${document.getElementById('proc_date').value}\n`;
+out += `Time: ${document.getElementById('proc_time').value}\n`;
+out += `Operator: ${document.getElementById('operator').value}\n`;
+out += `Assistant: ${document.getElementById('assistant').value}\n`;
+out += `Supervisor: ${document.getElementById('supervisor').value}\n\n`;
+
   output += "=== BEFORE THE PROCEDURE ===\n";
   output += `• Patient identity checked: ${getValue("identity")}\n`;
   output += `• Consent completed: ${getValue("consent")}\n`;
