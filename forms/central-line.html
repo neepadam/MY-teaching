@@ -15,7 +15,7 @@
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
     <div>
       <label class="font-medium">Procedure Date:</label>
-      <input type="text" id="proc_date" class="w-full border p-2 rounded">
+      <<input type="date" id="proc_date" class="w-full border p-2 rounded">
     </div>
     <div>
       <label class="font-medium">Time:</label>
@@ -329,6 +329,13 @@ function generateNote() {
 function copyText() {
   navigator.clipboard.writeText(document.getElementById("output").value);
 }
+</script>
+  
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    document.getElementById('proc_date').value = today;
+  });
 </script>
 
 </body>
