@@ -11,142 +11,254 @@
   <div class="max-w-4xl mx-auto bg-white shadow p-6 rounded">
     <h1 class="text-3xl font-bold mb-6">CVC Checklist → Clinical Note Generator</h1>
 
-    <!-- ================== CENTRAL LINE CHECKLIST ================== -->
-    <div id="centralLineChecklist">
+    <!-- ================== CHECKLIST ================== -->
 
-      <!-- BEFORE THE PROCEDURE -->
-      <h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-4">BEFORE THE PROCEDURE</h2>
+    <!-- BEFORE THE PROCEDURE -->
+    <h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-4">BEFORE THE PROCEDURE</h2>
 
-      <div class="grid grid-cols-2 gap-4 mt-3">
+    <div class="grid grid-cols-1 gap-4 mt-3">
+
+      <!-- Patient identity -->
+      <div>
         <div class="font-medium">Patient identity checked?</div>
-        <select id="identity" class="border p-2 rounded">
-          <option>Yes</option><option>No</option><option>N/A</option>
-        </select>
-
-        <div class="font-medium">Appropriate consent completed?</div>
-        <select id="consent" class="border p-2 rounded">
-          <option>Yes</option><option>No</option><option>N/A</option>
-        </select>
-
-        <div class="font-medium">All equipment available?</div>
-        <select id="equipment" class="border p-2 rounded">
-          <option>Yes</option><option>No</option><option>N/A</option>
-        </select>
-
-        <div class="font-medium">Correct type/size of line available?</div>
-        <select id="linetype" class="border p-2 rounded">
-          <option>Yes</option><option>No</option><option>N/A</option>
-        </select>
-
-        <div class="font-medium">Is there a coagulopathy?</div>
-        <select id="coag" class="border p-2 rounded">
-          <option>Yes</option><option>No</option><option>N/A</option>
-        </select>
-
-        <div class="font-medium">Known drug allergies?</div>
-        <select id="allergies" class="border p-2 rounded">
-          <option>Yes</option><option>No</option><option>N/A</option>
-        </select>
-
-        <div class="font-medium">Infection control precautions in place?</div>
-        <select id="infection" class="border p-2 rounded">
-          <option>Yes</option><option>No</option><option>N/A</option>
-        </select>
-
-        <div class="font-medium">Is help required?</div>
-        <select id="help" class="border p-2 rounded">
-          <option>Yes</option><option>No</option><option>N/A</option>
-        </select>
-      </div>
-
-      <!-- TIME OUT -->
-      <h2 class="text-xl font-bold bg-yellow-400 text-black p-2 mt-8">TIME OUT</h2>
-
-      <div class="grid grid-cols-2 gap-4 mt-3">
-        <div class="font-medium">Team members identified / roles allocated?</div>
-        <select id="teamroles" class="border p-2 rounded">
-          <option>Yes</option><option>No</option><option>N/A</option>
-        </select>
-
-        <div class="font-medium">Is patient position optimal?</div>
-        <select id="position" class="border p-2 rounded">
-          <option>Yes</option><option>No</option><option>N/A</option>
-        </select>
-
-        <div class="font-medium text-red-600">
-          Operator confirms guidewire will be removed:
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="identity" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="identity" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="identity" value="N/A" onchange="onlyOne(this)"> N/A</label>
         </div>
-        <select id="guidewire_planned" class="border p-2 rounded">
-          <option>Yes</option><option>No</option><option>N/A</option>
-        </select>
-
-        <div class="font-medium">Ultrasound available and set up?</div>
-        <select id="ultrasound" class="border p-2 rounded">
-          <option>Yes</option><option>No</option><option>N/A</option>
-        </select>
       </div>
 
-      <!-- SIGN OUT -->
-      <h2 class="text-xl font-bold bg-green-600 text-white p-2 mt-8">SIGN OUT</h2>
-
-      <div class="grid grid-cols-2 gap-4 mt-3">
-        <div class="font-medium">Able to aspirate blood from all lumens?</div>
-        <select id="aspirate" class="border p-2 rounded">
-          <option>Yes</option><option>No</option><option>N/A</option>
-        </select>
-
-        <div class="font-medium">Correct caps / connectors used?</div>
-        <select id="caps" class="border p-2 rounded">
-          <option>Yes</option><option>No</option><option>N/A</option>
-        </select>
-
-        <div class="font-medium">Correct dressing applied?</div>
-        <select id="dressing" class="border p-2 rounded">
-          <option>Yes</option><option>No</option><option>N/A</option>
-        </select>
-
-        <div class="font-medium">Guidewire confirmed as removed?</div>
-        <select id="guidewire_removed" class="border p-2 rounded">
-          <option>Yes</option><option>No</option><option>N/A</option>
-        </select>
-
-        <div class="font-medium">Chest X-ray required?</div>
-        <select id="cxr_required" class="border p-2 rounded">
-          <option>Yes</option><option>No</option><option>N/A</option>
-        </select>
-
-        <div class="font-medium">If CXR required, line position satisfactory?</div>
-        <select id="cxr_satisfactory" class="border p-2 rounded">
-          <option>Yes</option><option>No</option><option>N/A</option>
-        </select>
-
-        <div class="font-medium">Pneumothorax excluded?</div>
-        <select id="pneumo" class="border p-2 rounded">
-          <option>Yes</option><option>No</option><option>N/A</option>
-        </select>
-
-        <div class="font-medium">CVP waveform present / venous pressure recorded?</div>
-        <select id="cvp" class="border p-2 rounded">
-          <option>Yes</option><option>No</option><option>N/A</option>
-        </select>
-
-        <div class="font-medium">Ultrasound confirms placement?</div>
-        <select id="us_confirm" class="border p-2 rounded">
-          <option>Yes</option><option>No</option><option>N/A</option>
-        </select>
-
-        <div class="font-medium">Paired venous/arterial gases taken?</div>
-        <select id="bloodgas" class="border p-2 rounded">
-          <option>Yes</option><option>No</option><option>N/A</option>
-        </select>
+      <!-- Consent -->
+      <div>
+        <div class="font-medium">Appropriate consent completed?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="consent" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="consent" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="consent" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
       </div>
 
-      <!-- CHECKLIST GENERATE BUTTON -->
-      <button onclick="generateChecklist()"
-              class="mt-8 bg-blue-600 text-white px-4 py-2 rounded">
-        Generate Checklist Text
-      </button>
+      <!-- Equipment -->
+      <div>
+        <div class="font-medium">All equipment available?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="equipment" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="equipment" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="equipment" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+
+      <!-- Line type -->
+      <div>
+        <div class="font-medium">Correct type/size of line available?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="linetype" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="linetype" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="linetype" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+
+      <!-- Coagulopathy -->
+      <div>
+        <div class="font-medium">Is there a coagulopathy?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="coag" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="coag" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="coag" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+
+      <!-- Allergies -->
+      <div>
+        <div class="font-medium">Known drug allergies?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="allergies" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="allergies" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="allergies" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+
+      <!-- Infection -->
+      <div>
+        <div class="font-medium">Infection control precautions in place?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="infection" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="infection" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="infection" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+
+      <!-- Help -->
+      <div>
+        <div class="font-medium">Is help required?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="help" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="help" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="help" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+
     </div>
+
+    <!-- TIME OUT -->
+    <h2 class="text-xl font-bold bg-yellow-400 text-black p-2 mt-8">TIME OUT</h2>
+
+    <div class="grid grid-cols-1 gap-4 mt-3">
+
+      <!-- Team roles -->
+      <div>
+        <div class="font-medium">Team members identified / roles allocated?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="teamroles" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="teamroles" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="teamroles" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+
+      <!-- Position -->
+      <div>
+        <div class="font-medium">Is patient position optimal?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="position" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="position" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="position" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+
+      <!-- Guidewire planned -->
+      <div>
+        <div class="font-medium text-red-600">Operator confirms guidewire will be removed:</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="guidewire_planned" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="guidewire_planned" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="guidewire_planned" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+
+      <!-- Ultrasound -->
+      <div>
+        <div class="font-medium">Ultrasound available and set up?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="ultrasound" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="ultrasound" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="ultrasound" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SIGN OUT -->
+    <h2 class="text-xl font-bold bg-green-600 text-white p-2 mt-8">SIGN OUT</h2>
+
+    <div class="grid grid-cols-1 gap-4 mt-3">
+
+      <!-- Aspirate -->
+      <div>
+        <div class="font-medium">Able to aspirate blood from all lumens?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="aspirate" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="aspirate" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="aspirate" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+
+      <!-- Caps -->
+      <div>
+        <div class="font-medium">Correct caps / connectors used?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="caps" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="caps" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="caps" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+
+      <!-- Dressing -->
+      <div>
+        <div class="font-medium">Correct dressing applied?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="dressing" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="dressing" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="dressing" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+
+      <!-- Guidewire removed -->
+      <div>
+        <div class="font-medium">Guidewire confirmed as removed?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="guidewire_removed" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="guidewire_removed" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="guidewire_removed" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+
+      <!-- CXR required -->
+      <div>
+        <div class="font-medium">Chest X-ray required?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="cxr_required" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="cxr_required" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="cxr_required" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+
+      <!-- CXR satisfactory -->
+      <div>
+        <div class="font-medium">If CXR required, line position satisfactory?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="cxr_satisfactory" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="cxr_satisfactory" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="cxr_satisfactory" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+
+      <!-- Pneumothorax -->
+      <div>
+        <div class="font-medium">Pneumothorax excluded?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="pneumo" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="pneumo" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="pneumo" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+
+      <!-- CVP -->
+      <div>
+        <div class="font-medium">CVP waveform present / venous pressure recorded?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="cvp" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="cvp" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="cvp" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+
+      <!-- US confirm -->
+      <div>
+        <div class="font-medium">Ultrasound confirms placement?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="us_confirm" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="us_confirm" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="us_confirm" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+
+      <!-- Blood gases -->
+      <div>
+        <div class="font-medium">Paired venous/arterial gases taken?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="bloodgas" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="bloodgas" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="bloodgas" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CHECKLIST GENERATE BUTTON -->
+    <button onclick="generateChecklist()"
+            class="mt-8 bg-blue-600 text-white px-4 py-2 rounded">
+      Generate Checklist Text
+    </button>
 
 
     <!-- CENTRAL LINE PROCEDURE NOTE -->
@@ -172,7 +284,7 @@
     </button>
 
 
-    <!-- OUTPUT SECTION -->
+    <!-- OUTPUT -->
     <div id="outputContainer" class="hidden mt-6">
       <textarea id="outputText"
                 class="w-full h-80 border p-3 rounded font-mono"></textarea>
@@ -187,51 +299,67 @@
 
 
 <script>
+// Make Yes/No/N/A checkboxes mutually exclusive
+function onlyOne(checkbox) {
+  const group = document.getElementsByName(checkbox.name);
+  group.forEach(box => {
+    if (box !== checkbox) box.checked = false;
+  });
+}
+
+// Extract selected value
+function getValue(name) {
+  const boxes = document.getElementsByName(name);
+  for (let b of boxes) {
+    if (b.checked) return b.value;
+  }
+  return "Not selected";
+}
+
+// Generate checklist text
 function generateChecklist() {
   const fields = [
-    ["Patient identity checked", identity.value],
-    ["Consent completed", consent.value],
-    ["Equipment available", equipment.value],
-    ["Correct line type/size", linetype.value],
-    ["Coagulopathy present", coag.value],
-    ["Drug allergies", allergies.value],
-    ["Infection control in place", infection.value],
-    ["Help required", help.value],
+    ["Patient identity checked", getValue("identity")],
+    ["Consent completed", getValue("consent")],
+    ["Equipment available", getValue("equipment")],
+    ["Correct line type/size", getValue("linetype")],
+    ["Coagulopathy present", getValue("coag")],
+    ["Drug allergies", getValue("allergies")],
+    ["Infection control precautions", getValue("infection")],
+    ["Help required", getValue("help")],
 
-    ["Team roles allocated", teamroles.value],
-    ["Patient position optimal", position.value],
-    ["Guidewire removal confirmed (pre-procedure)", guidewire_planned.value],
-    ["Ultrasound available", ultrasound.value],
+    ["Team roles allocated", getValue("teamroles")],
+    ["Patient position optimal", getValue("position")],
+    ["Guidewire removal confirmed (pre-procedure)", getValue("guidewire_planned")],
+    ["Ultrasound available", getValue("ultrasound")],
 
-    ["Aspirated all lumens", aspirate.value],
-    ["Correct caps/connectors", caps.value],
-    ["Dressing applied", dressing.value],
-    ["Guidewire removed (post-procedure)", guidewire_removed.value],
-    ["Chest X-ray required", cxr_required.value],
-    ["CXR satisfactory", cxr_satisfactory.value],
-    ["Pneumothorax excluded", pneumo.value],
-    ["CVP waveform present", cvp.value],
-    ["Ultrasound confirms placement", us_confirm.value],
-    ["Paired blood gases taken", bloodgas.value],
+    ["Aspirated all lumens", getValue("aspirate")],
+    ["Correct caps/connectors", getValue("caps")],
+    ["Dressing applied", getValue("dressing")],
+    ["Guidewire removed (post-procedure)", getValue("guidewire_removed")],
+    ["Chest X-ray required", getValue("cxr_required")],
+    ["CXR satisfactory", getValue("cxr_satisfactory")],
+    ["Pneumothorax excluded", getValue("pneumo")],
+    ["CVP waveform present", getValue("cvp")],
+    ["Ultrasound confirms placement", getValue("us_confirm")],
+    ["Paired blood gases taken", getValue("bloodgas")],
   ];
 
   let output = "CENTRAL LINE SAFETY CHECKLIST\n\n";
-  fields.forEach(([label, value]) => {
-    output += `• ${label}: ${value}\n`;
-  });
+  fields.forEach(([label, value]) => output += `• ${label}: ${value}\n`);
 
   showOutput(output);
 }
 
 
-// ----- CENTRAL LINE NOTE -----
+// Generate central line procedure note
 function generateCentralLine() {
-  const name = document.getElementById("cl_name").value;
-  const site = document.getElementById("cl_site").value;
-  const indication = document.getElementById("cl_indication").value;
-  const technique = document.getElementById("cl_technique").value;
+  const name = cl_name.value;
+  const site = cl_site.value;
+  const indication = cl_indication.value;
+  const technique = cl_technique.value;
 
-  const note =
+  const note = 
 `CENTRAL LINE INSERTION NOTE
 Patient: ${name}
 Indication: ${indication}
@@ -255,16 +383,15 @@ Outcome:
 }
 
 
-// ----- OUTPUT + COPY -----
+// Output + copy
 function showOutput(text) {
-  document.getElementById("outputText").value = text;
-  document.getElementById("outputContainer").classList.remove("hidden");
+  outputText.value = text;
+  outputContainer.classList.remove("hidden");
 }
 
 function copyNote() {
-  const text = document.getElementById("outputText");
-  text.select();
-  navigator.clipboard.writeText(text.value);
+  outputText.select();
+  navigator.clipboard.writeText(outputText.value);
 }
 </script>
 
