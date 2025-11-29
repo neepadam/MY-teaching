@@ -242,6 +242,28 @@
 
 <div class="mt-4 space-y-4">
 
+  <!-- Location of line insertion -->
+
+  
+<div>
+  <div class="font-medium">Location line inserted:</div>
+  <div class="flex flex-col gap-1 mt-1">
+    <label><input type="checkbox" name="location" value="Critical care" onchange="onlyOne(this)"> Critical care</label>
+    <label><input type="checkbox" name="location" value="Theatres" onchange="onlyOne(this)"> Theatres</label>
+    <label><input type="checkbox" name="location" value="Radiology" onchange="onlyOne(this)"> Radiology</label>
+    <label><input type="checkbox" name="location" value="Ward" onchange="onlyOne(this)"> Ward</label>
+    <label><input type="checkbox" name="location" value="ED" onchange="onlyOne(this)"> ED</label>
+
+    <label class="flex items-center gap-2">
+      <input type="checkbox" name="location" value="Other" onchange="onlyOne(this)">
+      Other:
+      <input id="location_other" type="text" class="border p-1 rounded w-48">
+    </label>
+  </div>
+</div>
+
+
+  
   <!-- Indication -->
   <div>
     <div class="font-medium">Indication for insertion:</div>
@@ -298,15 +320,60 @@
   </div>
 
   <!-- Ultrasound -->
-  <div>
-    <div class="font-medium">Ultrasound imaging used:</div>
-    <div class="flex gap-4 mt-1">
-      <label><input type="checkbox" name="us_used" value="Prior to procedure" onchange="onlyOne(this)"> Prior to procedure</label>
-      <label><input type="checkbox" name="us_used" value="During procedure" onchange="onlyOne(this)"> During procedure</label>
-      <label><input type="checkbox" name="us_used" value="Not used" onchange="onlyOne(this)"> Not used</label>
-    </div>
+ <div>
+  <div class="font-medium">Ultrasound imaging used (multiple permitted):</div>
+  <div class="flex flex-col gap-1 mt-1">
+    <label><input type="checkbox" name="us_used_multi" value="Prior to procedure"> Prior to procedure</label>
+    <label><input type="checkbox" name="us_used_multi" value="During procedure"> During procedure</label>
+    <label><input type="checkbox" name="us_used_multi" value="Not used"> Not used</label>
   </div>
+</div>
+  
+  <!-- Length of line and at skin -->
 
+  <div>
+  <div class="font-medium">Length of line (cm):</div>
+  <input id="line_length" type="number" class="border p-2 rounded w-32">
+</div>
+
+<div>
+  <div class="font-medium">Length secured at skin (cm):</div>
+  <input id="skin_length" type="number" class="border p-2 rounded w-32">
+</div>
+
+    <!-- Number of attempts/complications -->
+
+  <div>
+  <div class="font-medium">Number of attempts:</div>
+  <input id="attempts" type="number" class="border p-2 rounded w-32">
+</div>
+
+<div>
+  <div class="font-medium">Complications:</div>
+  <div class="flex gap-4 mt-1">
+    <label><input type="checkbox" name="complications" value="Yes" onchange="onlyOne(this)"> Yes</label>
+    <label><input type="checkbox" name="complications" value="No" onchange="onlyOne(this)"> No</label>
+  </div>
+</div>
+
+  <div>
+  <div class="font-medium">ANTT:</div>
+  <div class="flex flex-col gap-1 mt-1">
+    <label><input type="checkbox" name="antt" value="Hand hygiene"> Hand hygiene</label>
+    <label><input type="checkbox" name="antt" value="Theatre hat"> Theatre hat</label>
+    <label><input type="checkbox" name="antt" value="Face mask"> Face mask</label>
+    <label><input type="checkbox" name="antt" value="Sterile gown + gloves"> Sterile gown + gloves</label>
+    <label><input type="checkbox" name="antt" value="Sterile field"> Sterile field</label>
+    <label><input type="checkbox" name="antt" value="2% chlorhexidine/70% alcohol"> 2% chlorhexidine/70% alcohol</label>
+  </div>
+</div>
+
+<div class="mt-2">
+  <div class="font-medium">If answered NO to any of the above, please give reason:</div>
+  <input id="antt_reason" type="text" class="border p-2 rounded w-full">
+</div>
+
+  
 </div>
 
 
