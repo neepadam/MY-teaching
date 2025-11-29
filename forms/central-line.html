@@ -292,15 +292,16 @@ function getValue(name) {
 }
 
 function generateNote() {
-
   let output = "CENTRAL LINE SAFETY CHECKLIST\n\n";
 
-out += `Procedure Date: ${document.getElementById('proc_date').value}\n`;
-out += `Time: ${document.getElementById('proc_time').value}\n`;
-out += `Operator: ${document.getElementById('operator').value}\n`;
-out += `Assistant: ${document.getElementById('assistant').value}\n`;
-out += `Supervisor: ${document.getElementById('supervisor').value}\n\n`;
+  // Add your free-text inputs
+  output += `Procedure Date: ${document.getElementById('proc_date').value}\n`;
+  output += `Time: ${document.getElementById('proc_time').value}\n`;
+  output += `Operator: ${document.getElementById('operator').value}\n`;
+  output += `Assistant: ${document.getElementById('assistant').value}\n`;
+  output += `Supervisor: ${document.getElementById('supervisor').value}\n\n`;
 
+  // BEFORE THE PROCEDURE
   output += "=== BEFORE THE PROCEDURE ===\n";
   output += `• Patient identity checked: ${getValue("identity")}\n`;
   output += `• Consent completed: ${getValue("consent")}\n`;
@@ -311,12 +312,14 @@ out += `Supervisor: ${document.getElementById('supervisor').value}\n\n`;
   output += `• Infection control: ${getValue("infection")}\n`;
   output += `• Help required: ${getValue("help")}\n\n`;
 
+  // TIME OUT
   output += "=== TIME OUT ===\n";
   output += `• Team roles allocated: ${getValue("teamroles")}\n`;
   output += `• Patient position optimal: ${getValue("position")}\n`;
   output += `• Guidewire removal confirmed (pre): ${getValue("guidewire_planned")}\n`;
   output += `• Ultrasound available: ${getValue("ultrasound")}\n\n`;
 
+  // SIGN OUT
   output += "=== SIGN OUT ===\n";
   output += `• Aspirated all lumens: ${getValue("aspirate")}\n`;
   output += `• Caps/connectors correct: ${getValue("caps")}\n`;
