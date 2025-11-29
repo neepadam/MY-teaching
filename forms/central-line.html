@@ -235,6 +235,81 @@
 
     </div>
 
+    <!-- LINE INSERTION DETAILS -->
+<div class="bg-purple-600 text-white font-bold text-lg px-4 py-2 rounded mt-6">
+  LINE INSERTION DETAILS
+</div>
+
+<div class="mt-4 space-y-4">
+
+  <!-- Indication -->
+  <div>
+    <div class="font-medium">Indication for insertion:</div>
+    <div class="flex flex-col gap-2 mt-1">
+      <label><input type="checkbox" name="indication" value="Vaso-active drugs" onchange="onlyOne(this)"> Vaso-active drugs</label>
+      <label><input type="checkbox" name="indication" value="Difficult IV access" onchange="onlyOne(this)"> Difficult IV access</label>
+      <label><input type="checkbox" name="indication" value="TPN" onchange="onlyOne(this)"> TPN</label>
+      <label class="flex items-center gap-2">
+        <input type="checkbox" name="indication" value="Other" onchange="onlyOne(this)">
+        Other:
+        <input type="text" id="indication_other" class="border p-1 rounded w-48" placeholder="Describe">
+      </label>
+    </div>
+  </div>
+
+  <!-- Line type -->
+  <div>
+    <div class="font-medium">Central line type:</div>
+    <div class="flex gap-4 mt-1">
+      <label><input type="checkbox" name="linetype2" value="CVC" onchange="onlyOne(this)"> CVC</label>
+      <label><input type="checkbox" name="linetype2" value="Vascath" onchange="onlyOne(this)"> Vascath</label>
+    </div>
+  </div>
+
+  <!-- Lumens -->
+  <div>
+    <div class="font-medium">Number of lumens:</div>
+    <div class="flex gap-4 mt-1">
+      <label><input type="checkbox" name="lumens" value="1" onchange="onlyOne(this)"> 1</label>
+      <label><input type="checkbox" name="lumens" value="2" onchange="onlyOne(this)"> 2</label>
+      <label><input type="checkbox" name="lumens" value="3" onchange="onlyOne(this)"> 3</label>
+      <label><input type="checkbox" name="lumens" value="4" onchange="onlyOne(this)"> 4</label>
+      <label><input type="checkbox" name="lumens" value="5" onchange="onlyOne(this)"> 5</label>
+    </div>
+  </div>
+
+  <!-- Side -->
+  <div>
+    <div class="font-medium">Side:</div>
+    <div class="flex gap-4 mt-1">
+      <label><input type="checkbox" name="side" value="Left" onchange="onlyOne(this)"> Left</label>
+      <label><input type="checkbox" name="side" value="Right" onchange="onlyOne(this)"> Right</label>
+    </div>
+  </div>
+
+  <!-- Site -->
+  <div>
+    <div class="font-medium">Anatomical site:</div>
+    <div class="flex gap-4 mt-1">
+      <label><input type="checkbox" name="site" value="Internal jugular" onchange="onlyOne(this)"> Internal jugular</label>
+      <label><input type="checkbox" name="site" value="Subclavian" onchange="onlyOne(this)"> Subclavian</label>
+      <label><input type="checkbox" name="site" value="Femoral" onchange="onlyOne(this)"> Femoral</label>
+    </div>
+  </div>
+
+  <!-- Ultrasound -->
+  <div>
+    <div class="font-medium">Ultrasound imaging used:</div>
+    <div class="flex gap-4 mt-1">
+      <label><input type="checkbox" name="us_used" value="Prior to procedure" onchange="onlyOne(this)"> Prior to procedure</label>
+      <label><input type="checkbox" name="us_used" value="During procedure" onchange="onlyOne(this)"> During procedure</label>
+      <label><input type="checkbox" name="us_used" value="Not used" onchange="onlyOne(this)"> Not used</label>
+    </div>
+  </div>
+
+</div>
+
+
     <!-- GENERATE BUTTON -->
     <button onclick="generateNote()"
             class="mt-8 bg-blue-600 text-white px-4 py-2 rounded">
