@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Arterial Line Note Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-6">
+
+  <div class="max-w-3xl mx-auto bg-white shadow p-6 rounded">
+    <h1 class="text-3xl font-bold mb-6">Arterial Line → Clinical Note Generator</h1>
+
+    <!-- FORM -->
+    <div id="arterialLineForm">
+
+      <div class="grid grid-cols-2 gap-4 mt-4">
+        <div class="font-medium">Patient name:</div>
+        <input id="al_name" class="border p-2 rounded">
+
+        <div class="font-medium">Site:</div>
+        <input id="al_site" class="border p-2 rounded">
+
+        <div class="font-medium">Indication:</div>
+        <input id="al_indication" class="border p-2 rounded">
+      </div>
+
+      <button onclick="generateArterialLine()"
+              class="mt-6 bg-blue-600 text-white px-4 py-2 rounded">
+        Generate Arterial Line Note
+      </button>
+
+    </div>
+
+    <!-- OUTPUT -->
+    <div id="outputContainer" class="hidden mt-6">
+      <textarea id="outputText"
+                class="w-full h-64 border p-3 rounded font-mono"></textarea>
+
+      <button onclick="copyNote()"
+              class="mt-3 bg-green-600 text-white px-4 py-2 rounded">
+        Copy to Clipboard
+      </button>
+    </div>
+
+  </div>
+
+
+<script>
+// OUTPUT + COPY
+function showOutput(text) {
+  outputText.value = text;
+  outputContainer.classList.remove("hidden");
+}
+
+function copyNote() {
+  outputText.select();
+  navigator.clipboard.writeText(outputText.value);
+}
+
+// ARTERIAL LINE NOTE
+function generateArterialLine() {
+  const name = al_name.value;
+  const site = al_site.value;
+  const indication = al_indication.value;
+
+  const note =
+`ARTERIAL LINE INSERTION NOTE
+Patient: ${name}
+Indication: ${indication}
+Site: ${site}
+
+Procedure:
+- Sterile technique maintained.
+- Skin cleaned with 2% chlorhexidine.
+- Local anaesthetic used where appropriate.
+- Arterial puncture achieved with good pulsatile flow.
+- Arterial catheter inserted and secured.
+- Good waveform obtained.
+
+Outcome:
+- Patient tolerated procedure well.
+- No immediate complications.`;
+
+  showOutput(note);
+}
+</script>
+
+</body>
+</html>
