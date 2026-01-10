@@ -269,6 +269,26 @@ function getValue(name) {
 function generateNote() {
   let output = "BRONCHOSCOPY SAFETY CHECKLIST\n\n";
 
+  // PROCEDURE DETAILS
+output += "=== PROCEDURE DETAILS ===\n";
+output += `• Indication for bronchoscopy: ${document.getElementById("indication_bronch").value}\n`;
+
+// Route checkboxes
+const routeBoxes = document.getElementsByName("route");
+let route = "Not selected";
+routeBoxes.forEach(b => { if (b.checked) route = b.value; });
+output += `• Route: ${route}\n`;
+
+output += `• Sedation/anaesthesia details: ${document.getElementById("sedation_details").value}\n`;
+output += `• Complications: ${document.getElementById("complications").value}\n`;
+
+// Findings
+output += `• Findings - Left lung: Upper: ${document.getElementById("findings_left_upper").value}, Lower: ${document.getElementById("findings_left_lower").value}\n`;
+output += `• Findings - Right lung: Upper: ${document.getElementById("findings_right_upper").value}, Middle: ${document.getElementById("findings_right_middle").value}, Lower: ${document.getElementById("findings_right_lower").value}\n`;
+
+output += `• Details of samples sent to lab/tests requested: ${document.getElementById("samples_lab").value}\n`;
+
+
   // Procedure details
   output += `Procedure Date: ${document.getElementById('proc_date').value}\n`;
   output += `Time: ${document.getElementById('proc_time').value}\n`;
@@ -299,26 +319,6 @@ function generateNote() {
   output += `• Sedation plan post procedure: ${getValue("dressing")}\n`;
   output += `• Samples taken/labelling plan: ${getValue("guidewire_removed")}\n`;
   output += `• Follow-up findings: ${getValue("cxr_required")}\n\n`;
-
-// PROCEDURE DETAILS
-output += "=== PROCEDURE DETAILS ===\n";
-output += `• Indication for bronchoscopy: ${document.getElementById("indication_bronch").value}\n`;
-
-// Route checkboxes
-const routeBoxes = document.getElementsByName("route");
-let route = "Not selected";
-routeBoxes.forEach(b => { if (b.checked) route = b.value; });
-output += `• Route: ${route}\n`;
-
-output += `• Sedation/anaesthesia details: ${document.getElementById("sedation_details").value}\n`;
-output += `• Complications: ${document.getElementById("complications").value}\n`;
-
-// Findings
-output += `• Findings - Left lung: Upper: ${document.getElementById("findings_left_upper").value}, Lower: ${document.getElementById("findings_left_lower").value}\n`;
-output += `• Findings - Right lung: Upper: ${document.getElementById("findings_right_upper").value}, Middle: ${document.getElementById("findings_right_middle").value}, Lower: ${document.getElementById("findings_right_lower").value}\n`;
-
-output += `• Details of samples sent to lab/tests requested: ${document.getElementById("samples_lab").value}\n`;
-
 
 
   document.getElementById("output").value = output;
