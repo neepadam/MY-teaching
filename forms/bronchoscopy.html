@@ -163,51 +163,85 @@
 
     </div>
 
-    <!-- BRONCHOSCOPY PROCEDURE DETAILS -->
-    <h2 class="text-xl font-bold bg-purple-600 text-white p-2 mt-8">PROCEDURE DETAILS</h2>
-    <div class="grid grid-cols-1 gap-4 mt-4">
+    <!-- PROCEDURE DETAILS -->
+<div class="bg-purple-600 text-white font-bold text-lg px-4 py-2 rounded mt-6">
+  PROCEDURE DETAILS
+</div>
 
-      <div>
-        <div class="font-medium">Indication for bronchoscopy:</div>
-        <input type="text" id="indication" class="w-full border p-2 rounded">
-      </div>
+<div class="mt-4 space-y-4">
 
-      <div>
-        <div class="font-medium">Route (ETT / tracheostomy / oral):</div>
-        <input type="text" id="route" class="w-full border p-2 rounded">
-      </div>
+  <!-- Indication for bronchoscopy -->
+  <div>
+    <div class="font-medium">Indication for bronchoscopy:</div>
+    <input type="text" id="indication_bronch" class="border p-2 rounded w-full">
+  </div>
 
-      <div>
-        <div class="font-medium">Sample types (BAL, brushings, washings, biopsy):</div>
-        <input type="text" id="sample_types" class="w-full border p-2 rounded">
-      </div>
+  <!-- Route -->
+  <div>
+    <div class="font-medium">Route:</div>
+    <select id="route" class="border p-2 rounded w-full">
+      <option value="">Select route</option>
+      <option value="ETT">ETT</option>
+      <option value="Tracheostomy">Tracheostomy</option>
+      <option value="Oral">Oral</option>
+    </select>
+  </div>
 
-      <div>
-        <div class="font-medium">Sedation / anaesthesia details:</div>
-        <input type="text" id="sedation" class="w-full border p-2 rounded">
-      </div>
+  <!-- Lung segments diagram -->
+  <div>
+    <div class="font-medium mb-2">Lung segments reference:</div>
+    <img src="lung_segments.png" alt="Lung segments diagram" class="w-full rounded border">
+    <p class="text-sm text-gray-200 mt-1">Reference diagram for lung segments</p>
+  </div>
 
-      <div>
-        <div class="font-medium">Ventilator settings pre / post:</div>
-        <input type="text" id="vent_settings" class="w-full border p-2 rounded">
-      </div>
-
-      <div>
-        <div class="font-medium">Complications:</div>
-        <input type="text" id="complications" class="w-full border p-2 rounded">
-      </div>
-
-      <div>
-        <div class="font-medium">Findings:</div>
-        <input type="text" id="findings" class="w-full border p-2 rounded">
-      </div>
-
-      <div>
-        <div class="font-medium">Plan:</div>
-        <input type="text" id="plan" class="w-full border p-2 rounded">
-      </div>
-
+  <!-- Sample types -->
+  <div>
+    <div class="font-medium">Sample types:</div>
+    <div class="flex flex-col gap-1 mt-1">
+      <label><input type="checkbox" name="sample_types" value="BAL" onchange="onlyOne(this)"> BAL</label>
+      <label><input type="checkbox" name="sample_types" value="Brushings" onchange="onlyOne(this)"> Brushings</label>
+      <label><input type="checkbox" name="sample_types" value="Washings" onchange="onlyOne(this)"> Washings</label>
+      <label><input type="checkbox" name="sample_types" value="Biopsy" onchange="onlyOne(this)"> Biopsy</label>
     </div>
+  </div>
+
+  <!-- Sedation / anaesthesia details -->
+  <div>
+    <div class="font-medium">Sedation / anaesthesia details:</div>
+    <input type="text" id="sedation_details" class="border p-2 rounded w-full">
+  </div>
+
+  <!-- Ventilator settings pre/post -->
+  <div>
+    <div class="font-medium">Ventilator settings pre-procedure:</div>
+    <input type="text" id="vent_pre" class="border p-2 rounded w-full">
+  </div>
+
+  <div>
+    <div class="font-medium">Ventilator settings post-procedure:</div>
+    <input type="text" id="vent_post" class="border p-2 rounded w-full">
+  </div>
+
+  <!-- Complications -->
+  <div>
+    <div class="font-medium">Complications:</div>
+    <input type="text" id="complications" class="border p-2 rounded w-full">
+  </div>
+
+  <!-- Findings -->
+  <div>
+    <div class="font-medium">Findings:</div>
+    <input type="text" id="findings" class="border p-2 rounded w-full">
+  </div>
+
+  <!-- Plan -->
+  <div>
+    <div class="font-medium">Plan:</div>
+    <input type="text" id="plan" class="border p-2 rounded w-full">
+  </div>
+
+</div>
+
 
     <!-- GENERATE BUTTON -->
     <button onclick="generateNote()"
