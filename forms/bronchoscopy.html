@@ -268,9 +268,16 @@ function getValue(name) {
 
 function generateNote() {
   let output = "BRONCHOSCOPY SAFETY CHECKLIST\n\n";
-
+ 
+  // Procedure details
+  output += "=== PROCEDURE DETAILS ===\n";
+  output += `Procedure Date: ${document.getElementById('proc_date').value}\n`;
+  output += `Time: ${document.getElementById('proc_time').value}\n`;
+  output += `Operator: ${document.getElementById('operator').value}\n`;
+  output += `Assistant: ${document.getElementById('assistant').value}\n`;
+  output += `Supervisor: ${document.getElementById('supervisor').value}\n\n`;
+ 
   // PROCEDURE DETAILS
-output += "=== PROCEDURE DETAILS ===\n";
 output += `• Indication for bronchoscopy: ${document.getElementById("indication_bronch").value}\n`;
 
 // Route checkboxes
@@ -289,14 +296,8 @@ output += `• Findings - Right lung: Upper: ${document.getElementById("findings
 output += `• Details of samples sent to lab/tests requested: ${document.getElementById("samples_lab").value}\n`;
 
 
-  // Procedure details
-  output += `Procedure Date: ${document.getElementById('proc_date').value}\n`;
-  output += `Time: ${document.getElementById('proc_time').value}\n`;
-  output += `Operator: ${document.getElementById('operator').value}\n`;
-  output += `Assistant: ${document.getElementById('assistant').value}\n`;
-  output += `Supervisor: ${document.getElementById('supervisor').value}\n\n`;
-
   // BEFORE THE PROCEDURE
+  output += "=== LocSSIP (Local Safety Standards for Invasive Procedures) checklist ===\n";
   output += "=== BEFORE THE PROCEDURE ===\n";
   output += `• Patient identity checked: ${getValue("identity")}\n`;
   output += `• Consent completed: ${getValue("consent")}\n`;
