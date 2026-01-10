@@ -2,169 +2,305 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bronchoscopy Checklist</title>
+  <title>Bronchoscopy Checklist Generator</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 min-h-screen p-6">
+<body class="bg-gray-100 p-6">
 
-  <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-6">
+  <div class="max-w-4xl mx-auto bg-white shadow p-6 rounded">
+    <h1 class="text-3xl font-bold mb-6">Bronchoscopy → Clinical Note Generator</h1>
 
-    <h1 class="text-3xl font-bold mb-6 text-center">Bronchoscopy Safety Checklist</h1>
-
-    <!-- Patient + Clinician Details -->
-    <div class="mb-6">
-      <label class="block font-semibold mb-1">Patient Name:</label>
-      <input id="patientName" type="text" class="w-full p-2 border rounded">
-
-      <label class="block font-semibold mt-4 mb-1">Hospital Number:</label>
-      <input id="hospitalNumber" type="text" class="w-full p-2 border rounded">
-
-      <label class="block font-semibold mt-4 mb-1">Clinician:</label>
-      <input id="clinicianName" type="text" class="w-full p-2 border rounded">
+    <!-- Free text fields -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <div>
+        <label class="font-medium">Procedure Date:</label>
+        <input type="date" id="proc_date" class="w-full border p-2 rounded">
+      </div>
+      <div>
+        <label class="font-medium">Time:</label>
+        <input type="text" id="proc_time" class="w-full border p-2 rounded">
+      </div>
+      <div>
+        <label class="font-medium">Operator:</label>
+        <input type="text" id="operator" class="w-full border p-2 rounded">
+      </div>
+      <div>
+        <label class="font-medium">Assistant:</label>
+        <input type="text" id="assistant" class="w-full border p-2 rounded">
+      </div>
+      <div>
+        <label class="font-medium">Supervisor:</label>
+        <input type="text" id="supervisor" class="w-full border p-2 rounded">
+      </div>
     </div>
 
-    <!-- SIGN IN -->
-    <h2 class="text-2xl font-bold mt-8 mb-4">Sign In</h2>
+    <!-- SIGN IN / BEFORE THE PROCEDURE -->
+    <h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-4">BEFORE THE PROCEDURE</h2>
+    <div class="grid grid-cols-1 gap-4 mt-4">
 
-    <div class="space-y-3">
-      <label class="flex items-center">
-        <input class="mr-2" type="checkbox" onclick="onlyOne(this, 'signIn')"> Patient identity confirmed
-      </label>
-      <label class="flex items-center">
-        <input class="mr-2" type="checkbox" onclick="onlyOne(this, 'signIn')"> Consent checked / procedure explained
-      </label>
-      <label class="flex items-center">
-        <input class="mr-2" type="checkbox" onclick="onlyOne(this, 'signIn')"> Indication confirmed
-      </label>
-      <label class="flex items-center">
-        <input class="mr-2" type="checkbox" onclick="onlyOne(this, 'signIn')"> Equipment checked and functioning
-      </label>
+      <div>
+        <div class="font-medium">Patient identity checked?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="identity" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Appropriate consent completed?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="consent" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Is Equipment available for bronchoscopy and re-intubation?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="equipment" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Intubation grade known?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="linetype" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Should the procedure be delayed for medical optimisation? Consider stability, ventilator pressures, FiO2, anatomical issues</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="coag" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="coag" value="No" onchange="onlyOne(this)"> No</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Is there coagulopathy? (drugs and lab tests)</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="allergies" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="allergies" value="No" onchange="onlyOne(this)"> No</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Known drug allergies?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="infection" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="infection" value="No" onchange="onlyOne(this)"> No</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Has enteral feed been stopped and NG tube aspirated?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="help" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="help" value="No" onchange="onlyOne(this)"> No</label>
+        </div>
+      </div>
+
     </div>
 
     <!-- TIME OUT -->
-    <h2 class="text-2xl font-bold mt-8 mb-4">Time Out</h2>
+    <h2 class="text-xl font-bold bg-yellow-400 text-black p-2 mt-8">TIME OUT</h2>
+    <div class="grid grid-cols-1 gap-4 mt-4">
 
-    <div class="space-y-3">
-      <label class="flex items-center">
-        <input class="mr-2" type="checkbox" onclick="onlyOne(this, 'timeOut')"> Team members confirm roles
-      </label>
-      <label class="flex items-center">
-        <input class="mr-2" type="checkbox" onclick="onlyOne(this, 'timeOut')"> Correct patient, correct procedure
-      </label>
-      <label class="flex items-center">
-        <input class="mr-2" type="checkbox" onclick="onlyOne(this, 'timeOut')"> Oxygenation / ventilator settings checked
-      </label>
-      <label class="flex items-center">
-        <input class="mr-2" type="checkbox" onclick="onlyOne(this, 'timeOut')"> Monitoring attached and functioning
-      </label>
+      <div>
+        <div class="font-medium">Is patient on adequate ventilator settings and 100% FiO2</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="teamroles" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Is patient adequately sedated and paralysed</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="position" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
     </div>
 
     <!-- SIGN OUT -->
-    <h2 class="text-2xl font-bold mt-8 mb-4">Sign Out</h2>
+    <h2 class="text-xl font-bold bg-green-600 text-white p-2 mt-8">SIGN OUT</h2>
+    <div class="grid grid-cols-1 gap-4 mt-4">
 
-    <div class="space-y-3">
-      <label class="flex items-center">
-        <input class="mr-2" type="checkbox" onclick="onlyOne(this, 'signOut')"> Samples labelled correctly
-      </label>
-      <label class="flex items-center">
-        <input class="mr-2" type="checkbox" onclick="onlyOne(this, 'signOut')"> Procedure completed without incident
-      </label>
-      <label class="flex items-center">
-        <input class="mr-2" type="checkbox" onclick="onlyOne(this, 'signOut')"> Post-procedure plan discussed
-      </label>
+      <div>
+        <div class="font-medium">Ventilator settings reviewed post procedure?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="aspirate" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Is a CXR required?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="caps" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Sedation plan post procedure</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="dressing" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Samples taken and plan for labelling/lab delivery?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="guidewire_removed" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Any findings that require follow up?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="cxr_required" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="cxr_required" value="No" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+
     </div>
 
-    <!-- PROCEDURE DETAILS -->
-    <h2 class="text-2xl font-bold mt-10 mb-4">Procedure Details</h2>
+    <!-- BRONCHOSCOPY PROCEDURE DETAILS -->
+    <h2 class="text-xl font-bold bg-purple-600 text-white p-2 mt-8">PROCEDURE DETAILS</h2>
+    <div class="grid grid-cols-1 gap-4 mt-4">
 
-    <label class="font-semibold">Indication for Bronchoscopy:</label>
-    <textarea id="indication" class="w-full p-2 border rounded mb-4" rows="2"></textarea>
+      <div>
+        <div class="font-medium">Indication for bronchoscopy:</div>
+        <input type="text" id="indication" class="w-full border p-2 rounded">
+      </div>
 
-    <label class="font-semibold">Route (ETT / tracheostomy / oral):</label>
-    <input id="route" type="text" class="w-full p-2 border rounded mb-4">
+      <div>
+        <div class="font-medium">Route (ETT / tracheostomy / oral):</div>
+        <input type="text" id="route" class="w-full border p-2 rounded">
+      </div>
 
-    <label class="font-semibold">Sample Types (BAL, brushings, washings, biopsy):</label>
-    <input id="samples" type="text" class="w-full p-2 border rounded mb-4">
+      <div>
+        <div class="font-medium">Sample types (BAL, brushings, washings, biopsy):</div>
+        <input type="text" id="sample_types" class="w-full border p-2 rounded">
+      </div>
 
-    <label class="font-semibold">Sedation / Anaesthesia Details:</label>
-    <textarea id="sedation" class="w-full p-2 border rounded mb-4" rows="2"></textarea>
+      <div>
+        <div class="font-medium">Sedation / anaesthesia details:</div>
+        <input type="text" id="sedation" class="w-full border p-2 rounded">
+      </div>
 
-    <label class="font-semibold">Ventilator Settings Pre/Post:</label>
-    <textarea id="ventilation" class="w-full p-2 border rounded mb-4" rows="2"></textarea>
+      <div>
+        <div class="font-medium">Ventilator settings pre / post:</div>
+        <input type="text" id="vent_settings" class="w-full border p-2 rounded">
+      </div>
 
-    <label class="font-semibold">Complications:</label>
-    <textarea id="complications" class="w-full p-2 border rounded mb-4" rows="2"></textarea>
+      <div>
+        <div class="font-medium">Complications:</div>
+        <input type="text" id="complications" class="w-full border p-2 rounded">
+      </div>
 
-    <label class="font-semibold">Findings:</label>
-    <textarea id="findings" class="w-full p-2 border rounded mb-4" rows="2"></textarea>
+      <div>
+        <div class="font-medium">Findings:</div>
+        <input type="text" id="findings" class="w-full border p-2 rounded">
+      </div>
 
-    <label class="font-semibold">Plan:</label>
-    <textarea id="plan" class="w-full p-2 border rounded mb-6" rows="2"></textarea>
+      <div>
+        <div class="font-medium">Plan:</div>
+        <input type="text" id="plan" class="w-full border p-2 rounded">
+      </div>
 
-    <!-- GENERATE NOTE BUTTON -->
-    <button onclick="generateNote()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">
-      Generate Clinical Note
+    </div>
+
+    <!-- GENERATE BUTTON -->
+    <button onclick="generateNote()"
+            class="mt-8 bg-blue-600 text-white px-4 py-2 rounded">
+      Generate Text Note
     </button>
 
     <!-- OUTPUT -->
-    <h2 class="text-2xl font-bold mt-8 mb-2">Generated Note</h2>
-    <textarea id="outputNote" class="w-full p-3 border rounded h-64"></textarea>
+    <div class="mt-6">
+      <textarea id="output" class="w-full h-80 border p-3 rounded font-mono"
+                readonly></textarea>
+
+      <button onclick="copyText()" class="mt-3 bg-green-600 text-white px-4 py-2 rounded">
+        Copy to Clipboard
+      </button>
+    </div>
 
   </div>
 
-  <script>
-    function onlyOne(checkbox, group) {
-      document.querySelectorAll(`input[onclick="onlyOne(this, '${group}')"]`).forEach(cb => {
-        if (cb !== checkbox) cb.checked = false;
-      });
-    }
+<script>
+// enforce Yes/No/N/A exclusivity
+function onlyOne(checkbox) {
+  const group = document.getElementsByName(checkbox.name);
+  group.forEach(box => {
+    if (box !== checkbox) box.checked = false;
+  });
+}
 
-    function generateNote() {
-      const name = document.getElementById("patientName").value;
-      const hosp = document.getElementById("hospitalNumber").value;
-      const clin = document.getElementById("clinicianName").value;
+// get selected checkbox value
+function getValue(name) {
+  const boxes = document.getElementsByName(name);
+  for (let b of boxes) if (b.checked) return b.value;
+  return "Not selected";
+}
 
-      const indication = document.getElementById("indication").value;
-      const route = document.getElementById("route").value;
-      const samples = document.getElementById("samples").value;
-      const sedation = document.getElementById("sedation").value;
-      const ventilation = document.getElementById("ventilation").value;
-      const complications = document.getElementById("complications").value;
-      const findings = document.getElementById("findings").value;
-      const plan = document.getElementById("plan").value;
+function generateNote() {
+  let output = "BRONCHOSCOPY SAFETY CHECKLIST\n\n";
 
-      const note = 
-`Bronchoscopy Procedure Note
+  // Procedure details
+  output += `Procedure Date: ${document.getElementById('proc_date').value}\n`;
+  output += `Time: ${document.getElementById('proc_time').value}\n`;
+  output += `Operator: ${document.getElementById('operator').value}\n`;
+  output += `Assistant: ${document.getElementById('assistant').value}\n`;
+  output += `Supervisor: ${document.getElementById('supervisor').value}\n\n`;
 
-Patient: ${name}
-Hospital Number: ${hosp}
-Clinician: ${clin}
+  // BEFORE THE PROCEDURE
+  output += "=== BEFORE THE PROCEDURE ===\n";
+  output += `• Patient identity checked: ${getValue("identity")}\n`;
+  output += `• Consent completed: ${getValue("consent")}\n`;
+  output += `• Equipment available: ${getValue("equipment")}\n`;
+  output += `• Intubation grade known: ${getValue("linetype")}\n`;
+  output += `• Procedure delay for optimisation: ${getValue("coag")}\n`;
+  output += `• Coagulopathy: ${getValue("allergies")}\n`;
+  output += `• Drug allergies: ${getValue("infection")}\n`;
+  output += `• Enteral feed/NG aspirated: ${getValue("help")}\n\n`;
 
-Indication: ${indication}
-Route: ${route}
-Samples: ${samples}
+  // TIME OUT
+  output += "=== TIME OUT ===\n";
+  output += `• Adequate ventilator/FiO2: ${getValue("teamroles")}\n`;
+  output += `• Patient sedated/paralysed: ${getValue("position")}\n\n`;
 
-Sedation / Anaesthesia:
-${sedation}
+  // SIGN OUT
+  output += "=== SIGN OUT ===\n";
+  output += `• Ventilator settings reviewed: ${getValue("aspirate")}\n`;
+  output += `• CXR required: ${getValue("caps")}\n`;
+  output += `• Sedation plan post procedure: ${getValue("dressing")}\n`;
+  output += `• Samples taken/labelling plan: ${getValue("guidewire_removed")}\n`;
+  output += `• Follow-up findings: ${getValue("cxr_required")}\n\n`;
 
-Ventilation (Pre/Post):
-${ventilation}
+  // PROCEDURE DETAILS
+  output += "=== PROCEDURE DETAILS ===\n";
+  output += `• Indication for bronchoscopy: ${document.getElementById("indication").value}\n`;
+  output += `• Route: ${document.getElementById("route").value}\n`;
+  output += `• Sample types: ${document.getElementById("sample_types").value}\n`;
+  output += `• Sedation/anaesthesia details: ${document.getElementById("sedation").value}\n`;
+  output += `• Ventilator settings pre/post: ${document.getElementById("vent_settings").value}\n`;
+  output += `• Complications: ${document.getElementById("complications").value}\n`;
+  output += `• Findings: ${document.getElementById("findings").value}\n`;
+  output += `• Plan: ${document.getElementById("plan").value}\n`;
 
-Findings:
-${findings}
+  document.getElementById("output").value = output;
+}
 
-Complications:
-${complications}
+function copyText() {
+  navigator.clipboard.writeText(document.getElementById("output").value);
+}
 
-Plan:
-${plan}
-`;
-
-      document.getElementById("outputNote").value = note;
-    }
-  </script>
+// Set default date
+window.addEventListener('DOMContentLoaded', () => {
+  const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+  document.getElementById('proc_date').value = today;
+});
+</script>
 
 </body>
 </html>
