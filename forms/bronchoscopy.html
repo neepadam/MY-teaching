@@ -163,14 +163,14 @@
 
     </div>
 
-    <!-- PROCEDURE DETAILS -->
+ <!-- PROCEDURE DETAILS -->
 <div class="bg-purple-600 text-white font-bold text-lg px-4 py-2 rounded mt-6">
   PROCEDURE DETAILS
 </div>
 
 <div class="mt-4 space-y-4">
 
-  <!-- Indication for bronchoscopy -->
+  <!-- Indication -->
   <div>
     <div class="font-medium">Indication for bronchoscopy:</div>
     <input type="text" id="indication_bronch" class="border p-2 rounded w-full">
@@ -179,47 +179,17 @@
   <!-- Route -->
   <div>
     <div class="font-medium">Route:</div>
-    <select id="route" class="border p-2 rounded w-full">
-      <option value="">Select route</option>
-      <option value="ETT">ETT</option>
-      <option value="Tracheostomy">Tracheostomy</option>
-      <option value="Oral">Oral</option>
-    </select>
-  </div>
-
-  <!-- Lung segments diagram -->
-  <div>
-    <div class="font-medium mb-2">Lung segments reference:</div>
-    <img src="2-Figure1-1.png" alt="Lung segments diagram" class="w-full rounded border">
-    <p class="text-sm text-gray-200 mt-1">Reference diagram for lung segments</p>
-  </div>
-
-  <!-- Sample types -->
-  <div>
-    <div class="font-medium">Sample types:</div>
-    <div class="flex flex-col gap-1 mt-1">
-      <label><input type="checkbox" name="sample_types" value="BAL" onchange="onlyOne(this)"> BAL</label>
-      <label><input type="checkbox" name="sample_types" value="Brushings" onchange="onlyOne(this)"> Brushings</label>
-      <label><input type="checkbox" name="sample_types" value="Washings" onchange="onlyOne(this)"> Washings</label>
-      <label><input type="checkbox" name="sample_types" value="Biopsy" onchange="onlyOne(this)"> Biopsy</label>
+    <div class="flex gap-4 mt-1">
+      <label><input type="checkbox" name="route" value="ETT" onchange="onlyOne(this)"> ETT</label>
+      <label><input type="checkbox" name="route" value="Tracheostomy" onchange="onlyOne(this)"> Tracheostomy</label>
+      <label><input type="checkbox" name="route" value="Oral" onchange="onlyOne(this)"> Oral</label>
     </div>
   </div>
 
-  <!-- Sedation / anaesthesia details -->
+  <!-- Sedation / anaesthesia -->
   <div>
     <div class="font-medium">Sedation / anaesthesia details:</div>
     <input type="text" id="sedation_details" class="border p-2 rounded w-full">
-  </div>
-
-  <!-- Ventilator settings pre/post -->
-  <div>
-    <div class="font-medium">Ventilator settings pre-procedure:</div>
-    <input type="text" id="vent_pre" class="border p-2 rounded w-full">
-  </div>
-
-  <div>
-    <div class="font-medium">Ventilator settings post-procedure:</div>
-    <input type="text" id="vent_post" class="border p-2 rounded w-full">
   </div>
 
   <!-- Complications -->
@@ -231,17 +201,28 @@
   <!-- Findings -->
   <div>
     <div class="font-medium">Findings:</div>
-    <input type="text" id="findings" class="border p-2 rounded w-full">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-1">
+      <div>
+        <div class="font-medium">Left lung:</div>
+        <input type="text" id="findings_left_upper" placeholder="Upper lobe" class="border p-2 rounded w-full mb-1">
+        <input type="text" id="findings_left_lower" placeholder="Lower lobe" class="border p-2 rounded w-full">
+      </div>
+      <div>
+        <div class="font-medium">Right lung:</div>
+        <input type="text" id="findings_right_upper" placeholder="Upper lobe" class="border p-2 rounded w-full mb-1">
+        <input type="text" id="findings_right_middle" placeholder="Middle lobe" class="border p-2 rounded w-full mb-1">
+        <input type="text" id="findings_right_lower" placeholder="Lower lobe" class="border p-2 rounded w-full">
+      </div>
+    </div>
   </div>
 
-  <!-- Plan -->
+  <!-- Samples -->
   <div>
-    <div class="font-medium">Plan:</div>
-    <input type="text" id="plan" class="border p-2 rounded w-full">
+    <div class="font-medium">Details of samples sent to lab and tests requested:</div>
+    <input type="text" id="samples_lab" class="border p-2 rounded w-full">
   </div>
 
 </div>
-
 
     <!-- GENERATE BUTTON -->
     <button onclick="generateNote()"
@@ -314,20 +295,22 @@ function generateNote() {
 // PROCEDURE DETAILS
 output += "=== PROCEDURE DETAILS ===\n";
 output += `• Indication for bronchoscopy: ${document.getElementById("indication_bronch").value}\n`;
-output += `• Route: ${document.getElementById("route").value}\n`;
 
-// Sample types (multiple checkboxes)
-const sampleBoxes = document.getElementsByName("sample_types");
-let samples = [];
-sampleBoxes.forEach(b => { if (b.checked) samples.push(b.value); });
-output += `• Sample types: ${samples.length > 0 ? samples.join(", ") : "Not selected"}\n`;
+// Route checkboxes
+const routeBoxes = document.getElementsByName("route");
+let route = "Not selected";
+routeBoxes.forEach(b => { if (b.checked) route = b.value; });
+output += `• Route: ${route}\n`;
 
 output += `• Sedation/anaesthesia details: ${document.getElementById("sedation_details").value}\n`;
-output += `• Ventilator settings pre-procedure: ${document.getElementById("vent_pre").value}\n`;
-output += `• Ventilator settings post-procedure: ${document.getElementById("vent_post").value}\n`;
 output += `• Complications: ${document.getElementById("complications").value}\n`;
-output += `• Findings: ${document.getElementById("findings").value}\n`;
-output += `• Plan: ${document.getElementById("plan").value}\n`;
+
+// Findings
+output += `• Findings - Left lung: Upper: ${document.getElementById("findings_left_upper").value}, Lower: ${document.getElementById("findings_left_lower").value}\n`;
+output += `• Findings - Right lung: Upper: ${document.getElementById("findings_right_upper").value}, Middle: ${document.getElementById("findings_right_middle").value}, Lower: ${document.getElementById("findings_right_lower").value}\n`;
+
+output += `• Details of samples sent to lab/tests requested: ${document.getElementById("samples_lab").value}\n`;
+
 
 
   document.getElementById("output").value = output;
