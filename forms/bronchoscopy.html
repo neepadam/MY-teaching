@@ -290,8 +290,15 @@ output += `• Sedation/anaesthesia details: ${document.getElementById("sedation
 output += `• Complications: ${document.getElementById("complications").value}\n`;
 
 // Findings
-output += `• Findings - Left lung: Upper: ${document.getElementById("findings_left_upper").value}, Lower: ${document.getElementById("findings_left_lower").value}\n`;
-output += `• Findings - Right lung: Upper: ${document.getElementById("findings_right_upper").value}, Middle: ${document.getElementById("findings_right_middle").value}, Lower: ${document.getElementById("findings_right_lower").value}\n`;
+output += "=== Left lung ===\n";
+output += `Upper lobe - ${document.getElementById("findings_left_upper").value}\n`;
+output += `Lower lobe - ${document.getElementById("findings_left_lower").value}\n\n`;
+
+output += "=== Right lung ===\n";
+output += `Upper lobe - ${document.getElementById("findings_right_upper").value}\n`;
+output += `Middle lobe - ${document.getElementById("findings_right_middle").value}\n`;
+output += `Lower lobe - ${document.getElementById("findings_right_lower").value}\n\n`;
+
 
 output += `• Details of samples sent to lab/tests requested: ${document.getElementById("samples_lab").value}\n\n\n\n`;
 
