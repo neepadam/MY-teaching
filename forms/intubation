@@ -35,8 +35,8 @@
       </div>
     </div>
 
-    <!-- BEFORE PROCEDURE -->
-    <h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-4">BEFORE PROCEDURE</h2>
+    <!-- BEFORE THE PROCEDURE -->
+    <h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-4">BEFORE THE PROCEDURE</h2>
     <div class="grid grid-cols-1 gap-4 mt-4">
 
       <div>
@@ -54,7 +54,7 @@
       </div>
 
       <div>
-        <div class="font-medium">Are spinal precautions required?</div>
+        <div class="font-medium">Spinal precautions required?</div>
         <div class="flex gap-4 mt-1">
           <label><input type="checkbox" name="spinalPrecautions" value="Yes" onchange="onlyOne(this)"> Yes</label>
           <label><input type="checkbox" name="spinalPrecautions" value="No" onchange="onlyOne(this)"> No</label>
@@ -62,14 +62,14 @@
       </div>
 
       <div>
-        <div class="font-medium">Is all equipment available?</div>
+        <div class="font-medium">All equipment available?</div>
         <div class="flex gap-4 mt-1">
           <label><input type="checkbox" name="equipment" value="Yes" onchange="onlyOne(this)"> Yes</label>
         </div>
       </div>
 
       <div>
-        <div class="font-medium">Cricoid pressure?</div>
+        <div class="font-medium">Cricoid pressure applied?</div>
         <div class="flex gap-4 mt-1">
           <label><input type="checkbox" name="cricoid" value="Yes" onchange="onlyOne(this)"> Yes</label>
           <label><input type="checkbox" name="cricoid" value="No" onchange="onlyOne(this)"> No</label>
@@ -77,7 +77,7 @@
       </div>
 
       <div>
-        <div class="font-medium">Is an NG tube required?</div>
+        <div class="font-medium">NG tube required?</div>
         <div class="flex gap-4 mt-1">
           <label><input type="checkbox" name="ngRequired" value="Yes" onchange="onlyOne(this)"> Yes</label>
           <label><input type="checkbox" name="ngRequired" value="No" onchange="onlyOne(this)"> No</label>
@@ -110,18 +110,99 @@
 
     </div>
 
+    <!-- TIME OUT -->
+    <h2 class="text-xl font-bold bg-yellow-400 text-black p-2 mt-8">TIME OUT</h2>
+    <div class="grid grid-cols-1 gap-4 mt-4">
+
+      <div>
+        <div class="font-medium">Adequate oxygenation and ventilator settings?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="ventilationCheck" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Airway equipment checked and ready?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="airwayReady" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Team roles confirmed?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="teamRoles" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Patient adequately sedated/paralysed?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="sedationCheck" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SIGN OUT -->
+    <h2 class="text-xl font-bold bg-green-600 text-white p-2 mt-8">SIGN OUT</h2>
+    <div class="grid grid-cols-1 gap-4 mt-4">
+
+      <div>
+        <div class="font-medium">Ventilator settings reviewed post procedure?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="ventReview" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">CXR required?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="cxrRequired" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="cxrRequired" value="No" onchange="onlyOne(this)"> No</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Sedation plan post procedure?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="sedationPlan" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Complications or unexpected events noted?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="complicationsRecorded" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="complicationsRecorded" value="No" onchange="onlyOne(this)"> No</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Follow-up actions required?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="followUp" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="followUp" value="No" onchange="onlyOne(this)"> No</label>
+        </div>
+      </div>
+
+    </div>
+
     <!-- PROCEDURE DETAILS -->
-    <h2 class="text-xl font-bold bg-purple-600 text-white p-2 mt-6">PROCEDURE DETAILS</h2>
+    <div class="bg-purple-600 text-white font-bold text-lg px-4 py-2 rounded mt-6">
+      PROCEDURE DETAILS
+    </div>
+
     <div class="mt-4 space-y-4">
       <div>
         <div class="font-medium">Indication for intubation:</div>
         <input type="text" id="indication_intub" class="border p-2 rounded w-full">
       </div>
       <div>
-        <div class="font-medium">Route (ETT / Trachy / Oral):</div>
+        <div class="font-medium">Route:</div>
         <div class="flex gap-4 mt-1">
           <label><input type="checkbox" name="route" value="ETT" onchange="onlyOne(this)"> ETT</label>
-          <label><input type="checkbox" name="route" value="Tracheostomy" onchange="onlyOne(this)"> Trachy</label>
+          <label><input type="checkbox" name="route" value="Tracheostomy" onchange="onlyOne(this)"> Tracheostomy</label>
           <label><input type="checkbox" name="route" value="Oral" onchange="onlyOne(this)"> Oral</label>
         </div>
       </div>
@@ -187,7 +268,8 @@ function generateNote() {
   output += `Assistant: ${document.getElementById('assistant').value}\n`;
   output += `Supervisor: ${document.getElementById('supervisor').value}\n\n`;
 
-  output += "=== BEFORE PROCEDURE ===\n";
+  // BEFORE PROCEDURE
+  output += "=== BEFORE THE PROCEDURE ===\n";
   output += `• Patient identity checked: ${getValue("identity")}\n`;
   output += `• Patient position optimised: ${getValue("positionOptimised")}\n`;
   output += `• Spinal precautions required: ${getValue("spinalPrecautions")}\n`;
@@ -196,16 +278,30 @@ function generateNote() {
   output += `• NG tube required: ${getValue("ngRequired")}\n`;
   output += `• NG tube aspirated: ${getValue("ngAspirated")}\n`;
   output += `• Known drug allergies: ${getValue("drugAllergies")}\n`;
-  output += `• Adequate venous access available: ${getValue("venousAccess")}\n\n`;
+  output += `• Adequate venous access: ${getValue("venousAccess")}\n\n`;
 
+  // TIME OUT
+  output += "=== TIME OUT ===\n";
+  output += `• Adequate oxygenation/ventilator: ${getValue("ventilationCheck")}\n`;
+  output += `• Airway equipment ready: ${getValue("airwayReady")}\n`;
+  output += `• Team roles confirmed: ${getValue("teamRoles")}\n`;
+  output += `• Patient sedated/paralysed: ${getValue("sedationCheck")}\n\n`;
+
+  // SIGN OUT
+  output += "=== SIGN OUT ===\n";
+  output += `• Ventilator settings reviewed: ${getValue("ventReview")}\n`;
+  output += `• CXR required: ${getValue("cxrRequired")}\n`;
+  output += `• Sedation plan post procedure: ${getValue("sedationPlan")}\n`;
+  output += `• Complications recorded: ${getValue("complicationsRecorded")}\n`;
+  output += `• Follow-up actions required: ${getValue("followUp")}\n\n`;
+
+  // PROCEDURE DETAILS
   output += "=== PROCEDURE DETAILS ===\n";
   output += `• Indication for intubation: ${document.getElementById("indication_intub").value}\n`;
-
   const routeBoxes = document.getElementsByName("route");
   let route = "Not selected";
   routeBoxes.forEach(b => { if (b.checked) route = b.value; });
   output += `• Route: ${route}\n`;
-
   output += `• Sedation/anaesthesia details: ${document.getElementById("sedation_details").value}\n`;
   output += `• Complications: ${document.getElementById("complications").value}\n`;
 
