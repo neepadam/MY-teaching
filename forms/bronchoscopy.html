@@ -311,16 +311,24 @@ function generateNote() {
   output += `• Samples taken/labelling plan: ${getValue("guidewire_removed")}\n`;
   output += `• Follow-up findings: ${getValue("cxr_required")}\n\n`;
 
-  // PROCEDURE DETAILS
-  output += "=== PROCEDURE DETAILS ===\n";
-  output += `• Indication for bronchoscopy: ${document.getElementById("indication").value}\n`;
-  output += `• Route: ${document.getElementById("route").value}\n`;
-  output += `• Sample types: ${document.getElementById("sample_types").value}\n`;
-  output += `• Sedation/anaesthesia details: ${document.getElementById("sedation").value}\n`;
-  output += `• Ventilator settings pre/post: ${document.getElementById("vent_settings").value}\n`;
-  output += `• Complications: ${document.getElementById("complications").value}\n`;
-  output += `• Findings: ${document.getElementById("findings").value}\n`;
-  output += `• Plan: ${document.getElementById("plan").value}\n`;
+// PROCEDURE DETAILS
+output += "=== PROCEDURE DETAILS ===\n";
+output += `• Indication for bronchoscopy: ${document.getElementById("indication_bronch").value}\n`;
+output += `• Route: ${document.getElementById("route").value}\n`;
+
+// Sample types (multiple checkboxes)
+const sampleBoxes = document.getElementsByName("sample_types");
+let samples = [];
+sampleBoxes.forEach(b => { if (b.checked) samples.push(b.value); });
+output += `• Sample types: ${samples.length > 0 ? samples.join(", ") : "Not selected"}\n`;
+
+output += `• Sedation/anaesthesia details: ${document.getElementById("sedation_details").value}\n`;
+output += `• Ventilator settings pre-procedure: ${document.getElementById("vent_pre").value}\n`;
+output += `• Ventilator settings post-procedure: ${document.getElementById("vent_post").value}\n`;
+output += `• Complications: ${document.getElementById("complications").value}\n`;
+output += `• Findings: ${document.getElementById("findings").value}\n`;
+output += `• Plan: ${document.getElementById("plan").value}\n`;
+
 
   document.getElementById("output").value = output;
 }
