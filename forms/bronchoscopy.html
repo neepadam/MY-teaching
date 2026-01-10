@@ -9,7 +9,7 @@
 <body class="bg-gray-100 p-6">
 
   <div class="max-w-4xl mx-auto bg-white shadow p-6 rounded">
-    <h1 class="text-3xl font-bold mb-6">Bronchoscopy → Clinical Note Generator</h1>
+    <h1 class="text-3xl font-bold mb-6">Bronchoscopy Checklist + Clinical Note Generator</h1>
 
     <!-- Free text fields -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -136,6 +136,8 @@
         <div class="font-medium">Is a CXR required?</div>
         <div class="flex gap-4 mt-1">
           <label><input type="checkbox" name="caps" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="caps" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="caps" value="No" onchange="onlyOne(this)"> No</label>
         </div>
       </div>
 
@@ -287,14 +289,15 @@ routeBoxes.forEach(b => { if (b.checked) route = b.value; });
 output += `• Route: ${route}\n`;
 
 output += `• Sedation/anaesthesia details: ${document.getElementById("sedation_details").value}\n`;
-output += `• Complications: ${document.getElementById("complications").value}\n`;
+output += `• Complications: ${document.getElementById("complications").value}\n\n`;
 
 // Findings
-output += "=== Left lung ===\n";
+output += "FINDINGS\n";
+output += "Left lung:\n";
 output += `Upper lobe - ${document.getElementById("findings_left_upper").value}\n`;
 output += `Lower lobe - ${document.getElementById("findings_left_lower").value}\n\n`;
 
-output += "=== Right lung ===\n";
+output += "Right lung:\n";
 output += `Upper lobe - ${document.getElementById("findings_right_upper").value}\n`;
 output += `Middle lobe - ${document.getElementById("findings_right_middle").value}\n`;
 output += `Lower lobe - ${document.getElementById("findings_right_lower").value}\n\n`;
