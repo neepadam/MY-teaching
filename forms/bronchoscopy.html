@@ -273,7 +273,9 @@ function generateNote() {
  
   // Procedure details
   output += "=== PROCEDURE DETAILS ===\n";
-  output += `Procedure Date: ${document.getElementById('proc_date').value}\n`;
+  let dateParts = document.getElementById('proc_date').value.split('-'); // ["YYYY","MM","DD"]
+let ukFormattedDate = dateParts[2] + "/" + dateParts[1] + "/" + dateParts[0];
+  output += `Procedure Date: ${ukFormattedDate}\n`;
   output += `Time: ${document.getElementById('proc_time').value}\n`;
   output += `Operator: ${document.getElementById('operator').value}\n`;
   output += `Assistant: ${document.getElementById('assistant').value}\n`;
@@ -341,9 +343,14 @@ function copyText() {
 
 // Set default date
 window.addEventListener('DOMContentLoaded', () => {
-  const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
-  document.getElementById('proc_date').value = today;
+  const today = new Date();
+  const ukDate = ("0" + today.getDate()).slice(-2) + "/" + 
+                 ("0" + (today.getMonth() + 1)).slice(-2) + "/" + 
+                 today.getFullYear();
+  document.getElementById('proc_date').value = ukDate;
 });
+
+
 </script>
 
 </body>
