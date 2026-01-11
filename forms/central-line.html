@@ -288,6 +288,13 @@
     </div>
   </div>
 
+  <!-- Line LOT number -->
+  
+<div>
+  <label class="font-medium">LOT number:</label>
+  <input type="text" id="lot_number" class="w-full border p-2 rounded" placeholder="Enter LOT number">
+</div>
+
   <!-- Lumens -->
   <div>
     <div class="font-medium">Number of lumens:</div>
@@ -488,6 +495,9 @@ function generateNote() {
 
   // Line type
   output += `• Central line type: ${getValue("linetype2")}\n`;
+  
+  // LOT nunber
+  output += `LOT number: ${document.getElementById('lot_number').value}\n\n`;
 
   // Lumens
   output += `• Number of lumens: ${getValue("lumens")}\n`;
