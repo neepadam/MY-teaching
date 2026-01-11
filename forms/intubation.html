@@ -39,7 +39,6 @@
     <h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-4">BEFORE THE PROCEDURE</h2>
     <div class="grid grid-cols-1 gap-4 mt-4">
 
-      <!-- Planning -->
       <div class="font-bold text-lg mt-2">Planning</div>
 
       <div>
@@ -92,11 +91,9 @@
         <label><input type="checkbox" name="venousAccess" value="Yes" onchange="onlyOne(this)"> Yes</label>
       </div>
 
-      <!-- Equipment & Drugs -->
       <div class="font-bold text-lg mt-4">Equipment & Drugs</div>
 
-      <div>
-        <div class="font-medium">Monitoring attached? (ECG, SpO₂, BP, EtCO₂)</div>
+      <div><div class="font-medium">Monitoring attached? (ECG, SpO₂, BP, EtCO₂)</div>
         <label><input type="checkbox" name="monitoring" value="Yes" onchange="onlyOne(this)"> Yes</label>
       </div>
 
@@ -136,7 +133,6 @@
         <label><input type="checkbox" name="drugsReady" value="Yes" onchange="onlyOne(this)"> Yes</label>
       </div>
 
-      <!-- Team -->
       <div class="font-bold text-lg mt-4">Team</div>
 
       <div>
@@ -237,24 +233,74 @@
     </div>
 
     <div class="mt-4 space-y-4">
+
       <div>
         <div class="font-medium">Indication for intubation:</div>
         <input type="text" id="indication_intub" class="border p-2 rounded w-full">
       </div>
+
       <div>
-        <div class="font-medium">Route:</div>
-        <label><input type="checkbox" name="route" value="ETT" onchange="onlyOne(this)"> ETT</label>
-        <label><input type="checkbox" name="route" value="Tracheostomy" onchange="onlyOne(this)"> Tracheostomy</label>
-        <label><input type="checkbox" name="route" value="Oral" onchange="onlyOne(this)"> Oral</label>
+        <div class="font-medium">Drugs used for anaesthesia:</div>
+        <input type="text" id="drugs_anaesthesia" class="border p-2 rounded w-full">
       </div>
+
       <div>
-        <div class="font-medium">Sedation / anaesthesia details:</div>
-        <input type="text" id="sedation_details" class="border p-2 rounded w-full">
+        <div class="font-medium">Pre-oxygenation technique (tick all that apply):</div>
+        <div class="flex flex-col gap-2 mt-1">
+          <label><input type="checkbox" name="preox" value="Water's circuit"> Water's circuit</label>
+          <label><input type="checkbox" name="preox" value="NIV/CPAP"> NIV/CPAP</label>
+          <label><input type="checkbox" name="preox" value="Nasal cannula"> Nasal cannula</label>
+          <div class="flex items-center gap-2">
+            <label><input type="checkbox" name="preox" value="Other"> Other:</label>
+            <input type="text" id="preox_other" placeholder="Specify" class="border p-2 rounded w-full">
+          </div>
+        </div>
       </div>
+
       <div>
-        <div class="font-medium">Complications:</div>
-        <input type="text" id="complications" class="border p-2 rounded w-full">
+        <div class="font-medium">ETT size:</div>
+        <input type="text" id="ett_size" class="border p-2 rounded w-full">
       </div>
+
+      <div>
+        <div class="font-medium">ETT with sub-glottic suction used?</div>
+        <label><input type="checkbox" name="subglottic" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label><input type="checkbox" name="subglottic" value="No" onchange="onlyOne(this)"> No</label>
+      </div>
+
+      <div>
+        <div class="font-medium">Length at teeth (cm):</div>
+        <input type="text" id="ett_length" class="border p-2 rounded w-full">
+      </div>
+
+      <div>
+        <div class="font-medium">Laryngoscope used:</div>
+        <div class="flex flex-col gap-2">
+          <label><input type="checkbox" name="laryngoscope" value="Mac 3"> Mac 3</label>
+          <label><input type="checkbox" name="laryngoscope" value="Mac 4"> Mac 4</label>
+          <label><input type="checkbox" name="laryngoscope" value="Video-laryngoscope"> Video-laryngoscope</label>
+          <div class="flex items-center gap-2">
+            <label><input type="checkbox" name="laryngoscope" value="Other"> Other:</label>
+            <input type="text" id="laryngoscope_other" placeholder="Specify" class="border p-2 rounded w-full">
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Grade of intubation:</div>
+        <input type="text" id="grade_intubation" class="border p-2 rounded w-full">
+      </div>
+
+      <div>
+        <div class="font-medium">Adjuncts used:</div>
+        <input type="text" id="adjuncts_used" class="border p-2 rounded w-full">
+      </div>
+
+      <div>
+        <div class="font-medium">Any other comments?</div>
+        <input type="text" id="other_comments" class="border p-2 rounded w-full">
+      </div>
+
     </div>
 
     <!-- GENERATE BUTTON -->
@@ -264,21 +310,19 @@
     </button>
 
     <!-- OUTPUT -->
-   <div class="mt-6">
-  <textarea id="output" class="w-full h-80 border p-3 rounded font-mono"
-            readonly></textarea>
+    <div class="mt-6">
+      <textarea id="output" class="w-full h-80 border p-3 rounded font-mono"
+                readonly></textarea>
 
-  <div class="flex flex-col md:flex-row md:items-center md:gap-4 mt-3">
-    <button onclick="copyText()" class="bg-green-600 text-white px-4 py-2 rounded w-full md:w-auto">
-      Copy to Clipboard
-    </button>
-
-    <p class="text-gray-700 text-sm mt-2 md:mt-0">
-      Paste these notes into the patient PPM record, set title as <strong>"Intubation"</strong>.
-    </p>
-  </div>
-</div>
-
+      <div class="flex flex-col md:flex-row md:items-center md:gap-4 mt-3">
+        <button onclick="copyText()" class="bg-green-600 text-white px-4 py-2 rounded w-full md:w-auto">
+          Copy to Clipboard
+        </button>
+        <p class="text-gray-700 text-sm mt-2 md:mt-0">
+          Paste these notes into the patient PPM record, set title as <strong>"Intubation"</strong>.
+        </p>
+      </div>
+    </div>
 
   </div>
 
@@ -296,6 +340,25 @@ function getValue(name) {
   const boxes = document.getElementsByName(name);
   for (let b of boxes) if (b.checked) return b.value;
   return "Not selected";
+}
+
+// multi-select helper
+function getMultiValues(name, otherFieldId = null) {
+  const boxes = document.getElementsByName(name);
+  let values = [];
+
+  boxes.forEach(b => {
+    if (b.checked && b.value !== "Other") {
+      values.push(b.value);
+    }
+    if (b.checked && b.value === "Other" && otherFieldId) {
+      const otherText = document.getElementById(otherFieldId).value.trim();
+      if (otherText) values.push(otherText);
+    }
+  });
+
+  if (values.length === 0) return "Not selected";
+  return values.join(", ");
 }
 
 function generateNote() {
@@ -316,7 +379,7 @@ function generateNote() {
   output += `Assistant: ${document.getElementById('assistant').value}\n`;
   output += `Supervisor: ${document.getElementById('supervisor').value}\n\n`;
 
-  // BEFORE PROCEDURE
+  // BEFORE THE PROCEDURE
   output += "=== BEFORE THE PROCEDURE ===\n";
   output += `• Patient identity checked: ${getValue("identity")}\n`;
   output += `• Patient position optimised: ${getValue("positionOptimised")}\n`;
@@ -362,12 +425,15 @@ function generateNote() {
   // PROCEDURE DETAILS
   output += "=== PROCEDURE DETAILS ===\n";
   output += `• Indication: ${document.getElementById("indication_intub").value}\n`;
-  const routeBoxes = document.getElementsByName("route");
-  let route = "Not selected";
-  routeBoxes.forEach(b => { if (b.checked) route = b.value; });
-  output += `• Route: ${route}\n`;
-  output += `• Sedation details: ${document.getElementById("sedation_details").value}\n`;
-  output += `• Complications: ${document.getElementById("complications").value}\n`;
+  output += `• Drugs used for anaesthesia: ${document.getElementById("drugs_anaesthesia").value}\n`;
+  output += `• Pre-oxygenation technique: ${getMultiValues("preox", "preox_other")}\n`;
+  output += `• ETT size: ${document.getElementById("ett_size").value}\n`;
+  output += `• Sub-glottic suction ETT used: ${getValue("subglottic")}\n`;
+  output += `• Length at teeth: ${document.getElementById("ett_length").value} cm\n`;
+  output += `• Laryngoscope used: ${getMultiValues("laryngoscope", "laryngoscope_other")}\n`;
+  output += `• Grade of intubation: ${document.getElementById("grade_intubation").value}\n`;
+  output += `• Adjuncts used: ${document.getElementById("adjuncts_used").value}\n`;
+  output += `• Other comments: ${document.getElementById("other_comments").value}\n`;
 
   document.getElementById("output").value = output;
 }
