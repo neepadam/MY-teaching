@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Intubation Checklist + Note Generator</title>
+  <title>Intubation Checklist + Clinical Note Generator</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -39,75 +39,116 @@
     <h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-4">BEFORE THE PROCEDURE</h2>
     <div class="grid grid-cols-1 gap-4 mt-4">
 
+      <!-- Planning -->
+      <div class="font-bold text-lg mt-2">Planning</div>
+
       <div>
         <div class="font-medium">Patient identity checked?</div>
-        <div class="flex gap-4 mt-1">
-          <label><input type="checkbox" name="identity" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        </div>
+        <label><input type="checkbox" name="identity" value="Yes" onchange="onlyOne(this)"> Yes</label>
       </div>
 
       <div>
         <div class="font-medium">Patient position optimised?</div>
-        <div class="flex gap-4 mt-1">
-          <label><input type="checkbox" name="positionOptimised" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        </div>
+        <label><input type="checkbox" name="positionOptimised" value="Yes" onchange="onlyOne(this)"> Yes</label>
       </div>
 
       <div>
-        <div class="font-medium">Spinal precautions required?</div>
-        <div class="flex gap-4 mt-1">
-          <label><input type="checkbox" name="spinalPrecautions" value="Yes" onchange="onlyOne(this)"> Yes</label>
-          <label><input type="checkbox" name="spinalPrecautions" value="No" onchange="onlyOne(this)"> No</label>
-        </div>
+        <div class="font-medium">Are spinal precautions required?</div>
+        <label><input type="checkbox" name="spinalPrecautions" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label><input type="checkbox" name="spinalPrecautions" value="No" onchange="onlyOne(this)"> No</label>
       </div>
 
       <div>
-        <div class="font-medium">All equipment available?</div>
-        <div class="flex gap-4 mt-1">
-          <label><input type="checkbox" name="equipment" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        </div>
+        <div class="font-medium">Pre-oxygenation plan?</div>
+        <label><input type="checkbox" name="preoxygenation" value="Yes" onchange="onlyOne(this)"> Yes</label>
       </div>
 
       <div>
-        <div class="font-medium">Cricoid pressure applied?</div>
-        <div class="flex gap-4 mt-1">
-          <label><input type="checkbox" name="cricoid" value="Yes" onchange="onlyOne(this)"> Yes</label>
-          <label><input type="checkbox" name="cricoid" value="No" onchange="onlyOne(this)"> No</label>
-        </div>
+        <div class="font-medium">Cricoid pressure?</div>
+        <label><input type="checkbox" name="cricoid" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label><input type="checkbox" name="cricoid" value="No" onchange="onlyOne(this)"> No</label>
       </div>
 
       <div>
-        <div class="font-medium">NG tube required?</div>
-        <div class="flex gap-4 mt-1">
-          <label><input type="checkbox" name="ngRequired" value="Yes" onchange="onlyOne(this)"> Yes</label>
-          <label><input type="checkbox" name="ngRequired" value="No" onchange="onlyOne(this)"> No</label>
-        </div>
+        <div class="font-medium">Is an NG tube required?</div>
+        <label><input type="checkbox" name="ngRequired" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label><input type="checkbox" name="ngRequired" value="No" onchange="onlyOne(this)"> No</label>
       </div>
 
       <div>
         <div class="font-medium">NG tube aspirated?</div>
-        <div class="flex gap-4 mt-1">
-          <label><input type="checkbox" name="ngAspirated" value="Yes" onchange="onlyOne(this)"> Yes</label>
-          <label><input type="checkbox" name="ngAspirated" value="No" onchange="onlyOne(this)"> No</label>
-        </div>
+        <label><input type="checkbox" name="ngAspirated" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label><input type="checkbox" name="ngAspirated" value="N/A" onchange="onlyOne(this)"> N/A</label>
       </div>
 
       <div>
         <div class="font-medium">Known drug allergies?</div>
-        <div class="flex gap-4 mt-1">
-          <label><input type="checkbox" name="drugAllergies" value="Yes" onchange="onlyOne(this)"> Yes</label>
-          <label><input type="checkbox" name="drugAllergies" value="No" onchange="onlyOne(this)"> No</label>
-        </div>
+        <label><input type="checkbox" name="drugAllergies" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label><input type="checkbox" name="drugAllergies" value="No" onchange="onlyOne(this)"> No</label>
       </div>
 
       <div>
         <div class="font-medium">Adequate venous access available?</div>
-        <div class="flex gap-4 mt-1">
-          <label><input type="checkbox" name="venousAccess" value="Yes" onchange="onlyOne(this)"> Yes</label>
-          <label><input type="checkbox" name="venousAccess" value="No" onchange="onlyOne(this)"> No</label>
-        </div>
+        <label><input type="checkbox" name="venousAccess" value="Yes" onchange="onlyOne(this)"> Yes</label>
       </div>
 
+      <!-- Equipment & Drugs -->
+      <div class="font-bold text-lg mt-4">Equipment & Drugs</div>
+
+      <div>
+        <div class="font-medium">Monitoring attached? (ECG, SpO₂, BP, EtCO₂)</div>
+        <label><input type="checkbox" name="monitoring" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      </div>
+
+      <div><div class="font-medium">Manual ventilation device available?</div>
+        <label><input type="checkbox" name="ventDevice" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      </div>
+
+      <div><div class="font-medium">Suction available?</div>
+        <label><input type="checkbox" name="suction" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      </div>
+
+      <div><div class="font-medium">Laryngoscopes available?</div>
+        <label><input type="checkbox" name="laryngoscopes" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      </div>
+
+      <div><div class="font-medium">Endotracheal tube(s) available?</div>
+        <label><input type="checkbox" name="ett" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      </div>
+
+      <div><div class="font-medium">Bougie available?</div>
+        <label><input type="checkbox" name="bougie" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      </div>
+
+      <div><div class="font-medium">Oropharyngeal airways available?</div>
+        <label><input type="checkbox" name="opa" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      </div>
+
+      <div><div class="font-medium">Supraglottic airway available?</div>
+        <label><input type="checkbox" name="sga" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      </div>
+
+      <div><div class="font-medium">Difficult Airway Trolley location noted?</div>
+        <label><input type="checkbox" name="dat" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      </div>
+
+      <div><div class="font-medium">Drugs ready (induction, muscle relaxant, emergency)?</div>
+        <label><input type="checkbox" name="drugsReady" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      </div>
+
+      <!-- Team -->
+      <div class="font-bold text-lg mt-4">Team</div>
+
+      <div>
+        <div class="font-medium">Location of senior help known?</div>
+        <label><input type="checkbox" name="seniorHelp" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label><input type="checkbox" name="seniorHelp" value="N/A" onchange="onlyOne(this)"> N/A</label>
+      </div>
+
+      <div>
+        <div class="font-medium">Tasks allocated?</div>
+        <label><input type="checkbox" name="tasksAllocated" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      </div>
     </div>
 
     <!-- TIME OUT -->
@@ -115,31 +156,30 @@
     <div class="grid grid-cols-1 gap-4 mt-4">
 
       <div>
-        <div class="font-medium">Adequate oxygenation and ventilator settings?</div>
-        <div class="flex gap-4 mt-1">
-          <label><input type="checkbox" name="ventilationCheck" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        </div>
+        <div class="font-medium">Verbal confirmation between team members before start of procedure</div>
+        <label><input type="checkbox" name="teamConfirm" value="Yes" onchange="onlyOne(this)"> Yes</label>
       </div>
 
       <div>
-        <div class="font-medium">Airway equipment checked and ready?</div>
-        <div class="flex gap-4 mt-1">
-          <label><input type="checkbox" name="airwayReady" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        </div>
+        <div class="font-medium">Difficult airway anticipated?</div>
+        <label><input type="checkbox" name="difficultAirway" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label><input type="checkbox" name="difficultAirway" value="No" onchange="onlyOne(this)"> No</label>
       </div>
 
       <div>
-        <div class="font-medium">Team roles confirmed?</div>
-        <div class="flex gap-4 mt-1">
-          <label><input type="checkbox" name="teamRoles" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        </div>
+        <div class="font-medium">If yes, plans discussed</div>
+        <label><input type="checkbox" name="airwayPlans" value="Yes" onchange="onlyOne(this)"> Yes</label>
       </div>
 
       <div>
-        <div class="font-medium">Patient adequately sedated/paralysed?</div>
-        <div class="flex gap-4 mt-1">
-          <label><input type="checkbox" name="sedationCheck" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        </div>
+        <div class="font-medium">Any other concerns about the procedure (e.g. cardiovascular instability)?</div>
+        <label><input type="checkbox" name="otherConcerns" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label><input type="checkbox" name="otherConcerns" value="No" onchange="onlyOne(this)"> No</label>
+      </div>
+
+      <div>
+        <div class="font-medium">If yes, plans discussed</div>
+        <label><input type="checkbox" name="concernPlans" value="Yes" onchange="onlyOne(this)"> Yes</label>
       </div>
 
     </div>
@@ -149,41 +189,44 @@
     <div class="grid grid-cols-1 gap-4 mt-4">
 
       <div>
-        <div class="font-medium">Ventilator settings reviewed post procedure?</div>
-        <div class="flex gap-4 mt-1">
-          <label><input type="checkbox" name="ventReview" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        </div>
+        <div class="font-medium">Endotracheal position confirmed with CO₂ trace</div>
+        <label><input type="checkbox" name="co2Confirm" value="Yes" onchange="onlyOne(this)"> Yes</label>
       </div>
 
       <div>
-        <div class="font-medium">CXR required?</div>
-        <div class="flex gap-4 mt-1">
-          <label><input type="checkbox" name="cxrRequired" value="Yes" onchange="onlyOne(this)"> Yes</label>
-          <label><input type="checkbox" name="cxrRequired" value="No" onchange="onlyOne(this)"> No</label>
-        </div>
+        <div class="font-medium">Tube depth checked (bilateral air entry)</div>
+        <label><input type="checkbox" name="airEntry" value="Yes" onchange="onlyOne(this)"> Yes</label>
       </div>
 
       <div>
-        <div class="font-medium">Sedation plan post procedure?</div>
-        <div class="flex gap-4 mt-1">
-          <label><input type="checkbox" name="sedationPlan" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        </div>
+        <div class="font-medium">ETT secured?</div>
+        <label><input type="checkbox" name="ettSecured" value="Yes" onchange="onlyOne(this)"> Yes</label>
       </div>
 
       <div>
-        <div class="font-medium">Complications or unexpected events noted?</div>
-        <div class="flex gap-4 mt-1">
-          <label><input type="checkbox" name="complicationsRecorded" value="Yes" onchange="onlyOne(this)"> Yes</label>
-          <label><input type="checkbox" name="complicationsRecorded" value="No" onchange="onlyOne(this)"> No</label>
-        </div>
+        <div class="font-medium">Cuff pressure checked?</div>
+        <label><input type="checkbox" name="cuffPressure" value="Yes" onchange="onlyOne(this)"> Yes</label>
       </div>
 
       <div>
-        <div class="font-medium">Follow-up actions required?</div>
-        <div class="flex gap-4 mt-1">
-          <label><input type="checkbox" name="followUp" value="Yes" onchange="onlyOne(this)"> Yes</label>
-          <label><input type="checkbox" name="followUp" value="No" onchange="onlyOne(this)"> No</label>
-        </div>
+        <div class="font-medium">Ventilator settings appropriate?</div>
+        <label><input type="checkbox" name="ventSettings" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      </div>
+
+      <div>
+        <div class="font-medium">Analgesia and sedation started?</div>
+        <label><input type="checkbox" name="analgSed" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      </div>
+
+      <div>
+        <div class="font-medium">Chest X-Ray required?</div>
+        <label><input type="checkbox" name="cxrRequired" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label><input type="checkbox" name="cxrRequired" value="No" onchange="onlyOne(this)"> No</label>
+      </div>
+
+      <div>
+        <div class="font-medium">Procedure documented in patient records?</div>
+        <label><input type="checkbox" name="documentation" value="Yes" onchange="onlyOne(this)"> Yes</label>
       </div>
 
     </div>
@@ -200,11 +243,9 @@
       </div>
       <div>
         <div class="font-medium">Route:</div>
-        <div class="flex gap-4 mt-1">
-          <label><input type="checkbox" name="route" value="ETT" onchange="onlyOne(this)"> ETT</label>
-          <label><input type="checkbox" name="route" value="Tracheostomy" onchange="onlyOne(this)"> Tracheostomy</label>
-          <label><input type="checkbox" name="route" value="Oral" onchange="onlyOne(this)"> Oral</label>
-        </div>
+        <label><input type="checkbox" name="route" value="ETT" onchange="onlyOne(this)"> ETT</label>
+        <label><input type="checkbox" name="route" value="Tracheostomy" onchange="onlyOne(this)"> Tracheostomy</label>
+        <label><input type="checkbox" name="route" value="Oral" onchange="onlyOne(this)"> Oral</label>
       </div>
       <div>
         <div class="font-medium">Sedation / anaesthesia details:</div>
@@ -226,7 +267,6 @@
     <div class="mt-6">
       <textarea id="output" class="w-full h-80 border p-3 rounded font-mono"
                 readonly></textarea>
-
       <button onclick="copyText()" class="mt-3 bg-green-600 text-white px-4 py-2 rounded">
         Copy to Clipboard
       </button>
@@ -254,7 +294,7 @@ function generateNote() {
   let output = "INTUBATION SAFETY CHECKLIST\n\n";
 
   // Date handling
-  let rawDate = document.getElementById('proc_date').value; // YYYY-MM-DD
+  let rawDate = document.getElementById('proc_date').value;
   let ukDate = "Not selected";
   if (rawDate) {
     const parts = rawDate.split('-');
@@ -273,36 +313,52 @@ function generateNote() {
   output += `• Patient identity checked: ${getValue("identity")}\n`;
   output += `• Patient position optimised: ${getValue("positionOptimised")}\n`;
   output += `• Spinal precautions required: ${getValue("spinalPrecautions")}\n`;
-  output += `• Equipment available: ${getValue("equipment")}\n`;
-  output += `• Cricoid pressure applied: ${getValue("cricoid")}\n`;
+  output += `• Pre-oxygenation plan: ${getValue("preoxygenation")}\n`;
+  output += `• Cricoid pressure: ${getValue("cricoid")}\n`;
   output += `• NG tube required: ${getValue("ngRequired")}\n`;
   output += `• NG tube aspirated: ${getValue("ngAspirated")}\n`;
-  output += `• Known drug allergies: ${getValue("drugAllergies")}\n`;
-  output += `• Adequate venous access: ${getValue("venousAccess")}\n\n`;
+  output += `• Drug allergies: ${getValue("drugAllergies")}\n`;
+  output += `• Adequate venous access: ${getValue("venousAccess")}\n`;
+  output += `• Monitoring attached: ${getValue("monitoring")}\n`;
+  output += `• Ventilation device: ${getValue("ventDevice")}\n`;
+  output += `• Suction: ${getValue("suction")}\n`;
+  output += `• Laryngoscopes: ${getValue("laryngoscopes")}\n`;
+  output += `• Endotracheal tubes: ${getValue("ett")}\n`;
+  output += `• Bougie: ${getValue("bougie")}\n`;
+  output += `• OPA: ${getValue("opa")}\n`;
+  output += `• SGA: ${getValue("sga")}\n`;
+  output += `• Difficult Airway Trolley: ${getValue("dat")}\n`;
+  output += `• Drugs ready: ${getValue("drugsReady")}\n`;
+  output += `• Senior help known: ${getValue("seniorHelp")}\n`;
+  output += `• Tasks allocated: ${getValue("tasksAllocated")}\n\n`;
 
   // TIME OUT
   output += "=== TIME OUT ===\n";
-  output += `• Adequate oxygenation/ventilator: ${getValue("ventilationCheck")}\n`;
-  output += `• Airway equipment ready: ${getValue("airwayReady")}\n`;
-  output += `• Team roles confirmed: ${getValue("teamRoles")}\n`;
-  output += `• Patient sedated/paralysed: ${getValue("sedationCheck")}\n\n`;
+  output += `• Verbal confirmation: ${getValue("teamConfirm")}\n`;
+  output += `• Difficult airway anticipated: ${getValue("difficultAirway")}\n`;
+  output += `• Difficult airway plans: ${getValue("airwayPlans")}\n`;
+  output += `• Other concerns: ${getValue("otherConcerns")}\n`;
+  output += `• Concern plans: ${getValue("concernPlans")}\n\n`;
 
   // SIGN OUT
   output += "=== SIGN OUT ===\n";
-  output += `• Ventilator settings reviewed: ${getValue("ventReview")}\n`;
-  output += `• CXR required: ${getValue("cxrRequired")}\n`;
-  output += `• Sedation plan post procedure: ${getValue("sedationPlan")}\n`;
-  output += `• Complications recorded: ${getValue("complicationsRecorded")}\n`;
-  output += `• Follow-up actions required: ${getValue("followUp")}\n\n`;
+  output += `• CO₂ confirmation: ${getValue("co2Confirm")}\n`;
+  output += `• Bilateral air entry: ${getValue("airEntry")}\n`;
+  output += `• ETT secured: ${getValue("ettSecured")}\n`;
+  output += `• Cuff pressure checked: ${getValue("cuffPressure")}\n`;
+  output += `• Ventilator settings: ${getValue("ventSettings")}\n`;
+  output += `• Analgesia/sedation started: ${getValue("analgSed")}\n`;
+  output += `• Chest X-ray required: ${getValue("cxrRequired")}\n`;
+  output += `• Documentation: ${getValue("documentation")}\n\n`;
 
   // PROCEDURE DETAILS
   output += "=== PROCEDURE DETAILS ===\n";
-  output += `• Indication for intubation: ${document.getElementById("indication_intub").value}\n`;
+  output += `• Indication: ${document.getElementById("indication_intub").value}\n`;
   const routeBoxes = document.getElementsByName("route");
   let route = "Not selected";
   routeBoxes.forEach(b => { if (b.checked) route = b.value; });
   output += `• Route: ${route}\n`;
-  output += `• Sedation/anaesthesia details: ${document.getElementById("sedation_details").value}\n`;
+  output += `• Sedation details: ${document.getElementById("sedation_details").value}\n`;
   output += `• Complications: ${document.getElementById("complications").value}\n`;
 
   document.getElementById("output").value = output;
@@ -312,7 +368,6 @@ function copyText() {
   navigator.clipboard.writeText(document.getElementById("output").value);
 }
 
-// Set default date
 window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('proc_date').value = new Date().toISOString().split('T')[0];
 });
