@@ -368,62 +368,6 @@
 
 
     <!-- GENERATE BUTTON -->
-    <button onclick="generateNote()"
-            class="mt-8 bg-blue-600 text-white px-4 py-2 rounded">
-      Generate Text Note
-    </button>
-
-    <!-- OUTPUT -->
-    <div class="mt-6">
-      <textarea id="output" class="w-full h-80 border p-3 rounded font-mono"
-                readonly></textarea>
-
-      <div class="flex flex-col md:flex-row md:items-center md:gap-4 mt-3">
-        <button onclick="copyText()" class="bg-green-600 text-white px-4 py-2 rounded w-full md:w-auto">
-          Copy to Clipboard
-        </button>
-        <p class="text-gray-700 text-sm mt-2 md:mt-0">
-          Paste these notes into the patient PPM record, set title as <strong>"Intubation"</strong>.
-        </p>
-      </div>
-    </div>
-
-  </div>
-
-<script>
-// enforce Yes/No exclusivity
-function onlyOne(checkbox) {
-  const group = document.getElementsByName(checkbox.name);
-  group.forEach(box => {
-    if (box !== checkbox) box.checked = false;
-  });
-}
-
-// get selected checkbox value
-function getValue(name) {
-  const boxes = document.getElementsByName(name);
-  for (let b of boxes) if (b.checked) return b.value;
-  return "Not selected";
-}
-
-// multi-select helper
-function getMultiValues(name, otherFieldId = null) {
-  const boxes = document.getElementsByName(name);
-  let values = [];
-
-  boxes.forEach(b => {
-    if (b.checked && b.value !== "Other") values.push(b.value);
-    if (b.checked && b.value === "Other" && otherFieldId) {
-      const otherText = document.getElementById(otherFieldId).value.trim();
-      if (otherText) values.push(otherText);
-    }
-  });
-
-  if (values.length === 0) return "Not selected";
-  return values.join(", ");
-}
-
-// FINAL WORKING generateNote FUNCTION
 function generateNote() {
   let output = "INTUBATION PROCEDURE NOTE\n\n";
 
@@ -442,18 +386,60 @@ function generateNote() {
   output += `Assistant: ${document.getElementById("assistant").value}\n`;
   output += `Supervisor: ${document.getElementById("supervisor").value}\n\n`;
 
-  // INDICATION
-  output += `Indication for intubation: ${document.getElementById("indication_intub").value}\n\n`;
+  // BEFORE THE PROCEDURE
+  output += "=== BEFORE THE PROCEDURE ===\n";
+  output += `• Patient identity checked: ${getValue("identity")}\n`;
+  output += `• Patient position optimised: ${getValue("positionOptimised")}\n`;
+  output += `• Spinal precautions required: ${getValue("spinalPrecautions")}\n`;
+  output += `• Pre-oxygenation plan: ${getValue("preoxygenation")}\n`;
+  output += `• Cricoid pressure: ${getValue("cricoid")}\n`;
+  output += `• NG tube required: ${getValue("ngRequired")}\n`;
+  output += `• NG tube aspirated: ${getValue("ngAspirated")}\n`;
+  output += `• Drug allergies: ${getValue("drugAllergies")}\n`;
+  output += `• Adequate venous access: ${getValue("venousAccess")}\n`;
+  output += `• Monitoring attached: ${getValue("monitoring")}\n`;
+  output += `• Ventilation device: ${getValue("ventDevice")}\n`;
+  output += `• Suction available: ${getValue("suction")}\n`;
+  output += `• Laryngoscopes available: ${getValue("laryngoscopes")}\n`;
+  output += `• Endotracheal tubes: ${getValue("ett")}\n`;
+  output += `• Bougie: ${getValue("bougie")}\n`;
+  output += `• OPA: ${getValue("opa")}\n`;
+  output += `• SGA: ${getValue("sga")}\n`;
+  output += `• Difficult Airway Trolley: ${getValue("dat")}\n`;
+  output += `• Drugs ready: ${getValue("drugsReady")}\n`;
+  output += `• Senior help known: ${getValue("seniorHelp")}\n`;
+  output += `• Tasks allocated: ${getValue("tasksAllocated")}\n\n`;
 
-  // PERSONNEL
+  // TIME OUT
+  output += "=== TIME OUT ===\n";
+  output += `• Verbal confirmation: ${getValue("teamConfirm")}\n`;
+  output += `• Difficult airway anticipated: ${getValue("difficultAirway")}\n`;
+  output += `• Difficult airway plans discussed: ${getValue("airwayPlans")}\n`;
+  output += `• Other concerns: ${getValue("otherConcerns")}\n`;
+  output += `• Concern plans discussed: ${getValue("concernPlans")}\n\n`;
+
+  // SIGN OUT
+  output += "=== SIGN OUT ===\n";
+  output += `• CO₂ confirmation: ${getValue("co2Confirm")}\n`;
+  output += `• Bilateral air entry: ${getValue("airEntry")}\n`;
+  output += `• ETT secured: ${getValue("ettSecured")}\n`;
+  output += `• Cuff pressure checked: ${getValue("cuffPressure")}\n`;
+  output += `• Ventilator settings appropriate: ${getValue("ventSettings")}\n`;
+  output += `• Analgesia/sedation started: ${getValue("analgSed")}\n`;
+  output += `• Chest X-ray required: ${getValue("cxrRequired")}\n`;
+  output += `• Documentation completed: ${getValue("documentation")}\n\n`;
+
+  // PROCEDURE DETAILS (NEW SECTION)
+  output += "=== INTUBATION DETAILS ===\n";
+  output += `Indication: ${document.getElementById("indication_intub").value}\n\n`;
+
   output += "=== PERSONNEL ===\n";
-  output += `Airway: ${document.getElementById("airway_name").value} (Grade: ${document.getElementById("airway_grade").value})\n`;
-  output += `Drugs: ${document.getElementById("drugs_name").value} (Grade: ${document.getElementById("drugs_grade").value})\n`;
-  output += `Other assistant: ${document.getElementById("assistant_name").value} (Grade: ${document.getElementById("assistant_grade").value})\n\n`;
+  output += `Airway: ${document.getElementById("airway_name").value} (Grade ${document.getElementById("airway_grade").value})\n`;
+  output += `Drugs: ${document.getElementById("drugs_name").value} (Grade ${document.getElementById("drugs_grade").value})\n`;
+  output += `Other assistant: ${document.getElementById("assistant_name").value} (Grade ${document.getElementById("assistant_grade").value})\n\n`;
 
-  // INTUBATION
   output += "=== INTUBATION ===\n";
-  output += `Pre-oxygenation technique: ${getMultiValues("preox", "preox_other")}\n`;
+  output += `Pre-oxygenation: ${getMultiValues("preox", "preox_other")}\n`;
   output += `Laryngoscopy grade: ${document.getElementById("laryngoscopy_grade").value}\n`;
   output += `Laryngoscope used: ${getMultiValues("laryngoscope", "laryngoscope_other")}\n`;
   output += `Adjuncts used: ${document.getElementById("adjuncts_used").value}\n`;
@@ -461,21 +447,20 @@ function generateNote() {
   output += `Length at teeth: ${document.getElementById("ett_length").value} cm\n`;
   output += `Route: ${getValue("route")}\n\n`;
 
-  // DRUGS
-  output += "=== DRUGS ===\n";
+  output += "=== DRUGS USED ===\n";
   output += `Opiate: ${document.getElementById("drug_opiate").value}\n`;
   output += `Induction: ${document.getElementById("drug_induction").value}\n`;
   output += `Muscle relaxant: ${document.getElementById("drug_nmb").value}\n`;
   output += `Vaso-active agent: ${document.getElementById("drug_vasoactive").value}\n`;
   output += `Other drugs: ${document.getElementById("drug_other").value}\n\n`;
 
-  // OTHER FIELDS
   output += `Spinal precautions used: ${document.getElementById("spinal_precautions").value}\n`;
   output += `Comments: ${document.getElementById("comments").value}\n`;
   output += `Adverse events: ${document.getElementById("adverse_events").value}\n`;
 
   document.getElementById("output").value = output;
 }
+
 
 function copyText() {
   navigator.clipboard.writeText(document.getElementById("output").value);
