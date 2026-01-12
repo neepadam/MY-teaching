@@ -412,9 +412,7 @@ function getMultiValues(name, otherFieldId = null) {
   let values = [];
 
   boxes.forEach(b => {
-    if (b.checked && b.value !== "Other") {
-      values.push(b.value);
-    }
+    if (b.checked && b.value !== "Other") values.push(b.value);
     if (b.checked && b.value === "Other" && otherFieldId) {
       const otherText = document.getElementById(otherFieldId).value.trim();
       if (otherText) values.push(otherText);
@@ -425,68 +423,7 @@ function getMultiValues(name, otherFieldId = null) {
   return values.join(", ");
 }
 
-function generateNote() {
-  let output = "INTUBATION SAFETY CHECKLIST\n\n";
-
-  // Date handling
-  let rawDate = document.getElementById('proc_date').value;
-  let ukDate = "Not selected";
-  if (rawDate) {
-    const parts = rawDate.split('-');
-    ukDate = parts[2] + "/" + parts[1] + "/" + parts[0];
-  }
-
-  output += "=== PROCEDURE DETAILS ===\n";
-  output += `Procedure Date: ${ukDate}\n`;
-  output += `Time: ${document.getElementById('proc_time').value}\n`;
-  output += `Operator: ${document.getElementById('operator').value}\n`;
-  output += `Assistant: ${document.getElementById('assistant').value}\n`;
-  output += `Supervisor: ${document.getElementById('supervisor').value}\n\n`;
-
-  // BEFORE THE PROCEDURE
-  output += "=== BEFORE THE PROCEDURE ===\n";
-  output += `• Patient identity checked: ${getValue("identity")}\n`;
-  output += `• Patient position optimised: ${getValue("positionOptimised")}\n`;
-  output += `• Spinal precautions required: ${getValue("spinalPrecautions")}\n`;
-  output += `• Pre-oxygenation plan: ${getValue("preoxygenation")}\n`;
-  output += `• Cricoid pressure: ${getValue("cricoid")}\n`;
-  output += `• NG tube required: ${getValue("ngRequired")}\n`;
-  output += `• NG tube aspirated: ${getValue("ngAspirated")}\n`;
-  output += `• Drug allergies: ${getValue("drugAllergies")}\n`;
-  output += `• Adequate venous access: ${getValue("venousAccess")}\n`;
-  output += `• Monitoring attached: ${getValue("monitoring")}\n`;
-  output += `• Ventilation device: ${getValue("ventDevice")}\n`;
-  output += `• Suction: ${getValue("suction")}\n`;
-  output += `• Laryngoscopes: ${getValue("laryngoscopes")}\n`;
-  output += `• Endotracheal tubes: ${getValue("ett")}\n`;
-  output += `• Bougie: ${getValue("bougie")}\n`;
-  output += `• OPA: ${getValue("opa")}\n`;
-  output += `• SGA: ${getValue("sga")}\n`;
-  output += `• Difficult Airway Trolley: ${getValue("dat")}\n`;
-  output += `• Drugs ready: ${getValue("drugsReady")}\n`;
-  output += `• Senior help known: ${getValue("seniorHelp")}\n`;
-  output += `• Tasks allocated: ${getValue("tasksAllocated")}\n\n`;
-
-  // TIME OUT
-  output += "=== TIME OUT ===\n";
-  output += `• Verbal confirmation: ${getValue("teamConfirm")}\n`;
-  output += `• Difficult airway anticipated: ${getValue("difficultAirway")}\n`;
-  output += `• Difficult airway plans: ${getValue("airwayPlans")}\n`;
-  output += `• Other concerns: ${getValue("otherConcerns")}\n`;
-  output += `• Concern plans: ${getValue("concernPlans")}\n\n`;
-
-  // SIGN OUT
-  output += "=== SIGN OUT ===\n";
-  output += `• CO₂ confirmation: ${getValue("co2Confirm")}\n`;
-  output += `• Bilateral air entry: ${getValue("airEntry")}\n`;
-  output += `• ETT secured: ${getValue("ettSecured")}\n`;
-  output += `• Cuff pressure checked: ${getValue("cuffPressure")}\n`;
-  output += `• Ventilator settings: ${getValue("ventSettings")}\n`;
-  output += `• Analgesia/sedation started: ${getValue("analgSed")}\n`;
-  output += `• Chest X-ray required: ${getValue("cxrRequired")}\n`;
-  output += `• Documentation: ${getValue("documentation")}\n\n`;
-
-  // PROCEDURE DETAILS
+// FINAL WORKING generateNote FUNCTION
 function generateNote() {
   let output = "INTUBATION PROCEDURE NOTE\n\n";
 
@@ -548,6 +485,7 @@ window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('proc_date').value = new Date().toISOString().split('T')[0];
 });
 </script>
+
 
 </body>
 </html>
