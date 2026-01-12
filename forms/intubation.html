@@ -228,80 +228,144 @@
     </div>
 
     <!-- PROCEDURE DETAILS -->
-    <div class="bg-purple-600 text-white font-bold text-lg px-4 py-2 rounded mt-6">
-      PROCEDURE DETAILS
+   <!-- PROCEDURE DETAILS -->
+<div class="bg-purple-600 text-white font-bold text-lg px-4 py-2 rounded mt-6">
+  PROCEDURE DETAILS
+</div>
+
+<div class="mt-4 space-y-6">
+
+  <!-- INDICATION -->
+  <div>
+    <div class="font-medium">Indication for intubation:</div>
+    <input type="text" id="indication_intub" class="border p-2 rounded w-full">
+  </div>
+
+  <!-- PERSONNEL -->
+  <div class="border p-4 bg-gray-50 rounded">
+    <div class="font-bold mb-3">Personnel</div>
+
+    <div class="mb-2 font-medium">Airway operator:</div>
+    <div class="grid grid-cols-2 gap-2">
+      <input type="text" id="airway_name" placeholder="Name" class="border p-2 rounded w-full">
+      <input type="text" id="airway_grade" placeholder="Grade" class="border p-2 rounded w-full">
     </div>
 
-    <div class="mt-4 space-y-4">
-
-      <div>
-        <div class="font-medium">Indication for intubation:</div>
-        <input type="text" id="indication_intub" class="border p-2 rounded w-full">
-      </div>
-
-      <div>
-        <div class="font-medium">Drugs used for anaesthesia:</div>
-        <input type="text" id="drugs_anaesthesia" class="border p-2 rounded w-full">
-      </div>
-
-      <div>
-        <div class="font-medium">Pre-oxygenation technique (tick all that apply):</div>
-        <div class="flex flex-col gap-2 mt-1">
-          <label><input type="checkbox" name="preox" value="Water's circuit"> Water's circuit</label>
-          <label><input type="checkbox" name="preox" value="NIV/CPAP"> NIV/CPAP</label>
-          <label><input type="checkbox" name="preox" value="Nasal cannula"> Nasal cannula</label>
-          <div class="flex items-center gap-2">
-            <label><input type="checkbox" name="preox" value="Other"> Other:</label>
-            <input type="text" id="preox_other" placeholder="Specify" class="border p-2 rounded w-full">
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="font-medium">ETT size:</div>
-        <input type="text" id="ett_size" class="border p-2 rounded w-full">
-      </div>
-
-      <div>
-        <div class="font-medium">ETT with sub-glottic suction used?</div>
-        <label><input type="checkbox" name="subglottic" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        <label><input type="checkbox" name="subglottic" value="No" onchange="onlyOne(this)"> No</label>
-      </div>
-
-      <div>
-        <div class="font-medium">Length at teeth (cm):</div>
-        <input type="text" id="ett_length" class="border p-2 rounded w-full">
-      </div>
-
-      <div>
-        <div class="font-medium">Laryngoscope used:</div>
-        <div class="flex flex-col gap-2">
-          <label><input type="checkbox" name="laryngoscope" value="Mac 3"> Mac 3</label>
-          <label><input type="checkbox" name="laryngoscope" value="Mac 4"> Mac 4</label>
-          <label><input type="checkbox" name="laryngoscope" value="Video-laryngoscope"> Video-laryngoscope</label>
-          <div class="flex items-center gap-2">
-            <label><input type="checkbox" name="laryngoscope" value="Other"> Other:</label>
-            <input type="text" id="laryngoscope_other" placeholder="Specify" class="border p-2 rounded w-full">
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="font-medium">Grade of intubation:</div>
-        <input type="text" id="grade_intubation" class="border p-2 rounded w-full">
-      </div>
-
-      <div>
-        <div class="font-medium">Adjuncts used:</div>
-        <input type="text" id="adjuncts_used" class="border p-2 rounded w-full">
-      </div>
-
-      <div>
-        <div class="font-medium">Any other comments?</div>
-        <input type="text" id="other_comments" class="border p-2 rounded w-full">
-      </div>
-
+    <div class="mt-4 mb-2 font-medium">Drugs (given by):</div>
+    <div class="grid grid-cols-2 gap-2">
+      <input type="text" id="drugs_name" placeholder="Name" class="border p-2 rounded w-full">
+      <input type="text" id="drugs_grade" placeholder="Grade" class="border p-2 rounded w-full">
     </div>
+
+    <div class="mt-4 mb-2 font-medium">Other assistant:</div>
+    <div class="grid grid-cols-2 gap-2">
+      <input type="text" id="assistant_name" placeholder="Name" class="border p-2 rounded w-full">
+      <input type="text" id="assistant_grade" placeholder="Grade" class="border p-2 rounded w-full">
+    </div>
+  </div>
+
+  <!-- INTUBATION SECTION -->
+  <div class="font-bold text-lg">Intubation</div>
+
+  <div>
+    <div class="font-medium">Pre-oxygenation technique:</div>
+    <div class="flex flex-col gap-1">
+      <label><input type="checkbox" name="preox" value="Water's circuit"> Water's circuit</label>
+      <label><input type="checkbox" name="preox" value="NIV/CPAP"> NIV/CPAP</label>
+      <label><input type="checkbox" name="preox" value="Nasal cannula"> Nasal cannula</label>
+      <div class="flex items-center gap-2">
+        <label><input type="checkbox" name="preox" value="Other"> Other:</label>
+        <input type="text" id="preox_other" placeholder="Specify" class="border p-2 rounded w-full">
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="font-medium">Laryngoscopy grade:</div>
+    <input type="text" id="laryngoscopy_grade" class="border p-2 rounded w-full">
+  </div>
+
+  <div>
+    <div class="font-medium">Laryngoscope used:</div>
+    <div class="flex flex-col gap-1">
+      <label><input type="checkbox" name="laryngoscope" value="Mac 3"> Mac 3</label>
+      <label><input type="checkbox" name="laryngoscope" value="Mac 4"> Mac 4</label>
+      <label><input type="checkbox" name="laryngoscope" value="Video-laryngoscope"> Video-laryngoscope</label>
+      <div class="flex items-center gap-2">
+        <label><input type="checkbox" name="laryngoscope" value="Other"> Other:</label>
+        <input type="text" id="laryngoscope_other" placeholder="Specify" class="border p-2 rounded w-full">
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="font-medium">Adjuncts used:</div>
+    <input type="text" id="adjuncts_used" class="border p-2 rounded w-full">
+  </div>
+
+  <div>
+    <div class="font-medium">ETT size (ID mm):</div>
+    <input type="text" id="ett_size" class="border p-2 rounded w-full">
+  </div>
+
+  <div>
+    <div class="font-medium">Length at teeth (cm):</div>
+    <input type="text" id="ett_length" class="border p-2 rounded w-full">
+  </div>
+
+  <div>
+    <div class="font-medium">Route:</div>
+    <label><input type="checkbox" name="route" value="Oral" onchange="onlyOne(this)"> Oral</label>
+    <label><input type="checkbox" name="route" value="Nasal" onchange="onlyOne(this)"> Nasal</label>
+  </div>
+
+  <!-- DRUGS SECTION -->
+  <div class="border p-4 bg-gray-50 rounded">
+    <div class="font-bold mb-2">Drugs</div>
+
+    <div class="mb-2">
+      <div class="font-medium">Opiate (drug & dose):</div>
+      <input type="text" id="drug_opiate" class="border p-2 rounded w-full">
+    </div>
+
+    <div class="mb-2">
+      <div class="font-medium">Induction (drug & dose):</div>
+      <input type="text" id="drug_induction" class="border p-2 rounded w-full">
+    </div>
+
+    <div class="mb-2">
+      <div class="font-medium">Muscle relaxant (drug & dose):</div>
+      <input type="text" id="drug_nmb" class="border p-2 rounded w-full">
+    </div>
+
+    <div class="mb-2">
+      <div class="font-medium">Vaso-active agent (drug & dose):</div>
+      <input type="text" id="drug_vasoactive" class="border p-2 rounded w-full">
+    </div>
+
+    <div class="mb-2">
+      <div class="font-medium">Other drugs:</div>
+      <input type="text" id="drug_other" class="border p-2 rounded w-full">
+    </div>
+  </div>
+
+  <div>
+    <div class="font-medium">Spinal precautions used (if applicable):</div>
+    <input type="text" id="spinal_precautions" class="border p-2 rounded w-full">
+  </div>
+
+  <div>
+    <div class="font-medium">Comments:</div>
+    <textarea id="comments" class="border p-2 rounded w-full" rows="3"></textarea>
+  </div>
+
+  <div>
+    <div class="font-medium">Adverse events:</div>
+    <textarea id="adverse_events" class="border p-2 rounded w-full" rows="3"></textarea>
+  </div>
+
+</div>
+
 
     <!-- GENERATE BUTTON -->
     <button onclick="generateNote()"
@@ -423,17 +487,55 @@ function generateNote() {
   output += `• Documentation: ${getValue("documentation")}\n\n`;
 
   // PROCEDURE DETAILS
+function generateNote() {
+  let output = "INTUBATION PROCEDURE NOTE\n\n";
+
+  // Date handling
+  let rawDate = document.getElementById('proc_date').value;
+  let ukDate = "Not selected";
+  if (rawDate) {
+    const parts = rawDate.split('-');
+    ukDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
+  }
+
   output += "=== PROCEDURE DETAILS ===\n";
-  output += `• Indication: ${document.getElementById("indication_intub").value}\n`;
-  output += `• Drugs used for anaesthesia: ${document.getElementById("drugs_anaesthesia").value}\n`;
-  output += `• Pre-oxygenation technique: ${getMultiValues("preox", "preox_other")}\n`;
-  output += `• ETT size: ${document.getElementById("ett_size").value}\n`;
-  output += `• Sub-glottic suction ETT used: ${getValue("subglottic")}\n`;
-  output += `• Length at teeth: ${document.getElementById("ett_length").value} cm\n`;
-  output += `• Laryngoscope used: ${getMultiValues("laryngoscope", "laryngoscope_other")}\n`;
-  output += `• Grade of intubation: ${document.getElementById("grade_intubation").value}\n`;
-  output += `• Adjuncts used: ${document.getElementById("adjuncts_used").value}\n`;
-  output += `• Other comments: ${document.getElementById("other_comments").value}\n`;
+  output += `Procedure Date: ${ukDate}\n`;
+  output += `Time: ${document.getElementById("proc_time").value}\n`;
+  output += `Operator: ${document.getElementById("operator").value}\n`;
+  output += `Assistant: ${document.getElementById("assistant").value}\n`;
+  output += `Supervisor: ${document.getElementById("supervisor").value}\n\n`;
+
+  // INDICATION
+  output += `Indication for intubation: ${document.getElementById("indication_intub").value}\n\n`;
+
+  // PERSONNEL
+  output += "=== PERSONNEL ===\n";
+  output += `Airway: ${document.getElementById("airway_name").value} (Grade: ${document.getElementById("airway_grade").value})\n`;
+  output += `Drugs: ${document.getElementById("drugs_name").value} (Grade: ${document.getElementById("drugs_grade").value})\n`;
+  output += `Other assistant: ${document.getElementById("assistant_name").value} (Grade: ${document.getElementById("assistant_grade").value})\n\n`;
+
+  // INTUBATION
+  output += "=== INTUBATION ===\n";
+  output += `Pre-oxygenation technique: ${getMultiValues("preox", "preox_other")}\n`;
+  output += `Laryngoscopy grade: ${document.getElementById("laryngoscopy_grade").value}\n`;
+  output += `Laryngoscope used: ${getMultiValues("laryngoscope", "laryngoscope_other")}\n`;
+  output += `Adjuncts used: ${document.getElementById("adjuncts_used").value}\n`;
+  output += `ETT size: ${document.getElementById("ett_size").value}\n`;
+  output += `Length at teeth: ${document.getElementById("ett_length").value} cm\n`;
+  output += `Route: ${getValue("route")}\n\n`;
+
+  // DRUGS
+  output += "=== DRUGS ===\n";
+  output += `Opiate: ${document.getElementById("drug_opiate").value}\n`;
+  output += `Induction: ${document.getElementById("drug_induction").value}\n`;
+  output += `Muscle relaxant: ${document.getElementById("drug_nmb").value}\n`;
+  output += `Vaso-active agent: ${document.getElementById("drug_vasoactive").value}\n`;
+  output += `Other drugs: ${document.getElementById("drug_other").value}\n\n`;
+
+  // OTHER FIELDS
+  output += `Spinal precautions used: ${document.getElementById("spinal_precautions").value}\n`;
+  output += `Comments: ${document.getElementById("comments").value}\n`;
+  output += `Adverse events: ${document.getElementById("adverse_events").value}\n`;
 
   document.getElementById("output").value = output;
 }
