@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tracheostomy Checklist + Clinical Note Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-6">
+
+  <div class="max-w-4xl mx-auto bg-white shadow p-6 rounded">
+    <h1 class="text-3xl font-bold mb-6">Tracheostomy Checklist + Clinical Note Generator</h1>
+
+    <!-- Free text fields -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <div>
+        <label class="font-medium">Procedure Date:</label>
+        <input type="date" id="proc_date" class="w-full border p-2 rounded">
+      </div>
+      <div>
+        <label class="font-medium">Time:</label>
+        <input type="text" id="proc_time" class="w-full border p-2 rounded">
+      </div>
+      <div>
+        <label class="font-medium">Operator:</label>
+        <input type="text" id="operator" class="w-full border p-2 rounded">
+      </div>
+      <div>
+        <label class="font-medium">Assistant:</label>
+        <input type="text" id="assistant" class="w-full border p-2 rounded">
+      </div>
+      <div>
+        <label class="font-medium">Supervisor:</label>
+        <input type="text" id="supervisor" class="w-full border p-2 rounded">
+      </div>
+    </div>
+
+    <!-- BEFORE THE PROCEDURE -->
+    <h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-4">BEFORE THE PROCEDURE</h2>
+    <div class="grid grid-cols-1 gap-4 mt-4">
+
+      <div class="font-medium">Have all team members introduced themselves & roles assigned?</div>
+      <label><input type="checkbox" name="teamIntro" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Patient identity checked?</div>
+      <label><input type="checkbox" name="identity" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Appropriate consent completed?</div>
+      <label><input type="checkbox" name="consent" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Is all equipment available and checked (tracheostomy, bronchoscopy, reintubation)?</div>
+      <label><input type="checkbox" name="equipment" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Is appropriate monitoring attached? (including EtCO₂)</div>
+      <label><input type="checkbox" name="monitoring" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Previous grade of intubation checked?</div>
+      <label><input type="checkbox" name="prevIntub" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Is the patient optimised for the procedure?</div>
+      <label><input type="checkbox" name="optimised" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Is there coagulopathy? (drugs / labs)</div>
+      <label><input type="checkbox" name="coagulopathy" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      <label><input type="checkbox" name="coagulopathy" value="No" onchange="onlyOne(this)"> No</label>
+
+      <div class="font-medium">Known drug allergies?</div>
+      <label><input type="checkbox" name="allergies" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      <label><input type="checkbox" name="allergies" value="No" onchange="onlyOne(this)"> No</label>
+
+      <div class="font-medium">Enteral feed stopped and NG tube aspirated?</div>
+      <label><input type="checkbox" name="feedStopped" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Are spinal precautions required?</div>
+      <label><input type="checkbox" name="spinalPrecautions" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      <label><input type="checkbox" name="spinalPrecautions" value="No" onchange="onlyOne(this)"> No</label>
+
+      <div class="font-medium">Any difficulties anticipated?</div>
+      <label><input type="checkbox" name="difficulties" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      <label><input type="checkbox" name="difficulties" value="No" onchange="onlyOne(this)"> No</label>
+
+      <div class="font-medium">If yes, plans discussed?</div>
+      <label><input type="checkbox" name="plansDiscussed" value="Yes" onchange="onlyOne(this)"> Yes</label>
+    </div>
+
+    <!-- TIME OUT -->
+    <h2 class="text-xl font-bold bg-yellow-400 text-black p-2 mt-8">TIME OUT</h2>
+    <div class="grid grid-cols-1 gap-4 mt-4">
+
+      <div class="font-medium">Verbal confirmation between team members before start?</div>
+      <label><input type="checkbox" name="teamConfirm" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Patient on appropriate ventilator settings and 100% FiO₂?</div>
+      <label><input type="checkbox" name="ventSettings" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Patient adequately sedated and paralysed?</div>
+      <label><input type="checkbox" name="sedation" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Position optimal?</div>
+      <label><input type="checkbox" name="position" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+    </div>
+
+    <!-- SIGN OUT -->
+    <h2 class="text-xl font-bold bg-green-600 text-white p-2 mt-8">SIGN OUT</h2>
+    <div class="grid grid-cols-1 gap-4 mt-4">
+
+      <div class="font-medium">Tracheostomy position confirmed with bronchoscope?</div>
+      <label><input type="checkbox" name="bronchConfirm" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Appropriate distance from carina in flexed/extended neck?</div>
+      <label><input type="checkbox" name="carinaCheck" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Guidewire removed?</div>
+      <label><input type="checkbox" name="guidewire" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Capnography in situ?</div>
+      <label><input type="checkbox" name="capnography" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Ventilator settings reviewed post-procedure?</div>
+      <label><input type="checkbox" name="postVent" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Tracheostomy secured?</div>
+      <label><input type="checkbox" name="secured" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Cuff pressure checked?</div>
+      <label><input type="checkbox" name="cuff" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Sedation reviewed?</div>
+      <label><input type="checkbox" name="sedationReview" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Sharps safely disposed?</div>
+      <label><input type="checkbox" name="sharps" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Tracheostomy bedhead sign placed?</div>
+      <label><input type="checkbox" name="bedhead" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+    </div>
+
+    <!-- PROCEDURE DETAILS -->
+    <div class="bg-purple-600 text-white font-bold text-lg px-4 py-2 rounded mt-6">
+      PROCEDURE DETAILS (TRACHEOSTOMY)
+    </div>
+
+    <div class="mt-4 space-y-6">
+
+      <div>
+        <div class="font-medium">Indication for tracheostomy:</div>
+        <input type="text" id="indication" class="border p-2 rounded w-full">
+      </div>
+
+      <div>
+        <div class="font-medium">Tube size:</div>
+        <input type="text" id="tubeSize" class="border p-2 rounded w-full">
+      </div>
+
+      <div>
+        <div class="font-medium">Cuffed?</div>
+        <label><input type="checkbox" name="cuffed" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label><input type="checkbox" name="cuffed" value="No" onchange="onlyOne(this)"> No</label>
+      </div>
+
+      <div>
+        <div class="font-medium">Distance from carina (flexed):</div>
+        <input type="text" id="carinaFlexed" class="border p-2 rounded w-full">
+      </div>
+
+      <div>
+        <div class="font-medium">Distance from carina (extended):</div>
+        <input type="text" id="carinaExtended" class="border p-2 rounded w-full">
+      </div>
+
+      <div>
+        <div class="font-medium">Bronchoscopy findings:</div>
+        <textarea id="bronchFindings" class="border p-2 rounded w-full" rows="3"></textarea>
+      </div>
+
+      <div>
+        <div class="font-medium">Complications:</div>
+        <textarea id="complications" class="border p-2 rounded w-full" rows="3"></textarea>
+      </div>
+
+      <div>
+        <div class="font-medium">Additional comments:</div>
+        <textarea id="comments" class="border p-2 rounded w-full" rows="3"></textarea>
+      </div>
+
+    </div>
+
+    <!-- GENERATE BUTTON -->
+    <button onclick="generateNote()"
+            class="mt-8 bg-blue-600 text-white px-4 py-2 rounded">
+      Generate Text Note
+    </button>
+
+    <!-- OUTPUT -->
+    <div class="mt-6">
+      <textarea id="output" class="w-full h-80 border p-3 rounded font-mono" readonly></textarea>
+
+      <button onclick="copyText()" class="bg-green-600 text-white px-4 py-2 rounded w-full md:w-auto mt-3">
+        Copy to Clipboard
+      </button>
+    </div>
+
+  </div>
+
+<script>
+
+function onlyOne(checkbox) {
+  const group = document.getElementsByName(checkbox.name);
+  group.forEach(box => {
+    if (box !== checkbox) box.checked = false;
+  });
+}
+
+function getValue(name) {
+  const boxes = document.getElementsByName(name);
+  for (let b of boxes) if (b.checked) return b.value;
+  return "Not selected";
+}
+
+function generateNote() {
+
+  let out = "TRACHEOSTOMY PROCEDURE NOTE\n\n";
+
+  // Convert date to UK format
+  let rawDate = document.getElementById('proc_date').value;
+  let ukDate = "Not selected";
+  if (rawDate) {
+    const p = rawDate.split("-");
+    ukDate = `${p[2]}/${p[1]}/${p[0]}`;
+  }
+
+  out += "=== PROCEDURE DETAILS ===\n";
+  out += `Procedure Date: ${ukDate}\n`;
+  out += `Time: ${document.getElementById("proc_time").value}\n`;
+  out += `Operator: ${document.getElementById("operator").value}\n`;
+  out += `Assistant: ${document.getElementById("assistant").value}\n`;
+  out += `Supervisor: ${document.getElementById("supervisor").value}\n\n`;
+
+  out += "=== BEFORE THE PROCEDURE ===\n";
+  out += `• Team introductions done: ${getValue("teamIntro")}\n`;
+  out += `• Patient identity checked: ${getValue("identity")}\n`;
+  out += `• Consent completed: ${getValue("consent")}\n`;
+  out += `• Equipment available: ${getValue("equipment")}\n`;
+  out += `• Monitoring attached: ${getValue("monitoring")}\n`;
+  out += `• Previous intubation grade checked: ${getValue("prevIntub")}\n`;
+  out += `• Patient optimised: ${getValue("optimised")}\n`;
+  out += `• Coagulopathy: ${getValue("coagulopathy")}\n`;
+  out += `• Drug allergies: ${getValue("allergies")}\n`;
+  out += `• Enteral feed stopped & NG aspirated: ${getValue("feedStopped")}\n`;
+  out += `• Spinal precautions: ${getValue("spinalPrecautions")}\n`;
+  out += `• Difficulties anticipated: ${getValue("difficulties")}\n`;
+  out += `• Plans discussed: ${getValue("plansDiscussed")}\n\n`;
+
+  out += "=== TIME OUT ===\n";
+  out += `• Verbal team confirmation: ${getValue("teamConfirm")}\n`;
+  out += `• 100% FiO₂ & appropriate ventilator settings: ${getValue("ventSettings")}\n`;
+  out += `• Adequate sedation/paralysis: ${getValue("sedation")}\n`;
+  out += `• Position optimal: ${getValue("position")}\n\n`;
+
+  out += "=== SIGN OUT ===\n";
+  out += `• Position confirmed with bronchoscope: ${getValue("bronchConfirm")}\n`;
+  out += `• Carina distance checked: ${getValue("carinaCheck")}\n`;
+  out += `• Guidewire removed: ${getValue("guidewire")}\n`;
+  out += `• Capnography in situ: ${getValue("capnography")}\n`;
+  out += `• Post-procedure vent settings reviewed: ${getValue("postVent")}\n`;
+  out += `• Tracheostomy secured: ${getValue("secured")}\n`;
+  out += `• Cuff pressure checked: ${getValue("cuff")}\n`;
+  out += `• Sedation reviewed: ${getValue("sedationReview")}\n`;
+  out += `• Sharps disposed: ${getValue("sharps")}\n`;
+  out += `• Bedhead sign placed: ${getValue("bedhead")}\n\n`;
+
+  out += "=== TRACHEOSTOMY DETAILS ===\n";
+  out += `Indication: ${document.getElementById("indication").value}\n`;
+  out += `Tube size: ${document.getElementById("tubeSize").value}\n`;
+  out += `Cuffed: ${getValue("cuffed")}\n`;
+  out += `Carina distance (flexed): ${document.getElementById("carinaFlexed").value}\n`;
+  out += `Carina distance (extended): ${document.getElementById("carinaExtended").value}\n`;
+  out += `Bronchoscopy findings: ${document.getElementById("bronchFindings").value}\n`;
+  out += `Complications: ${document.getElementById("complications").value}\n`;
+  out += `Comments: ${document.getElementById("comments").value}\n`;
+
+  document.getElementById("output").value = out;
+}
+
+function copyText() {
+  navigator.clipboard.writeText(document.getElementById("output").value);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('proc_date').value = new Date().toISOString().split('T')[0];
+});
+
+</script>
+
+</body>
+</html>
