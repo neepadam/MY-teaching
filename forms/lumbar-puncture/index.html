@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lumbar Puncture Checklist Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-6">
+
+<div class="max-w-4xl mx-auto bg-white shadow p-6 rounded">
+  <h1 class="text-3xl font-bold mb-6">Lumbar Puncture Checklist → Clinical Note Generator</h1>
+
+  <!-- BASIC DETAILS -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+    <div>
+      <label class="font-medium">Procedure Date:</label>
+      <input type="date" id="proc_date" class="w-full border p-2 rounded">
+    </div>
+    <div>
+      <label class="font-medium">Time:</label>
+      <input type="text" id="proc_time" class="w-full border p-2 rounded">
+    </div>
+    <div>
+      <label class="font-medium">Operator:</label>
+      <input type="text" id="operator" class="w-full border p-2 rounded">
+    </div>
+    <div>
+      <label class="font-medium">Supervisor:</label>
+      <input type="text" id="supervisor" class="w-full border p-2 rounded">
+    </div>
+  </div>
+
+  <!-- BEFORE PROCEDURE -->
+  <h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-4">BEFORE THE PROCEDURE</h2>
+
+  <div class="space-y-4 mt-4">
+    <div>
+      <div class="font-medium">Indication documented?</div>
+      <input id="indication" class="border p-2 rounded w-full">
+    </div>
+
+    <div>
+      <div class="font-medium">Imaging reviewed?</div>
+      <div class="flex gap-4">
+        <label><input type="checkbox" name="imaging" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label><input type="checkbox" name="imaging" value="No" onchange="onlyOne(this)"> No</label>
+        <label><input type="checkbox" name="imaging" value="N/A" onchange="onlyOne(this)"> N/A</label>
+      </div>
+    </div>
+
+    <div>
+      <div class="font-medium">Contraindications checked?</div>
+      <div class="flex gap-4">
+        <label><input type="checkbox" name="contra" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label><input type="checkbox" name="contra" value="No" onchange="onlyOne(this)"> No</label>
+      </div>
+    </div>
+
+    <div>
+      <div class="font-medium">Drug chart checked for anti-coagulants?</div>
+      <div class="flex gap-4">
+        <label><input type="checkbox" name="anticoag" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label><input type="checkbox" name="anticoag" value="No" onchange="onlyOne(this)"> No</label>
+      </div>
+    </div>
+
+    <div>
+      <div class="font-medium">Coagulation checked?</div>
+      <div class="flex gap-4">
+        <label><input type="checkbox" name="coag" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label><input type="checkbox" name="coag" value="No" onchange="onlyOne(this)"> No</label>
+      </div>
+      <div class="flex gap-4 mt-2">
+        <input id="inr" placeholder="INR" class="border p-2 rounded w-32">
+        <input id="platelets" placeholder="Platelets" class="border p-2 rounded w-32">
+      </div>
+    </div>
+  </div>
+
+  <!-- CONSENT -->
+  <h2 class="text-xl font-bold bg-yellow-400 text-black p-2 mt-8">CONSENT</h2>
+
+  <div class="space-y-4 mt-4">
+    <div>
+      <div class="font-medium">Patient has capacity?</div>
+      <div class="flex gap-4">
+        <label><input type="checkbox" name="capacity" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label><input type="checkbox" name="capacity" value="No" onchange="onlyOne(this)"> No</label>
+      </div>
+    </div>
+
+    <div>
+      <div class="font-medium">Consent discussion completed?</div>
+      <div class="flex gap-4">
+        <label><input type="checkbox" name="consent" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label><input type="checkbox" name="consent" value="Best interests" onchange="onlyOne(this)"> Best interests</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCEDURE -->
+  <h2 class="text-xl font-bold bg-purple-600 text-white p-2 mt-8">PROCEDURE DETAILS</h2>
+
+  <div class="space-y-4 mt-4">
+    <div>
+      <div class="font-medium">Aseptic technique used:</div>
+      <div class="flex flex-col gap-1">
+        <label><input type="checkbox" name="aseptic" value="Sterile gown & gloves"> Sterile gown & gloves</label>
+        <label><input type="checkbox" name="aseptic" value="Hat & mask"> Hat & mask</label>
+        <label><input type="checkbox" name="aseptic" value="Sterile drape"> Sterile drape</label>
+        <label><input type="checkbox" name="aseptic" value="Chlorhexidine"> 0.5% chlorhexidine</label>
+      </div>
+    </div>
+
+    <div>
+      <div class="font-medium">Position:</div>
+      <div class="flex gap-4">
+        <label><input type="checkbox" name="position" value="Lateral" onchange="onlyOne(this)"> Lateral</label>
+        <label><input type="checkbox" name="position" value="Sitting" onchange="onlyOne(this)"> Sitting</label>
+      </div>
+    </div>
+
+    <div>
+      <div class="font-medium">Level:</div>
+      <div class="flex gap-4">
+        <label><input type="checkbox" name="level" value="L2/3" onchange="onlyOne(this)"> L2/3</label>
+        <label><input type="checkbox" name="level" value="L3/4" onchange="onlyOne(this)"> L3/4</label>
+        <label><input type="checkbox" name="level" value="L4/5" onchange="onlyOne(this)"> L4/5</label>
+      </div>
+    </div>
+
+    <div>
+      <label class="font-medium">Needle used:</label>
+      <input id="needle" class="border p-2 rounded w-full">
+    </div>
+
+    <div class="flex gap-4">
+      <input id="attempts" type="number" placeholder="Attempts" class="border p-2 rounded w-32">
+      <input id="opening_pressure" placeholder="Opening pressure (cm CSF)" class="border p-2 rounded w-64">
+    </div>
+
+    <div>
+      <label class="font-medium">CSF appearance:</label>
+      <input id="appearance" class="border p-2 rounded w-full">
+    </div>
+  </div>
+
+  <!-- SAMPLES -->
+  <h2 class="text-xl font-bold bg-green-600 text-white p-2 mt-8">CSF SAMPLES SENT</h2>
+
+  <div class="space-y-3 mt-4">
+
+    <div>
+      <label class="font-medium">Number of white top bottles sent to lab:</label>
+      <input id="white_tops" type="number" class="border p-2 rounded w-24 mt-1">
+      <div class="text-sm text-gray-600 mt-1">
+        Consider sending a 4th white top “save” sample for future investigations
+      </div>
+    </div>
+
+    <label><input type="checkbox" name="samples" value="MC&S"> MC&amp;S</label>
+    <label><input type="checkbox" name="samples" value="Virology"> Virology</label>
+    <label><input type="checkbox" name="samples" value="Protein"> Protein</label>
+    <label><input type="checkbox" name="samples" value="Glucose"> Glucose</label>
+    <label><input type="checkbox" name="samples" value="Xanthochromia"> Xanthochromia</label>
+
+    <label class="flex items-center gap-2">
+      <input type="checkbox" name="samples" value="Other">
+      Other:
+      <input id="samples_other" class="border p-1 rounded w-64" placeholder="Specify">
+    </label>
+  </div>
+
+  <!-- COMMENTS -->
+  <h2 class="text-xl font-bold bg-gray-700 text-white p-2 mt-8">ADDITIONAL COMMENTS</h2>
+  <textarea id="comments" class="w-full border p-3 rounded mt-4" rows="4"></textarea>
+
+  <!-- GENERATE -->
+  <button onclick="generateNote()" class="mt-8 bg-blue-600 text-white px-4 py-2 rounded">
+    Generate Text Note
+  </button>
+
+  <textarea id="output" class="w-full h-80 border p-3 rounded font-mono mt-4" readonly></textarea>
+</div>
+
+<script>
+function onlyOne(cb) {
+  document.getElementsByName(cb.name).forEach(b => {
+    if (b !== cb) b.checked = false;
+  });
+}
+
+function getValue(name) {
+  const boxes = document.getElementsByName(name);
+  for (let b of boxes) if (b.checked) return b.value;
+  return "Not selected";
+}
+
+function generateNote() {
+  let o = "LUMBAR PUNCTURE PROCEDURE NOTE\n\n";
+  o += `Date: ${proc_date.value}  Time: ${proc_time.value}\n`;
+  o += `Operator: ${operator.value}\nSupervisor: ${supervisor.value}\n\n`;
+
+  o += `Indication: ${indication.value}\n`;
+  o += `Imaging reviewed: ${getValue("imaging")}\n`;
+  o += `Contraindications checked: ${getValue("contra")}\n`;
+  o += `Drug chart checked for anticoagulants: ${getValue("anticoag")}\n`;
+  o += `Coagulation checked: ${getValue("coag")} (INR ${inr.value}, Platelets ${platelets.value})\n\n`;
+
+  o += `Consent: Capacity ${getValue("capacity")}, ${getValue("consent")}\n\n`;
+
+  o += `Position: ${getValue("position")}, Level: ${getValue("level")}\n`;
+  o += `Needle used: ${needle.value}\n`;
+  o += `Attempts: ${attempts.value}, Opening pressure: ${opening_pressure.value}\n`;
+  o += `CSF appearance: ${appearance.value}\n\n`;
+
+  o += `White top bottles sent: ${white_tops.value}\n`;
+
+  const samples = [...document.querySelectorAll('input[name="samples"]:checked')]
+    .map(b => b.value === "Other" ? `Other (${samples_other.value})` : b.value)
+    .join(", ");
+  o += `Samples sent: ${samples || "None"}\n\n`;
+
+  if (comments.value.trim()) {
+    o += `Additional comments: ${comments.value}\n`;
+  }
+
+  output.value = o;
+}
+
+window.onload = () => proc_date.value = new Date().toISOString().split("T")[0];
+</script>
+
+</body>
+</html>

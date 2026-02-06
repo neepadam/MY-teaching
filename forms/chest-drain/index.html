@@ -1,0 +1,306 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chest Drain Checklist + Clinical Note Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-6">
+
+  <div class="max-w-4xl mx-auto bg-white shadow p-6 rounded">
+    <h1 class="text-3xl font-bold mb-6">Chest Drain Checklist + Clinical Note Generator</h1>
+
+    <!-- Free text fields -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <div>
+        <label class="font-medium">Procedure Date:</label>
+        <input type="date" id="proc_date" class="w-full border p-2 rounded">
+      </div>
+      <div>
+        <label class="font-medium">Time:</label>
+        <input type="text" id="proc_time" class="w-full border p-2 rounded">
+      </div>
+      <div>
+        <label class="font-medium">Operator:</label>
+        <input type="text" id="operator" class="w-full border p-2 rounded">
+      </div>
+      <div>
+        <label class="font-medium">Assistant:</label>
+        <input type="text" id="assistant" class="w-full border p-2 rounded">
+      </div>
+      <div>
+        <label class="font-medium">Supervisor:</label>
+        <input type="text" id="supervisor" class="w-full border p-2 rounded">
+      </div>
+    </div>
+
+    <!-- BEFORE THE PROCEDURE -->
+    <h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-4">BEFORE THE PROCEDURE</h2>
+    <div class="grid grid-cols-1 gap-4 mt-4">
+
+      <div class="font-medium">Team members introduce themselves and allocate roles</div>
+      <label><input type="checkbox" name="teamIntro" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Patient identity checked?</div>
+      <label><input type="checkbox" name="identity" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Appropriate consent completed?</div>
+      <label><input type="checkbox" name="consent" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Procedure + site confirmed by patient/consent?</div>
+      <label><input type="checkbox" name="siteConfirm" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Site marked & checked against imaging/consent?</div>
+      <label><input type="checkbox" name="siteMarked" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Operator discussed plan (sedation/analgesia/FiO₂)?</div>
+      <label><input type="checkbox" name="planDiscussed" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Known drug allergies?</div>
+      <label><input type="checkbox" name="allergies" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      <label><input type="checkbox" name="allergies" value="No" onchange="onlyOne(this)"> No</label>
+
+      <div class="font-medium">Coagulopathy? (drugs/labs)</div>
+      <label><input type="checkbox" name="coagulopathy" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      <label><input type="checkbox" name="coagulopathy" value="No" onchange="onlyOne(this)"> No</label>
+
+      <div class="font-medium">Any contraindications?</div>
+      <label><input type="checkbox" name="contra" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      <label><input type="checkbox" name="contra" value="No" onchange="onlyOne(this)"> No</label>
+
+    </div>
+
+    <!-- TIME OUT -->
+    <h2 class="text-xl font-bold bg-yellow-400 text-black p-2 mt-8">TIME OUT</h2>
+    <div class="grid grid-cols-1 gap-4 mt-4">
+
+      <div class="font-medium">Verbal confirmation between team members before start</div>
+      <label><input type="checkbox" name="teamConfirm" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">All team members happy with consent + planned procedure</div>
+      <label><input type="checkbox" name="happyConsent" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">All equipment available?</div>
+      <label><input type="checkbox" name="equipment" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Is patient position optimal?</div>
+      <label><input type="checkbox" name="position" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Operator to confirm guidewire removed</div>
+      <label><input type="checkbox" name="guidewire" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      <label><input type="checkbox" name="guidewire" value="N/A" onchange="onlyOne(this)"> N/A</label>
+
+    </div>
+
+    <!-- SIGN OUT -->
+    <h2 class="text-xl font-bold bg-green-600 text-white p-2 mt-8">SIGN OUT</h2>
+    <div class="grid grid-cols-1 gap-4 mt-4">
+
+      <div class="font-medium">Drain adequately secured?</div>
+      <label><input type="checkbox" name="secured" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Chest X-ray requested?</div>
+      <label><input type="checkbox" name="cxr" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Drain connected to appropriate underwater seal?</div>
+      <label><input type="checkbox" name="uws" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      <label><input type="checkbox" name="uws" value="N/A" onchange="onlyOne(this)"> N/A</label>
+
+      <div class="font-medium">Drain placed below patient level?</div>
+      <label><input type="checkbox" name="belowLevel" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Clamp available?</div>
+      <label><input type="checkbox" name="clamp" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Suction required?</div>
+      <label><input type="checkbox" name="suction" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      <label><input type="checkbox" name="suction" value="No" onchange="onlyOne(this)"> No</label>
+
+      <div class="font-medium">Specimens labelled correctly?</div>
+      <label><input type="checkbox" name="specimens" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      <label><input type="checkbox" name="specimens" value="N/A" onchange="onlyOne(this)"> N/A</label>
+
+      <div class="font-medium">Post-procedure handover/plan completed?</div>
+      <label><input type="checkbox" name="handover" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Sharps disposed of safely?</div>
+      <label><input type="checkbox" name="sharps" value="Yes" onchange="onlyOne(this)"> Yes</label>
+
+      <div class="font-medium">Equipment issues reported?</div>
+      <label><input type="checkbox" name="equipIssues" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      <label><input type="checkbox" name="equipIssues" value="N/A" onchange="onlyOne(this)"> N/A</label>
+
+    </div>
+
+    <!-- PROCEDURE DETAILS -->
+    <div class="bg-purple-600 text-white font-bold text-lg px-4 py-2 rounded mt-6">
+      PROCEDURE DETAILS (CHEST DRAIN)
+    </div>
+
+    <div class="mt-4 space-y-6">
+
+      <div>
+        <div class="font-medium">Indication for chest drain:</div>
+        <input type="text" id="indication" class="border p-2 rounded w-full">
+      </div>
+
+      <div>
+        <div class="font-medium">Side & location:</div>
+        <input type="text" id="location" class="border p-2 rounded w-full" placeholder="e.g., Left 5th ICS mid-axillary line">
+      </div>
+
+      <div>
+        <div class="font-medium">Drain size (Fr):</div>
+        <input type="text" id="size" class="border p-2 rounded w-full">
+      </div>
+
+      <div>
+        <div class="font-medium">Technique used:</div>
+        <input type="text" id="technique" class="border p-2 rounded w-full" placeholder="Seldinger / blunt dissection / other">
+      </div>
+
+      <div>
+        <div class="font-medium">Analgesia / sedation used:</div>
+        <textarea id="analgesia" class="border p-2 rounded w-full" rows="2"></textarea>
+      </div>
+
+      <div>
+        <div class="font-medium">Ultrasound used?</div>
+        <input type="text" id="usUsed" class="border p-2 rounded w-full" placeholder="Yes/No + findings">
+      </div>
+
+      <div>
+        <div class="font-medium">Drain fluid characteristics:</div>
+        <textarea id="fluid" class="border p-2 rounded w-full" rows="2"></textarea>
+      </div>
+
+      <div>
+        <div class="font-medium">Complications:</div>
+        <textarea id="complications" class="border p-2 rounded w-full" rows="3"></textarea>
+      </div>
+
+      <div>
+        <div class="font-medium">Comments:</div>
+        <textarea id="comments" class="border p-2 rounded w-full" rows="3"></textarea>
+      </div>
+
+    </div>
+
+    <!-- GENERATE BUTTON -->
+    <button onclick="generateNote()"
+            class="mt-8 bg-blue-600 text-white px-4 py-2 rounded">
+      Generate Text Note
+    </button>
+
+    <!-- OUTPUT -->
+    <div class="mt-6">
+      <textarea id="output" class="w-full h-80 border p-3 rounded font-mono" readonly></textarea>
+
+      <button onclick="copyText()" class="bg-green-600 text-white px-4 py-2 rounded w-full md:w-auto mt-3">
+        Copy to Clipboard
+      </button>
+
+       <p class="text-gray-700 text-sm mt-2 md:mt-0">
+      Paste these notes into the patient PPM record, set title as <strong>"Chest drain insertion"</strong>.
+    </p>
+      
+    </div>
+
+  </div>
+
+<script>
+
+// checkbox exclusivity
+function onlyOne(checkbox) {
+  const group = document.getElementsByName(checkbox.name);
+  group.forEach(box => {
+    if (box !== checkbox) box.checked = false;
+  });
+}
+
+function getValue(name) {
+  const boxes = document.getElementsByName(name);
+  for (let b of boxes) if (b.checked) return b.value;
+  return "Not selected";
+}
+
+function generateNote() {
+
+  let out = "CHEST DRAIN PROCEDURE NOTE\n\n";
+
+  // date
+  let rawDate = document.getElementById('proc_date').value;
+  let ukDate = "Not selected";
+  if (rawDate) {
+    const p = rawDate.split("-");
+    ukDate = `${p[2]}/${p[1]}/${p[0]}`;
+  }
+
+  out += "=== PROCEDURE DETAILS ===\n";
+  out += `Procedure Date: ${ukDate}\n`;
+  out += `Time: ${document.getElementById("proc_time").value}\n`;
+  out += `Operator: ${document.getElementById("operator").value}\n`;
+  out += `Assistant: ${document.getElementById("assistant").value}\n`;
+  out += `Supervisor: ${document.getElementById("supervisor").value}\n\n`;
+
+out += "=== CHEST DRAIN DETAILS ===\n";
+  out += `Indication: ${document.getElementById("indication").value}\n`;
+  out += `Side/location: ${document.getElementById("location").value}\n`;
+  out += `Drain size: ${document.getElementById("size").value}\n`;
+  out += `Technique: ${document.getElementById("technique").value}\n`;
+  out += `Analgesia/sedation: ${document.getElementById("analgesia").value}\n`;
+  out += `Ultrasound: ${document.getElementById("usUsed").value}\n`;
+  out += `Fluid characteristics: ${document.getElementById("fluid").value}\n`;
+  out += `Complications: ${document.getElementById("complications").value}\n`;
+  out += `Comments: ${document.getElementById("comments").value}\n\n`;
+  out += "\n----------------------------------------\n\n";
+  
+out += "=== SAFETY CHECKLIST ===\n";
+  out += "=== BEFORE THE PROCEDURE ===\n";
+  out += `• Team introductions: ${getValue("teamIntro")}\n`;
+  out += `• Patient identity: ${getValue("identity")}\n`;
+  out += `• Consent completed: ${getValue("consent")}\n`;
+  out += `• Procedure/site confirmed: ${getValue("siteConfirm")}\n`;
+  out += `• Site marked: ${getValue("siteMarked")}\n`;
+  out += `• Plan discussed: ${getValue("planDiscussed")}\n`;
+  out += `• Drug allergies: ${getValue("allergies")}\n`;
+  out += `• Coagulopathy: ${getValue("coagulopathy")}\n`;
+  out += `• Contraindications: ${getValue("contra")}\n\n`;
+
+  out += "=== TIME OUT ===\n";
+  out += `• Verbal confirmation: ${getValue("teamConfirm")}\n`;
+  out += `• Happy with consent: ${getValue("happyConsent")}\n`;
+  out += `• Equipment available: ${getValue("equipment")}\n`;
+  out += `• Patient position optimal: ${getValue("position")}\n`;
+  out += `• Guidewire removal confirmed: ${getValue("guidewire")}\n\n`;
+
+  out += "=== SIGN OUT ===\n";
+  out += `• Drain secured: ${getValue("secured")}\n`;
+  out += `• CXR requested: ${getValue("cxr")}\n`;
+  out += `• Underwater seal: ${getValue("uws")}\n`;
+  out += `• Drain below patient: ${getValue("belowLevel")}\n`;
+  out += `• Clamp available: ${getValue("clamp")}\n`;
+  out += `• Suction required: ${getValue("suction")}\n`;
+  out += `• Specimens labelled: ${getValue("specimens")}\n`;
+  out += `• Handover complete: ${getValue("handover")}\n`;
+  out += `• Sharps disposed: ${getValue("sharps")}\n`;
+  out += `• Equipment issues: ${getValue("equipIssues")}\n\n`;
+
+
+  document.getElementById("output").value = out;
+}
+
+function copyText() {
+  navigator.clipboard.writeText(document.getElementById("output").value);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('proc_date').value = new Date().toISOString().split('T')[0];
+});
+
+</script>
+
+</body>
+</html>

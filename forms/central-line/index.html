@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CVC Checklist Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-6">
+
+  <div class="max-w-4xl mx-auto bg-white shadow p-6 rounded">
+    <h1 class="text-3xl font-bold mb-6">CVC Checklist → Clinical Note Generator</h1>
+
+  <!-- Free text fields -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+    <div>
+      <label class="font-medium">Procedure Date:</label>
+      <input type="date" id="proc_date" class="w-full border p-2 rounded">
+    </div>
+    <div>
+      <label class="font-medium">Time:</label>
+      <input type="text" id="proc_time" class="w-full border p-2 rounded">
+    </div>
+    <div>
+      <label class="font-medium">Operator:</label>
+      <input type="text" id="operator" class="w-full border p-2 rounded">
+    </div>
+    <div>
+      <label class="font-medium">Assistant:</label>
+      <input type="text" id="assistant" class="w-full border p-2 rounded">
+    </div>
+    <div>
+      <label class="font-medium">Supervisor:</label>
+      <input type="text" id="supervisor" class="w-full border p-2 rounded">
+    </div>
+  </div>
+
+    
+    <!-- BEFORE THE PROCEDURE -->
+    <h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-4">BEFORE THE PROCEDURE</h2>
+
+    <div class="grid grid-cols-1 gap-4 mt-4">
+
+      <!-- Each block follows same structure -->
+      <div>
+        <div class="font-medium">Patient identity checked?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="identity" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Appropriate consent completed?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="consent" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">All equipment available?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="equipment" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Correct type/size of line available?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="linetype" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Is there a coagulopathy?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="coag" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="coag" value="No" onchange="onlyOne(this)"> No</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Known drug allergies?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="allergies" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="allergies" value="No" onchange="onlyOne(this)"> No</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Infection control precautions in place?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="infection" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="infection" value="No" onchange="onlyOne(this)"> No</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Is help required?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="help" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="help" value="No" onchange="onlyOne(this)"> No</label>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TIME OUT -->
+    <h2 class="text-xl font-bold bg-yellow-400 text-black p-2 mt-8">TIME OUT</h2>
+
+    <div class="grid grid-cols-1 gap-4 mt-4">
+
+      <div>
+        <div class="font-medium">Team members identified / roles allocated?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="teamroles" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Is patient position optimal?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="position" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium text-red-600">Operator confirms guidewire will be removed:</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="guidewire_planned" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Ultrasound available and set up?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="ultrasound" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SIGN OUT -->
+    <h2 class="text-xl font-bold bg-green-600 text-white p-2 mt-8">SIGN OUT</h2>
+
+    <div class="grid grid-cols-1 gap-4 mt-4">
+
+      <div>
+        <div class="font-medium">Able to aspirate blood from all lumens?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="aspirate" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Correct caps / connectors used?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="caps" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Correct dressing applied?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="dressing" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Guidewire confirmed as removed?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="guidewire_removed" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Chest X-ray required?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="cxr_required" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="cxr_required" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">If CXR required, line position satisfactory?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="cxr_satisfactory" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="cxr_satisfactory" value="CXR pending" onchange="onlyOne(this)"> CXR Pending</label>
+          <label><input type="checkbox" name="cxr_satisfactory" value="N/A" onchange="onlyOne(this)"> N/A</label>
+
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Pneumothorax excluded?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="pneumo" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="pneumo" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        </div>
+      </div>
+      
+<div class="text-sm mt-1 font-bold text-red-600">
+  Correct placement should be checked using at least two of the following methods
+</div>
+
+      <div>
+        <div class="font-medium">CVP waveform present / venous pressure recorded?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="cvp" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="cvp" value="No" onchange="onlyOne(this)"> No</label>
+          <label><input type="checkbox" name="cvp" value="Not performed" onchange="onlyOne(this)"> N/A</label>
+        <input type="text" id="cvp_value" class="border p-2 rounded w-24" placeholder="0">
+    <span>cmH<sub>2</sub>O</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Ultrasound confirms placement?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="us_confirm" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-medium">Paired venous/arterial gases taken?</div>
+        <div class="flex gap-4 mt-1">
+          <label><input type="checkbox" name="bloodgas" value="Yes" onchange="onlyOne(this)"> Yes</label>
+          <label><input type="checkbox" name="bloodgas" value="Not performed" onchange="onlyOne(this)"> No</label>
+<input type="text" id="venous_gas" class="border p-2 rounded w-24" placeholder="Venous">
+    <span>kPa (venous)</span>
+
+    <input type="text" id="arterial_gas" class="border p-2 rounded w-24" placeholder="Arterial">
+    <span>kPa (arterial)</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- LINE INSERTION DETAILS -->
+<div class="bg-purple-600 text-white font-bold text-lg px-4 py-2 rounded mt-6">
+  LINE INSERTION DETAILS
+</div>
+
+<div class="mt-4 space-y-4">
+
+  <!-- Location of line insertion -->
+
+  
+<div>
+  <div class="font-medium">Location line inserted:</div>
+  <div class="flex flex-col gap-1 mt-1">
+    <label><input type="checkbox" name="location" value="Critical care" onchange="onlyOne(this)"> Critical care</label>
+    <label><input type="checkbox" name="location" value="Theatres" onchange="onlyOne(this)"> Theatres</label>
+    <label><input type="checkbox" name="location" value="Radiology" onchange="onlyOne(this)"> Radiology</label>
+    <label><input type="checkbox" name="location" value="Ward" onchange="onlyOne(this)"> Ward</label>
+    <label><input type="checkbox" name="location" value="ED" onchange="onlyOne(this)"> ED</label>
+
+    <label class="flex items-center gap-2">
+      <input type="checkbox" name="location" value="Other" onchange="onlyOne(this)">
+      Other:
+      <input id="location_other" type="text" class="border p-1 rounded w-48">
+    </label>
+  </div>
+</div>
+
+
+  
+  <!-- Indication -->
+  <div>
+    <div class="font-medium">Indication for insertion:</div>
+    <div class="flex flex-col gap-2 mt-1">
+      <label><input type="checkbox" name="indication" value="Vaso-active drugs" onchange="onlyOne(this)"> Vaso-active drugs</label>
+      <label><input type="checkbox" name="indication" value="Difficult IV access" onchange="onlyOne(this)"> Difficult IV access</label>
+      <label><input type="checkbox" name="indication" value="TPN" onchange="onlyOne(this)"> TPN</label>
+      <label class="flex items-center gap-2">
+        <input type="checkbox" name="indication" value="Other" onchange="onlyOne(this)">
+        Other:
+        <input type="text" id="indication_other" class="border p-1 rounded w-48" placeholder="Describe">
+      </label>
+    </div>
+  </div>
+
+  <!-- Line type -->
+  <div>
+    <div class="font-medium">Central line type:</div>
+    <div class="flex gap-4 mt-1">
+      <label><input type="checkbox" name="linetype2" value="CVC" onchange="onlyOne(this)"> CVC</label>
+      <label><input type="checkbox" name="linetype2" value="Vascath" onchange="onlyOne(this)"> Vascath</label>
+    </div>
+  </div>
+
+  <!-- Line LOT number -->
+  
+<div>
+  <label class="font-medium">LOT number:</label>
+  <input type="text" id="lot_number" class="w-full border p-2 rounded" placeholder="Enter LOT number">
+</div>
+
+  <!-- Lumens -->
+  <div>
+    <div class="font-medium">Number of lumens:</div>
+    <div class="flex gap-4 mt-1">
+      <label><input type="checkbox" name="lumens" value="1" onchange="onlyOne(this)"> 1</label>
+      <label><input type="checkbox" name="lumens" value="2" onchange="onlyOne(this)"> 2</label>
+      <label><input type="checkbox" name="lumens" value="3" onchange="onlyOne(this)"> 3</label>
+      <label><input type="checkbox" name="lumens" value="4" onchange="onlyOne(this)"> 4</label>
+      <label><input type="checkbox" name="lumens" value="5" onchange="onlyOne(this)"> 5</label>
+    </div>
+  </div>
+
+  <!-- Side -->
+  <div>
+    <div class="font-medium">Side:</div>
+    <div class="flex gap-4 mt-1">
+      <label><input type="checkbox" name="side" value="Left" onchange="onlyOne(this)"> Left</label>
+      <label><input type="checkbox" name="side" value="Right" onchange="onlyOne(this)"> Right</label>
+    </div>
+  </div>
+
+  <!-- Site -->
+<div>
+  <div class="font-medium">Anatomical site:</div>
+  <div class="flex gap-4 mt-1">
+    <label><input type="checkbox" name="site" value="Internal jugular" onchange="onlyOne(this)"> Internal jugular</label>
+    <label><input type="checkbox" name="site" value="Femoral" onchange="onlyOne(this)"> Femoral</label>
+    <label><input type="checkbox" name="site" value="Axillary" onchange="onlyOne(this)"> Axillary</label>
+    <label><input type="checkbox" name="site" value="Subclavian" onchange="onlyOne(this)"> Subclavian</label>
+
+    <label class="flex items-center gap-2">
+      <input type="checkbox" name="site" value="Other" onchange="onlyOne(this)">
+      Other:
+      <input id="site_other" type="text" class="border p-1 rounded w-48" placeholder="Specify">
+    </label>
+  </div>
+</div>
+
+
+  <!-- Ultrasound -->
+ <div>
+  <div class="font-medium">Ultrasound imaging used (multiple permitted):</div>
+  <div class="flex flex-col gap-1 mt-1">
+    <label><input type="checkbox" name="us_used_multi" value="Prior to procedure"> Prior to procedure</label>
+    <label><input type="checkbox" name="us_used_multi" value="During procedure"> During procedure</label>
+    <label><input type="checkbox" name="us_used_multi" value="Not used"> Not used</label>
+  </div>
+</div>
+  
+  <!-- Length of line and at skin -->
+
+  <div>
+  <div class="font-medium">Length of line (cm):</div>
+  <input id="line_length" type="number" class="border p-2 rounded w-32">
+</div>
+
+<div>
+  <div class="font-medium">Length secured at skin (cm): (enter 0 if inserted to the hub)</div>
+  <input id="skin_length" type="number" class="border p-2 rounded w-32">
+</div>
+
+    <!-- Number of attempts/complications -->
+
+  <div>
+  <div class="font-medium">Number of attempts:</div>
+  <input id="attempts" type="number" class="border p-2 rounded w-32">
+</div>
+
+<div>
+  <div class="font-medium">Complications:</div>
+  <div class="flex gap-4 mt-1">
+    <label><input type="checkbox" name="complications" value="Yes" onchange="onlyOne(this)"> Yes</label>
+    <label><input type="checkbox" name="complications" value="No" onchange="onlyOne(this)"> No</label>
+  </div>
+</div>
+
+  <div>
+  <div class="font-medium">ANTT:</div>
+  <div class="flex flex-col gap-1 mt-1">
+    <label><input type="checkbox" name="antt" value="Hand hygiene"> Hand hygiene</label>
+    <label><input type="checkbox" name="antt" value="Theatre hat"> Theatre hat</label>
+    <label><input type="checkbox" name="antt" value="Face mask"> Face mask</label>
+    <label><input type="checkbox" name="antt" value="Sterile gown + gloves"> Sterile gown + gloves</label>
+    <label><input type="checkbox" name="antt" value="Sterile field"> Sterile field</label>
+    <label><input type="checkbox" name="antt" value="2% chlorhexidine/70% alcohol"> 2% chlorhexidine/70% alcohol</label>
+  </div>
+</div>
+
+<div class="mt-2">
+  <div class="font-medium">If answered NO to any of the above, please give reason:</div>
+  <input id="antt_reason" type="text" class="border p-2 rounded w-full">
+</div>
+
+  
+</div>
+
+
+    <!-- GENERATE BUTTON -->
+    <button onclick="generateNote()"
+            class="mt-8 bg-blue-600 text-white px-4 py-2 rounded">
+      Generate Text Note
+    </button>
+
+    <!-- OUTPUT -->
+ <div class="mt-6">
+  <textarea id="output" class="w-full h-80 border p-3 rounded font-mono"
+            readonly></textarea>
+
+  <div class="flex flex-col md:flex-row md:items-center md:gap-4 mt-3">
+    <button onclick="copyText()" class="bg-green-600 text-white px-4 py-2 rounded w-full md:w-auto">
+      Copy to Clipboard
+    </button>
+
+    <p class="text-gray-700 text-sm mt-2 md:mt-0">
+      Paste these notes into the patient PPM record, set title as <strong>"CVC insertion"</strong>.
+    </p>
+  </div>
+</div>
+
+
+  </div>
+
+
+<script>
+// enforce Yes/No/N/A exclusivity
+function onlyOne(checkbox) {
+  const group = document.getElementsByName(checkbox.name);
+  group.forEach(box => {
+    if (box !== checkbox) box.checked = false;
+  });
+}
+
+// get selected checkbox value
+function getValue(name) {
+  const boxes = document.getElementsByName(name);
+  for (let b of boxes) if (b.checked) return b.value;
+  return "Not selected";
+}
+
+function generateNote() {
+  let output = "CENTRAL LINE INSERTION DETAILS\n\n";
+
+  // Procedure details
+  const rawDate = document.getElementById('proc_date').value;
+const ukDate = rawDate
+  ? rawDate.split("-").reverse().join("/")
+  : "";
+
+output += `Procedure Date: ${ukDate}\n`;
+
+  output += `Time: ${document.getElementById('proc_time').value}\n`;
+  output += `Operator: ${document.getElementById('operator').value}\n`;
+  output += `Assistant: ${document.getElementById('assistant').value}\n`;
+  output += `Supervisor: ${document.getElementById('supervisor').value}\n\n`;
+
+
+  // Location
+  let siteLocation = getValue("location");
+  if (siteLocation === "Other") {
+    const locText = document.getElementById("location_other").value;
+    siteLocation = `Other (${locText})`;
+  }
+  output += `• Location line inserted: ${siteLocation}\n`;
+
+  // Indication
+  let indication = getValue("indication");
+  if (indication === "Other") {
+    const otherText = document.getElementById("indication_other").value;
+    indication = `Other (${otherText})`;
+  }
+  output += `• Indication for insertion: ${indication}\n`;
+
+  // Line type
+  output += `• Central line type: ${getValue("linetype2")}\n`;
+  
+  // LOT nunber
+  output += `LOT number: ${document.getElementById('lot_number').value}\n\n`;
+
+  // Lumens
+  output += `• Number of lumens: ${getValue("lumens")}\n`;
+
+  // Side
+  output += `• Side: ${getValue("side")}\n`;
+
+  // Anatomical site
+let anatomicalSite = getValue("site");
+const otherSiteText = document.getElementById("site_other").value.trim();
+
+if (anatomicalSite === "Other" || otherSiteText !== "") {
+  anatomicalSite = `Other (${otherSiteText || 'Not specified'})`;
+}
+
+output += `• Anatomical site: ${anatomicalSite}\n`;
+
+
+  // Ultrasound (multiple)
+  const us_multi = Array.from(document.querySelectorAll('input[name="us_used_multi"]:checked'))
+                        .map(cb => cb.value)
+                        .join(", ");
+  output += `• Ultrasound imaging used: ${us_multi || "None selected"}\n`;
+
+  // Line lengths
+  output += `• Length of line: ${document.getElementById("line_length").value} cm\n`;
+  output += `• Length secured at skin: ${document.getElementById("skin_length").value} cm\n`;
+
+  // Attempts
+  output += `• Number of attempts: ${document.getElementById("attempts").value}\n`;
+
+  // Complications
+  output += `• Complications: ${getValue("complications")}\n`;
+
+  // ANTT
+  const antt_list = Array.from(document.querySelectorAll('input[name="antt"]:checked'))
+                         .map(cb => cb.value)
+                         .join(", ");
+  output += `• ANTT steps completed: ${antt_list || "None"}\n`;
+
+  const antt_reason = document.getElementById("antt_reason").value;
+  if (antt_reason.trim() !== "") {
+    output += `• ANTT exception reason: ${antt_reason}\n`;
+  }
+
+  output += "\n\n\n\n";
+
+// === LINE INSERTION DETAILS ===
+  output += "=== SAFETY CHECKLIST ===\n";
+
+  
+  // BEFORE THE PROCEDURE
+  output += "=== BEFORE THE PROCEDURE ===\n";
+  output += `• Patient identity checked: ${getValue("identity")}\n`;
+  output += `• Consent completed: ${getValue("consent")}\n`;
+  output += `• Equipment available: ${getValue("equipment")}\n`;
+  output += `• Correct line type/size: ${getValue("linetype")}\n`;
+  output += `• Coagulopathy present: ${getValue("coag")}\n`;
+  output += `• Drug allergies: ${getValue("allergies")}\n`;
+  output += `• Infection control: ${getValue("infection")}\n`;
+  output += `• Help required: ${getValue("help")}\n\n`;
+
+  // TIME OUT
+  output += "=== TIME OUT ===\n";
+  output += `• Team roles allocated: ${getValue("teamroles")}\n`;
+  output += `• Patient position optimal: ${getValue("position")}\n`;
+  output += `• Guidewire removal confirmed (pre): ${getValue("guidewire_planned")}\n`;
+  output += `• Ultrasound available: ${getValue("ultrasound")}\n\n`;
+
+  // SIGN OUT
+  output += "=== SIGN OUT ===\n";
+  output += `• Aspirated all lumens: ${getValue("aspirate")}\n`;
+  output += `• Caps/connectors correct: ${getValue("caps")}\n`;
+  output += `• Dressing applied: ${getValue("dressing")}\n`;
+  output += `• Guidewire removed (post): ${getValue("guidewire_removed")}\n`;
+  output += `• Chest X-ray required: ${getValue("cxr_required")}\n`;
+  output += `• CXR satisfactory: ${getValue("cxr_satisfactory")}\n`;
+  output += `• Pneumothorax excluded: ${getValue("pneumo")}\n`;
+
+  // CVP waveform + free text value
+  const cvpChoice = getValue("cvp_check");
+  const cvpValue = document.getElementById("cvp_value")?.value || "";
+  output += `• CVP waveform / venous pressure: ${cvpChoice}${cvpValue ? " (" + cvpValue + " cmH₂O)" : ""}\n`;
+
+  // Paired gases
+  const venousGas = document.getElementById("venous_gas")?.value || "";
+  const arterialGas = document.getElementById("arterial_gas")?.value || "";
+  output += `• Paired gases taken: Venous ${venousGas ? venousGas + " mmHg" : "N/A"}, Arterial ${arterialGas ? arterialGas + " mmHg" : "N/A"}\n\n`;
+
+  
+  // Final
+  document.getElementById("output").value = output;
+}
+
+
+function copyText() {
+  navigator.clipboard.writeText(document.getElementById("output").value);
+}
+</script>
+  
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    document.getElementById('proc_date').value = today;
+  });
+</script>
+
+</body>
+</html>
