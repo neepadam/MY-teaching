@@ -241,14 +241,28 @@
 <button onclick="generateNote()" class="mt-6 bg-blue-600 text-white px-4 py-2 rounded">Generate Note</button>
 <div id="output" class="w-full h-80 mt-4 border p-3 bg-white overflow-auto rounded"></div>
 </div>
+<button onclick="copyFormattedNote()" class="mt-3 bg-green-600 text-white px-4 py-2 rounded">
+  Copy Formatted Note
+</button>
 
 <script>
+let latestNoteHTML = "";
 function getRadio(name){
   const r = document.getElementsByName(name);
   for (let x of r) if (x.checked) return x.value;
   return "";
 }
+function copyFormattedNote() {
 
+  const blob = new Blob([latestNoteHTML], { type: "text/html" });
+  const data = [new ClipboardItem({ "text/html": blob })];
+
+  navigator.clipboard.write(data).then(() => {
+    alert("Formatted note copied");
+  }).catch(() => {
+    alert("Copy failed (browser may not support rich clipboard)");
+  });
+}
 function generateNote(){
 let output = "<b>ICU ADMISSION NOTE</b><br><br>";
 
@@ -310,6 +324,7 @@ output += `${plan.value}`;
 output += "<b>PLAN</b><br>";
 output += `${plan.value}`;
 
+latestNoteHTML = output;
 document.getElementById("output").innerHTML = output;
 }
 </script>
