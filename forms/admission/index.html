@@ -288,7 +288,11 @@ output += `O2 scoring scale: ${o2scale.value}<br>`;
 output += `HR: ${hr.value}<br>`;
 output += `SpO2: ${spo2.value}<br>`;
 output += `RR: ${rr.value}<br>`;
-output += `GCS: ${gcs_e.value}/${gcs_v.value}/${gcs_m.value}<br><br>`;
+const e = gcs_e.value ? `E${gcs_e.value}` : "";
+const v = gcs_v.value ? ` V${gcs_v.value}` : "";
+const m = gcs_m.value ? ` M${gcs_m.value}` : "";
+
+output += `GCS: ${e}${v}${m}<br>`;
 output += "<b>CHECKS</b><br>";
 output += `Meds rec: ${getRadio("meds")}, VTE: ${getRadio("vte")}<br><br>`;
 
