@@ -81,8 +81,8 @@
 </label>
 </div>
 
-<!-- PHYSIOLOGY -->
-<h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-6">PHYSIOLOGY</h2>
+<!-- PRE ADMISSION OBSERVATIONS -->
+<h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-6">PRE ADMISSION OBSERVATIONS</h2>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 <select id="neuro" class="border p-2 rounded">
 <option>Normal</option>
@@ -194,7 +194,7 @@ output += `Outreach seen: ${getRadio("outreach")}<br>`;
 output += `Surgical pre-optimisation: ${getRadio("surg")}<br>`;
 output += `CPR last 24h: ${getRadio("cpr")}<br><br>`;
 
-output += "<b>PHYSIOLOGY</b><br>";
+output += "<b>PRE ADMISSION OBSERVATIONS</b><br>";
 output += `Neuro: ${neuro.value}, GCS ${gcs_e.value}/${gcs_v.value}/${gcs_m.value}<br>`;
 output += `Obs: HR ${hr.value}, SBP ${sbp.value}, SpO2 ${spo2.value}, RR ${rr.value}<br>`;
 output += `O2 scale: ${o2scale.value}, Support: ${resp_support.value}<br><br>`;
