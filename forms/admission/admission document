@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ICU Admission Note Generator</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-6">
+
+<div class="max-w-4xl mx-auto bg-white shadow p-6 rounded">
+<h1 class="text-3xl font-bold mb-6">ICU Admission Note Generator</h1>
+
+<!-- RESPONSIBILITY -->
+<h2 class="text-xl font-bold bg-blue-600 text-white p-2">RESPONSIBILITY</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+<input id="ref_consultant" placeholder="Referring Consultant" class="border p-2 rounded">
+<label>Referring aware?
+  <input type="radio" name="ref_aware" value="Yes"> Yes
+  <input type="radio" name="ref_aware" value="No"> No
+</label>
+
+<input id="icu_consultant" placeholder="ICM Consultant" class="border p-2 rounded">
+<label>ICM aware?
+  <input type="radio" name="icu_aware" value="Yes"> Yes
+  <input type="radio" name="icu_aware" value="No"> No
+</label>
+
+<input id="admitting" placeholder="Admitting practitioner" class="border p-2 rounded">
+<input id="role" placeholder="Role" class="border p-2 rounded">
+<input id="gmc" placeholder="GMC/NMC Number" class="border p-2 rounded">
+</div>
+
+<!-- ICNARC -->
+<h2 class="text-xl font-bold bg-purple-600 text-white p-2 mt-6">ICNARC / AUDIT</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+<label>Decision to admit time
+<input id="decision_time" type="time" class="border p-2 rounded"></label>
+
+<label>Actual ICU admission time
+<input id="admission_time" type="time" class="border p-2 rounded"></label>
+
+<select id="source" class="border p-2 rounded">
+<option>ED</option>
+<option>Ward</option>
+<option>Other</option>
+</select>
+<input id="source_other" placeholder="If other, specify" class="border p-2 rounded">
+
+<label>Intracranial mass effect:
+<input type="radio" name="mass" value="Yes">Yes
+<input type="radio" name="mass" value="No">No
+</label>
+
+<label>Managed by ICU pre-admission
+<input type="radio" name="preicu" value="Yes">Yes
+<input type="radio" name="preicu" value="No">No
+</label>
+
+<label>Outreach seen
+<input type="radio" name="outreach" value="Yes">Yes
+<input type="radio" name="outreach" value="No">No
+</label>
+
+<label>Surgical pre-optimisation
+<input type="radio" name="surg" value="Yes">Yes
+<input type="radio" name="surg" value="No">No
+</label>
+
+<label>CPR last 24h
+<input type="radio" name="cpr" value="Yes">Yes
+<input type="radio" name="cpr" value="No">No
+</label>
+</div>
+
+<!-- PHYSIOLOGY -->
+<h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-6">PHYSIOLOGY</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+<select id="neuro" class="border p-2 rounded">
+<option>Normal</option>
+<option>Abnormal</option>
+</select>
+
+<div>
+GCS:
+<input id="gcs_e" type="number" placeholder="E">
+<input id="gcs_v" type="number" placeholder="V">
+<input id="gcs_m" type="number" placeholder="M">
+</div>
+
+<input id="hr" placeholder="HR" class="border p-2 rounded">
+<input id="sbp" placeholder="SBP" class="border p-2 rounded">
+<input id="spo2" placeholder="SpO2" class="border p-2 rounded">
+<input id="rr" placeholder="RR" class="border p-2 rounded">
+
+<select id="o2scale" class="border p-2 rounded">
+<option>88-92%</option>
+<option>94-98%</option>
+</select>
+
+<input id="resp_support" placeholder="Respiratory support" class="border p-2 rounded">
+</div>
+
+<!-- CHECKS -->
+<h2 class="text-xl font-bold bg-green-600 text-white p-2 mt-6">CHECKS</h2>
+<div class="mt-4 space-y-2">
+<label>Meds reconciliation
+<input type="radio" name="meds" value="Yes">Yes
+<input type="radio" name="meds" value="No">No
+</label>
+
+<label>VTE form
+<input type="radio" name="vte" value="Yes">Yes
+<input type="radio" name="vte" value="No">No
+</label>
+</div>
+
+<!-- CLINICAL -->
+<h2 class="text-xl font-bold bg-gray-700 text-white p-2 mt-6">CLINICAL</h2>
+<textarea id="allergies" placeholder="Allergies" class="w-full border p-2 mt-2"></textarea>
+<textarea id="diagnosis" placeholder="ICU Diagnosis" class="w-full border p-2 mt-2"></textarea>
+<textarea id="presenting" placeholder="Presenting complaint" class="w-full border p-2 mt-2"></textarea>
+<textarea id="comorbid" placeholder="Co-morbidities" class="w-full border p-2 mt-2"></textarea>
+<input id="frailty" placeholder="Frailty score" class="border p-2 rounded mt-2">
+<textarea id="exam" placeholder="Examination" class="w-full border p-2 mt-2"></textarea>
+<textarea id="plan" placeholder="Plan" class="w-full border p-2 mt-2"></textarea>
+
+<!-- BUTTON -->
+<button onclick="generateNote()" class="mt-6 bg-blue-600 text-white px-4 py-2 rounded">Generate Note</button>
+<div id="output" class="w-full h-80 mt-4 border p-3 bg-white overflow-auto rounded"></div>
+</div>
+
+<script>
+function getRadio(name){
+  const r = document.getElementsByName(name);
+  for (let x of r) if (x.checked) return x.value;
+  return "";
+}
+
+function generateNote(){
+let output = "<b>ICU ADMISSION NOTE</b><br><br>";
+
+output += "<b>RESPONSIBILITY</b><br>";
+output += `Referring Consultant: ${ref_consultant.value} (Aware: ${getRadio("ref_aware")})<br>`;
+output += `ICM Consultant: ${icu_consultant.value} (Aware: ${getRadio("icu_aware")})<br>`;
+output += `Admitting practitioner: ${admitting.value} (${role.value}) GMC/NMC: ${gmc.value}<br><br>`;
+
+output += "<b>ICNARC / AUDIT</b><br>";
+output += `Decision to admit time: ${decision_time.value}<br>`;
+output += `Actual ICU admission time: ${admission_time.value}<br>`;
+output += `Source of admission: ${source.value === "Other" ? source_other.value : source.value}<br>`;
+output += `Intracranial mass effect: ${getRadio("mass")}<br>`;
+output += `Managed by ICU pre-admission: ${getRadio("preicu")}<br>`;
+output += `Outreach seen: ${getRadio("outreach")}<br>`;
+output += `Surgical pre-optimisation: ${getRadio("surg")}<br>`;
+output += `CPR last 24h: ${getRadio("cpr")}<br><br>`;
+
+output += "<b>PHYSIOLOGY</b><br>";
+output += `Neuro: ${neuro.value}, GCS ${gcs_e.value}/${gcs_v.value}/${gcs_m.value}<br>`;
+output += `Obs: HR ${hr.value}, SBP ${sbp.value}, SpO2 ${spo2.value}, RR ${rr.value}<br>`;
+output += `O2 scale: ${o2scale.value}, Support: ${resp_support.value}<br><br>`;
+
+output += "<b>CHECKS</b><br>";
+output += `Meds rec: ${getRadio("meds")}, VTE: ${getRadio("vte")}<br><br>`;
+
+output += "<b>CLINICAL</b><br>";
+output += `Allergies: ${allergies.value}<br>`;
+output += `Diagnosis: ${diagnosis.value}<br>`;
+output += `Presenting complaint: ${presenting.value}<br>`;
+output += `Co-morbidities: ${comorbid.value}<br>`;
+output += `Frailty: ${frailty.value}<br><br>`;
+
+output += "<b>EXAMINATION</b><br>";
+output += `${exam.value}<br><br>`;
+
+output += "<b>PLAN</b><br>";
+output += `${plan.value}`;
+
+document.getElementById("output").innerHTML = output;
+}
+</script>
+
+</body>
+</html>
