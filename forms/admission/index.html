@@ -83,61 +83,81 @@
 
 <!-- PRE ADMISSION OBSERVATIONS -->
 <h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-6">PRE ADMISSION OBSERVATIONS</h2>
+
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-<select id="neuro" class="border p-2 rounded">
-<option>Normal</option>
-<option>Abnormal</option>
-</select>
 
-<div class="flex items-center gap-3 flex-wrap">
-  <label>
-    E
-    <select id="gcs_e" class="border p-2 rounded">
+  <!-- Respiratory support -->
+  <div>
+    <label class="font-semibold block mb-1">Respiratory support on admission</label>
+    <select id="resp_support" class="border p-2 rounded w-full">
       <option value=""></option>
-      <option value="4">4</option>
-      <option value="3">3</option>
-      <option value="2">2</option>
-      <option value="1">1</option>
+      <option>Nil</option>
+      <option>NIV</option>
+      <option>Intubated</option>
     </select>
-  </label>
+  </div>
 
-  <label>
-    V
-    <select id="gcs_v" class="border p-2 rounded">
+  <!-- O2 scale -->
+  <div>
+    <label class="font-semibold block mb-1">O2 Scoring scale</label>
+    <select id="o2scale" class="border p-2 rounded w-full">
       <option value=""></option>
-      <option value="5">5</option>
-      <option value="4">4</option>
-      <option value="3">3</option>
-      <option value="2">2</option>
-      <option value="1">1</option>
+      <option>88-92%</option>
+      <option>94-98%</option>
     </select>
-  </label>
+  </div>
 
-  <label>
-    M
-    <select id="gcs_m" class="border p-2 rounded">
-      <option value=""></option>
-      <option value="6">6</option>
-      <option value="5">5</option>
-      <option value="4">4</option>
-      <option value="3">3</option>
-      <option value="2">2</option>
-      <option value="1">1</option>
-    </select>
-  </label>
-</div>
+  <!-- HR -->
+  <input id="hr" placeholder="HR" class="border p-2 rounded">
 
-<input id="hr" placeholder="HR" class="border p-2 rounded">
-<input id="sbp" placeholder="SBP" class="border p-2 rounded">
-<input id="spo2" placeholder="SpO2" class="border p-2 rounded">
-<input id="rr" placeholder="RR" class="border p-2 rounded">
+  <!-- SpO2 -->
+  <input id="spo2" placeholder="SpO2" class="border p-2 rounded">
 
-<select id="o2scale" class="border p-2 rounded">
-<option>88-92%</option>
-<option>94-98%</option>
-</select>
+  <!-- RR -->
+  <input id="rr" placeholder="RR" class="border p-2 rounded">
 
-<input id="resp_support" placeholder="Respiratory support" class="border p-2 rounded">
+  <!-- GCS -->
+  <div class="flex items-center gap-3 flex-wrap">
+    <label class="font-semibold">GCS:</label>
+
+    <label>
+      E
+      <select id="gcs_e" class="border p-1 rounded">
+        <option value=""></option>
+        <option value="4">4</option>
+        <option value="3">3</option>
+        <option value="2">2</option>
+        <option value="1">1</option>
+      </select>
+    </label>
+
+    <label>
+      V
+      <select id="gcs_v" class="border p-1 rounded">
+        <option value=""></option>
+        <option value="5">5</option>
+        <option value="4">4</option>
+        <option value="3">3</option>
+        <option value="2">2</option>
+        <option value="1">1</option>
+      </select>
+    </label>
+
+    <label>
+      M
+      <select id="gcs_m" class="border p-1 rounded">
+        <option value=""></option>
+        <option value="6">6</option>
+        <option value="5">5</option>
+        <option value="4">4</option>
+        <option value="3">3</option>
+        <option value="2">2</option>
+        <option value="1">1</option>
+      </select>
+    </label>
+
+  </div>
+
 </div>
 
 <!-- CHECKS -->
@@ -195,10 +215,13 @@ output += `Surgical pre-optimisation: ${getRadio("surg")}<br>`;
 output += `CPR last 24h: ${getRadio("cpr")}<br><br>`;
 
 output += "<b>PRE ADMISSION OBSERVATIONS</b><br>";
-output += `Neuro: ${neuro.value}, GCS ${gcs_e.value}/${gcs_v.value}/${gcs_m.value}<br>`;
-output += `Obs: HR ${hr.value}, SBP ${sbp.value}, SpO2 ${spo2.value}, RR ${rr.value}<br>`;
-output += `O2 scale: ${o2scale.value}, Support: ${resp_support.value}<br><br>`;
 
+output += `Respiratory support on admission: ${resp_support.value}<br>`;
+output += `O2 scoring scale: ${o2scale.value}<br>`;
+output += `HR: ${hr.value}<br>`;
+output += `SpO2: ${spo2.value}<br>`;
+output += `RR: ${rr.value}<br>`;
+output += `GCS: ${gcs_e.value}/${gcs_v.value}/${gcs_m.value}<br><br>`;
 output += "<b>CHECKS</b><br>";
 output += `Meds rec: ${getRadio("meds")}, VTE: ${getRadio("vte")}<br><br>`;
 
