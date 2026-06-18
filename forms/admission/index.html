@@ -82,11 +82,57 @@
 <option>Abnormal</option>
 </select>
 
-<div>
-GCS:
-<input id="gcs_e" type="number" placeholder="E">
-<input id="gcs_v" type="number" placeholder="V">
-<input id="gcs_m" type="number" placeholder="M">
+<div class="border p-3 rounded bg-gray-50">
+  <label class="font-semibold block mb-2">GCS</label>
+
+  <div class="flex gap-2 items-center flex-wrap">
+
+    <label>
+      E
+      <select id="gcs_e" class="border p-1 rounded" onchange="updateGCS()">
+        <option value="">-</option>
+        <option value="4">4</option>
+        <option value="3">3</option>
+        <option value="2">2</option>
+        <option value="1">1</option>
+      </select>
+    </label>
+
+    <label>
+      V
+      <select id="gcs_v" class="border p-1 rounded" onchange="updateGCS()">
+        <option value="">-</option>
+        <option value="5">5</option>
+        <option value="4">4</option>
+        <option value="3">3</option>
+        <option value="2">2</option>
+        <option value="1">1</option>
+      </select>
+    </label>
+
+    <label>
+      M
+      <select id="gcs_m" class="border p-1 rounded" onchange="updateGCS()">
+        <option value="">-</option>
+        <option value="6">6</option>
+        <option value="5">5</option>
+        <option value="4">4</option>
+        <option value="3">3</option>
+        <option value="2">2</option>
+        <option value="1">1</option>
+      </select>
+    </label>
+
+    <label>
+      Total
+      <input id="gcs_total"
+             type="text"
+             readonly
+             value=""
+             class="border p-1 rounded bg-gray-100 w-16 text-center font-bold">
+    </label>
+
+  </div>
 </div>
 
 <input id="hr" placeholder="HR" class="border p-2 rounded">
