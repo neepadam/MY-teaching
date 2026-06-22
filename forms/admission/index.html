@@ -237,14 +237,20 @@
   
 <textarea id="plan" placeholder="Plan" class="w-full border p-2 mt-2"></textarea>
 
-<!-- BUTTON -->
-<button onclick="generateNote()" class="mt-6 bg-blue-600 text-white px-4 py-2 rounded">Generate Note</button>
+<!-- BUTTONS -->
+<div class="mt-6 flex gap-3">
+  <button onclick="generateNote()" class="bg-blue-600 text-white px-4 py-2 rounded">
+    Generate Note
+  </button>
+
+  <button onclick="copyFormattedNote()" class="bg-green-600 text-white px-4 py-2 rounded">
+    Copy Formatted Note
+  </button>
+</div>
+
 <div id="output" class="w-full h-80 mt-4 border p-3 bg-white overflow-auto rounded"></div>
 </div>
-<button onclick="copyFormattedNote()" class="mt-3 bg-green-600 text-white px-4 py-2 rounded">
-  Copy Formatted Note
-</button>
-
+  
 <script>
 let latestNoteHTML = "";
 function getRadio(name){
@@ -264,6 +270,18 @@ function copyFormattedNote() {
   });
 }
 function generateNote(){
+
+if (!getRadio("ref_aware")) {
+  alert("Please complete Referring aware");
+  return;
+}
+
+if (!getRadio("icu_aware")) {
+  alert("Please complete ICM aware");
+  return;
+}
+
+let output = "<b>ICU ADMISSION NOTE</b><br><br>";
 let output = "<b>ICU ADMISSION NOTE</b><br><br>";
 
 output += "<b>RESPONSIBILITY</b><br>";
@@ -294,8 +312,10 @@ const m = gcs_m.value ? ` M${gcs_m.value}` : "";
 
 output += `GCS: ${e}${v}${m}<br>`;
 output += "<b>CHECKS</b><br>";
-output += `Meds rec: ${getRadio("meds")}, VTE: ${getRadio("vte")}<br><br>`;
-
+output += `<ul>`;
+output += `<li>Meds reconciliation: ${getRadio("meds")}</li>`;
+output += `<li>VTE form completed: ${getRadio("vte")}</li>`;
+output += `</ul><br>`;
 output += "<b>CLINICAL</b><br>";
 output += `Allergies: ${allergies.value}<br>`;
 output += `Diagnosis: ${diagnosis.value}<br>`;
@@ -303,9 +323,10 @@ output += `Presenting complaint: ${presenting.value}<br>`;
 output += `Co-morbidities: ${comorbid.value}<br>`;
 output += `Frailty: ${frailty.value}<br><br>`;
 
-output += "<b>EXAMINATION</b><br>";
+output += "<b>CLINICAL EXAMINATION SUMMARY</b><br>";
 output += `${exam.value}<br><br>`;
-output += `<b>EXAMINATION</b><br>`;
+
+output += "<b>SYSTEM EXAMINATION</b><br>";
 
 output += `Airway: ${airway.value}<br><br>`;
 
@@ -323,10 +344,9 @@ output += `GIT: ${git.value}<br><br>`;
 output += `Renal: ${renal.value}<br><br>`;
 output += `Neuro: ${neuro_exam.value}<br><br>`;
 
-output += `<b>PLAN</b><br>`;
-output += `${plan.value}`;
+output += "<hr><br>";
 output += "<b>PLAN</b><br>";
-output += `${plan.value}`;
+output += `${plan.value}<br><br>`;
 
 latestNoteHTML = output;
 document.getElementById("output").innerHTML = output;
