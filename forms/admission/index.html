@@ -181,7 +181,6 @@
 <textarea id="presenting" placeholder="Presenting complaint" class="w-full border p-2 mt-2"></textarea>
 <textarea id="comorbid" placeholder="Co-morbidities" class="w-full border p-2 mt-2"></textarea>
 <input id="frailty" placeholder="Frailty (CFS score)" class="border p-2 rounded mt-2">
-<textarea id="exam" placeholder="Examination" class="w-full border p-2 mt-2"></textarea>
 
 <!-- EXAMINATION -->
 <h2 class="text-xl font-bold bg-gray-700 text-white p-2 mt-6">EXAMINATION</h2>
@@ -327,26 +326,17 @@ output += `Co-morbidities: ${comorbid.value}<br>`;
 output += `Frailty: ${frailty.value}<br><br>`;
 
 output += "<b>EXAMINATION</b><br>";
-output += `${exam.value}<br><br>`;
-
 output += `Airway: ${airway.value}<br><br>`;
-
 output += `Breathing:<br>`;
 output += `Mode: ${breathing_mode.value}<br>`;
 output += `SpO2 / FiO2: ${breathing_oxy.value}<br>`;
 output += `ABG: ${abg.value}<br><br>`;
-
 output += `CVS: HR/BP: ${cvs.value}<br><br>`;
-
 output += `Neuro: ${neuro_exam.value}<br><br>`;
-
 output += `Renal: ${renal.value}<br><br>`;
-
 output += `GIT: ${git.value}<br><br>`;
-
 output += `Infection, Micro & Antimicrobials:<br>`;
 output += `Temp: ${temp.value}<br><br>`;
-
 output += `Any other findings: ${other_findings.value}<br><br>`;
 
 output += "<hr><br>";
