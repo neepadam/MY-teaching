@@ -219,9 +219,6 @@
     <div>
   <label class="font-semibold block">Breathing:</label>
 
-  <div>
-  <label class="font-semibold block">Breathing:</label>
-
   <label class="block mt-2 text-sm font-semibold">Respiratory exam</label>
   <textarea id="resp_exam" class="w-full border p-2 rounded"></textarea>
 
@@ -235,17 +232,33 @@
 <input id="abg" class="w-full border p-2 rounded">
 </div>
 
-  <div>
-    <label class="font-semibold block">CVS:</label>
-    <label class="block mt-2 text-sm font-semibold">HR / BP</label>
-    <input id="cvs" class="w-full border p-2 rounded">
-  </div>
+<div>
+  <label class="font-semibold block">CVS:</label>
 
-  <div>
-    <label class="font-semibold block">Infection, Micro & Antimicrobials:</label>
-    <label class="block mt-2 text-sm font-semibold">Temp</label>
-    <input id="temp" class="w-full border p-2 rounded">
-  </div>
+  <label class="block mt-2 text-sm font-semibold">CVS exam</label>
+  <textarea id="cvs_exam" class="w-full border p-2 rounded"></textarea>
+
+  <label class="block mt-2 text-sm font-semibold">HR / BP / ECG Rhythm etc.</label>
+  <input id="cvs_obs" class="w-full border p-2 rounded">
+
+  <label class="block mt-2 text-sm font-semibold">Cardiovascular support</label>
+  <input id="cv_support" class="w-full border p-2 rounded">
+</div>
+
+<div>
+  <label class="font-semibold block">Infection, Micro & Antimicrobials:</label>
+  
+  <label class="block mt-2 text-sm font-semibold">Micro / Antimicrobials</label>
+  <textarea id="micro_text" class="w-full border p-2 rounded"></textarea>
+  
+  <label class="block mt-2 text-sm font-semibold">Temp</label>
+  <input id="temp" class="w-full border p-2 rounded">
+
+  <label class="block mt-2 text-sm font-semibold">Fever in last 24 hours</label>
+  <textarea id="fever_24h" class="w-full border p-2 rounded"></textarea>
+
+
+</div>
 
   <div>
     <label class="font-semibold block">GIT</label>
@@ -269,7 +282,12 @@
 
 </div>
   
-<textarea id="plan" placeholder="Plan" class="w-full border p-2 mt-2"></textarea>
+<h2 class="text-xl font-bold bg-indigo-600 text-white p-2 mt-6">PLAN</h2>
+
+<div class="mt-4">
+  <label class="block text-sm font-semibold">Plan</label>
+  <textarea id="plan" class="w-full border p-2 rounded mt-2"></textarea>
+</div>
 
 <!-- BUTTONS -->
 <div class="mt-6 flex gap-3">
@@ -365,12 +383,16 @@ output += `Respiratory exam: ${resp_exam.value}<br>`;
 output += `Mode of ventilation and settings: ${breathing_mode.value}<br>`;
 output += `FiO2 / SpO2: ${breathing_oxy.value}<br>`;
 output += `ABG: ${abg.value}<br><br>`;
-output += `CVS: HR/BP: ${cvs.value}<br><br>`;
+output += `CVS exam: ${cvs_exam.value}<br>`;
+output += `HR / BP / ECG Rhythm etc.: ${cvs_obs.value}<br>`;
+output += `Cardiovascular support: ${cv_support.value}<br><br>`;
 output += `Neuro: ${neuro_exam.value}<br><br>`;
 output += `Renal: ${renal.value}<br><br>`;
 output += `GIT: ${git.value}<br><br>`;
 output += `Infection, Micro & Antimicrobials:<br>`;
-output += `Temp: ${temp.value}<br><br>`;
+output += `Micro / Antimicrobials: ${micro_text.value}<br>`;
+output += `Temp: ${temp.value}<br>`;
+output += `Fever in last 24 hours: ${fever_24h.value}<br><br>`;
 output += `Any other findings: ${other_findings.value}<br><br>`;
 
 output += "<b>PLAN</b><br>";
