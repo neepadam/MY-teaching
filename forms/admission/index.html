@@ -181,16 +181,20 @@
 
 <!-- CHECKS -->
 <h2 class="text-xl font-bold bg-green-600 text-white p-2 mt-6">CHECKS</h2>
-<div class="mt-4 space-y-2">
-<label>Meds reconciliation
-<input type="radio" name="meds" value="Yes">Yes
-<input type="radio" name="meds" value="No">No
-</label>
+<div class="mt-4 space-y-3">
 
-<label>VTE form
-<input type="radio" name="vte" value="Yes">Yes
-<input type="radio" name="vte" value="No">No
-</label>
+  <label class="block">
+    Meds reconciliation
+    <input type="radio" name="meds" value="Yes"> Yes
+    <input type="radio" name="meds" value="No"> No
+  </label>
+
+  <label class="block">
+    VTE form
+    <input type="radio" name="vte" value="Yes"> Yes
+    <input type="radio" name="vte" value="No"> No
+  </label>
+
 </div>
 
 <!-- CLINICAL -->
@@ -212,17 +216,24 @@
   </div>
 
   <div>
-    <label class="font-semibold block">Breathing:</label>
+    <div>
+  <label class="font-semibold block">Breathing:</label>
 
-    <label class="block mt-2 text-sm font-semibold">Mode</label>
-    <input id="breathing_mode" class="w-full border p-2 rounded">
+  <div>
+  <label class="font-semibold block">Breathing:</label>
 
-    <label class="block mt-2 text-sm font-semibold">SpO2 / FiO2</label>
-    <input id="breathing_oxy" class="w-full border p-2 rounded">
+  <label class="block mt-2 text-sm font-semibold">Respiratory exam</label>
+  <textarea id="resp_exam" class="w-full border p-2 rounded"></textarea>
 
-    <label class="block mt-2 text-sm font-semibold">ABG: pH paCO2 paO2 HCO3 BE Lact</label>
-    <input id="abg" class="w-full border p-2 rounded">
-  </div>
+  <label class="block mt-2 text-sm font-semibold">Mode of ventilation and settings</label>
+  <input id="breathing_mode" class="w-full border p-2 rounded">
+
+  <label class="block mt-2 text-sm font-semibold">FiO2 / SpO2</label>
+  <input id="breathing_oxy" class="w-full border p-2 rounded">
+
+  <label class="block mt-2 text-sm font-semibold">ABG</label>
+<input id="abg" class="w-full border p-2 rounded">
+</div>
 
   <div>
     <label class="font-semibold block">CVS:</label>
@@ -350,8 +361,9 @@ output += `Frailty: ${frailty.value}<br><br>`;
 output += "<b>EXAMINATION</b><br>";
 output += `Airway: ${airway.value}<br><br>`;
 output += `Breathing:<br>`;
-output += `Mode: ${breathing_mode.value}<br>`;
-output += `SpO2 / FiO2: ${breathing_oxy.value}<br>`;
+output += `Respiratory exam: ${resp_exam.value}<br>`;
+output += `Mode of ventilation and settings: ${breathing_mode.value}<br>`;
+output += `FiO2 / SpO2: ${breathing_oxy.value}<br>`;
 output += `ABG: ${abg.value}<br><br>`;
 output += `CVS: HR/BP: ${cvs.value}<br><br>`;
 output += `Neuro: ${neuro_exam.value}<br><br>`;
