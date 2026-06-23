@@ -304,6 +304,9 @@
 </div>
   
 <script>
+  function formatText(text){
+  return (text || "").replace(/\n/g, "<br>");
+}
 let latestNoteHTML = "";
 function getRadio(name){
   const r = document.getElementsByName(name);
@@ -373,7 +376,7 @@ output += "<b>CLINICAL</b><br>";
 output += `Allergies: ${allergies.value}<br>`;
 output += `Diagnosis: ${diagnosis.value}<br>`;
 output += `Presenting complaint: ${presenting.value}<br>`;
-output += `Co-morbidities: ${comorbid.value}<br>`;
+output += `<b>Co-morbidities:</b> ${formatText(comorbid.value)}<br>`;
 output += `Frailty: ${frailty.value}<br><br>`;
 
 output += "<b>EXAMINATION</b><br>";
@@ -396,7 +399,7 @@ output += `Fever in last 24 hours: ${fever_24h.value}<br><br>`;
 output += `Any other findings: ${other_findings.value}<br><br>`;
 
 output += "<b>PLAN</b><br>";
-output += `${plan.value}<br><br>`;
+output += `<b>Plan:</b><br>${formatText(plan.value)}<br><br>`;
 
 latestNoteHTML = output;
 document.getElementById("output").innerHTML = output;
