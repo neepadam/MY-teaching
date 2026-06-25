@@ -344,15 +344,21 @@ function copyFormattedNote() {
 }
 function generateNote(){
 
+let errors = [];
+
 if (!getRadio("ref_aware")) {
-  alert("Please complete Referring aware");
-  return;
+  errors.push("Referring aware");
 }
 
 if (!getRadio("icu_aware")) {
-  alert("Please complete ICM aware");
+  errors.push("ICM aware");
+}
+
+if (errors.length > 0) {
+  alert("Please complete the following fields:\n\n- " + errors.join("\n- "));
   return;
 }
+  
 let output = "<b>ICU ADMISSION NOTE</b><br><br>";
 
 output += "<b>RESPONSIBILITY</b><br>";
