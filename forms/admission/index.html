@@ -12,31 +12,71 @@
 <h1 class="text-3xl font-bold mb-6">ICU Admission Note Generator</h1>
 
 <!-- RESPONSIBILITY -->
-<h2 class="text-xl font-bold bg-blue-600 text-white p-2">RESPONSIBILITY</h2>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+<h2 class="text-xl font-bold bg-blue-600 text-white p-2 mt-6 rounded">
+  RESPONSIBILITY
+</h2>
 
-<input
-  id="ref_team"
-  placeholder="Referring Team (e.g. Medicine, General Surgery, Orthopaedics)"
-  class="border p-2 rounded"
->
+<div class="mt-4 space-y-4">
 
-<input id="ref_consultant" placeholder="Referring Consultant" class="border p-2 rounded">
-<label>Referring aware?
-  <input type="radio" name="ref_aware" value="Yes"> Yes
-  <input type="radio" name="ref_aware" value="No"> No
-  <input type="radio" name="ref_aware" value="Unknown"> Unknown
-</label>
+  <!-- Referring team -->
+  <div>
+    <label class="block font-semibold mb-1">Referring team</label>
+    <input id="ref_team"
+      placeholder="e.g. Medicine, General Surgery, Orthopaedics"
+      class="border p-2 rounded w-full">
+  </div>
 
-<input id="icu_consultant" placeholder="ICM Consultant" class="border p-2 rounded">
-<label>ICM aware?
-  <input type="radio" name="icu_aware" value="Yes"> Yes
-  <input type="radio" name="icu_aware" value="No"> No
-</label>
+  <!-- Referring consultant -->
+  <div>
+    <label class="block font-semibold mb-1">Referring consultant</label>
+    <input id="ref_consultant"
+      class="border p-2 rounded w-full">
+  </div>
 
-<input id="admitting" placeholder="Admitting practitioner" class="border p-2 rounded">
-<input id="role" placeholder="Role" class="border p-2 rounded">
-<input id="gmc" placeholder="GMC/NMC Number" class="border p-2 rounded">
+  <!-- Referring aware -->
+  <div>
+    <label class="block font-semibold mb-1">Referring aware?</label>
+    <div class="flex gap-4">
+      <label><input type="radio" name="ref_aware" value="Yes"> Yes</label>
+      <label><input type="radio" name="ref_aware" value="No"> No</label>
+      <label><input type="radio" name="ref_aware" value="Unknown"> Unknown</label>
+    </div>
+  </div>
+
+  <!-- ICM consultant -->
+  <div>
+    <label class="block font-semibold mb-1">ICM consultant</label>
+    <input id="icu_consultant" class="border p-2 rounded w-full">
+  </div>
+
+  <!-- ICM aware -->
+  <div>
+    <label class="block font-semibold mb-1">ICM aware?</label>
+    <div class="flex gap-4">
+      <label><input type="radio" name="icu_aware" value="Yes"> Yes</label>
+      <label><input type="radio" name="icu_aware" value="No"> No</label>
+      <label><input type="radio" name="icu_aware" value="Unknown"> Unknown</label>
+    </div>
+  </div>
+
+  <!-- Admitting practitioner -->
+  <div>
+    <label class="block font-semibold mb-1">Admitting practitioner</label>
+    <input id="admitting" class="border p-2 rounded w-full">
+  </div>
+
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <label class="block font-semibold mb-1">Role</label>
+      <input id="role" class="border p-2 rounded w-full">
+    </div>
+
+    <div>
+      <label class="block font-semibold mb-1">GMC/NMC number</label>
+      <input id="gmc" class="border p-2 rounded w-full">
+    </div>
+  </div>
+
 </div>
 
 <!-- ICNARC -->
