@@ -400,10 +400,9 @@ if (errors.length > 0) {
 let output = "<b>ICU ADMISSION NOTE</b><br><br>";
 
 output += "<b>RESPONSIBILITY</b><br>";
-
 output += `Referring team: ${ref_team.value}<br>`;
-output += `Referring Consultant: ${ref_consultant.value} (Consultant aware: ${getRadio("ref_aware")})<br>`;
-output += `ICM Consultant: ${icu_consultant.value} (Consultant aware: ${getRadio("icu_aware")})<br>`;
+output += `Referring Consultant: ${ref_consultant.value} (Aware: ${getRadio("ref_aware")})<br>`;
+output += `ICM Consultant: ${icu_consultant.value} (Aware: ${getRadio("icu_aware")})<br>`;
 output += `Admitting practitioner: ${admitting.value} (${role.value}) GMC/NMC: ${gmc.value}<br><br>`;
 
 output += "<b>ICNARC / AUDIT</b><br>";
