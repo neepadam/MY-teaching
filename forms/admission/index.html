@@ -39,35 +39,57 @@
   This information is collected nationally. It is imperative that this data is recorded on the admission document.
 </p>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-<label>Decision to admit time
-<input id="decision_time" type="time" class="border p-2 rounded"></label>
+<div class="mt-4 space-y-4">
 
-<label>Actual ICU admission time
-<input id="admission_time" type="time" class="border p-2 rounded"></label>
+  <div>
+    <label class="block font-semibold mb-1">
+      Decision to admit time
+    </label>
+    <input id="decision_time" type="time" class="border p-2 rounded w-full">
+  </div>
 
-<select id="source" class="border p-2 rounded">
-  <option>ED</option>
-  <option>Ward</option>
-  <option>Theatre</option>
-  <option>Other Hospital</option>
-  <option>Other</option>
-</select>
+  <div>
+    <label class="block font-semibold mb-1">
+      Actual ICU admission time
+    </label>
+    <input id="admission_time" type="time" class="border p-2 rounded w-full">
+  </div>
 
-<input
-  id="source_other"
-  placeholder="If Other, specify"
-  class="border p-2 rounded"
-/>
+  <div>
+    <label class="block font-semibold mb-1">
+      Source of admission
+    </label>
+    <select id="source" class="border p-2 rounded w-full">
+      <option value=""></option>
+      <option>ED</option>
+      <option>Ward</option>
+      <option>Theatre</option>
+      <option>Other Hospital</option>
+      <option>Other</option>
+    </select>
+  </div>
 
-<label>CPR last 24h
-<input type="radio" name="cpr" value="None"> None
-<input type="radio" name="cpr" value="Yes - in hospital"> Yes - in hospital
-<input type="radio" name="cpr" value="Yes - in community"> Yes - in community
-</label>
+  <div>
+    <input
+      id="source_other"
+      placeholder="If Other, specify"
+      class="border p-2 rounded w-full"
+    >
+  </div>
+
+  <div>
+    <label class="block font-semibold mb-1">
+      CPR in last 24 hours
+    </label>
+    <select id="cpr" class="border p-2 rounded w-full">
+      <option value=""></option>
+      <option>None</option>
+      <option>Yes - in hospital</option>
+      <option>Yes - in community</option>
+    </select>
+  </div>
 
 </div>
-
 <!-- PRE ADMISSION OBSERVATIONS -->
 <h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-6">PRE ADMISSION OBSERVATIONS</h2>
 
@@ -324,7 +346,7 @@ output += "<b>ICNARC / AUDIT</b><br>";
 output += `Decision to admit time: ${decision_time.value}<br>`;
 output += `Actual ICU admission time: ${admission_time.value}<br>`;
 output += `Source of admission: ${source.value === "Other" ? source_other.value : source.value}<br>`;
-output += `CPR last 24h: ${getRadio("cpr")}<br><br>`;
+output += `CPR last 24h: ${document.getElementById("cpr").value}<br><br>`;
 
 output += "<b>PRE ADMISSION OBSERVATIONS</b><br>";
 
@@ -371,8 +393,7 @@ output += `Temp: ${temp.value}<br>`;
 output += `Fever in last 24 hours: ${fever_24h.value}<br><br>`;
 output += `Any other findings: ${other_findings.value}<br><br>`;
 
-output += "<b>PLAN</b><br>";
-output += `<b>Plan:</b><br>${formatText(plan.value)}<br><br>`;
+output += `<b>PLAN:</b><br>${formatText(plan.value)}<br><br>`;
 
 latestNoteHTML = output;
 document.getElementById("output").innerHTML = output;
