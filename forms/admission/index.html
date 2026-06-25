@@ -60,42 +60,20 @@
   class="border p-2 rounded"
 />
 
-<label>Intracranial mass effect:
-<input type="radio" name="mass" value="Yes">Yes
-<input type="radio" name="mass" value="No">No
-</label>
-
-<label>Managed by ICU pre-admission
-<input type="radio" name="preicu" value="Yes">Yes
-<input type="radio" name="preicu" value="No">No
-</label>
-
-<label>Outreach seen
-<input type="radio" name="outreach" value="Yes">Yes
-<input type="radio" name="outreach" value="No">No
-</label>
-
-<label>Surgical pre-optimisation
-<input type="radio" name="surg" value="Yes">Yes
-<input type="radio" name="surg" value="No">No
-</label>
-
 <label>CPR last 24h
-<input type="radio" name="cpr" value="Yes">Yes
-<input type="radio" name="cpr" value="No">No
+<input type="radio" name="cpr" value="None"> None
+<input type="radio" name="cpr" value="Yes - in hospital"> Yes - in hospital
+<input type="radio" name="cpr" value="Yes - in community"> Yes - in community
 </label>
 
-<label>Expected Neuro
-<input type="radio" name="expected_neuro" value="Normal">Normal
-<input type="radio" name="expected_neuro" value="Abnormal">Abnormal
-</label>
 </div>
 
 <!-- PRE ADMISSION OBSERVATIONS -->
 <h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-6">PRE ADMISSION OBSERVATIONS</h2>
 
-<p class="mt-2 text-sm">
-  <strong><u>These are the last set of observations prior to admission to ICU.</u></strong>
+<p class="mt-2 text-sm bg-yellow-200 border-2 border-yellow-500 p-3 rounded font-semibold">
+  Please document the last recorded observation prior to referral for or delivery of critical care expertise.
+  If intubated in ED, document the observation prior to intubation.
 </p>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
@@ -346,12 +324,7 @@ output += "<b>ICNARC / AUDIT</b><br>";
 output += `Decision to admit time: ${decision_time.value}<br>`;
 output += `Actual ICU admission time: ${admission_time.value}<br>`;
 output += `Source of admission: ${source.value === "Other" ? source_other.value : source.value}<br>`;
-output += `Intracranial mass effect: ${getRadio("mass")}<br>`;
-output += `Managed by ICU pre-admission: ${getRadio("preicu")}<br>`;
-output += `Outreach seen: ${getRadio("outreach")}<br>`;
-output += `Surgical pre-optimisation: ${getRadio("surg")}<br>`;
-output += `CPR last 24h: ${getRadio("cpr")}<br>`;
-output += `Expected Neuro: ${getRadio("expected_neuro")}<br><br>`;
+output += `CPR last 24h: ${getRadio("cpr")}<br><br>`;
 
 output += "<b>PRE ADMISSION OBSERVATIONS</b><br>";
 
