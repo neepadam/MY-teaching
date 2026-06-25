@@ -13,8 +13,14 @@
 
 <!-- RESPONSIBILITY -->
 <h2 class="text-xl font-bold bg-blue-600 text-white p-2">RESPONSIBILITY</h2>
-
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+
+<input
+  id="ref_team"
+  placeholder="Referring Team (e.g. Medicine, General Surgery, Orthopaedics)"
+  class="border p-2 rounded"
+>
+
 <input id="ref_consultant" placeholder="Referring Consultant" class="border p-2 rounded">
 <label>Referring aware?
   <input type="radio" name="ref_aware" value="Yes"> Yes
@@ -338,6 +344,7 @@ if (!getRadio("icu_aware")) {
 let output = "<b>ICU ADMISSION NOTE</b><br><br>";
 
 output += "<b>RESPONSIBILITY</b><br>";
+output += `Referring team: ${ref_team.value}<br>`;
 output += `Referring Consultant: ${ref_consultant.value} (Aware: ${getRadio("ref_aware")})<br>`;
 output += `ICM Consultant: ${icu_consultant.value} (Aware: ${getRadio("icu_aware")})<br>`;
 output += `Admitting practitioner: ${admitting.value} (${role.value}) GMC/NMC: ${gmc.value}<br><br>`;
@@ -396,7 +403,7 @@ output += `<b>Infection, Micro & Antimicrobials:</b><br>`;
 output += `Micro / Antimicrobials: ${micro_text.value}<br>`;
 output += `Temp: ${temp.value}<br>`;
 output += `Fever in last 24 hours: ${fever_24h.value}<br><br>`;
-output += `<b>Any other findings: ${other_findings.value}<br><br>`;
+output += `<b>Any other findings:</b> ${other_findings.value}<br><br>`;
 
 output += `<b>PLAN:</b><br>${formatText(plan.value)}<br><br>`;
 
