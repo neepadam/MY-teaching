@@ -294,7 +294,19 @@
   <label class="block text-sm font-semibold">Plan</label>
   <textarea id="plan" class="w-full border p-2 rounded mt-2"></textarea>
 </div>
+<div class="mt-4">
+  <label class="block text-sm font-semibold">
+    The above plan has been discussed with an ICM consultant
+  </label>
 
+  <label class="mr-3">
+    <input type="radio" name="plan_discussed" value="Yes"> Yes
+  </label>
+
+  <label>
+    <input type="radio" name="plan_discussed" value="No"> No
+  </label>
+</div>
 <!-- BUTTONS -->
 <div class="mt-6 flex gap-3">
   <button onclick="generateNote()" class="bg-blue-600 text-white px-4 py-2 rounded">
@@ -308,7 +320,7 @@
 
 <div id="output" class="w-full h-80 mt-4 border p-3 bg-white overflow-auto rounded"></div>
 </div>
-  
+
 <script>
   function formatText(text){
   return (text || "").replace(/\n/g, "<br>");
@@ -408,6 +420,8 @@ output += `<b>Any other findings:</b> ${other_findings.value}<br><br>`;
 
 output += `<b>PLAN:</b><br>${formatText(plan.value)}<br><br>`;
 
+output += `The above plan has been discussed with an ICM consultant: ${getRadio("plan_discussed")}<br><br>`;
+  
 latestNoteHTML = output;
 document.getElementById("output").innerHTML = output;
 }
