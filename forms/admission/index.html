@@ -375,11 +375,12 @@ output += `<li>Meds reconciliation: ${getRadio("meds")}</li>`;
 output += `<li>VTE form completed: ${getRadio("vte")}</li>`;
 output += `</ul><br>`;
 output += "<b>CLINICAL</b><br>";
-output += `Allergies: ${allergies.value}<br>`;
-output += `Diagnosis: ${diagnosis.value}<br>`;
-output += `Presenting complaint: ${presenting.value}<br>`;
-output += `<b>Co-morbidities:</b> ${formatText(comorbid.value)}<br>`;
-output += `Frailty: ${frailty.value}<br><br>`;
+output += `<b>CLINICAL</b><br>`;
+output += `Allergies:<br>${formatText(allergies.value)}<br><br>`;
+output += `Diagnosis:<br>${formatText(diagnosis.value)}<br><br>`;
+output += `Presenting complaint:<br>${formatText(presenting.value)}<br><br>`;
+output += `<b>Co-morbidities:</b><br>${formatText(comorbid.value)}<br><br>`;
+output += `Frailty:<br>${formatText(frailty.value)}<br><br>`;
 
 output += "<b>EXAMINATION</b><br>";
 output += `<b>Airway:</b> ${airway.value}<br><br>`;
