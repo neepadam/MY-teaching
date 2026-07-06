@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FUSIC-Heart Echo Note Generator</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-6">
+
+<div class="max-w-4xl mx-auto bg-white shadow p-6 rounded">
+
+<h1 class="text-3xl font-bold mb-6">
+FUSIC-Heart Echo → Clinical Note Generator
+</h1>
+
+<!-- SCAN DETAILS -->
+<h2 class="text-xl font-bold bg-blue-600 text-white p-2">SCAN DETAILS</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+
+  <div>
+    <label class="font-medium">Date:</label>
+    <input type="date" id="scan_date" class="w-full border p-2 rounded">
+  </div>
+
+  <div>
+    <label class="font-medium">Time:</label>
+    <input type="text" id="scan_time" class="w-full border p-2 rounded">
+  </div>
+
+  <div>
+    <label class="font-medium">Operator:</label>
+    <input type="text" id="operator" class="w-full border p-2 rounded">
+  </div>
+
+  <div>
+    <label class="font-medium">FUSIC-Heart Accredited?</label>
+    <div class="flex gap-4 mt-1">
+      <label><input type="checkbox" name="fusic" value="Yes" onchange="onlyOne(this)"> Yes</label>
+      <label><input type="checkbox" name="fusic" value="No" onchange="onlyOne(this)"> No</label>
+    </div>
+  </div>
+
+</div>
+
+<div class="mt-4">
+  <label class="font-medium">Indication:</label>
+  <input type="text" id="indication" class="w-full border p-2 rounded">
+</div>
+
+<!-- PHYSIOLOGY -->
+<h2 class="text-xl font-bold bg-gray-700 text-white p-2 mt-6">PHYSIOLOGICAL STATUS</h2>
+
+<div class="grid grid-cols-1 gap-4 mt-4">
+
+  <div>
+    <div class="font-medium">Ventilation</div>
+    <div class="flex gap-4 mt-1">
+      <label><input type="checkbox" name="vent" value="IPPV" onchange="onlyOne(this)"> IPPV</label>
+      <label><input type="checkbox" name="vent" value="PSV" onchange="onlyOne(this)"> PSV</label>
+      <label><input type="checkbox" name="vent" value="Spontaneous" onchange="onlyOne(this)"> Spontaneous</label>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-2 gap-4">
+    <input id="hr" class="border p-2 rounded" placeholder="Heart Rate">
+    <input id="bp" class="border p-2 rounded" placeholder="Blood Pressure">
+    <input id="cvp" class="border p-2 rounded" placeholder="CVP">
+    <input id="vaso" class="border p-2 rounded" placeholder="Vasoactive drugs">
+  </div>
+
+</div>
+
+<!-- VIEWS -->
+<h2 class="text-xl font-bold bg-purple-600 text-white p-2 mt-6">VIEWS OBTAINED</h2>
+
+<div class="mt-4 flex flex-col gap-1">
+  <label><input type="checkbox" name="views" value="PLAX"> PLAX</label>
+  <label><input type="checkbox" name="views" value="PSAX"> PSAX</label>
+  <label><input type="checkbox" name="views" value="A4C"> A4C</label>
+  <label><input type="checkbox" name="views" value="Subcostal"> Subcostal</label>
+  <label><input type="checkbox" name="views" value="IVC"> IVC</label>
+  <label class="flex gap-2 items-center">
+    <input type="checkbox" name="views" value="Other"> Other
+    <input id="views_other" class="border p-1 rounded w-48">
+  </label>
+</div>
+
+<!-- IMAGE QUALITY -->
+<h2 class="text-xl font-bold bg-yellow-500 text-black p-2 mt-6">IMAGE QUALITY</h2>
+
+<div class="flex gap-4 mt-3">
+  <label><input type="checkbox" name="iq" value="Good" onchange="onlyOne(this)"> Good</label>
+  <label><input type="checkbox" name="iq" value="Acceptable" onchange="onlyOne(this)"> Acceptable</label>
+  <label><input type="checkbox" name="iq" value="Poor" onchange="onlyOne(this)"> Poor</label>
+</div>
+
+<!-- ADEQUACY -->
+<h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-6">STUDY ADEQUACY</h2>
+
+<div class="flex gap-4 mt-3">
+  <label><input type="checkbox" name="adequate" value="Yes" onchange="onlyOne(this)"> Yes</label>
+  <label><input type="checkbox" name="adequate" value="No" onchange="onlyOne(this)"> No</label>
+</div>
+
+<!-- FINDINGS -->
+<h2 class="text-xl font-bold bg-indigo-600 text-white p-2 mt-6">FINDINGS</h2>
+
+<div class="grid grid-cols-1 gap-4 mt-4">
+
+<script>
+const findings = [
+"LV Dilated",
+"LV Significantly Impaired",
+"RV Dilated",
+"RV Severely Impaired",
+"Pericardial Fluid",
+"Low Preload",
+"Pleural Fluid"
+];
+
+document.write(findings.map(f => `
+<div>
+  <div class="font-medium">${f}</div>
+  <div class="flex gap-4">
+    <label><input type="checkbox" name="${f}" value="Yes" onchange="onlyOne(this)"> Yes</label>
+    <label><input type="checkbox" name="${f}" value="No" onchange="onlyOne(this)"> No</label>
+    <label><input type="checkbox" name="${f}" value="Unable to comment" onchange="onlyOne(this)"> Unable</label>
+  </div>
+</div>
+`).join(""));
+</script>
+
+</div>
+
+<!-- FREE TEXT -->
+<h2 class="text-xl font-bold bg-gray-800 text-white p-2 mt-6">ADDITIONAL FINDINGS</h2>
+<textarea id="extra" class="w-full border p-2 rounded mt-2 h-24"></textarea>
+
+<!-- DISCUSSION -->
+<div class="mt-4">
+  <label class="font-medium">Discussed with supervisor?</label>
+  <div class="flex gap-4 mt-1">
+    <label><input type="checkbox" name="disc" value="Yes" onchange="onlyOne(this)"> Yes</label>
+    <label><input type="checkbox" name="disc" value="No" onchange="onlyOne(this)"> No</label>
+  </div>
+</div>
+
+<!-- CONCLUSION -->
+<h2 class="text-xl font-bold bg-green-600 text-white p-2 mt-6">
+Conclusion / Suggested Actions
+</h2>
+
+<textarea id="conclusion" class="w-full border p-2 rounded mt-2 h-24"></textarea>
+
+<!-- BUTTONS -->
+<button onclick="generate()"
+class="mt-6 bg-blue-600 text-white px-4 py-2 rounded">
+Generate Note
+</button>
+
+<button onclick="copyText()"
+class="mt-6 ml-2 bg-green-600 text-white px-4 py-2 rounded">
+Copy
+</button>
+
+<textarea id="output" class="w-full h-80 border p-3 rounded mt-4 font-mono" readonly></textarea>
+
+</div>
+
+<script>
+
+function onlyOne(cb){
+  document.getElementsByName(cb.name).forEach(c => {
+    if(c !== cb) c.checked = false;
+  });
+}
+
+function get(name){
+  const els = document.getElementsByName(name);
+  for(let e of els) if(e.checked) return e.value;
+  return "";
+}
+
+function generate(){
+
+let v = Array.from(document.querySelectorAll('input[name="views"]:checked')).map(x=>x.value);
+if(v.includes("Other")){
+  v = v.filter(x=>x!=="Other");
+  const o = document.getElementById("views_other").value;
+  if(o) v.push("Other ("+o+")");
+}
+
+let fusic = get("fusic");
+
+let vent = get("vent");
+let iq = get("iq");
+let adeq = get("adequate");
+
+let output =
+`FUSIC-HEART ECHO REPORT
+
+Date: ${document.getElementById("scan_date").value}
+Time: ${document.getElementById("scan_time").value}
+Operator: ${document.getElementById("operator").value}
+FUSIC-Heart Accredited: ${fusic}
+
+Indication: ${document.getElementById("indication").value}
+
+Physiological Status:
+Ventilation: ${vent}
+HR: ${document.getElementById("hr").value}
+BP: ${document.getElementById("bp").value}
+CVP: ${document.getElementById("cvp").value}
+Vasoactive Drugs: ${document.getElementById("vaso").value}
+
+Views Obtained:
+${v.join(", ")}
+
+Image Quality: ${iq}
+Study Adequate: ${adeq}
+
+Findings:
+LV Dilated: ${get("LV Dilated")}
+LV Significantly Impaired: ${get("LV Significantly Impaired")}
+RV Dilated: ${get("RV Dilated")}
+RV Severely Impaired: ${get("RV Severely Impaired")}
+Pericardial Fluid: ${get("Pericardial Fluid")}
+Low Preload: ${get("Low Preload")}
+Pleural Fluid: ${get("Pleural Fluid")}
+
+Additional Findings:
+${document.getElementById("extra").value}
+
+Discussed with Supervisor: ${get("disc")}
+
+Conclusion / Suggested Actions:
+${document.getElementById("conclusion").value}
+`;
+
+document.getElementById("output").value = output;
+}
+
+function copyText(){
+navigator.clipboard.writeText(document.getElementById("output").value);
+}
+
+window.addEventListener("DOMContentLoaded", ()=>{
+  document.getElementById("scan_date").value = new Date().toISOString().split("T")[0];
+});
+
+</script>
+
+</body>
+</html>
