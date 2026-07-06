@@ -20,16 +20,6 @@ FUSIC-Heart Echo → Clinical Note Generator
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 
   <div>
-    <label class="font-medium">Date:</label>
-    <input type="date" id="scan_date" class="w-full border p-2 rounded">
-  </div>
-
-  <div>
-    <label class="font-medium">Time:</label>
-    <input type="text" id="scan_time" class="w-full border p-2 rounded">
-  </div>
-
-  <div>
     <label class="font-medium">Operator:</label>
     <input type="text" id="operator" class="w-full border p-2 rounded">
   </div>
@@ -94,14 +84,6 @@ FUSIC-Heart Echo → Clinical Note Generator
   <label><input type="checkbox" name="iq" value="Good" onchange="onlyOne(this)"> Good</label>
   <label><input type="checkbox" name="iq" value="Acceptable" onchange="onlyOne(this)"> Acceptable</label>
   <label><input type="checkbox" name="iq" value="Poor" onchange="onlyOne(this)"> Poor</label>
-</div>
-
-<!-- ADEQUACY -->
-<h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-6">STUDY ADEQUACY</h2>
-
-<div class="flex gap-4 mt-3">
-  <label><input type="checkbox" name="adequate" value="Yes" onchange="onlyOne(this)"> Yes</label>
-  <label><input type="checkbox" name="adequate" value="No" onchange="onlyOne(this)"> No</label>
 </div>
 
 <!-- FINDINGS -->
@@ -187,41 +169,32 @@ function generate(){
 
 let v = Array.from(document.querySelectorAll('input[name="views"]:checked')).map(x=>x.value);
 if(v.includes("Other")){
-  v = v.filter(x=>x!=="Other");
+  v = v.filter(x=>"Other");
   const o = document.getElementById("views_other").value;
   if(o) v.push("Other ("+o+")");
 }
 
-let fusic = get("fusic");
-
-let vent = get("vent");
-let iq = get("iq");
-let adeq = get("adequate");
-
 let output =
-`FUSIC-HEART ECHO REPORT
+`**FUSIC-HEART ECHO REPORT**
 
-Date: ${document.getElementById("scan_date").value}
-Time: ${document.getElementById("scan_time").value}
-Operator: ${document.getElementById("operator").value}
-FUSIC-Heart Accredited: ${fusic}
+**Operator:** ${document.getElementById("operator").value}
+**FUSIC-Heart Accredited:** ${get("fusic")}
 
-Indication: ${document.getElementById("indication").value}
+**Indication:** ${document.getElementById("indication").value}
 
-Physiological Status:
-Ventilation: ${vent}
+**Physiological Status**
+Ventilation: ${get("vent")}
 HR: ${document.getElementById("hr").value}
 BP: ${document.getElementById("bp").value}
 CVP: ${document.getElementById("cvp").value}
 Vasoactive Drugs: ${document.getElementById("vaso").value}
 
-Views Obtained:
+**Views Obtained**
 ${v.join(", ")}
 
-Image Quality: ${iq}
-Study Adequate: ${adeq}
+**Image Quality:** ${get("iq")}
 
-Findings:
+**Findings**
 LV Dilated: ${get("LV Dilated")}
 LV Significantly Impaired: ${get("LV Significantly Impaired")}
 RV Dilated: ${get("RV Dilated")}
@@ -230,12 +203,12 @@ Pericardial Fluid: ${get("Pericardial Fluid")}
 Low Preload: ${get("Low Preload")}
 Pleural Fluid: ${get("Pleural Fluid")}
 
-Additional Findings:
+**Additional Findings**
 ${document.getElementById("extra").value}
 
-Discussed with Supervisor: ${get("disc")}
+**Discussed with Supervisor:** ${get("disc")}
 
-Conclusion / Suggested Actions:
+**Conclusion / Suggested Actions**
 ${document.getElementById("conclusion").value}
 `;
 
@@ -245,10 +218,6 @@ document.getElementById("output").value = output;
 function copyText(){
 navigator.clipboard.writeText(document.getElementById("output").value);
 }
-
-window.addEventListener("DOMContentLoaded", ()=>{
-  document.getElementById("scan_date").value = new Date().toISOString().split("T")[0];
-});
 
 </script>
 
