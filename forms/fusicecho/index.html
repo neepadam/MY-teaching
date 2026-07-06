@@ -215,8 +215,26 @@ ${document.getElementById("conclusion").value}
 document.getElementById("output").value = output;
 }
 
-function copyText(){
-navigator.clipboard.writeText(document.getElementById("output").value);
+function copyText() {
+
+  const text = document.getElementById("output").value;
+
+  // Convert **bold markdown-style headings** into HTML <b>
+  const html = text
+    .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+    .replace(/\n/g, "<br>");
+
+  const blobHTML = new Blob([html], { type: "text/html" });
+  const blobText = new Blob([text], { type: "text/plain" });
+
+  const data = [
+    new ClipboardItem({
+      "text/html": blobHTML,
+      "text/plain": blobText
+    })
+  ];
+
+  navigator.clipboard.write(data);
 }
 
 </script>
