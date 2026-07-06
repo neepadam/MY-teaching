@@ -147,9 +147,10 @@ class="mt-6 ml-2 bg-green-600 text-white px-4 py-2 rounded">
 Copy
 </button>
 
-<textarea id="output" class="w-full h-80 border p-3 rounded mt-4 font-mono" readonly></textarea>
-<h3 class="font-bold mt-4">Formatted Preview</h3>
-<div id="preview" class="w-full border p-3 rounded mt-2 bg-gray-50 whitespace-pre-wrap"></div>
+<!-- OUTPUT -->
+<div id="output"
+     class="w-full min-h-[20rem] border p-3 rounded mt-4 bg-white overflow-auto"></div>
+
 </div>
 
 <script>
@@ -169,10 +170,11 @@ function get(name){
 function generate(){
 
 let v = Array.from(document.querySelectorAll('input[name="views"]:checked')).map(x=>x.value);
+
 if(v.includes("Other")){
-  v = v.filter(x=>"Other");
+  v = v.filter(x => x !== "Other");
   const o = document.getElementById("views_other").value;
-  if(o) v.push("Other ("+o+")");
+  if(o) v.push("Other (" + o + ")");
 }
 
 let output =
@@ -213,34 +215,24 @@ ${document.getElementById("extra").value}
 ${document.getElementById("conclusion").value}
 `;
 
-document.getElementById("output").value = output;
+const html = output
+  .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+  .replace(/\n/g, "<br>");
 
-// formatted preview (bold headings etc.)
-const htmlPreview = output
-  .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>");
+document.getElementById("output").innerHTML = html;
+}
 
-document.getElementById("preview").innerHTML = htmlPreview;}
+async function copyText() {
 
-function copyText() {
+  const html = document.getElementById("output").innerHTML;
+  const text = document.getElementById("output").innerText;
 
-  const text = document.getElementById("output").value;
-
-  // Convert **bold markdown-style headings** into HTML <b>
-  const html = text
-    .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
-    .replace(/\n/g, "<br>");
-
-  const blobHTML = new Blob([html], { type: "text/html" });
-  const blobText = new Blob([text], { type: "text/plain" });
-
-  const data = [
+  await navigator.clipboard.write([
     new ClipboardItem({
-      "text/html": blobHTML,
-      "text/plain": blobText
+      "text/html": new Blob([html], { type: "text/html" }),
+      "text/plain": new Blob([text], { type: "text/plain" })
     })
-  ];
-
-  navigator.clipboard.write(data);
+  ]);
 }
 
 </script>
