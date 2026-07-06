@@ -148,7 +148,8 @@ Copy
 </button>
 
 <textarea id="output" class="w-full h-80 border p-3 rounded mt-4 font-mono" readonly></textarea>
-
+<h3 class="font-bold mt-4">Formatted Preview</h3>
+<div id="preview" class="w-full border p-3 rounded mt-2 bg-gray-50 whitespace-pre-wrap"></div>
 </div>
 
 <script>
@@ -213,7 +214,12 @@ ${document.getElementById("conclusion").value}
 `;
 
 document.getElementById("output").value = output;
-}
+
+// formatted preview (bold headings etc.)
+const htmlPreview = output
+  .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>");
+
+document.getElementById("preview").innerHTML = htmlPreview;}
 
 function copyText() {
 
