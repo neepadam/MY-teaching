@@ -1,1 +1,1578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>ICU Daily Ward Round Note Generator</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-4 md:p-6">
+
+  <div class="max-w-5xl mx-auto bg-white shadow-lg p-5 md:p-8 rounded-lg">
+
+    <h1 class="text-3xl font-bold mb-2">
+      ICU Daily Ward Round → Clinical Note Generator
+    </h1>
+
+    <p class="text-gray-600 mb-6">
+      Complete the relevant fields, generate the note, then copy the formatted text into the patient record.
+    </p>
+
+
+    <!-- ICU DAY AND ISSUES -->
+    <details open class="mb-5 border rounded-lg overflow-hidden">
+      <summary class="cursor-pointer bg-blue-600 text-white font-bold text-lg px-4 py-3">
+        ICU DAY &amp; ISSUES
+      </summary>
+
+      <div class="p-4 space-y-4">
+
+        <div>
+          <label for="icu_day" class="block font-medium mb-1">
+            ICU Day:
+          </label>
+
+          <input
+            type="number"
+            id="icu_day"
+            min="1"
+            class="w-full md:w-40 border p-2 rounded"
+            placeholder="e.g. 4"
+          >
+        </div>
+
+        <div>
+          <label for="issues" class="block font-medium mb-1">
+            List of issues:
+          </label>
+
+          <textarea
+            id="issues"
+            class="w-full h-32 border p-2 rounded"
+            placeholder="Enter each issue on a separate line"
+          ></textarea>
+        </div>
+
+      </div>
+    </details>
+
+
+    <!-- EXAMINATION -->
+    <div class="bg-gray-800 text-white font-bold text-xl px-4 py-3 rounded-lg mb-5">
+      EXAMINATION
+    </div>
+
+
+    <!-- AIRWAY -->
+    <details open class="mb-5 border rounded-lg overflow-hidden">
+      <summary class="cursor-pointer bg-sky-600 text-white font-bold text-lg px-4 py-3">
+        AIRWAY
+      </summary>
+
+      <div class="p-4 space-y-3">
+
+        <div class="flex flex-wrap gap-x-6 gap-y-2">
+
+          <label>
+            <input type="radio" name="airway" value="Own airway">
+            Own
+          </label>
+
+          <label>
+            <input type="radio" name="airway" value="COETT">
+            COETT
+          </label>
+
+          <label>
+            <input type="radio" name="airway" value="Tracheostomy">
+            Trache
+          </label>
+
+          <label>
+            <input type="radio" name="airway" value="Other">
+            Other
+          </label>
+
+        </div>
+
+        <div>
+          <label for="airway_other" class="block font-medium mb-1">
+            Other airway details:
+          </label>
+
+          <input
+            type="text"
+            id="airway_other"
+            class="w-full border p-2 rounded"
+            placeholder="Describe"
+          >
+        </div>
+
+      </div>
+    </details>
+
+
+    <!-- BREATHING -->
+    <details open class="mb-5 border rounded-lg overflow-hidden">
+      <summary class="cursor-pointer bg-green-600 text-white font-bold text-lg px-4 py-3">
+        BREATHING
+      </summary>
+
+      <div class="p-4 space-y-5">
+
+        <div>
+          <div class="font-medium mb-2">
+            Ventilation mode:
+          </div>
+
+          <div class="flex flex-wrap gap-x-6 gap-y-2">
+
+            <label>
+              <input type="radio" name="ventilation_mode" value="PRVC">
+              PRVC
+            </label>
+
+            <label>
+              <input type="radio" name="ventilation_mode" value="SIMV">
+              SIMV
+            </label>
+
+            <label>
+              <input type="radio" name="ventilation_mode" value="Automode VS">
+              Automode VS
+            </label>
+
+            <label>
+              <input type="radio" name="ventilation_mode" value="CPAP-PS">
+              CPAP-PS
+            </label>
+
+            <label>
+              <input type="radio" name="ventilation_mode" value="Other">
+              Other
+            </label>
+
+          </div>
+
+          <input
+            type="text"
+            id="ventilation_other"
+            class="w-full border p-2 rounded mt-3"
+            placeholder="Other ventilation mode"
+          >
+        </div>
+
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+
+          <div>
+            <label for="fio2" class="block font-medium mb-1">
+              FiO₂
+            </label>
+
+            <div class="flex items-center">
+              <input
+                type="text"
+                id="fio2"
+                class="w-full border p-2 rounded"
+                placeholder="40"
+              >
+              <span class="ml-2">%</span>
+            </div>
+          </div>
+
+          <div>
+            <label for="pressure_support" class="block font-medium mb-1">
+              Pressure support
+            </label>
+
+            <input
+              type="text"
+              id="pressure_support"
+              class="w-full border p-2 rounded"
+              placeholder="10"
+            >
+          </div>
+
+          <div>
+            <label for="peep" class="block font-medium mb-1">
+              PEEP
+            </label>
+
+            <input
+              type="text"
+              id="peep"
+              class="w-full border p-2 rounded"
+              placeholder="5"
+            >
+          </div>
+
+          <div>
+            <label for="respiratory_rate" class="block font-medium mb-1">
+              RR
+            </label>
+
+            <input
+              type="text"
+              id="respiratory_rate"
+              class="w-full border p-2 rounded"
+              placeholder="16"
+            >
+          </div>
+
+          <div>
+            <label for="tidal_volume" class="block font-medium mb-1">
+              Tidal volume
+            </label>
+
+            <div class="flex items-center">
+              <input
+                type="text"
+                id="tidal_volume"
+                class="w-full border p-2 rounded"
+                placeholder="450"
+              >
+              <span class="ml-2">mL</span>
+            </div>
+          </div>
+
+          <div>
+            <label for="spo2" class="block font-medium mb-1">
+              SpO₂
+            </label>
+
+            <div class="flex items-center">
+              <input
+                type="text"
+                id="spo2"
+                class="w-full border p-2 rounded"
+                placeholder="96"
+              >
+              <span class="ml-2">%</span>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div>
+          <div class="font-medium mb-2">
+            Tracheal secretions:
+          </div>
+
+          <div class="flex flex-wrap gap-x-6 gap-y-2">
+
+            <label>
+              <input type="radio" name="secretions" value="None">
+              None
+            </label>
+
+            <label>
+              <input type="radio" name="secretions" value="Minimal">
+              Minimal
+            </label>
+
+            <label>
+              <input type="radio" name="secretions" value="Moderate">
+              Moderate
+            </label>
+
+            <label>
+              <input type="radio" name="secretions" value="Significant">
+              Significant
+            </label>
+
+          </div>
+        </div>
+
+        <div>
+          <label for="secretions_description" class="block font-medium mb-1">
+            Secretion description:
+          </label>
+
+          <input
+            type="text"
+            id="secretions_description"
+            class="w-full border p-2 rounded"
+            placeholder="e.g. thick, yellow secretions"
+          >
+        </div>
+
+        <div>
+          <label for="respiratory_exam" class="block font-medium mb-1">
+            Respiratory examination:
+          </label>
+
+          <textarea
+            id="respiratory_exam"
+            class="w-full h-28 border p-2 rounded"
+          ></textarea>
+        </div>
+
+      </div>
+    </details>
+
+
+    <!-- CIRCULATION -->
+    <details open class="mb-5 border rounded-lg overflow-hidden">
+      <summary class="cursor-pointer bg-red-600 text-white font-bold text-lg px-4 py-3">
+        CIRCULATION
+      </summary>
+
+      <div class="p-4 space-y-4">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+          <div>
+            <label for="hr" class="block font-medium mb-1">
+              HR:
+            </label>
+
+            <input
+              type="text"
+              id="hr"
+              class="w-full border p-2 rounded"
+              placeholder="bpm"
+            >
+          </div>
+
+          <div>
+            <label for="bp" class="block font-medium mb-1">
+              BP:
+            </label>
+
+            <input
+              type="text"
+              id="bp"
+              class="w-full border p-2 rounded"
+              placeholder="e.g. 120/65 mmHg"
+            >
+          </div>
+
+        </div>
+
+        <div>
+          <label for="cardiovascular_support" class="block font-medium mb-1">
+            Cardiovascular support:
+          </label>
+
+          <textarea
+            id="cardiovascular_support"
+            class="w-full h-20 border p-2 rounded"
+            placeholder="e.g. Noradrenaline 0.08 micrograms/kg/min"
+          ></textarea>
+        </div>
+
+        <div>
+          <label for="cardiovascular_exam" class="block font-medium mb-1">
+            Cardiovascular examination:
+          </label>
+
+          <textarea
+            id="cardiovascular_exam"
+            class="w-full h-28 border p-2 rounded"
+          ></textarea>
+        </div>
+
+      </div>
+    </details>
+
+
+    <!-- NEUROLOGY -->
+    <details open class="mb-5 border rounded-lg overflow-hidden">
+      <summary class="cursor-pointer bg-purple-600 text-white font-bold text-lg px-4 py-3">
+        NEUROLOGY
+      </summary>
+
+      <div class="p-4 space-y-4">
+
+        <div>
+          <div class="font-medium mb-2">
+            Sedation:
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
+
+            <label>
+              <input type="checkbox" name="sedation" value="Propofol">
+              Propofol
+            </label>
+
+            <label>
+              <input type="checkbox" name="sedation" value="Alfentanil">
+              Alfentanil
+            </label>
+
+            <label>
+              <input type="checkbox" name="sedation" value="Clonidine">
+              Clonidine
+            </label>
+
+            <label>
+              <input type="checkbox" name="sedation" value="Midazolam">
+              Midazolam
+            </label>
+
+            <label>
+              <input type="checkbox" name="sedation" value="Other">
+              Other
+            </label>
+
+          </div>
+
+          <input
+            type="text"
+            id="sedation_other"
+            class="w-full border p-2 rounded mt-3"
+            placeholder="Other sedation"
+          >
+        </div>
+
+        <div>
+          <label for="neurological_exam" class="block font-medium mb-1">
+            Neurological examination:
+          </label>
+
+          <textarea
+            id="neurological_exam"
+            class="w-full h-28 border p-2 rounded"
+          ></textarea>
+        </div>
+
+      </div>
+    </details>
+
+
+    <!-- RENAL AND ELECTROLYTES -->
+    <details open class="mb-5 border rounded-lg overflow-hidden">
+      <summary class="cursor-pointer bg-blue-700 text-white font-bold text-lg px-4 py-3">
+        RENAL &amp; ELECTROLYTES
+      </summary>
+
+      <div class="p-4 space-y-5">
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+          <div>
+            <label for="urine_output" class="block font-medium mb-1">
+              Urine output:
+            </label>
+
+            <div class="flex items-center">
+              <input
+                type="text"
+                id="urine_output"
+                class="w-full border p-2 rounded"
+                placeholder="e.g. 50"
+              >
+              <span class="ml-2 whitespace-nowrap">mL/hr</span>
+            </div>
+          </div>
+
+          <div>
+            <label for="fluid_balance_24h" class="block font-medium mb-1">
+              Fluid balance, last 24 hours:
+            </label>
+
+            <input
+              type="text"
+              id="fluid_balance_24h"
+              class="w-full border p-2 rounded"
+              placeholder="e.g. +450 mL"
+            >
+          </div>
+
+          <div>
+            <label for="fluid_balance_admission" class="block font-medium mb-1">
+              Fluid balance since admission:
+            </label>
+
+            <input
+              type="text"
+              id="fluid_balance_admission"
+              class="w-full border p-2 rounded"
+              placeholder="e.g. +2.1 L"
+            >
+          </div>
+
+        </div>
+
+
+        <div>
+          <div class="font-bold mb-2">
+            U&amp;Es
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+            <div>
+              <label for="sodium" class="block font-medium mb-1">Na</label>
+              <input type="text" id="sodium" class="w-full border p-2 rounded">
+            </div>
+
+            <div>
+              <label for="potassium" class="block font-medium mb-1">K</label>
+              <input type="text" id="potassium" class="w-full border p-2 rounded">
+            </div>
+
+            <div>
+              <label for="urea" class="block font-medium mb-1">Urea</label>
+              <input type="text" id="urea" class="w-full border p-2 rounded">
+            </div>
+
+            <div>
+              <label for="creatinine" class="block font-medium mb-1">Creat</label>
+              <input type="text" id="creatinine" class="w-full border p-2 rounded">
+            </div>
+
+            <div>
+              <label for="magnesium" class="block font-medium mb-1">Mg</label>
+              <input type="text" id="magnesium" class="w-full border p-2 rounded">
+            </div>
+
+            <div>
+              <label for="phosphate" class="block font-medium mb-1">PO₄</label>
+              <input type="text" id="phosphate" class="w-full border p-2 rounded">
+            </div>
+
+          </div>
+        </div>
+
+
+        <div>
+          <div class="font-medium mb-2">
+            CRRT?
+          </div>
+
+          <div class="flex gap-6">
+
+            <label>
+              <input type="radio" name="crrt" value="Yes">
+              Yes
+            </label>
+
+            <label>
+              <input type="radio" name="crrt" value="No">
+              No
+            </label>
+
+          </div>
+        </div>
+
+        <div>
+          <label for="crrt_comments" class="block font-medium mb-1">
+            CRRT comments:
+          </label>
+
+          <textarea
+            id="crrt_comments"
+            class="w-full h-20 border p-2 rounded"
+            placeholder="Complete if receiving CRRT"
+          ></textarea>
+        </div>
+
+        <div>
+          <label for="renal_comments" class="block font-medium mb-1">
+            Any other renal or electrolyte comments:
+          </label>
+
+          <textarea
+            id="renal_comments"
+            class="w-full h-24 border p-2 rounded"
+          ></textarea>
+        </div>
+
+      </div>
+    </details>
+
+
+    <!-- GI -->
+    <details open class="mb-5 border rounded-lg overflow-hidden">
+      <summary class="cursor-pointer bg-yellow-500 text-black font-bold text-lg px-4 py-3">
+        GASTROINTESTINAL
+      </summary>
+
+      <div class="p-4 space-y-4">
+
+        <div>
+          <label for="nutrition" class="block font-medium mb-1">
+            Nutrition:
+          </label>
+
+          <textarea
+            id="nutrition"
+            class="w-full h-20 border p-2 rounded"
+          ></textarea>
+        </div>
+
+        <div>
+          <label for="absorbing_feed" class="block font-medium mb-1">
+            Absorbing feed?
+          </label>
+
+          <input
+            type="text"
+            id="absorbing_feed"
+            class="w-full border p-2 rounded"
+            placeholder="e.g. Yes, bowels open, no high aspirates"
+          >
+        </div>
+
+        <div>
+          <label for="blood_sugars" class="block font-medium mb-1">
+            Blood sugars:
+          </label>
+
+          <input
+            type="text"
+            id="blood_sugars"
+            class="w-full border p-2 rounded"
+            placeholder="e.g. 6–9 mmol/L"
+          >
+        </div>
+
+        <div>
+          <div class="font-medium mb-2">
+            VRII insulin?
+          </div>
+
+          <div class="flex gap-6">
+
+            <label>
+              <input type="radio" name="vrii" value="Yes">
+              Yes
+            </label>
+
+            <label>
+              <input type="radio" name="vrii" value="No">
+              No
+            </label>
+
+          </div>
+        </div>
+
+        <div>
+          <label for="gi_comments" class="block font-medium mb-1">
+            Any comments:
+          </label>
+
+          <textarea
+            id="gi_comments"
+            class="w-full h-24 border p-2 rounded"
+          ></textarea>
+        </div>
+
+      </div>
+    </details>
+
+
+    <!-- HAEMATOLOGY -->
+    <details open class="mb-5 border rounded-lg overflow-hidden">
+      <summary class="cursor-pointer bg-rose-700 text-white font-bold text-lg px-4 py-3">
+        HAEMATOLOGY
+      </summary>
+
+      <div class="p-4">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+          <div>
+            <label for="hb" class="block font-medium mb-1">
+              Hb:
+            </label>
+
+            <input
+              type="text"
+              id="hb"
+              class="w-full border p-2 rounded"
+              placeholder="g/L"
+            >
+          </div>
+
+          <div>
+            <label for="platelets" class="block font-medium mb-1">
+              Platelets:
+            </label>
+
+            <input
+              type="text"
+              id="platelets"
+              class="w-full border p-2 rounded"
+              placeholder="×10⁹/L"
+            >
+          </div>
+
+        </div>
+
+      </div>
+    </details>
+
+
+    <!-- INFECTION -->
+    <details open class="mb-5 border rounded-lg overflow-hidden">
+      <summary class="cursor-pointer bg-orange-600 text-white font-bold text-lg px-4 py-3">
+        INFECTION
+      </summary>
+
+      <div class="p-4 space-y-4">
+
+        <div>
+          <label for="antibiotics" class="block font-medium mb-1">
+            Antibiotics:
+          </label>
+
+          <textarea
+            id="antibiotics"
+            class="w-full h-20 border p-2 rounded"
+          ></textarea>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+          <div>
+            <label for="current_temperature" class="block font-medium mb-1">
+              Current temperature:
+            </label>
+
+            <div class="flex items-center">
+              <input
+                type="text"
+                id="current_temperature"
+                class="w-full border p-2 rounded"
+                placeholder="37.2"
+              >
+              <span class="ml-2">°C</span>
+            </div>
+          </div>
+
+          <div>
+            <label for="fever_24h" class="block font-medium mb-1">
+              Fever &gt;38°C in last 24 hours:
+            </label>
+
+            <input
+              type="text"
+              id="fever_24h"
+              class="w-full border p-2 rounded"
+              placeholder="e.g. Yes, maximum 38.7°C"
+            >
+          </div>
+
+          <div>
+            <label for="procalcitonin" class="block font-medium mb-1">
+              Procalcitonin:
+            </label>
+
+            <input
+              type="text"
+              id="procalcitonin"
+              class="w-full border p-2 rounded"
+            >
+          </div>
+
+        </div>
+
+      </div>
+    </details>
+
+
+    <!-- LINES -->
+    <details open class="mb-5 border rounded-lg overflow-hidden">
+      <summary class="cursor-pointer bg-gray-700 text-white font-bold text-lg px-4 py-3">
+        LINES
+      </summary>
+
+      <div class="p-4">
+
+        <label for="lines" class="block font-medium mb-1">
+          Comment on lines and number of days in situ:
+        </label>
+
+        <textarea
+          id="lines"
+          class="w-full h-28 border p-2 rounded"
+          placeholder="e.g. Right IJV CVC day 4. Left radial arterial line day 3."
+        ></textarea>
+
+      </div>
+    </details>
+
+
+    <!-- HOUSEKEEPING -->
+    <details open class="mb-5 border rounded-lg overflow-hidden">
+      <summary class="cursor-pointer bg-stone-700 text-white font-bold text-lg px-4 py-3">
+        HOUSEKEEPING
+      </summary>
+
+      <div class="p-4">
+
+        <p class="font-medium mb-4">
+          Please confirm the following have been checked and considered:
+        </p>
+
+        <div class="space-y-5">
+
+          <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2">
+            <div class="font-medium">VTE prophylaxis reviewed</div>
+            <div class="flex gap-5">
+              <label><input type="radio" name="vte" value="Yes"> Yes</label>
+              <label><input type="radio" name="vte" value="No"> No</label>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2">
+            <div class="font-medium">PPI reviewed</div>
+            <div class="flex gap-5">
+              <label><input type="radio" name="ppi" value="Yes"> Yes</label>
+              <label><input type="radio" name="ppi" value="No"> No</label>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2">
+            <div class="font-medium">Sedation hold considered</div>
+            <div class="flex gap-5">
+              <label><input type="radio" name="sedation_hold" value="Yes"> Yes</label>
+              <label><input type="radio" name="sedation_hold" value="No"> No</label>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2">
+            <div class="font-medium">Extubation readiness assessed</div>
+            <div class="flex gap-5">
+              <label><input type="radio" name="extubation" value="Yes"> Yes</label>
+              <label><input type="radio" name="extubation" value="No"> No</label>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2">
+            <div class="font-medium">Lines still required</div>
+            <div class="flex gap-5">
+              <label><input type="radio" name="lines_required" value="Yes"> Yes</label>
+              <label><input type="radio" name="lines_required" value="No"> No</label>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2">
+            <div class="font-medium">
+              DNACPR / Treatment Escalation Plan reviewed, where appropriate
+            </div>
+
+            <div class="flex gap-5">
+              <label><input type="radio" name="tep" value="Yes"> Yes</label>
+              <label><input type="radio" name="tep" value="No"> No</label>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </details>
+
+
+    <!-- IMPRESSION AND PLAN -->
+    <details open class="mb-6 border rounded-lg overflow-hidden">
+      <summary class="cursor-pointer bg-emerald-700 text-white font-bold text-lg px-4 py-3">
+        IMPRESSION &amp; PLAN
+      </summary>
+
+      <div class="p-4">
+
+        <textarea
+          id="plan"
+          class="w-full h-48 border p-2 rounded"
+          placeholder="Enter the impression and plan. New lines will be preserved."
+        ></textarea>
+
+      </div>
+    </details>
+
+
+    <!-- GENERATE BUTTON -->
+    <button
+      type="button"
+      onclick="generateNote()"
+      class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-3 rounded"
+    >
+      Generate Ward Round Note
+    </button>
+
+
+    <!-- FORMATTED OUTPUT -->
+    <div class="mt-8">
+
+      <h2 class="text-xl font-bold mb-3">
+        Formatted Preview
+      </h2>
+
+      <div
+        id="output"
+        class="w-full min-h-80 border bg-white p-4 rounded leading-relaxed"
+        contenteditable="false"
+      >
+        <span class="text-gray-500">
+          Your formatted ward round note will appear here.
+        </span>
+      </div>
+
+      <div class="flex flex-col md:flex-row md:items-center gap-3 mt-4">
+
+        <button
+          type="button"
+          onclick="copyRichText()"
+          class="bg-green-600 hover:bg-green-700 text-white font-medium px-5 py-3 rounded"
+        >
+          Copy Rich Text
+        </button>
+
+        <p class="text-sm text-gray-600">
+          Paste directly into the patient record. Bold headings should be retained where rich-text pasting is supported.
+        </p>
+
+      </div>
+
+      <div
+        id="copy_message"
+        class="text-sm font-medium mt-3"
+        aria-live="polite"
+      ></div>
+
+    </div>
+
+  </div>
+
+
+<script>
+  let latestNoteHTML = "";
+  let latestNotePlainText = "";
+
+
+  function value(id) {
+    return document.getElementById(id).value.trim();
+  }
+
+
+  function radioValue(name) {
+    const selected = document.querySelector(
+      `input[name="${name}"]:checked`
+    );
+
+    return selected ? selected.value : "";
+  }
+
+
+  function checkboxValues(name) {
+    return Array.from(
+      document.querySelectorAll(`input[name="${name}"]:checked`)
+    ).map(item => item.value);
+  }
+
+
+  function escapeHTML(text) {
+    return String(text)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+
+  function formatMultiline(text) {
+    return escapeHTML(text).replace(/\r?\n/g, "<br>");
+  }
+
+
+  function addLine(label, content, options = {}) {
+    const {
+      unit = "",
+      includeWhenEmpty = false
+    } = options;
+
+    if (!content && !includeWhenEmpty) {
+      return "";
+    }
+
+    const safeContent = content
+      ? formatMultiline(content)
+      : "Not documented";
+
+    const safeUnit = content && unit
+      ? ` ${unit}`
+      : "";
+
+    return `<b>${escapeHTML(label)}:</b> ${safeContent}${safeUnit}<br>`;
+  }
+
+
+  function addSection(title, body) {
+    if (!body.trim()) {
+      return "";
+    }
+
+    return `<br><b>${escapeHTML(title)}</b><br>${body}`;
+  }
+
+
+  function generateNote() {
+    let html = "";
+    let plainText = "";
+
+    const icuDay = value("icu_day");
+    const issues = value("issues");
+
+
+    // Title
+    html += `<b>ICU DAILY WARD ROUND</b><br>`;
+    plainText += "ICU DAILY WARD ROUND\n";
+
+    if (icuDay) {
+      html += `<b>ICU Day:</b> ${escapeHTML(icuDay)}<br>`;
+      plainText += `ICU Day: ${icuDay}\n`;
+    }
+
+
+    // Issues
+    if (issues) {
+      html += `<br><b>Issues</b><br>${formatMultiline(issues)}<br>`;
+      plainText += `\nIssues\n${issues}\n`;
+    }
+
+
+    // Examination heading
+    html += `<br><b>EXAMINATION</b><br>`;
+    plainText += "\nEXAMINATION\n";
+
+
+    // Airway
+    let airway = radioValue("airway");
+    const airwayOther = value("airway_other");
+
+    if (airway === "Other") {
+      airway = airwayOther
+        ? `Other – ${airwayOther}`
+        : "Other";
+    }
+
+    if (!airway && airwayOther) {
+      airway = airwayOther;
+    }
+
+    let airwayHTML = "";
+    airwayHTML += addLine("Airway", airway);
+
+    if (airwayHTML) {
+      html += `<br>${airwayHTML}`;
+      plainText += `\nAirway: ${airway}\n`;
+    }
+
+
+    // Breathing
+    let breathingHTML = "";
+    let breathingPlainText = "";
+
+    let ventilationMode = radioValue("ventilation_mode");
+    const ventilationOther = value("ventilation_other");
+
+    if (ventilationMode === "Other") {
+      ventilationMode = ventilationOther
+        ? `Other – ${ventilationOther}`
+        : "Other";
+    }
+
+    if (!ventilationMode && ventilationOther) {
+      ventilationMode = ventilationOther;
+    }
+
+    const fio2 = value("fio2");
+    const pressureSupport = value("pressure_support");
+    const peep = value("peep");
+    const respiratoryRate = value("respiratory_rate");
+    const tidalVolume = value("tidal_volume");
+    const spo2 = value("spo2");
+    const secretions = radioValue("secretions");
+    const secretionsDescription = value("secretions_description");
+    const respiratoryExam = value("respiratory_exam");
+
+    breathingHTML += addLine("Ventilation mode", ventilationMode);
+    breathingHTML += addLine("FiO₂", fio2, { unit: "%" });
+    breathingHTML += addLine("Pressure support", pressureSupport, {
+      unit: "cmH₂O"
+    });
+    breathingHTML += addLine("PEEP", peep, {
+      unit: "cmH₂O"
+    });
+    breathingHTML += addLine("Respiratory rate", respiratoryRate);
+    breathingHTML += addLine("Tidal volume", tidalVolume, {
+      unit: "mL"
+    });
+    breathingHTML += addLine("SpO₂", spo2, {
+      unit: "%"
+    });
+
+    let secretionText = secretions;
+
+    if (secretionsDescription) {
+      secretionText = secretionText
+        ? `${secretionText} – ${secretionsDescription}`
+        : secretionsDescription;
+    }
+
+    breathingHTML += addLine("Tracheal secretions", secretionText);
+    breathingHTML += addLine(
+      "Respiratory examination",
+      respiratoryExam
+    );
+
+    if (ventilationMode) {
+      breathingPlainText += `Ventilation mode: ${ventilationMode}\n`;
+    }
+
+    if (fio2) {
+      breathingPlainText += `FiO2: ${fio2}%\n`;
+    }
+
+    if (pressureSupport) {
+      breathingPlainText += `Pressure support: ${pressureSupport} cmH2O\n`;
+    }
+
+    if (peep) {
+      breathingPlainText += `PEEP: ${peep} cmH2O\n`;
+    }
+
+    if (respiratoryRate) {
+      breathingPlainText += `Respiratory rate: ${respiratoryRate}\n`;
+    }
+
+    if (tidalVolume) {
+      breathingPlainText += `Tidal volume: ${tidalVolume} mL\n`;
+    }
+
+    if (spo2) {
+      breathingPlainText += `SpO2: ${spo2}%\n`;
+    }
+
+    if (secretionText) {
+      breathingPlainText += `Tracheal secretions: ${secretionText}\n`;
+    }
+
+    if (respiratoryExam) {
+      breathingPlainText += `Respiratory examination: ${respiratoryExam}\n`;
+    }
+
+    html += addSection("Breathing", breathingHTML);
+
+    if (breathingPlainText) {
+      plainText += `\nBreathing\n${breathingPlainText}`;
+    }
+
+
+    // Circulation
+    let circulationHTML = "";
+    let circulationPlainText = "";
+
+    const hr = value("hr");
+    const bp = value("bp");
+    const cardiovascularSupport = value("cardiovascular_support");
+    const cardiovascularExam = value("cardiovascular_exam");
+
+    circulationHTML += addLine("HR", hr, {
+      unit: "bpm"
+    });
+
+    circulationHTML += addLine("BP", bp);
+    circulationHTML += addLine(
+      "Cardiovascular support",
+      cardiovascularSupport
+    );
+    circulationHTML += addLine(
+      "Cardiovascular examination",
+      cardiovascularExam
+    );
+
+    if (hr) circulationPlainText += `HR: ${hr} bpm\n`;
+    if (bp) circulationPlainText += `BP: ${bp}\n`;
+
+    if (cardiovascularSupport) {
+      circulationPlainText += `Cardiovascular support: ${cardiovascularSupport}\n`;
+    }
+
+    if (cardiovascularExam) {
+      circulationPlainText += `Cardiovascular examination: ${cardiovascularExam}\n`;
+    }
+
+    html += addSection("Circulation", circulationHTML);
+
+    if (circulationPlainText) {
+      plainText += `\nCirculation\n${circulationPlainText}`;
+    }
+
+
+    // Neurology
+    let neurologyHTML = "";
+    let neurologyPlainText = "";
+
+    let sedation = checkboxValues("sedation");
+    const sedationOther = value("sedation_other");
+
+    sedation = sedation.filter(item => item !== "Other");
+
+    if (sedationOther) {
+      sedation.push(sedationOther);
+    }
+
+    const sedationText = sedation.join(", ");
+    const neurologicalExam = value("neurological_exam");
+
+    neurologyHTML += addLine("Sedation", sedationText);
+    neurologyHTML += addLine(
+      "Neurological examination",
+      neurologicalExam
+    );
+
+    if (sedationText) {
+      neurologyPlainText += `Sedation: ${sedationText}\n`;
+    }
+
+    if (neurologicalExam) {
+      neurologyPlainText += `Neurological examination: ${neurologicalExam}\n`;
+    }
+
+    html += addSection("Neurology", neurologyHTML);
+
+    if (neurologyPlainText) {
+      plainText += `\nNeurology\n${neurologyPlainText}`;
+    }
+
+
+    // Renal and electrolytes
+    let renalHTML = "";
+    let renalPlainText = "";
+
+    const urineOutput = value("urine_output");
+    const fluidBalance24h = value("fluid_balance_24h");
+    const fluidBalanceAdmission = value("fluid_balance_admission");
+
+    const sodium = value("sodium");
+    const potassium = value("potassium");
+    const urea = value("urea");
+    const creatinine = value("creatinine");
+    const magnesium = value("magnesium");
+    const phosphate = value("phosphate");
+
+    const crrt = radioValue("crrt");
+    const crrtComments = value("crrt_comments");
+    const renalComments = value("renal_comments");
+
+    renalHTML += addLine("Urine output", urineOutput, {
+      unit: "mL/hr"
+    });
+
+    renalHTML += addLine(
+      "Fluid balance, last 24 hours",
+      fluidBalance24h
+    );
+
+    renalHTML += addLine(
+      "Fluid balance since admission",
+      fluidBalanceAdmission
+    );
+
+    renalHTML += addLine("Na", sodium);
+    renalHTML += addLine("K", potassium);
+    renalHTML += addLine("Urea", urea);
+    renalHTML += addLine("Creatinine", creatinine);
+    renalHTML += addLine("Mg", magnesium);
+    renalHTML += addLine("PO₄", phosphate);
+    renalHTML += addLine("CRRT", crrt);
+
+    if (crrtComments) {
+      renalHTML += addLine("CRRT comments", crrtComments);
+    }
+
+    renalHTML += addLine("Comments", renalComments);
+
+    if (urineOutput) {
+      renalPlainText += `Urine output: ${urineOutput} mL/hr\n`;
+    }
+
+    if (fluidBalance24h) {
+      renalPlainText += `Fluid balance, last 24 hours: ${fluidBalance24h}\n`;
+    }
+
+    if (fluidBalanceAdmission) {
+      renalPlainText += `Fluid balance since admission: ${fluidBalanceAdmission}\n`;
+    }
+
+    if (sodium) renalPlainText += `Na: ${sodium}\n`;
+    if (potassium) renalPlainText += `K: ${potassium}\n`;
+    if (urea) renalPlainText += `Urea: ${urea}\n`;
+    if (creatinine) renalPlainText += `Creatinine: ${creatinine}\n`;
+    if (magnesium) renalPlainText += `Mg: ${magnesium}\n`;
+    if (phosphate) renalPlainText += `PO4: ${phosphate}\n`;
+    if (crrt) renalPlainText += `CRRT: ${crrt}\n`;
+
+    if (crrtComments) {
+      renalPlainText += `CRRT comments: ${crrtComments}\n`;
+    }
+
+    if (renalComments) {
+      renalPlainText += `Comments: ${renalComments}\n`;
+    }
+
+    html += addSection("Renal & Electrolytes", renalHTML);
+
+    if (renalPlainText) {
+      plainText += `\nRenal & Electrolytes\n${renalPlainText}`;
+    }
+
+
+    // Gastrointestinal
+    let giHTML = "";
+    let giPlainText = "";
+
+    const nutrition = value("nutrition");
+    const absorbingFeed = value("absorbing_feed");
+    const bloodSugars = value("blood_sugars");
+    const vrii = radioValue("vrii");
+    const giComments = value("gi_comments");
+
+    giHTML += addLine("Nutrition", nutrition);
+    giHTML += addLine("Absorbing feed", absorbingFeed);
+    giHTML += addLine("Blood sugars", bloodSugars);
+    giHTML += addLine("VRII insulin", vrii);
+    giHTML += addLine("Comments", giComments);
+
+    if (nutrition) giPlainText += `Nutrition: ${nutrition}\n`;
+    if (absorbingFeed) giPlainText += `Absorbing feed: ${absorbingFeed}\n`;
+    if (bloodSugars) giPlainText += `Blood sugars: ${bloodSugars}\n`;
+    if (vrii) giPlainText += `VRII insulin: ${vrii}\n`;
+    if (giComments) giPlainText += `Comments: ${giComments}\n`;
+
+    html += addSection("Gastrointestinal", giHTML);
+
+    if (giPlainText) {
+      plainText += `\nGastrointestinal\n${giPlainText}`;
+    }
+
+
+    // Haematology
+    let haematologyHTML = "";
+    let haematologyPlainText = "";
+
+    const hb = value("hb");
+    const platelets = value("platelets");
+
+    haematologyHTML += addLine("Hb", hb, {
+      unit: "g/L"
+    });
+
+    haematologyHTML += addLine("Platelets", platelets, {
+      unit: "×10⁹/L"
+    });
+
+    if (hb) haematologyPlainText += `Hb: ${hb} g/L\n`;
+
+    if (platelets) {
+      haematologyPlainText += `Platelets: ${platelets} ×10^9/L\n`;
+    }
+
+    html += addSection("Haematology", haematologyHTML);
+
+    if (haematologyPlainText) {
+      plainText += `\nHaematology\n${haematologyPlainText}`;
+    }
+
+
+    // Infection
+    let infectionHTML = "";
+    let infectionPlainText = "";
+
+    const antibiotics = value("antibiotics");
+    const currentTemperature = value("current_temperature");
+    const fever24h = value("fever_24h");
+    const procalcitonin = value("procalcitonin");
+
+    infectionHTML += addLine("Antibiotics", antibiotics);
+
+    infectionHTML += addLine(
+      "Current temperature",
+      currentTemperature,
+      { unit: "°C" }
+    );
+
+    infectionHTML += addLine(
+      "Fever >38°C in last 24 hours",
+      fever24h
+    );
+
+    infectionHTML += addLine(
+      "Procalcitonin",
+      procalcitonin
+    );
+
+    if (antibiotics) {
+      infectionPlainText += `Antibiotics: ${antibiotics}\n`;
+    }
+
+    if (currentTemperature) {
+      infectionPlainText += `Current temperature: ${currentTemperature}°C\n`;
+    }
+
+    if (fever24h) {
+      infectionPlainText += `Fever >38°C in last 24 hours: ${fever24h}\n`;
+    }
+
+    if (procalcitonin) {
+      infectionPlainText += `Procalcitonin: ${procalcitonin}\n`;
+    }
+
+    html += addSection("Infection", infectionHTML);
+
+    if (infectionPlainText) {
+      plainText += `\nInfection\n${infectionPlainText}`;
+    }
+
+
+    // Lines
+    const lines = value("lines");
+
+    if (lines) {
+      html += addSection(
+        "Lines",
+        `${formatMultiline(lines)}<br>`
+      );
+
+      plainText += `\nLines\n${lines}\n`;
+    }
+
+
+    // Housekeeping
+    let housekeepingHTML = "";
+    let housekeepingPlainText = "";
+
+    const housekeepingItems = [
+      {
+        label: "VTE prophylaxis reviewed",
+        name: "vte"
+      },
+      {
+        label: "PPI reviewed",
+        name: "ppi"
+      },
+      {
+        label: "Sedation hold considered",
+        name: "sedation_hold"
+      },
+      {
+        label: "Extubation readiness assessed",
+        name: "extubation"
+      },
+      {
+        label: "Lines still required",
+        name: "lines_required"
+      },
+      {
+        label: "DNACPR / Treatment Escalation Plan reviewed",
+        name: "tep"
+      }
+    ];
+
+    housekeepingItems.forEach(item => {
+      const answer = radioValue(item.name);
+
+      if (answer) {
+        housekeepingHTML += addLine(item.label, answer);
+        housekeepingPlainText += `${item.label}: ${answer}\n`;
+      }
+    });
+
+    html += addSection("Housekeeping", housekeepingHTML);
+
+    if (housekeepingPlainText) {
+      plainText += `\nHousekeeping\n${housekeepingPlainText}`;
+    }
+
+
+    // Impression and plan
+    const plan = value("plan");
+
+    if (plan) {
+      html += addSection(
+        "Impression & Plan",
+        `${formatMultiline(plan)}<br>`
+      );
+
+      plainText += `\nImpression & Plan\n${plan}\n`;
+    }
+
+
+    latestNoteHTML = html;
+    latestNotePlainText = plainText.trim();
+
+    document.getElementById("output").innerHTML = latestNoteHTML;
+
+    document.getElementById("copy_message").textContent = "";
+  }
+
+
+  async function copyRichText() {
+    const copyMessage = document.getElementById("copy_message");
+
+    if (!latestNoteHTML) {
+      copyMessage.textContent = "Generate the note before copying.";
+      copyMessage.className = "text-sm font-medium mt-3 text-red-600";
+      return;
+    }
+
+    try {
+      if (
+        navigator.clipboard &&
+        window.ClipboardItem
+      ) {
+        const htmlBlob = new Blob(
+          [latestNoteHTML],
+          { type: "text/html" }
+        );
+
+        const textBlob = new Blob(
+          [latestNotePlainText],
+          { type: "text/plain" }
+        );
+
+        const clipboardItem = new ClipboardItem({
+          "text/html": htmlBlob,
+          "text/plain": textBlob
+        });
+
+        await navigator.clipboard.write([clipboardItem]);
+
+        copyMessage.textContent = "Formatted note copied.";
+        copyMessage.className = "text-sm font-medium mt-3 text-green-700";
+        return;
+      }
+
+      await navigator.clipboard.writeText(latestNotePlainText);
+
+      copyMessage.textContent =
+        "Note copied as plain text because rich-text copying is not supported by this browser.";
+
+      copyMessage.className =
+        "text-sm font-medium mt-3 text-amber-700";
+
+    } catch (error) {
+      copyMessage.textContent =
+        "Copy failed. Your browser may require the page to be served using HTTPS.";
+
+      copyMessage.className =
+        "text-sm font-medium mt-3 text-red-600";
+
+      console.error("Clipboard error:", error);
+    }
+  }
+</script>
+
+</body>
+</html>
