@@ -823,64 +823,79 @@
     </details>
 
 
-    <!-- HOUSEKEEPING -->
-    <details open class="mb-5 border rounded-lg overflow-hidden">
-      <summary class="cursor-pointer bg-stone-700 text-white font-bold text-lg px-4 py-3">
-        HOUSEKEEPING
-      </summary>
+  <!-- HOUSEKEEPING -->
+<details open class="mb-5 border rounded-lg overflow-hidden">
+  <summary class="cursor-pointer bg-stone-700 text-white font-bold text-lg px-4 py-3">
+    HOUSEKEEPING
+  </summary>
 
-      <div class="p-4">
+  <div class="p-4">
 
-        <p class="font-medium mb-4">
-          Please confirm the following have been checked and considered:
-        </p>
+    <p class="font-medium mb-4">
+      Please confirm the following have been checked and considered:
+    </p>
 
-        <div class="space-y-5">
+    <div class="space-y-5">
 
-          <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2">
-            <div class="font-medium">VTE prophylaxis reviewed</div>
-            <div class="flex gap-5">
-              <label><input type="radio" name="vte" value="Yes"> Yes</label>
-              <label><input type="radio" name="vte" value="No"> No</label>
-            </div>
-          </div>
+      <!-- VTE -->
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2">
+        <div class="font-medium">VTE prophylaxis reviewed</div>
 
-          <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2">
-            <div class="font-medium">PPI reviewed</div>
-            <div class="flex gap-5">
-              <label><input type="radio" name="ppi" value="Yes"> Yes</label>
-              <label><input type="radio" name="ppi" value="No"> No</label>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2">
-            <div class="font-medium">Sedation hold considered</div>
-            <div class="flex gap-5">
-              <label><input type="radio" name="sedation_hold" value="Yes"> Yes</label>
-              <label><input type="radio" name="sedation_hold" value="No"> No</label>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2">
-            <div class="font-medium">Extubation readiness assessed</div>
-            <div class="flex gap-5">
-              <label><input type="radio" name="extubation" value="Yes"> Yes</label>
-              <label><input type="radio" name="extubation" value="No"> No</label>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2">
-            <div class="font-medium">Lines still required</div>
-            <div class="flex gap-5">
-              <label><input type="radio" name="lines_required" value="Yes"> Yes</label>
-              <label><input type="radio" name="lines_required" value="No"> No</label>
-            </div>
-          </div>
-
+        <div class="flex gap-5 flex-wrap">
+          <label><input type="radio" name="vte" value="Yes"> Yes</label>
+          <label><input type="radio" name="vte" value="No"> No</label>
+          <label><input type="radio" name="vte" value="N/A"> N/A</label>
         </div>
-
       </div>
-    </details>
+
+      <!-- PPI -->
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2">
+        <div class="font-medium">PPI reviewed</div>
+
+        <div class="flex gap-5 flex-wrap">
+          <label><input type="radio" name="ppi" value="Yes"> Yes</label>
+          <label><input type="radio" name="ppi" value="No"> No</label>
+          <label><input type="radio" name="ppi" value="N/A"> N/A</label>
+        </div>
+      </div>
+
+      <!-- Sedation Hold -->
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2">
+        <div class="font-medium">Sedation hold considered</div>
+
+        <div class="flex gap-5 flex-wrap">
+          <label><input type="radio" name="sedation_hold" value="Yes"> Yes</label>
+          <label><input type="radio" name="sedation_hold" value="No"> No</label>
+          <label><input type="radio" name="sedation_hold" value="N/A"> N/A</label>
+        </div>
+      </div>
+
+      <!-- Extubation -->
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2">
+        <div class="font-medium">Extubation readiness assessed</div>
+
+        <div class="flex gap-5 flex-wrap">
+          <label><input type="radio" name="extubation" value="Yes"> Yes</label>
+          <label><input type="radio" name="extubation" value="No"> No</label>
+          <label><input type="radio" name="extubation" value="N/A"> N/A</label>
+        </div>
+      </div>
+
+      <!-- Lines -->
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2">
+        <div class="font-medium">Lines still required</div>
+
+        <div class="flex gap-5 flex-wrap">
+          <label><input type="radio" name="lines_required" value="Yes"> Yes</label>
+          <label><input type="radio" name="lines_required" value="No"> No</label>
+          <label><input type="radio" name="lines_required" value="N/A"> N/A</label>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</details>
 
 
     <!-- IMPRESSION AND PLAN -->
