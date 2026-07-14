@@ -968,7 +968,10 @@
     const secretionsDescription = value("secretions_description");
     const respiratoryExam = value("respiratory_exam");
 
-    breathingHTML += addLine("Ventilation mode", ventilationMode);
+    breathingHTML += addLine(
+  "Respiratory support / ventilation mode",
+  ventilationMode
+);
     breathingHTML += addLine("FiO₂", fio2, { unit: "%" });
     breathingHTML += addLine("Pressure support", pressureSupport, {
       unit: "cmH₂O"
