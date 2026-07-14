@@ -125,195 +125,67 @@
 
         <div>
           <div class="font-medium mb-2">
-            Ventilation mode:
-          </div>
+            <div>
+  <div class="font-medium mb-2">
+    Respiratory support / ventilation mode:
+  </div>
 
-          <div class="flex flex-wrap gap-x-6 gap-y-2">
+  <div class="flex flex-wrap gap-x-6 gap-y-2">
 
-            <label>
-              <input type="radio" name="ventilation_mode" value="PRVC">
-              PRVC
-            </label>
+    <label>
+      <input type="radio" name="ventilation_mode" value="PRVC">
+      PRVC
+    </label>
 
-            <label>
-              <input type="radio" name="ventilation_mode" value="SIMV">
-              SIMV
-            </label>
+    <label>
+      <input type="radio" name="ventilation_mode" value="SIMV">
+      SIMV
+    </label>
 
-            <label>
-              <input type="radio" name="ventilation_mode" value="Automode VS">
-              Automode VS
-            </label>
+    <label>
+      <input type="radio" name="ventilation_mode" value="Automode VS">
+      Automode VS
+    </label>
 
-            <label>
-              <input type="radio" name="ventilation_mode" value="CPAP-PS">
-              CPAP-PS
-            </label>
+    <label>
+      <input type="radio" name="ventilation_mode" value="CPAP-PS">
+      CPAP-PS
+    </label>
 
-            <label>
-              <input type="radio" name="ventilation_mode" value="Other">
-              Other
-            </label>
+    <label>
+      <input type="radio" name="ventilation_mode" value="NIV">
+      NIV
+    </label>
 
-          </div>
+    <label>
+      <input type="radio" name="ventilation_mode" value="NHF">
+      NHF
+    </label>
 
-          <input
-            type="text"
-            id="ventilation_other"
-            class="w-full border p-2 rounded mt-3"
-            placeholder="Other ventilation mode"
-          >
-        </div>
+    <label>
+      <input type="radio" name="ventilation_mode" value="Simple face mask">
+      Simple face mask
+    </label>
 
+    <label>
+      <input type="radio" name="ventilation_mode" value="Room air">
+      Room air
+    </label>
 
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+    <label>
+      <input type="radio" name="ventilation_mode" value="Other">
+      Other
+    </label>
 
-          <div>
-            <label for="fio2" class="block font-medium mb-1">
-              FiO₂
-            </label>
+  </div>
 
-            <div class="flex items-center">
-              <input
-                type="text"
-                id="fio2"
-                class="w-full border p-2 rounded"
-                placeholder="40"
-              >
-              <span class="ml-2">%</span>
-            </div>
-          </div>
-
-          <div>
-            <label for="pressure_support" class="block font-medium mb-1">
-              Pressure support
-            </label>
-
-            <input
-              type="text"
-              id="pressure_support"
-              class="w-full border p-2 rounded"
-              placeholder="10"
-            >
-          </div>
-
-          <div>
-            <label for="peep" class="block font-medium mb-1">
-              PEEP
-            </label>
-
-            <input
-              type="text"
-              id="peep"
-              class="w-full border p-2 rounded"
-              placeholder="5"
-            >
-          </div>
-
-          <div>
-            <label for="respiratory_rate" class="block font-medium mb-1">
-              RR
-            </label>
-
-            <input
-              type="text"
-              id="respiratory_rate"
-              class="w-full border p-2 rounded"
-              placeholder="16"
-            >
-          </div>
-
-          <div>
-            <label for="tidal_volume" class="block font-medium mb-1">
-              Tidal volume
-            </label>
-
-            <div class="flex items-center">
-              <input
-                type="text"
-                id="tidal_volume"
-                class="w-full border p-2 rounded"
-                placeholder="450"
-              >
-              <span class="ml-2">mL</span>
-            </div>
-          </div>
-
-          <div>
-            <label for="spo2" class="block font-medium mb-1">
-              SpO₂
-            </label>
-
-            <div class="flex items-center">
-              <input
-                type="text"
-                id="spo2"
-                class="w-full border p-2 rounded"
-                placeholder="96"
-              >
-              <span class="ml-2">%</span>
-            </div>
-          </div>
-
-        </div>
-
-
-        <div>
-          <div class="font-medium mb-2">
-            Tracheal secretions:
-          </div>
-
-          <div class="flex flex-wrap gap-x-6 gap-y-2">
-
-            <label>
-              <input type="radio" name="secretions" value="None">
-              None
-            </label>
-
-            <label>
-              <input type="radio" name="secretions" value="Minimal">
-              Minimal
-            </label>
-
-            <label>
-              <input type="radio" name="secretions" value="Moderate">
-              Moderate
-            </label>
-
-            <label>
-              <input type="radio" name="secretions" value="Significant">
-              Significant
-            </label>
-
-          </div>
-        </div>
-
-        <div>
-          <label for="secretions_description" class="block font-medium mb-1">
-            Secretion description:
-          </label>
-
-          <input
-            type="text"
-            id="secretions_description"
-            class="w-full border p-2 rounded"
-            placeholder="e.g. thick, yellow secretions"
-          >
-        </div>
-
-        <div>
-          <label for="respiratory_exam" class="block font-medium mb-1">
-            Respiratory examination:
-          </label>
-
-          <textarea
-            id="respiratory_exam"
-            class="w-full h-28 border p-2 rounded"
-          ></textarea>
-        </div>
-
-      </div>
-    </details>
+  <input
+    type="text"
+    id="ventilation_other"
+    class="w-full border p-2 rounded mt-3"
+    placeholder="Other respiratory support or ventilation mode"
+  >
+</div>
 
 
     <!-- CIRCULATION -->
