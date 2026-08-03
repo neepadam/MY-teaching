@@ -1,56 +1,376 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coming Soon</title>
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
- 
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #1e3a8a, #2563eb);
-    color: white;
-    text-align: center;
-    padding: 20px;
-  }
- 
-  .container {
-    max-width: 500px;
-  }
- 
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
-  }
- 
-  p {
-    font-size: 1.1rem;
-    opacity: 0.9;
-    line-height: 1.6;
-  }
- 
-  .icon {
-    font-size: 3rem;
-    margin-bottom: 1.5rem;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICU Discharge Summary Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <div class="container">
-    <div class="icon">🚧</div>
-    <h1>Page Coming Soon</h1>
-    <p>We're working on this page and it will be available shortly. Please check back soon.</p>
-  </div>
+
+<body class="bg-gray-100 p-4 sm:p-6">
+  <main class="max-w-4xl mx-auto bg-white shadow p-5 sm:p-6 rounded">
+    <h1 class="text-3xl font-bold mb-2">ICU Discharge Summary Generator</h1>
+    <p class="text-gray-600 mb-6">Complete the sections below to generate a formatted ICU discharge summary.</p>
+
+    <form id="discharge-form" class="space-y-6" onsubmit="generateNote(event)">
+      <section>
+        <h2 class="text-xl font-bold bg-blue-900 text-white p-2 rounded">ICU ADMISSION DETAILS</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-3">
+          <div>
+            <label for="admission-date" class="block font-semibold mb-1">Admission date</label>
+            <input id="admission-date" type="date" required aria-required="true" onchange="calculateICUDays()" class="border p-2 rounded w-full">
+          </div>
+          <div>
+            <label for="discharge-decision-date" class="block font-semibold mb-1">Date of decision to discharge</label>
+            <input id="discharge-decision-date" type="date" required aria-required="true" onchange="calculateICUDays()" class="border p-2 rounded w-full">
+          </div>
+        </div>
+        <div id="icu-days-display" class="mt-3 bg-blue-50 border-l-4 border-blue-600 p-3 font-semibold" aria-live="polite">
+          Number of days on ICU: Not calculated
+        </div>
+
+        <label for="admission-source" class="block font-semibold mt-4 mb-1">Admission source</label>
+        <select id="admission-source" onchange="toggleOtherAdmissionSource()" class="border p-2 rounded w-full">
+          <option value="">Select source</option>
+          <option>Ward</option>
+          <option>Theatre</option>
+          <option>ED</option>
+          <option>Other</option>
+        </select>
+        <label for="admission-source-other" class="block font-semibold mt-3 mb-1">Other admission source</label>
+        <input id="admission-source-other" disabled placeholder="Please specify" class="border p-2 rounded w-full disabled:bg-gray-100">
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold bg-gray-700 text-white p-2 rounded">PAST MEDICAL HISTORY</h2>
+        <label for="past-medical-history" class="sr-only">Past medical history</label>
+        <textarea id="past-medical-history" rows="5" placeholder="Relevant past medical history and co-morbidities" class="w-full border p-2 mt-3 rounded"></textarea>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold bg-teal-700 text-white p-2 rounded">ICU DIAGNOSIS</h2>
+        <label for="icu-diagnosis" class="sr-only">ICU diagnosis</label>
+        <textarea id="icu-diagnosis" rows="4" class="w-full border p-2 mt-3 rounded"></textarea>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold bg-blue-600 text-white p-2 rounded">REASON FOR ADMISSION TO ICU</h2>
+        <label for="admission-reason" class="sr-only">Reason for admission to ICU</label>
+        <textarea id="admission-reason" rows="5" placeholder="For example: respiratory compromise requiring respiratory support; hypotension requiring cardiovascular support; need for enhanced monitoring; or other indication for ICU admission" class="w-full border p-2 mt-3 rounded"></textarea>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold bg-sky-700 text-white p-2 rounded">EVENTS ON ICU</h2>
+        <label for="icu-events" class="sr-only">Events on ICU</label>
+        <textarea id="icu-events" rows="6" placeholder="Include a brief overview of events leading up to and during the ICU stay, highlighting significant events" class="w-full border p-2 mt-3 rounded"></textarea>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold bg-purple-600 text-white p-2 rounded">TREATMENTS ON ICU</h2>
+        <fieldset class="mt-3 border rounded p-4">
+          <legend class="font-bold px-1">Respiratory support</legend>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <label class="flex items-center gap-2 sm:col-span-2"><input id="respiratory-none" data-support-group="respiratory" value="None" type="checkbox" class="h-4 w-4" onchange="toggleSupportOption('respiratory', this)"> None</label>
+            <div class="flex flex-wrap items-center gap-2 sm:col-span-2">
+              <label class="flex items-center gap-2">
+                <input id="treatment-intubated" data-support-group="respiratory" value="Intubated" type="checkbox" class="h-4 w-4" onchange="toggleSupportOption('respiratory', this); toggleIntubationDays()">
+                Intubated
+              </label>
+              <label for="intubation-days" class="ml-2">Number of days:</label>
+              <input id="intubation-days" type="number" min="1" step="1" inputmode="numeric" disabled class="border p-2 rounded w-24 disabled:bg-gray-100">
+            </div>
+            <div class="flex flex-wrap items-center gap-2 sm:col-span-2">
+              <label class="flex items-center gap-2"><input id="treatment-tracheostomy" data-support-group="respiratory" value="Tracheostomy" type="checkbox" class="h-4 w-4" onchange="toggleSupportOption('respiratory', this); toggleTracheostomyDays()"> Tracheostomy</label>
+              <label for="tracheostomy-days" class="ml-2">Number of days:</label>
+              <input id="tracheostomy-days" type="number" min="1" step="1" inputmode="numeric" disabled class="border p-2 rounded w-24 disabled:bg-gray-100">
+            </div>
+            <label class="flex items-center gap-2"><input id="treatment-niv" data-support-group="respiratory" value="NIV" type="checkbox" class="h-4 w-4" onchange="toggleSupportOption('respiratory', this)"> NIV</label>
+            <label class="flex items-center gap-2"><input id="treatment-nhf" data-support-group="respiratory" value="NHF" type="checkbox" class="h-4 w-4" onchange="toggleSupportOption('respiratory', this)"> NHF</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="mt-4 border rounded p-4">
+          <legend class="font-bold px-1">Cardiovascular support</legend>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <label class="flex items-center gap-2"><input data-support-group="cardiovascular" value="None" type="checkbox" class="h-4 w-4" onchange="toggleSupportOption('cardiovascular', this)"> None</label>
+            <label class="flex items-center gap-2"><input data-support-group="cardiovascular" value="Central" type="checkbox" class="h-4 w-4" onchange="toggleSupportOption('cardiovascular', this)"> Central</label>
+            <label class="flex items-center gap-2"><input data-support-group="cardiovascular" value="Peripheral" type="checkbox" class="h-4 w-4" onchange="toggleSupportOption('cardiovascular', this)"> Peripheral</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="mt-4 border rounded p-4">
+          <legend class="font-bold px-1">Renal</legend>
+          <div class="font-semibold mb-2">Renal replacement therapy?</div>
+          <div class="flex gap-6">
+            <label class="flex items-center gap-2"><input name="treatment-rrt" value="Yes" type="radio" class="h-4 w-4"> Yes</label>
+            <label class="flex items-center gap-2"><input name="treatment-rrt" value="None" type="radio" class="h-4 w-4"> None</label>
+          </div>
+        </fieldset>
+
+        <label for="icu-treatments" class="block font-semibold mt-4 mb-1">Any comments</label>
+        <textarea id="icu-treatments" rows="5" placeholder="Further details about treatments and organ support provided" class="w-full border p-2 rounded"></textarea>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold bg-amber-600 text-white p-2 rounded">ONGOING ISSUES</h2>
+        <label for="ongoing-issues" class="sr-only">Ongoing issues</label>
+        <textarea id="ongoing-issues" rows="6" placeholder="Active problems, outstanding investigations and required follow-up" class="w-full border p-2 mt-3 rounded"></textarea>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold bg-cyan-700 text-white p-2 rounded">OUTSTANDING TASKS</h2>
+        <label for="outstanding-tasks" class="sr-only">Outstanding tasks</label>
+        <textarea id="outstanding-tasks" rows="5" placeholder="Outstanding investigations, referrals, results to chase and follow-up actions (include who is responsible where possible)" class="w-full border p-2 mt-3 rounded"></textarea>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold bg-emerald-700 text-white p-2 rounded">MEDICATIONS FOR REVIEW ON DISCHARGE</h2>
+        <label for="medications-review" class="sr-only">Medications for review on discharge</label>
+        <textarea id="medications-review" rows="5" placeholder="For example: antipsychotic or sedative medication requiring review/tapering; usual medication stopped on ICU that may need restarting; anticoagulation; insulin; steroid or analgesia plans; dose changes; monitoring requirements" class="w-full border p-2 mt-3 rounded"></textarea>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold bg-lime-700 text-white p-2 rounded">MICROBIOLOGY PLAN</h2>
+        <label for="microbiology-plan" class="sr-only">Microbiology plan</label>
+        <textarea id="microbiology-plan" rows="5" placeholder="Current antimicrobials, indication, culture results, outstanding samples, stop/review dates and required microbiology follow-up" class="w-full border p-2 mt-3 rounded"></textarea>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold bg-indigo-600 text-white p-2 rounded">RE-ADMISSION / ESCALATION STATUS</h2>
+        <label for="escalation-status" class="block font-semibold mt-3 mb-1">Re-admission and escalation status</label>
+        <select id="escalation-status" class="border p-2 rounded w-full">
+          <option value="">Select status</option>
+          <option>For ICU re-admission and full escalation</option>
+          <option>For ICU re-admission with limitations on invasive support</option>
+          <option>Not for ICU re-admission — ward-based care only</option>
+          <option>Not documented</option>
+        </select>
+        <label for="escalation-details" class="block font-semibold mt-3 mb-1">Re-admission / escalation details</label>
+        <textarea id="escalation-details" rows="4" placeholder="Describe any limitations on invasive support, ceiling of care, ward-level care decisions or other individualised details" class="w-full border p-2 rounded"></textarea>
+        <label for="patient-family-discussions" class="block font-semibold mt-4 mb-1">Details of any discussions with the patient or family</label>
+        <textarea id="patient-family-discussions" rows="4" placeholder="Summarise relevant discussions with the patient or family. If a detailed discussion is already documented elsewhere in the notes, state clearly where it can be found." class="w-full border p-2 rounded"></textarea>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold bg-red-600 text-white p-2 rounded">RESUSCITATION STATUS</h2>
+        <label for="resuscitation-status" class="block font-semibold mt-3 mb-1">Current resuscitation status</label>
+        <select id="resuscitation-status" class="border p-2 rounded w-full">
+          <option value="">Select status</option>
+          <option>For cardiopulmonary resuscitation</option>
+          <option>Do not attempt cardiopulmonary resuscitation (DNACPR)</option>
+          <option>Not documented</option>
+        </select>
+      </section>
+
+      <div class="flex flex-wrap gap-3">
+        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Generate Note</button>
+        <button type="button" id="copy-button" onclick="copyFormattedNote()" disabled class="bg-green-600 hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-4 py-2 rounded">Copy Formatted Note</button>
+      </div>
+    </form>
+
+    <div id="copy-status" class="mt-3 text-sm font-semibold" role="status" aria-live="polite"></div>
+    <div id="output" class="w-full min-h-80 mt-4 border p-3 bg-white overflow-auto rounded" aria-live="polite">
+      <span class="text-gray-500">Your generated discharge summary will appear here.</span>
+    </div>
+  </main>
+
+  <script>
+    let latestNoteHTML = "";
+    let latestNoteText = "";
+
+    function valueOf(id) {
+      return document.getElementById(id).value.trim();
+    }
+
+    function escapeHTML(value) {
+      const element = document.createElement("div");
+      element.textContent = value || "Not documented";
+      return element.innerHTML.replace(/\n/g, "<br>");
+    }
+
+    function plainValue(value) {
+      return value || "Not documented";
+    }
+
+    function formatDate(value) {
+      if (!value) return "Not documented";
+      const [year, month, day] = value.split("-");
+      return `${day}/${month}/${year}`;
+    }
+
+    function toggleOtherAdmissionSource() {
+      const other = document.getElementById("admission-source-other");
+      other.disabled = valueOf("admission-source") !== "Other";
+      if (other.disabled) other.value = "";
+    }
+
+    function calculateICUDays() {
+      const admissionDate = valueOf("admission-date");
+      const dischargeDate = valueOf("discharge-decision-date");
+      const display = document.getElementById("icu-days-display");
+
+      if (!admissionDate || !dischargeDate) {
+        display.textContent = "Number of days on ICU: Not calculated";
+        return "";
+      }
+
+      const start = new Date(`${admissionDate}T00:00:00Z`);
+      const end = new Date(`${dischargeDate}T00:00:00Z`);
+      const days = Math.round((end - start) / 86400000);
+
+      if (days < 0) {
+        display.textContent = "Number of days on ICU: Check dates — discharge decision precedes admission";
+        return "";
+      }
+
+      display.textContent = `Number of days on ICU: ${days}`;
+      return String(days);
+    }
+
+    function toggleIntubationDays() {
+      const days = document.getElementById("intubation-days");
+      days.disabled = !document.getElementById("treatment-intubated").checked;
+      if (days.disabled) days.value = "";
+    }
+
+    function toggleTracheostomyDays() {
+      const days = document.getElementById("tracheostomy-days");
+      days.disabled = !document.getElementById("treatment-tracheostomy").checked;
+      if (days.disabled) days.value = "";
+    }
+
+    function toggleSupportOption(group, changed) {
+      if (!changed.checked) return;
+      const options = document.querySelectorAll(`[data-support-group="${group}"]`);
+
+      options.forEach(option => {
+        if (changed.value === "None" && option !== changed) option.checked = false;
+        if (changed.value !== "None" && option.value === "None") option.checked = false;
+      });
+
+      if (group === "respiratory") {
+        toggleIntubationDays();
+        toggleTracheostomyDays();
+      }
+    }
+
+    function selectedTreatments() {
+      const treatments = [];
+      const respiratory = [];
+      const respiratoryNone = document.getElementById("respiratory-none").checked;
+
+      if (respiratoryNone) respiratory.push("None");
+      if (document.getElementById("treatment-intubated").checked) {
+        const days = valueOf("intubation-days");
+        respiratory.push(days ? `Intubated (${days} day${days === "1" ? "" : "s"})` : "Intubated");
+      }
+      if (document.getElementById("treatment-tracheostomy").checked) {
+        const days = valueOf("tracheostomy-days");
+        respiratory.push(days ? `Tracheostomy (${days} day${days === "1" ? "" : "s"})` : "Tracheostomy");
+      }
+      if (document.getElementById("treatment-niv").checked) respiratory.push("NIV");
+      if (document.getElementById("treatment-nhf").checked) respiratory.push("NHF");
+      treatments.push(`Respiratory support: ${respiratory.length ? respiratory.join(", ") : "Not documented"}`);
+
+      const cardiovascular = Array.from(document.querySelectorAll('[data-support-group="cardiovascular"]:checked'), option => option.value);
+      let cardiovascularText = "Not documented";
+      if (cardiovascular.includes("None")) {
+        cardiovascularText = "None";
+      } else if (cardiovascular.length) {
+        cardiovascularText = `Yes, ${cardiovascular.map(value => value.toLowerCase()).join(", ")}`;
+      }
+      treatments.push(`Cardiovascular support: ${cardiovascularText}`);
+
+      const renalReplacement = document.querySelector('input[name="treatment-rrt"]:checked');
+      treatments.push(`Renal replacement therapy: ${renalReplacement ? renalReplacement.value : "Not documented"}`);
+      return treatments;
+    }
+
+    function generateNote(event) {
+      if (event) event.preventDefault();
+
+      const treatmentsSelected = selectedTreatments();
+      const icuDays = calculateICUDays();
+      const source = valueOf("admission-source") === "Other" ? valueOf("admission-source-other") : valueOf("admission-source");
+      const fields = {
+        admissionDate: valueOf("admission-date"),
+        dischargeDecisionDate: valueOf("discharge-decision-date"),
+        admissionSource: source,
+        pastMedicalHistory: valueOf("past-medical-history"),
+        icuDiagnosis: valueOf("icu-diagnosis"),
+        admissionReason: valueOf("admission-reason"),
+        icuEvents: valueOf("icu-events"),
+        treatments: valueOf("icu-treatments"),
+        ongoingIssues: valueOf("ongoing-issues"),
+        outstandingTasks: valueOf("outstanding-tasks"),
+        medicationsReview: valueOf("medications-review"),
+        microbiologyPlan: valueOf("microbiology-plan"),
+        escalationStatus: valueOf("escalation-status"),
+        escalationDetails: valueOf("escalation-details"),
+        resuscitationStatus: valueOf("resuscitation-status"),
+        patientFamilyDiscussions: valueOf("patient-family-discussions")
+      };
+
+      latestNoteHTML = `<b><u>ICU DISCHARGE SUMMARY</u></b><br><br>
+        <b><u>ICU ADMISSION DETAILS</u></b><br>
+        Admission date: ${formatDate(fields.admissionDate)}<br>
+        Admission source: ${escapeHTML(fields.admissionSource)}<br>
+        Date of decision to discharge: ${formatDate(fields.dischargeDecisionDate)}<br>
+        Number of days on ICU: ${escapeHTML(icuDays)}<br><br>
+        <b><u>PAST MEDICAL HISTORY</u></b><br>${escapeHTML(fields.pastMedicalHistory)}<br><br>
+        <b><u>ICU DIAGNOSIS</u></b><br>${escapeHTML(fields.icuDiagnosis)}<br><br>
+        <b><u>REASON FOR ADMISSION TO ICU</u></b><br>${escapeHTML(fields.admissionReason)}<br><br>
+        <b><u>EVENTS ON ICU</u></b><br>${escapeHTML(fields.icuEvents)}<br><br>
+        <b><u>TREATMENTS ON ICU</u></b><br>${escapeHTML(treatmentsSelected.join("\n"))}<br>
+        ${fields.treatments ? `Any comments: ${escapeHTML(fields.treatments)}<br>` : ""}<br>
+        <b><u>ONGOING ISSUES</u></b><br>${escapeHTML(fields.ongoingIssues)}<br><br>
+        <b><u>OUTSTANDING TASKS</u></b><br>${escapeHTML(fields.outstandingTasks)}<br><br>
+        <b><u>MEDICATIONS FOR REVIEW ON DISCHARGE</u></b><br>${escapeHTML(fields.medicationsReview)}<br><br>
+        <b><u>MICROBIOLOGY PLAN</u></b><br>${escapeHTML(fields.microbiologyPlan)}<br><br>
+        <b><u>RE-ADMISSION / ESCALATION STATUS</u></b><br>${escapeHTML(fields.escalationStatus)}<br>
+        Details: ${escapeHTML(fields.escalationDetails)}<br>
+        Details of discussions with patient or family: ${escapeHTML(fields.patientFamilyDiscussions)}<br><br>
+        <b><u>RESUSCITATION STATUS</u></b><br>${escapeHTML(fields.resuscitationStatus)}<br>`;
+
+      latestNoteText = `ICU DISCHARGE SUMMARY\n\n` +
+        `ICU ADMISSION DETAILS\nAdmission date: ${formatDate(fields.admissionDate)}\nAdmission source: ${plainValue(fields.admissionSource)}\nDate of decision to discharge: ${formatDate(fields.dischargeDecisionDate)}\nNumber of days on ICU: ${plainValue(icuDays)}\n\n` +
+        `PAST MEDICAL HISTORY\n${plainValue(fields.pastMedicalHistory)}\n\n` +
+        `ICU DIAGNOSIS\n${plainValue(fields.icuDiagnosis)}\n\n` +
+        `REASON FOR ADMISSION TO ICU\n${plainValue(fields.admissionReason)}\n\n` +
+        `EVENTS ON ICU\n${plainValue(fields.icuEvents)}\n\n` +
+        `TREATMENTS ON ICU\n${plainValue(treatmentsSelected.join("\n"))}${fields.treatments ? `\nAny comments: ${fields.treatments}` : ""}\n\n` +
+        `ONGOING ISSUES\n${plainValue(fields.ongoingIssues)}\n\n` +
+        `OUTSTANDING TASKS\n${plainValue(fields.outstandingTasks)}\n\n` +
+        `MEDICATIONS FOR REVIEW ON DISCHARGE\n${plainValue(fields.medicationsReview)}\n\n` +
+        `MICROBIOLOGY PLAN\n${plainValue(fields.microbiologyPlan)}\n\n` +
+        `RE-ADMISSION / ESCALATION STATUS\n${plainValue(fields.escalationStatus)}\nDetails: ${plainValue(fields.escalationDetails)}\nDetails of discussions with patient or family: ${plainValue(fields.patientFamilyDiscussions)}\n\n` +
+        `RESUSCITATION STATUS\n${plainValue(fields.resuscitationStatus)}`;
+
+      document.getElementById("output").innerHTML = latestNoteHTML;
+      document.getElementById("copy-button").disabled = false;
+      document.getElementById("copy-status").textContent = "";
+    }
+
+    async function copyFormattedNote() {
+      const status = document.getElementById("copy-status");
+
+      try {
+        if (window.ClipboardItem && navigator.clipboard.write) {
+          const item = new ClipboardItem({
+            "text/html": new Blob([latestNoteHTML], { type: "text/html" }),
+            "text/plain": new Blob([latestNoteText], { type: "text/plain" })
+          });
+          await navigator.clipboard.write([item]);
+        } else {
+          await navigator.clipboard.writeText(latestNoteText);
+        }
+        status.textContent = "Formatted note copied.";
+        status.className = "mt-3 text-sm font-semibold text-green-700";
+      } catch (error) {
+        status.textContent = "Copy failed. Select the generated note and copy it manually.";
+        status.className = "mt-3 text-sm font-semibold text-red-700";
+      }
+    }
+  </script>
 </body>
 </html>
- 
