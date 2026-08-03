@@ -1,92 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ICU Forms</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ICU Procedure Forms</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --nhs-blue:#005eb8;
+    --nhs-dark-blue:#003087;
+    --nhs-bright-blue:#0072ce;
+    --nhs-black:#212b32;
+    --nhs-grey:#425563;
+    --nhs-pale-grey:#f0f4f5;
+    --nhs-mid-grey:#768692;
+    --nhs-border:#d8dde0;
+    --nhs-yellow:#ffeb3b;
+    --nhs-white:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--nhs-white);
+    color:var(--nhs-black);
+    font-family:Arial, "Helvetica Neue", Helvetica, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .display{font-family:Arial, "Helvetica Neue", Helvetica, sans-serif;}
+  .mono{font-family:'IBM Plex Mono',monospace; letter-spacing:.04em;}
+
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px 40px;}
+
+  header{
+    background:var(--nhs-blue);
+    color:var(--nhs-white);
+    margin:0 0 40px;
+    padding:36px 24px;
+  }
+  header .inner{max-width:912px; margin:0 auto;}
+  .eyebrow{
+    font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:.04em;
+    color:var(--nhs-white);
+    display:flex; align-items:center; gap:8px; margin-bottom:14px;
+    opacity:.9;
+  }
+  .eyebrow::before{
+    content:""; width:10px; height:10px; background:var(--nhs-yellow);
+  }
+  h1{
+    font-size:clamp(28px,4.5vw,40px);
+    font-weight:700;
+    margin:0 0 12px;
+    letter-spacing:-0.01em;
+    color:var(--nhs-white);
+  }
+  header p{
+    color:var(--nhs-white);
+    font-size:17px;
+    max-width:56ch;
+    margin:0;
+    line-height:1.5;
+    opacity:.95;
+  }
+
+  .section-label{
+    display:flex; align-items:baseline; gap:14px;
+    margin:0 0 18px;
+  }
+  .section-label .tag{
+    font-size:12px; font-weight:700; color:var(--nhs-white); background:var(--nhs-dark-blue);
+    padding:4px 9px;
+  }
+  .section-label h2{
+    font-size:20px;
+    color:var(--nhs-black); margin:0; font-weight:700;
+  }
+  .section-label .count{
+    color:var(--nhs-grey); font-size:14px;
+  }
+  .section-label .rule{
+    flex:1; height:1px; background:var(--nhs-border);
+  }
+
+  .grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:16px;
+    margin-bottom:44px;
+  }
+  @media(max-width:720px){ .grid{grid-template-columns:1fr 1fr;} }
+  @media(max-width:460px){ .grid{grid-template-columns:1fr;} }
+
+  .card{
+    position:relative;
+    background:var(--nhs-pale-grey);
+    border-left:5px solid var(--nhs-blue);
+    padding:18px 18px 16px;
+    text-decoration:none;
+    color:var(--nhs-black);
+    display:flex; flex-direction:column; gap:20px;
+    transition:background .15s ease, border-color .15s ease, transform .15s ease;
+  }
+  .card::before{
+    content:attr(data-code);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    font-weight:600;
+    color:var(--nhs-grey);
+    align-self:flex-start;
+  }
+  .card .name{
+    font-family:Arial, sans-serif;
+    font-weight:700;
+    font-size:17px;
+    line-height:1.3;
+    color:var(--nhs-dark-blue);
+  }
+  .card .go{
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:13px; font-weight:700; color:var(--nhs-blue); margin-top:auto;
+  }
+  .card .go svg{ transition:transform .15s ease; }
+  .card:hover{
+    background:#e1eaf5;
+    border-color:var(--nhs-dark-blue);
+    transform:translateY(-2px);
+  }
+  .card:hover .name{ color:var(--nhs-dark-blue); text-decoration:underline; }
+  .card:hover .go svg{ transform:translateX(3px); }
+  .card:focus-visible{
+    outline:3px solid var(--nhs-yellow); outline-offset:0;
+    background:var(--nhs-yellow); color:var(--nhs-black);
+  }
+  .card:focus-visible .name, .card:focus-visible .go{ color:var(--nhs-black); }
+
+  footer{
+    border-top:4px solid var(--nhs-blue);
+    padding-top:22px; margin-top:16px;
+    font-size:14px; color:var(--nhs-grey);
+  }
+  footer .label{
+    font-weight:700; color:var(--nhs-black); margin-bottom:6px;
+    font-size:14px;
+  }
+  footer p{ margin:0 0 10px; line-height:1.5; max-width:60ch; }
+  footer .links a{
+    color:var(--nhs-blue); text-decoration:underline;
+    margin-right:18px; font-size:14px;
+  }
+  footer .links a:hover{ color:var(--nhs-dark-blue); }
+</style>
 </head>
+<body>
+  <header>
+    <div class="inner">
+      <div class="eyebrow">Clinical Documentation Library</div>
+      <h1 class="display">ICU Procedure Forms</h1>
+      <p>Checklists for bedside procedures and templates for ICU documentation.</p>
+    </div>
+  </header>
 
-<body class="bg-gray-100 min-h-screen p-6">
+  <div class="wrap">
 
-  <div class="max-w-2xl mx-auto bg-white rounded-xl shadow p-6">
-    <h1 class="text-3xl font-bold text-blue-800 mb-6 text-center">
-      ICU Procedure Forms
-    </h1>
+    <div class="section-label">
+      <span class="tag">PROC</span>
+      <h2>Bedside Procedures</h2>
+      <span class="rule"></span>
+      <span class="count mono">06</span>
+    </div>
+    <div class="grid">
+      <a href="/forms/central-line/index.html" class="card" data-code="P.01">
+        <span class="name">Central Line</span>
+        <span class="go">Open form <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a href="/forms/bronchoscopy/index.html" class="card" data-code="P.02">
+        <span class="name">Bronchoscopy</span>
+        <span class="go">Open form <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a href="/forms/intubation/index.html" class="card" data-code="P.03">
+        <span class="name">Intubation</span>
+        <span class="go">Open form <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a href="/forms/tracheostomy/index.html" class="card" data-code="P.04">
+        <span class="name">Tracheostomy</span>
+        <span class="go">Open form <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a href="/forms/chest-drain/index.html" class="card" data-code="P.05">
+        <span class="name">Chest Drain</span>
+        <span class="go">Open form <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a href="/forms/lumbar-puncture/index.html" class="card" data-code="P.06">
+        <span class="name">Lumbar Puncture</span>
+        <span class="go">Open form <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div class="section-label">
+      <span class="tag">DOC</span>
+      <h2>Ward Documentation</h2>
+      <span class="rule"></span>
+      <span class="count mono">04</span>
+    </div>
+    <div class="grid">
+      <a href="/forms/admission/index.html" class="card" data-code="D.01">
+        <span class="name">Admission Document</span>
+        <span class="go">Open form <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a href="/forms/fusicecho/index.html" class="card" data-code="D.02">
+        <span class="name">FUSIC&#8209;Heart</span>
+        <span class="go">Open form <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a href="/forms/Ward round/index.html" class="card" data-code="D.03">
+        <span class="name">Daily Ward Round</span>
+        <span class="go">Open form <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a href="/forms/discharge/index.html" class="card" data-code="D.04">
+        <span class="name">ICU Discharge Summary</span>
+        <span class="go">Open form <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
 
-  <a href="/forms/central-line/index.html"
-     class="block text-center bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold shadow">
-     Central Line
-  </a>
-
-  <a href="/forms/bronchoscopy/index.html"
-     class="block text-center bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold shadow">
-     Bronchoscopy
-  </a>
-
-  <a href="/forms/intubation/index.html"
-     class="block text-center bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold shadow">
-     Intubation
-  </a>
-
-  <a href="/forms/tracheostomy/index.html"
-     class="block text-center bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold shadow">
-     Tracheostomy
-  </a>
-
-  <a href="/forms/chest-drain/index.html"
-     class="block text-center bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold shadow">
-     Chest drain
-  </a>
-    
-  <a href="/forms/lumbar-puncture/index.html"
-     class="block text-center bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold shadow">
-     Lumbar Puncture
-  </a>
-  
-  <a href="/forms/admission/index.html"
-     class="block text-center bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold shadow">
-     Admission Document
-  </a>
-
-  <a href="/forms/fusicecho/index.html"
-     class="block text-center bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold shadow">
-     FUSIC-Heart
-  </a>
-
-  <a href="/forms/Ward round/index.html"
-     class="block text-center bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold shadow">
-     Daily Ward Round Document
-  </a>
-
-  <a href="/forms/discharge/index.html"
-     class="block text-center bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold shadow">
-     ICU Discharge Summary
-  </a>
-    
-</div>
+    <footer>
+      <div class="label">Educational Resources for Healthcare Professionals</div>
+      <p>Independent clinical education resource. Not an NHS website. Content is for training and educational purposes only.</p>
+      <div class="links">
+        <a href="/about/">About</a>
+        <a href="/disclaimer/">Disclaimer</a>
+        <a href="/privacy/">Privacy Policy</a>
+      </div>
+    </footer>
 
   </div>
-<footer class="mt-12 text-sm text-gray-600 border-t pt-4">
-
-<p class="mb-2 font-semibold">
-Educational Resources for Healthcare Professionals
-</p>
-
-<p class="mb-2">
-Independent clinical education resource. Not an NHS website.
-Content is for training and educational purposes only.
-</p>
-
-<div class="space-x-4">
-<a href="/about/" class="underline">About</a>
-<a href="/disclaimer/" class="underline">Disclaimer</a>
-<a href="/privacy/" class="underline">Privacy Policy</a>
-</div>
-
-</footer>
-
 </body>
 </html>
