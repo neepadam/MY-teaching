@@ -21,7 +21,7 @@
   <!-- Header -->
   <header class="bg-white shadow-md py-4">
     <nav class="container mx-auto px-4 sm:px-6 flex justify-between items-center">
-      <a class="text-2xl font-bold text-blue-800">MY‑ACE</a>
+      <a id="my-ace-logo" class="text-2xl font-bold text-blue-800 cursor-default">MY‑ACE</a>
       <div class="hidden sm:flex space-x-4">
         <a href="mailto:adam.neep@nhs.net" class="text-gray-700 hover:text-blue-600 text-sm sm:text-base">Contact</a>
       </div>
@@ -274,6 +274,12 @@
         generateEmail();
       } else {
         alert("Incorrect password.");
+      }
+    });
+
+    document.getElementById("my-ace-logo").addEventListener("click", event => {
+      if (event.altKey) {
+        window.location.href = "/MY-FUSIC.html";
       }
     });
 

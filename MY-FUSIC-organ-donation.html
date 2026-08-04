@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Focused echocardiography resources for organ donation at Mid Yorkshire Teaching NHS Trust.">
+  <title>FUSIC in Organ Donation | MY-FUSIC</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>body{font-family:"Inter",sans-serif}</style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900">
+  <header class="border-b border-slate-200 bg-white">
+    <nav class="mx-auto flex max-w-5xl items-center justify-between px-5 py-4 sm:px-8" aria-label="Main navigation">
+      <a href="/MY-FUSIC.html" class="text-xl font-extrabold text-blue-900">MY-FUSIC</a>
+      <a href="/MY-FUSIC.html" class="text-sm font-semibold text-slate-600 hover:text-blue-800">All resources</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="bg-gradient-to-br from-blue-950 via-blue-900 to-rose-800 text-white">
+      <div class="mx-auto max-w-5xl px-5 py-16 sm:px-8 sm:py-20">
+        <p class="text-sm font-bold uppercase tracking-[.2em] text-rose-200">Clinical resource</p>
+        <h1 class="mt-3 max-w-3xl text-4xl font-extrabold tracking-tight sm:text-5xl">FUSIC in Organ Donation</h1>
+        <p class="mt-5 max-w-2xl text-lg leading-8 text-blue-100">Focused bedside echocardiography can support assessment of a potential cardiac donor and timely expert review of acquired images.</p>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-5xl px-5 py-12 sm:px-8 sm:py-16">
+      <article class="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm sm:p-10">
+        <p class="text-sm font-bold uppercase tracking-wider text-rose-700">NHS Blood and Transplant</p>
+        <h2 class="mt-3 text-3xl font-bold text-blue-950">Focused echocardiography in the potential cardiac donor</h2>
+        <p class="mt-5 max-w-3xl leading-8 text-slate-600">The NHS Blood and Transplant guidance includes a training video, recommended views, a measurement guide, reporting prompts and information about transferring images for expert assessment.</p>
+        <a href="https://www.odt.nhs.uk/deceased-donation/best-practice-guidance/echocardiography/" target="_blank" rel="noopener noreferrer" class="mt-7 inline-flex items-center rounded-lg bg-blue-800 px-5 py-3 font-semibold text-white transition hover:bg-blue-900 focus:outline-none focus:ring-4 focus:ring-blue-300">
+          Open NHSBT echocardiography guidance <span class="ml-2" aria-hidden="true">↗</span>
+        </a>
+      </article>
+
+      <aside class="mt-7 rounded-xl border-l-4 border-amber-400 bg-amber-50 p-5 text-sm leading-6 text-amber-950">
+        <strong>Important:</strong> work within your accreditation, competence and local governance. The NHSBT guidance advises prompt transfer of acquired images for expert assessment and remote review.
+      </aside>
+
+      <section class="mt-14" aria-labelledby="walkthrough-heading">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p class="text-sm font-bold uppercase tracking-[.2em] text-rose-700">18-view workflow</p>
+            <h2 id="walkthrough-heading" class="mt-2 text-3xl font-extrabold text-blue-950">Walk me through a scan</h2>
+            <p class="mt-3 max-w-3xl leading-7 text-slate-600">Work through each window in order. Tick each image or measurement as it is acquired.</p>
+          </div>
+          <div class="min-w-36 rounded-xl bg-blue-950 px-5 py-3 text-center text-white" aria-live="polite">
+            <span id="scan-progress" class="text-2xl font-extrabold">0 / 18</span>
+            <span class="block text-xs uppercase tracking-wider text-blue-200">completed</span>
+          </div>
+        </div>
+
+        <div class="mt-7 flex flex-col gap-4 rounded-2xl border-2 border-cyan-300 bg-cyan-50 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+          <div>
+            <h3 class="font-bold text-cyan-950">Measurements marked with an asterisk (*)</h3>
+            <p class="mt-1 text-sm leading-6 text-cyan-900">Open the NHS Blood and Transplant measurement guide for instructions and reference images before taking these measurements.</p>
+          </div>
+          <a href="https://www.odt.nhs.uk/deceased-donation/best-practice-guidance/echocardiography/#measurement-guide" target="_blank" rel="noopener noreferrer" class="inline-flex shrink-0 items-center justify-center rounded-lg bg-cyan-800 px-5 py-3 font-bold text-white transition hover:bg-cyan-900 focus:outline-none focus:ring-4 focus:ring-cyan-300">
+            Open measurement guide <span class="ml-2" aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <div class="mt-4 rounded-2xl border-l-4 border-violet-500 bg-violet-50 p-5 sm:p-6">
+          <h3 class="font-bold text-violet-950">Colour Doppler: check the Nyquist limit</h3>
+          <p class="mt-2 leading-7 text-violet-950">For colour images, set the Nyquist limit to <strong>50–60 cm/s</strong>. Use a box wide enough to capture a valvular lesion, while remembering that an excessively wide colour box will reduce the frame rate.</p>
+        </div>
+
+        <div id="scan-workflow" class="mt-8 space-y-5">
+          <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+            <h3 class="text-xl font-bold text-blue-950">Parasternal long axis</h3>
+            <div class="mt-5 space-y-4">
+              <label class="flex gap-3"><input type="checkbox" class="scan-step mt-1 h-5 w-5 accent-cyan-700"><span><strong>1.</strong> 2D</span></label>
+              <label class="flex gap-3"><input type="checkbox" class="scan-step mt-1 h-5 w-5 accent-cyan-700"><span><strong>2.</strong> Colour over aortic valve*</span></label>
+              <label class="flex gap-3"><input type="checkbox" class="scan-step mt-1 h-5 w-5 accent-cyan-700"><span><strong>3.</strong> Colour over mitral valve*</span></label>
+              <label class="flex gap-3"><input type="checkbox" class="scan-step mt-1 h-5 w-5 accent-cyan-700"><span><strong>4.</strong> Measure*: intraventricular septum thickness, posterior wall thickness and end-diastolic LV diameter</span></label>
+            </div>
+          </section>
+
+          <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+            <h3 class="text-xl font-bold text-blue-950">Parasternal short axis</h3>
+            <div class="mt-5 grid gap-4 sm:grid-cols-2">
+              <label class="flex gap-3"><input type="checkbox" class="scan-step mt-1 h-5 w-5 accent-cyan-700"><span><strong>5.</strong> 2D aortic level</span></label>
+              <label class="flex gap-3"><input type="checkbox" class="scan-step mt-1 h-5 w-5 accent-cyan-700"><span><strong>6.</strong> Colour over tricuspid valve*</span></label>
+              <label class="flex gap-3"><input type="checkbox" class="scan-step mt-1 h-5 w-5 accent-cyan-700"><span><strong>7.</strong> Colour over pulmonary valve*</span></label>
+              <label class="flex gap-3"><input type="checkbox" class="scan-step mt-1 h-5 w-5 accent-cyan-700"><span><strong>8.</strong> 2D mitral level</span></label>
+              <label class="flex gap-3"><input type="checkbox" class="scan-step mt-1 h-5 w-5 accent-cyan-700"><span><strong>9.</strong> 2D papillary muscle level</span></label>
+              <label class="flex gap-3"><input type="checkbox" class="scan-step mt-1 h-5 w-5 accent-cyan-700"><span><strong>10.</strong> 2D apical level</span></label>
+            </div>
+          </section>
+
+          <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+            <h3 class="text-xl font-bold text-blue-950">Apical 4 chamber</h3>
+            <div class="mt-5 space-y-4">
+              <label class="flex gap-3"><input type="checkbox" class="scan-step mt-1 h-5 w-5 accent-cyan-700"><span><strong>11.</strong> 2D</span></label>
+              <label class="flex gap-3"><input type="checkbox" class="scan-step mt-1 h-5 w-5 accent-cyan-700"><span><strong>12.</strong> Colour over mitral valve*</span></label>
+              <label class="flex gap-3"><input type="checkbox" class="scan-step mt-1 h-5 w-5 accent-cyan-700"><span><strong>13.</strong> Colour over tricuspid valve*</span></label>
+              <label class="flex gap-3"><input type="checkbox" class="scan-step mt-1 h-5 w-5 accent-cyan-700"><span><strong>14.</strong> Measure*: RV basal diameter</span></label>
+            </div>
+          </section>
+
+          <div class="grid gap-5 md:grid-cols-2">
+            <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+              <h3 class="text-xl font-bold text-blue-950">Apical 5 chamber</h3>
+              <div class="mt-5 space-y-4">
+                <label class="flex gap-3"><input type="checkbox" class="scan-step mt-1 h-5 w-5 accent-cyan-700"><span><strong>15.</strong> 2D</span></label>
+                <label class="flex gap-3"><input type="checkbox" class="scan-step mt-1 h-5 w-5 accent-cyan-700"><span><strong>16.</strong> Colour over aortic valve*</span></label>
+              </div>
+            </section>
+            <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+              <h3 class="text-xl font-bold text-blue-950">Subcostal</h3>
+              <div class="mt-5 space-y-4">
+                <label class="flex gap-3"><input type="checkbox" class="scan-step mt-1 h-5 w-5 accent-cyan-700"><span><strong>17.</strong> 2D</span></label>
+                <label class="flex gap-3"><input type="checkbox" class="scan-step mt-1 h-5 w-5 accent-cyan-700"><span><strong>18.</strong> Colour over inter-atrial septum*</span></label>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <p class="mt-6 text-center text-sm font-semibold text-slate-700">Need to check a technique? <a href="https://www.odt.nhs.uk/deceased-donation/best-practice-guidance/echocardiography/#measurement-guide" target="_blank" rel="noopener noreferrer" class="text-cyan-800 underline decoration-2 underline-offset-4 hover:text-cyan-950">Open the NHSBT measurement guide</a>.</p>
+      </section>
+
+      <section class="mt-14 rounded-2xl bg-blue-950 p-7 text-white shadow-lg sm:p-10" aria-labelledby="reporting-heading">
+        <p class="text-sm font-bold uppercase tracking-[.2em] text-cyan-200">Final step</p>
+        <h2 id="reporting-heading" class="mt-2 text-3xl font-extrabold">Reporting</h2>
+        <p class="mt-3 max-w-3xl leading-7 text-blue-100">If you feel able and it is within your competence, please comment on the following.</p>
+        <div class="mt-7 grid gap-5 sm:grid-cols-2">
+          <label class="block"><span class="text-sm font-semibold">Inotrope/vasopressor level</span><input type="text" class="report-field mt-2 w-full rounded-lg border-0 bg-white px-4 py-3 text-slate-900"></label>
+          <label class="block"><span class="text-sm font-semibold">PEEP on ventilator</span><input type="text" class="report-field mt-2 w-full rounded-lg border-0 bg-white px-4 py-3 text-slate-900"></label>
+          <label class="block"><span class="text-sm font-semibold">LV function</span><input type="text" class="report-field mt-2 w-full rounded-lg border-0 bg-white px-4 py-3 text-slate-900"></label>
+          <label class="block"><span class="text-sm font-semibold">RV function</span><input type="text" class="report-field mt-2 w-full rounded-lg border-0 bg-white px-4 py-3 text-slate-900"></label>
+          <label class="block"><span class="text-sm font-semibold">Aortic valve</span><input type="text" class="report-field mt-2 w-full rounded-lg border-0 bg-white px-4 py-3 text-slate-900"></label>
+          <label class="block"><span class="text-sm font-semibold">Mitral valve</span><input type="text" class="report-field mt-2 w-full rounded-lg border-0 bg-white px-4 py-3 text-slate-900"></label>
+          <label class="block"><span class="text-sm font-semibold">Tricuspid valve</span><input type="text" class="report-field mt-2 w-full rounded-lg border-0 bg-white px-4 py-3 text-slate-900"></label>
+          <label class="block"><span class="text-sm font-semibold">Pulmonary valve</span><input type="text" class="report-field mt-2 w-full rounded-lg border-0 bg-white px-4 py-3 text-slate-900"></label>
+          <label class="block sm:col-span-2"><span class="text-sm font-semibold">Other (e.g. VSD/effusions)</span><textarea class="report-field mt-2 min-h-24 w-full rounded-lg border-0 bg-white px-4 py-3 text-slate-900"></textarea></label>
+          <label class="block"><span class="text-sm font-semibold">LV diameter (cm)</span><input type="text" inputmode="decimal" class="report-field mt-2 w-full rounded-lg border-0 bg-white px-4 py-3 text-slate-900"></label>
+          <label class="block"><span class="text-sm font-semibold">LV septal wall thickness (cm)</span><input type="text" inputmode="decimal" class="report-field mt-2 w-full rounded-lg border-0 bg-white px-4 py-3 text-slate-900"></label>
+          <label class="block"><span class="text-sm font-semibold">LV posterior wall thickness (cm)</span><input type="text" inputmode="decimal" class="report-field mt-2 w-full rounded-lg border-0 bg-white px-4 py-3 text-slate-900"></label>
+          <label class="block"><span class="text-sm font-semibold">RV basal diameter (cm)</span><input type="text" inputmode="decimal" class="report-field mt-2 w-full rounded-lg border-0 bg-white px-4 py-3 text-slate-900"></label>
+        </div>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <button id="generate-report" type="button" class="rounded-lg bg-cyan-500 px-5 py-3 font-bold text-blue-950 transition hover:bg-cyan-400 focus:outline-none focus:ring-4 focus:ring-cyan-200">Generate report</button>
+          <button id="copy-report" type="button" class="rounded-lg border border-blue-300 px-5 py-3 font-bold text-white transition hover:bg-blue-900 focus:outline-none focus:ring-4 focus:ring-blue-300" disabled>Copy rich text</button>
+        </div>
+        <div id="report-status" class="mt-3 min-h-6 text-sm text-cyan-200" aria-live="polite"></div>
+      </section>
+
+      <section id="generated-report-section" class="mt-7 hidden rounded-2xl border border-slate-200 bg-white p-7 shadow-sm sm:p-10" aria-labelledby="generated-report-heading">
+        <div class="flex items-center justify-between gap-4">
+          <h2 id="generated-report-heading" class="text-2xl font-bold text-blue-950">Generated report</h2>
+          <span class="rounded-full bg-cyan-100 px-3 py-1 text-xs font-bold uppercase tracking-wider text-cyan-800">Rich text</span>
+        </div>
+        <div id="generated-report" class="mt-6 min-h-48 rounded-xl border border-slate-200 bg-slate-50 p-5 leading-7 text-slate-800"></div>
+      </section>
+
+      <div class="mt-7 rounded-2xl border-2 border-rose-300 bg-rose-50 p-6 text-center text-lg font-bold text-rose-950 sm:p-8">
+        <p>Please transfer all images to the transplant centre in accordance with local governance.</p>
+        <button id="open-transfer-guide" type="button" class="mt-5 inline-flex items-center rounded-lg bg-rose-800 px-5 py-3 text-base font-bold text-white transition hover:bg-rose-900 focus:outline-none focus:ring-4 focus:ring-rose-300">
+          How to transfer the images <span class="ml-2" aria-hidden="true">→</span>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="transfer-guide" class="w-[calc(100%-2rem)] max-w-2xl rounded-2xl p-0 shadow-2xl backdrop:bg-slate-950/60">
+    <div class="p-6 sm:p-8">
+      <div class="flex items-start justify-between gap-5">
+        <div>
+          <p class="text-sm font-bold uppercase tracking-[.2em] text-rose-700">Local workflow</p>
+          <h2 class="mt-2 text-2xl font-extrabold text-blue-950">How to transfer the images</h2>
+        </div>
+        <button id="close-transfer-guide" type="button" class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xl font-bold text-slate-600 hover:bg-slate-200" aria-label="Close transfer guide">×</button>
+      </div>
+
+      <div class="mt-7 rounded-xl border-l-4 border-amber-400 bg-amber-50 p-5 text-amber-950">
+        <strong>Guide coming soon.</strong> The confirmed MYTT step-by-step image-transfer process will be added here.
+      </div>
+
+      <!-- Replace these placeholder steps when the local image-transfer guide is confirmed. -->
+      <ol class="mt-7 space-y-4">
+        <li class="flex gap-4"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 font-bold text-blue-900">1</span><div><strong class="text-blue-950">Prepare the study</strong><p class="mt-1 text-sm text-slate-500">Local instructions to be added.</p></div></li>
+        <li class="flex gap-4"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 font-bold text-blue-900">2</span><div><strong class="text-blue-950">Upload the images</strong><p class="mt-1 text-sm text-slate-500">Local instructions to be added.</p></div></li>
+        <li class="flex gap-4"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 font-bold text-blue-900">3</span><div><strong class="text-blue-950">Send to the transplant centre</strong><p class="mt-1 text-sm text-slate-500">Local instructions to be added.</p></div></li>
+        <li class="flex gap-4"><span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 font-bold text-blue-900">4</span><div><strong class="text-blue-950">Confirm receipt</strong><p class="mt-1 text-sm text-slate-500">Local instructions to be added.</p></div></li>
+      </ol>
+    </div>
+  </dialog>
+  <script>
+    const scanSteps = [...document.querySelectorAll('.scan-step')];
+    const progress = document.getElementById('scan-progress');
+    const updateProgress = () => { progress.textContent = `${scanSteps.filter(step => step.checked).length} / ${scanSteps.length}`; };
+    scanSteps.forEach(step => step.addEventListener('change', updateProgress));
+    updateProgress();
+
+    const generateButton = document.getElementById('generate-report');
+    const copyButton = document.getElementById('copy-report');
+    const reportSection = document.getElementById('generated-report-section');
+    const reportOutput = document.getElementById('generated-report');
+    const reportStatus = document.getElementById('report-status');
+
+    function escapeHtml(value) {
+      return value.replace(/[&<>"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[character]));
+    }
+
+    function generateReport() {
+      const entries = [...document.querySelectorAll('.report-field')].map(field => ({
+        label: field.closest('label').querySelector('span').textContent.trim(),
+        value: field.value.trim()
+      }));
+      const clinical = entries.slice(0, 9);
+      const measurements = entries.slice(9);
+      const rows = items => items.map(item => `<p><strong>${escapeHtml(item.label)}:</strong> ${escapeHtml(item.value || 'Not documented')}</p>`).join('');
+
+      reportOutput.innerHTML = `
+        <p><strong>FOCUSED ECHOCARDIOGRAPHY – POTENTIAL CARDIAC DONOR</strong></p>
+        <br>
+        <p><strong>Clinical context and findings</strong></p>
+        ${rows(clinical)}
+        <br>
+        <p><strong>Measurements</strong></p>
+        ${rows(measurements)}
+        <br>
+        <p><strong>Image transfer:</strong> Images to be transferred to the transplant centre in accordance with local governance.</p>
+      `;
+      reportSection.classList.remove('hidden');
+      copyButton.disabled = false;
+      copyButton.classList.remove('opacity-50', 'cursor-not-allowed');
+      reportStatus.textContent = 'Report generated below.';
+      reportSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    async function copyReport() {
+      if (!reportOutput.innerHTML.trim()) return;
+      const html = reportOutput.innerHTML;
+      const plainText = reportOutput.innerText;
+      try {
+        if (navigator.clipboard && window.ClipboardItem) {
+          await navigator.clipboard.write([new ClipboardItem({
+            'text/html': new Blob([html], { type: 'text/html' }),
+            'text/plain': new Blob([plainText], { type: 'text/plain' })
+          })]);
+        } else {
+          await navigator.clipboard.writeText(plainText);
+        }
+        reportStatus.textContent = 'Rich-text report copied to the clipboard.';
+      } catch (error) {
+        const selection = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(reportOutput);
+        selection.removeAllRanges();
+        selection.addRange(range);
+        reportStatus.textContent = 'Clipboard access was unavailable. The report has been selected for you to copy.';
+      }
+    }
+
+    copyButton.classList.add('opacity-50', 'cursor-not-allowed');
+    generateButton.addEventListener('click', generateReport);
+    copyButton.addEventListener('click', copyReport);
+
+    const transferGuide = document.getElementById('transfer-guide');
+    document.getElementById('open-transfer-guide').addEventListener('click', () => transferGuide.showModal());
+    document.getElementById('close-transfer-guide').addEventListener('click', () => transferGuide.close());
+    transferGuide.addEventListener('click', event => {
+      if (event.target === transferGuide) transferGuide.close();
+    });
+  </script>
+</body>
+</html>
