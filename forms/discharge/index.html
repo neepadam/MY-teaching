@@ -311,28 +311,28 @@
         patientFamilyDiscussions: valueOf("patient-family-discussions")
       };
 
-      latestNoteHTML = `<b><u>ICU DISCHARGE SUMMARY</u></b><br><br>
-        <b><u>ICU ADMISSION DETAILS</u></b><br>
+      latestNoteHTML = `<b><u>ICU DISCHARGE SUMMARY</u></b><br>
+        <b>ICU ADMISSION DETAILS</b><br>
         Admission date: ${formatDate(fields.admissionDate)}<br>
         Admission source: ${escapeHTML(fields.admissionSource)}<br>
         Date of decision to discharge: ${formatDate(fields.dischargeDecisionDate)}<br>
         Number of days on ICU: ${escapeHTML(icuDays)}<br><br>
-        <b><u>PAST MEDICAL HISTORY</u></b><br>${escapeHTML(fields.pastMedicalHistory)}<br><br>
-        <b><u>ICU DIAGNOSIS</u></b><br>${escapeHTML(fields.icuDiagnosis)}<br><br>
-        <b><u>REASON FOR ADMISSION TO ICU</u></b><br>${escapeHTML(fields.admissionReason)}<br><br>
-        <b><u>EVENTS ON ICU</u></b><br>${escapeHTML(fields.icuEvents)}<br><br>
-        <b><u>TREATMENTS ON ICU</u></b><br>${escapeHTML(treatmentsSelected.join("\n"))}<br>
+        <b>PAST MEDICAL HISTORY</b><br>${escapeHTML(fields.pastMedicalHistory)}<br><br>
+        <b>ICU DIAGNOSIS</b><br>${escapeHTML(fields.icuDiagnosis)}<br><br>
+        <b>REASON FOR ADMISSION TO ICU</b><br>${escapeHTML(fields.admissionReason)}<br><br>
+        <b>EVENTS ON ICU</b><br>${escapeHTML(fields.icuEvents)}<br><br>
+        <b>TREATMENTS ON ICU</b><br>${escapeHTML(treatmentsSelected.join("\n"))}<br>
         ${fields.treatments ? `Any comments: ${escapeHTML(fields.treatments)}<br>` : ""}<br>
-        <b><u>ONGOING ISSUES</u></b><br>${escapeHTML(fields.ongoingIssues)}<br><br>
-        <b><u>OUTSTANDING TASKS</u></b><br>${escapeHTML(fields.outstandingTasks)}<br><br>
-        <b><u>MEDICATIONS FOR REVIEW ON DISCHARGE</u></b><br>${escapeHTML(fields.medicationsReview)}<br><br>
-        <b><u>MICROBIOLOGY PLAN</u></b><br>${escapeHTML(fields.microbiologyPlan)}<br><br>
-        <b><u>RE-ADMISSION / ESCALATION STATUS</u></b><br>${escapeHTML(fields.escalationStatus)}<br>
+        <b>ONGOING ISSUES</b><br>${escapeHTML(fields.ongoingIssues)}<br><br>
+        <b>OUTSTANDING TASKS</b><br>${escapeHTML(fields.outstandingTasks)}<br><br>
+        <b>MEDICATIONS FOR REVIEW ON DISCHARGE</b><br>${escapeHTML(fields.medicationsReview)}<br><br>
+        <b>MICROBIOLOGY PLAN</b><br>${escapeHTML(fields.microbiologyPlan)}<br><br>
+        <b>RE-ADMISSION / ESCALATION STATUS</b><br>${escapeHTML(fields.escalationStatus)}<br>
         Details: ${escapeHTML(fields.escalationDetails)}<br>
         Details of discussions with patient or family: ${escapeHTML(fields.patientFamilyDiscussions)}<br><br>
-        <b><u>RESUSCITATION STATUS</u></b><br>${escapeHTML(fields.resuscitationStatus)}<br>`;
+        <b>RESUSCITATION STATUS</b><br>${escapeHTML(fields.resuscitationStatus)}<br>`;
 
-      latestNoteText = `ICU DISCHARGE SUMMARY\n\n` +
+      latestNoteText = `ICU DISCHARGE SUMMARY\n` +
         `ICU ADMISSION DETAILS\nAdmission date: ${formatDate(fields.admissionDate)}\nAdmission source: ${plainValue(fields.admissionSource)}\nDate of decision to discharge: ${formatDate(fields.dischargeDecisionDate)}\nNumber of days on ICU: ${plainValue(icuDays)}\n\n` +
         `PAST MEDICAL HISTORY\n${plainValue(fields.pastMedicalHistory)}\n\n` +
         `ICU DIAGNOSIS\n${plainValue(fields.icuDiagnosis)}\n\n` +

@@ -100,7 +100,7 @@
 
         <div>
           <label for="airway_other" class="block font-medium mb-1">
-            Other airway details:
+            Other airway details (optional):
           </label>
 
           <input
@@ -167,6 +167,11 @@
         </label>
 
         <label>
+          <input type="radio" name="ventilation_mode" value="High flow face mask">
+          High flow face mask
+        </label>
+
+        <label>
           <input type="radio" name="ventilation_mode" value="Room air">
           Room air
         </label>
@@ -188,7 +193,7 @@
 
 
     <!-- Respiratory settings -->
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
 
       <div>
         <label for="fio2" class="block font-medium mb-1">
@@ -233,15 +238,15 @@
       </div>
 
       <div>
-        <label for="respiratory_rate" class="block font-medium mb-1">
-          RR
+        <label for="peak_pressure" class="block font-medium mb-1">
+          Peak pressure
         </label>
 
         <input
           type="text"
-          id="respiratory_rate"
+          id="peak_pressure"
           class="w-full border p-2 rounded"
-          placeholder="16"
+          placeholder="cmH₂O"
         >
       </div>
 
@@ -261,6 +266,22 @@
         </div>
       </div>
 
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label for="respiratory_rate" class="block font-medium mb-1">
+          RR
+        </label>
+
+        <input
+          type="text"
+          id="respiratory_rate"
+          class="w-full border p-2 rounded"
+          placeholder="16"
+        >
+      </div>
+
       <div>
         <label for="spo2" class="block font-medium mb-1">
           SpO₂
@@ -277,6 +298,29 @@
         </div>
       </div>
 
+    </div>
+
+    <div>
+      <label for="blood_gases" class="block font-medium mb-1">
+        Blood gases:
+      </label>
+      <textarea
+        id="blood_gases"
+        class="w-full h-20 border p-2 rounded"
+        placeholder="e.g. pH, pCO₂, pO₂, HCO₃⁻, lactate"
+      ></textarea>
+    </div>
+
+    <div>
+      <label for="additional_respiratory_parameters" class="block font-medium mb-1">
+        Additional parameters (optional):
+      </label>
+      <input
+        type="text"
+        id="additional_respiratory_parameters"
+        class="w-full border p-2 rounded"
+        placeholder="e.g. I:E ratio or other respiratory parameters"
+      >
     </div>
 
 
@@ -377,15 +421,20 @@
         </div>
 
         <div>
-          <label for="cardiovascular_support" class="block font-medium mb-1">
-            Cardiovascular support:
-          </label>
-
-          <textarea
-            id="cardiovascular_support"
-            class="w-full h-20 border p-2 rounded"
-            placeholder="e.g. Noradrenaline 0.08 micrograms/kg/min"
-          ></textarea>
+          <div class="font-medium mb-2">Cardiovascular support:</div>
+          <div class="flex gap-6">
+            <label><input type="radio" name="cardiovascular_support_required" value="Yes" onchange="toggleCardiovascularSupport()"> Yes</label>
+            <label><input type="radio" name="cardiovascular_support_required" value="No" onchange="toggleCardiovascularSupport()"> No</label>
+          </div>
+          <div id="cardiovascular_support_details" class="mt-3 hidden">
+            <label for="cardiovascular_support" class="block font-medium mb-1">Support details:</label>
+            <textarea
+              id="cardiovascular_support"
+              disabled
+              class="w-full h-20 border p-2 rounded disabled:bg-gray-100"
+              placeholder="e.g. Noradrenaline 0.08 micrograms/kg/min"
+            ></textarea>
+          </div>
         </div>
 
         <div>
@@ -572,27 +621,28 @@
           <div class="flex gap-6">
 
             <label>
-              <input type="radio" name="crrt" value="Yes">
+              <input type="radio" name="crrt" value="Yes" onchange="toggleCRRTComments()">
               Yes
             </label>
 
             <label>
-              <input type="radio" name="crrt" value="No">
+              <input type="radio" name="crrt" value="No" onchange="toggleCRRTComments()">
               No
             </label>
 
           </div>
         </div>
 
-        <div>
+        <div id="crrt_comments_container" class="hidden">
           <label for="crrt_comments" class="block font-medium mb-1">
             CRRT comments:
           </label>
 
           <textarea
             id="crrt_comments"
-            class="w-full h-20 border p-2 rounded"
-            placeholder="Complete if receiving CRRT"
+            disabled
+            class="w-full h-20 border p-2 rounded disabled:bg-gray-100"
+            placeholder="Complete if receiving CRRT, e.g. rate of fluid removal, high-dose or low-dose therapy"
           ></textarea>
         </div>
 
@@ -620,6 +670,17 @@
       <div class="p-4 space-y-4">
 
         <div>
+          <label for="gi_examination" class="block font-medium mb-1">
+            GI examination:
+          </label>
+          <textarea
+            id="gi_examination"
+            class="w-full h-24 border p-2 rounded"
+            placeholder="Enter gastrointestinal examination findings"
+          ></textarea>
+        </div>
+
+        <div>
           <label for="nutrition" class="block font-medium mb-1">
             Nutrition:
           </label>
@@ -627,6 +688,7 @@
           <textarea
             id="nutrition"
             class="w-full h-20 border p-2 rounded"
+            placeholder="e.g. eating and drinking, NG fed, TPN"
           ></textarea>
         </div>
 
@@ -639,7 +701,19 @@
             type="text"
             id="absorbing_feed"
             class="w-full border p-2 rounded"
-            placeholder="e.g. Yes, bowels open, no high aspirates"
+            placeholder="Do they have high aspirates? What are the residual volumes?"
+          >
+        </div>
+
+        <div>
+          <label for="bowels" class="block font-medium mb-1">
+            Bowels:
+          </label>
+          <input
+            type="text"
+            id="bowels"
+            class="w-full border p-2 rounded"
+            placeholder="e.g. when last opened and type of stool"
           >
         </div>
 
@@ -699,7 +773,7 @@
 
       <div class="p-4">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
           <div>
             <label for="hb" class="block font-medium mb-1">
@@ -722,6 +796,18 @@
             <input
               type="text"
               id="platelets"
+              class="w-full border p-2 rounded"
+              placeholder="×10⁹/L"
+            >
+          </div>
+
+          <div>
+            <label for="wcc" class="block font-medium mb-1">
+              WCC:
+            </label>
+            <input
+              type="text"
+              id="wcc"
               class="w-full border p-2 rounded"
               placeholder="×10⁹/L"
             >
@@ -752,7 +838,7 @@
           ></textarea>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
           <div>
             <label for="current_temperature" class="block font-medium mb-1">
@@ -771,21 +857,23 @@
           </div>
 
           <div>
-            <label for="fever_24h" class="block font-medium mb-1">
-              Fever &gt;38°C in last 24 hours:
-            </label>
-
-            <input
-              type="text"
-              id="fever_24h"
-              class="w-full border p-2 rounded"
-              placeholder="e.g. Yes, maximum 38.7°C"
-            >
+            <div class="font-medium mb-2">Fever &gt;38°C in last 24 hours:</div>
+            <div class="flex gap-6">
+              <label><input type="radio" name="fever_24h" value="Yes" onchange="toggleHighestTemperature()"> Yes</label>
+              <label><input type="radio" name="fever_24h" value="No" onchange="toggleHighestTemperature()"> No</label>
+            </div>
+            <div id="highest_temperature_container" class="mt-3 hidden">
+              <label for="highest_temperature" class="block font-medium mb-1">Highest temperature in last 24 hours:</label>
+              <div class="flex items-center">
+                <input type="text" id="highest_temperature" disabled class="w-full border p-2 rounded disabled:bg-gray-100" placeholder="e.g. 38.7">
+                <span class="ml-2">°C</span>
+              </div>
+            </div>
           </div>
 
           <div>
             <label for="procalcitonin" class="block font-medium mb-1">
-              Procalcitonin:
+              PCT/CRP:
             </label>
 
             <input
@@ -795,6 +883,17 @@
             >
           </div>
 
+        </div>
+
+        <div>
+          <label for="positive_microbiology" class="block font-medium mb-1">
+            Any positive microbiology:
+          </label>
+          <textarea
+            id="positive_microbiology"
+            class="w-full h-24 border p-2 rounded"
+            placeholder="Enter positive cultures, organisms and sensitivities"
+          ></textarea>
         </div>
 
       </div>
@@ -898,20 +997,31 @@
 </details>
 
 
-    <!-- IMPRESSION AND PLAN -->
+    <!-- IMPRESSION -->
     <details open class="mb-6 border rounded-lg overflow-hidden">
       <summary class="cursor-pointer bg-emerald-700 text-white font-bold text-lg px-4 py-3">
-        IMPRESSION &amp; PLAN
+        IMPRESSION
       </summary>
-
       <div class="p-4">
+        <textarea
+          id="impression"
+          class="w-full h-32 border p-2 rounded"
+          placeholder="Enter the clinical impression. New lines will be preserved."
+        ></textarea>
+      </div>
+    </details>
 
+    <!-- PLAN -->
+    <details open class="mb-6 border rounded-lg overflow-hidden">
+      <summary class="cursor-pointer bg-emerald-700 text-white font-bold text-lg px-4 py-3">
+        PLAN
+      </summary>
+      <div class="p-4">
         <textarea
           id="plan"
-          class="w-full h-48 border p-2 rounded"
-          placeholder="Enter the impression and plan. New lines will be preserved."
+          class="w-full h-40 border p-2 rounded"
+          placeholder="Enter the plan. New lines will be preserved."
         ></textarea>
-
       </div>
     </details>
 
@@ -993,6 +1103,36 @@
     return Array.from(
       document.querySelectorAll(`input[name="${name}"]:checked`)
     ).map(item => item.value);
+  }
+
+
+  function toggleCardiovascularSupport() {
+    const showDetails = radioValue("cardiovascular_support_required") === "Yes";
+    const container = document.getElementById("cardiovascular_support_details");
+    const field = document.getElementById("cardiovascular_support");
+    container.classList.toggle("hidden", !showDetails);
+    field.disabled = !showDetails;
+    if (!showDetails) field.value = "";
+  }
+
+
+  function toggleHighestTemperature() {
+    const showDetails = radioValue("fever_24h") === "Yes";
+    const container = document.getElementById("highest_temperature_container");
+    const field = document.getElementById("highest_temperature");
+    container.classList.toggle("hidden", !showDetails);
+    field.disabled = !showDetails;
+    if (!showDetails) field.value = "";
+  }
+
+
+  function toggleCRRTComments() {
+    const showComments = radioValue("crrt") === "Yes";
+    const container = document.getElementById("crrt_comments_container");
+    const field = document.getElementById("crrt_comments");
+    container.classList.toggle("hidden", !showComments);
+    field.disabled = !showComments;
+    if (!showComments) field.value = "";
   }
 
 
@@ -1115,9 +1255,12 @@
     const fio2 = value("fio2");
     const pressureSupport = value("pressure_support");
     const peep = value("peep");
+    const peakPressure = value("peak_pressure");
     const respiratoryRate = value("respiratory_rate");
     const tidalVolume = value("tidal_volume");
     const spo2 = value("spo2");
+    const bloodGases = value("blood_gases");
+    const additionalRespiratoryParameters = value("additional_respiratory_parameters");
     const secretions = radioValue("secretions");
     const secretionsDescription = value("secretions_description");
     const respiratoryExam = value("respiratory_exam");
@@ -1133,6 +1276,9 @@
     breathingHTML += addLine("PEEP", peep, {
       unit: "cmH₂O"
     });
+    breathingHTML += addLine("Peak pressure", peakPressure, {
+      unit: "cmH₂O"
+    });
     breathingHTML += addLine("Respiratory rate", respiratoryRate);
     breathingHTML += addLine("Tidal volume", tidalVolume, {
       unit: "mL"
@@ -1140,6 +1286,8 @@
     breathingHTML += addLine("SpO₂", spo2, {
       unit: "%"
     });
+    breathingHTML += addLine("Blood gases", bloodGases);
+    breathingHTML += addLine("Additional respiratory parameters", additionalRespiratoryParameters);
 
     let secretionText = secretions;
 
@@ -1173,6 +1321,10 @@
       breathingPlainText += `PEEP: ${peep} cmH2O\n`;
     }
 
+    if (peakPressure) {
+      breathingPlainText += `Peak pressure: ${peakPressure} cmH2O\n`;
+    }
+
     if (respiratoryRate) {
       breathingPlainText += `Respiratory rate: ${respiratoryRate}\n`;
     }
@@ -1183,6 +1335,14 @@
 
     if (spo2) {
       breathingPlainText += `SpO2: ${spo2}%\n`;
+    }
+
+    if (bloodGases) {
+      breathingPlainText += `Blood gases: ${bloodGases}\n`;
+    }
+
+    if (additionalRespiratoryParameters) {
+      breathingPlainText += `Additional respiratory parameters: ${additionalRespiratoryParameters}\n`;
     }
 
     if (secretionText) {
@@ -1206,6 +1366,7 @@
 
     const hr = value("hr");
     const bp = value("bp");
+    const cardiovascularSupportRequired = radioValue("cardiovascular_support_required");
     const cardiovascularSupport = value("cardiovascular_support");
     const cardiovascularExam = value("cardiovascular_exam");
 
@@ -1214,10 +1375,10 @@
     });
 
     circulationHTML += addLine("BP", bp);
-    circulationHTML += addLine(
-      "Cardiovascular support",
-      cardiovascularSupport
-    );
+    circulationHTML += addLine("Cardiovascular support", cardiovascularSupportRequired);
+    if (cardiovascularSupportRequired === "Yes") {
+      circulationHTML += addLine("Cardiovascular support details", cardiovascularSupport);
+    }
     circulationHTML += addLine(
       "Cardiovascular examination",
       cardiovascularExam
@@ -1226,8 +1387,12 @@
     if (hr) circulationPlainText += `HR: ${hr} bpm\n`;
     if (bp) circulationPlainText += `BP: ${bp}\n`;
 
-    if (cardiovascularSupport) {
-      circulationPlainText += `Cardiovascular support: ${cardiovascularSupport}\n`;
+    if (cardiovascularSupportRequired) {
+      circulationPlainText += `Cardiovascular support: ${cardiovascularSupportRequired}\n`;
+    }
+
+    if (cardiovascularSupportRequired === "Yes" && cardiovascularSupport) {
+      circulationPlainText += `Cardiovascular support details: ${cardiovascularSupport}\n`;
     }
 
     if (cardiovascularExam) {
@@ -1364,20 +1529,26 @@
     let giHTML = "";
     let giPlainText = "";
 
+    const giExamination = value("gi_examination");
     const nutrition = value("nutrition");
     const absorbingFeed = value("absorbing_feed");
+    const bowels = value("bowels");
     const bloodSugars = value("blood_sugars");
     const vrii = radioValue("vrii");
     const giComments = value("gi_comments");
 
+    giHTML += addLine("GI examination", giExamination);
     giHTML += addLine("Nutrition", nutrition);
     giHTML += addLine("Absorbing feed", absorbingFeed);
+    giHTML += addLine("Bowels", bowels);
     giHTML += addLine("Blood sugars", bloodSugars);
     giHTML += addLine("VRII insulin", vrii);
     giHTML += addLine("Comments", giComments);
 
+    if (giExamination) giPlainText += `GI examination: ${giExamination}\n`;
     if (nutrition) giPlainText += `Nutrition: ${nutrition}\n`;
     if (absorbingFeed) giPlainText += `Absorbing feed: ${absorbingFeed}\n`;
+    if (bowels) giPlainText += `Bowels: ${bowels}\n`;
     if (bloodSugars) giPlainText += `Blood sugars: ${bloodSugars}\n`;
     if (vrii) giPlainText += `VRII insulin: ${vrii}\n`;
     if (giComments) giPlainText += `Comments: ${giComments}\n`;
@@ -1395,6 +1566,7 @@
 
     const hb = value("hb");
     const platelets = value("platelets");
+    const wcc = value("wcc");
 
     haematologyHTML += addLine("Hb", hb, {
       unit: "g/L"
@@ -1404,11 +1576,17 @@
       unit: "×10⁹/L"
     });
 
+    haematologyHTML += addLine("WCC", wcc, {
+      unit: "×10⁹/L"
+    });
+
     if (hb) haematologyPlainText += `Hb: ${hb} g/L\n`;
 
     if (platelets) {
       haematologyPlainText += `Platelets: ${platelets} ×10^9/L\n`;
     }
+
+    if (wcc) haematologyPlainText += `WCC: ${wcc} ×10^9/L\n`;
 
     html += addSection("Haematology", haematologyHTML);
 
@@ -1423,8 +1601,10 @@
 
     const antibiotics = value("antibiotics");
     const currentTemperature = value("current_temperature");
-    const fever24h = value("fever_24h");
+    const fever24h = radioValue("fever_24h");
+    const highestTemperature = value("highest_temperature");
     const procalcitonin = value("procalcitonin");
+    const positiveMicrobiology = value("positive_microbiology");
 
     infectionHTML += addLine("Antibiotics", antibiotics);
 
@@ -1439,10 +1619,15 @@
       fever24h
     );
 
+    if (fever24h === "Yes") {
+      infectionHTML += addLine("Highest temperature in last 24 hours", highestTemperature, { unit: "°C" });
+    }
+
     infectionHTML += addLine(
-      "Procalcitonin",
+      "PCT/CRP",
       procalcitonin
     );
+    infectionHTML += addLine("Positive microbiology", positiveMicrobiology);
 
     if (antibiotics) {
       infectionPlainText += `Antibiotics: ${antibiotics}\n`;
@@ -1456,8 +1641,16 @@
       infectionPlainText += `Fever >38°C in last 24 hours: ${fever24h}\n`;
     }
 
+    if (fever24h === "Yes" && highestTemperature) {
+      infectionPlainText += `Highest temperature in last 24 hours: ${highestTemperature}°C\n`;
+    }
+
     if (procalcitonin) {
-      infectionPlainText += `Procalcitonin: ${procalcitonin}\n`;
+      infectionPlainText += `PCT/CRP: ${procalcitonin}\n`;
+    }
+
+    if (positiveMicrobiology) {
+      infectionPlainText += `Positive microbiology: ${positiveMicrobiology}\n`;
     }
 
     html += addSection("Infection", infectionHTML);
@@ -1524,16 +1717,29 @@
     }
 
 
-    // Impression and plan
+    // Impression
+    const impression = value("impression");
+
+    if (impression) {
+      html += addSection(
+        "Impression",
+        `${formatMultiline(impression)}<br>`
+      );
+
+      plainText += `\nImpression\n${impression}\n`;
+    }
+
+
+    // Plan
     const plan = value("plan");
 
     if (plan) {
       html += addSection(
-        "Impression & Plan",
+        "Plan",
         `${formatMultiline(plan)}<br>`
       );
 
-      plainText += `\nImpression & Plan\n${plan}\n`;
+      plainText += `\nPlan\n${plan}\n`;
     }
 
 
