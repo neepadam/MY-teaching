@@ -1026,14 +1026,23 @@
     </details>
 
 
-    <!-- GENERATE BUTTON -->
-    <button
-      type="button"
-      onclick="generateNote()"
-      class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-3 rounded"
-    >
-      Generate Ward Round Note
-    </button>
+    <!-- GENERATE AND COPY BUTTONS -->
+    <div class="flex flex-wrap gap-3">
+      <button
+        type="button"
+        onclick="generateNote()"
+        class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-3 rounded"
+      >
+        Generate Ward Round Note
+      </button>
+      <button
+        type="button"
+        onclick="copyRichText()"
+        class="bg-green-600 hover:bg-green-700 text-white font-medium px-5 py-3 rounded"
+      >
+        Copy
+      </button>
+    </div>
 
 
     <!-- FORMATTED OUTPUT -->
@@ -1060,11 +1069,11 @@
           onclick="copyRichText()"
           class="bg-green-600 hover:bg-green-700 text-white font-medium px-5 py-3 rounded"
         >
-          Copy Rich Text
+          Copy
         </button>
 
         <p class="text-sm text-gray-600">
-          Paste directly into the patient record. Bold headings should be retained where rich-text pasting is supported.
+          Paste this note into the patient PPM record and set the title as <strong>“ICU WR”</strong>.
         </p>
 
       </div>
