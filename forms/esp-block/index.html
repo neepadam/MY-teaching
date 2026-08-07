@@ -43,6 +43,9 @@
 
     <h2 class="mt-8 bg-purple-600 p-2 text-xl font-bold text-white">PROCEDURE DETAILS</h2>
     <div class="mt-4 space-y-5">
+      <label class="block font-medium">Indication for the procedure:
+        <textarea id="indication" rows="2" placeholder="e.g. Analgesia for rib fractures" class="mt-1 w-full rounded border p-2 font-normal"></textarea>
+      </label>
       <fieldset>
         <legend class="font-medium">Aseptic technique used:</legend>
         <div class="mt-1 flex flex-col gap-1">
@@ -55,13 +58,36 @@
       <fieldset><legend class="font-medium">Position:</legend><div class="flex gap-5"><label><input type="radio" name="position" value="Lateral"> Lateral</label><label><input type="radio" name="position" value="Sitting"> Sitting</label></div></fieldset>
       <fieldset><legend class="font-medium">Prep/stop/block</legend><div class="flex gap-5"><label><input type="radio" name="prepStopBlock" value="Yes"> Yes</label><label><input type="radio" name="prepStopBlock" value="No"> No</label></div></fieldset>
       <fieldset><legend class="font-medium">USS</legend><div class="flex gap-5"><label><input type="radio" name="uss" value="Yes"> Yes</label><label><input type="radio" name="uss" value="No"> No</label></div></fieldset>
-      <label class="block font-medium">Needle used:
-        <input type="text" id="needle" class="mt-1 w-full rounded border p-2 font-normal">
+      <fieldset>
+        <legend class="font-medium">Local anaesthetic to skin:</legend>
+        <div class="mt-1 flex flex-wrap gap-5">
+          <label><input type="radio" name="skinLocalAnaesthetic" value="None"> None</label>
+          <label><input type="radio" name="skinLocalAnaesthetic" value="Lidocaine 1%"> Lidocaine 1%</label>
+          <label><input type="radio" name="skinLocalAnaesthetic" value="Lidocaine 2%"> Lidocaine 2%</label>
+        </div>
+        <label class="mt-3 block font-medium">Volume:
+          <input type="text" id="skinLocalAnaestheticVolume" placeholder="e.g. 5 mL" class="mt-1 w-full rounded border p-2 font-normal">
+        </label>
+      </fieldset>
+      <label class="block font-medium">Needle used for the block:
+        <input type="text" id="needle" placeholder="e.g. Stimuplex/length, catheter kit, epidural needle" class="mt-1 w-full rounded border p-2 font-normal">
       </label>
       <label class="block font-medium">Local anaesthetic:
-        <textarea id="localAnaesthetic" rows="2" class="mt-1 w-full rounded border p-2 font-normal"></textarea>
+        <textarea id="localAnaesthetic" rows="2" placeholder="e.g. volume, type, strength" class="mt-1 w-full rounded border p-2 font-normal"></textarea>
       </label>
       <fieldset><legend class="font-medium">Catheter inserted:</legend><div class="flex gap-5"><label><input type="radio" name="catheter" value="Yes"> Yes</label><label><input type="radio" name="catheter" value="No"> No</label></div></fieldset>
+      <div id="catheterWardPrompt" class="hidden space-y-4 rounded border border-amber-300 bg-amber-50 p-4">
+        <label class="block font-medium">Length secured at the skin:
+          <input type="text" id="catheterSecuredLength" placeholder="e.g. 10 cm" class="mt-1 w-full rounded border p-2 font-normal">
+        </label>
+        <label class="block font-medium">Is the patient being transferred to an appropriate ward to manage the catheter?
+          <textarea id="catheterWardComment" rows="2" class="mt-1 w-full rounded border p-2 font-normal"></textarea>
+        </label>
+      </div>
+      <fieldset><legend class="font-medium">Difficult procedure?</legend><div class="flex gap-5"><label><input type="radio" name="difficultProcedure" value="Yes"> Yes</label><label><input type="radio" name="difficultProcedure" value="No"> No</label></div></fieldset>
+      <label class="block font-medium">Any other comments:
+        <textarea id="otherComments" rows="3" placeholder="e.g. Please document any challenges and whether good spread of local anaesthetic was seen" class="mt-1 w-full rounded border p-2 font-normal"></textarea>
+      </label>
     </div>
 
     <div class="mt-8 flex flex-wrap gap-3">
@@ -109,7 +135,7 @@
       </ul>
       <h3 style="font-weight:700;margin-top:1rem">ESP block details</h3>
       <ul style="margin:.5rem 0 1rem 1.25rem;list-style:disc">
-        ${row("Aseptic technique", aseptic)}${row("Position", valueOf("position"))}${row("Prep/stop/block", valueOf("prepStopBlock"))}${row("USS", valueOf("uss"))}<li><strong>Needle used:</strong> ${safeText("needle")}</li><li><strong>Local anaesthetic:</strong> ${safeText("localAnaesthetic")}</li>${row("Catheter inserted", valueOf("catheter"))}
+        <li><strong>Indication for the procedure:</strong> ${safeText("indication")}</li>${row("Aseptic technique", aseptic)}${row("Position", valueOf("position"))}${row("Prep/stop/block", valueOf("prepStopBlock"))}${row("USS", valueOf("uss"))}${row("Local anaesthetic to skin", valueOf("skinLocalAnaesthetic"))}<li><strong>Volume:</strong> ${safeText("skinLocalAnaestheticVolume")}</li><li><strong>Needle used for the block:</strong> ${safeText("needle")}</li><li><strong>Local anaesthetic:</strong> ${safeText("localAnaesthetic")}</li>${row("Catheter inserted", valueOf("catheter"))}${valueOf("catheter") === "Yes" ? `<li><strong>Catheter length secured at skin:</strong> ${safeText("catheterSecuredLength")}</li><li><strong>Appropriate ward for catheter management:</strong> ${safeText("catheterWardComment")}</li>` : ""}${row("Difficult procedure", valueOf("difficultProcedure"))}<li><strong>Other comments:</strong> ${safeText("otherComments")}</li>
       </ul>`;
     document.getElementById("outputSection").classList.remove("hidden");
     document.getElementById("copy").disabled = false;
@@ -141,9 +167,19 @@
 
   document.getElementById("generate").addEventListener("click", generateNote);
   document.getElementById("copy").addEventListener("click", copyRichText);
+  document.querySelectorAll('input[name="skinLocalAnaesthetic"]').forEach(input => input.addEventListener("change", () => {
+    const volume = document.getElementById("skinLocalAnaestheticVolume");
+    if (valueOf("skinLocalAnaesthetic") === "None") {
+      volume.value = "N/A";
+    } else if (volume.value === "N/A") {
+      volume.value = "";
+    }
+  }));
+  document.querySelectorAll('input[name="catheter"]').forEach(input => input.addEventListener("change", () => {
+    document.getElementById("catheterWardPrompt").classList.toggle("hidden", valueOf("catheter") !== "Yes");
+  }));
   document.getElementById("proc_date").value = new Date().toISOString().split("T")[0];
 </script>
 </body>
 
 </html>
-
