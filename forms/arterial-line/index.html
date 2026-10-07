@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arterial Line → Clinical Note Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+  <main class="max-w-4xl mx-auto bg-white shadow p-6 rounded">
+    <a href="../index.html" class="text-blue-800 underline">Back to procedure forms</a>
+    <h1 class="text-3xl font-bold my-6">Arterial Line → Clinical Note Generator</h1>
+
+    <form id="arterial-form" class="space-y-4">
+      <h2 class="text-xl font-bold">Record</h2>
+      <div>
+        <label for="operator" class="block font-medium">Operator:</label>
+        <input type="text" id="operator" class="w-full border p-2 rounded">
+      </div>
+      <div>
+        <label for="line_used" class="block font-medium">Line used:</label>
+        <select id="line_used" class="w-full border p-2 rounded">
+          <option value="Vygon 8Fr 16 cm" selected>Vygon 8Fr 16 cm</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div id="other_line_field" hidden>
+        <label for="other_line" class="block font-medium">Other line used:</label>
+        <input type="text" id="other_line" disabled class="w-full border p-2 rounded" placeholder="Enter line details">
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label for="location" class="block font-medium">Location:</label>
+          <select id="location" required class="w-full border p-2 rounded">
+            <option value="">Select artery</option>
+            <option value="radial">Radial</option>
+            <option value="brachial">Brachial</option>
+            <option value="femoral">Femoral</option>
+            <option value="dorsalis pedis">Dorsalis pedis</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div>
+          <label for="side" class="block font-medium">Side:</label>
+          <select id="side" required class="w-full border p-2 rounded">
+            <option value="">Select side</option>
+            <option value="right">Right</option>
+            <option value="left">Left</option>
+          </select>
+        </div>
+      </div>
+      <div id="other_location_field" hidden>
+        <label for="other_location" class="block font-medium">Other artery:</label>
+        <input type="text" id="other_location" disabled class="w-full border p-2 rounded" placeholder="Enter artery name">
+      </div>
+      <div>
+        <label><input type="checkbox" id="antt_chlorhexidine"> ANTT + chlorhexidine used</label>
+      </div>
+      <fieldset>
+        <legend class="font-medium">USS used:</legend>
+        <div class="flex gap-5">
+          <label><input type="radio" name="uss" value="Yes"> Yes</label>
+          <label><input type="radio" name="uss" value="No"> No</label>
+        </div>
+      </fieldset>
+      <div>
+        <label for="local_volume" class="block font-medium">Local: volume of 1% lidocaine (ml)</label>
+        <input type="number" id="local_volume" min="0" step="any" class="w-full border p-2 rounded" placeholder="Volume in ml">
+      </div>
+      <div>
+        <label for="lot_number" class="block font-medium">LOT number:</label>
+        <input type="text" id="lot_number" class="w-full border p-2 rounded">
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Generate Text</button>
+        <button type="button" id="copy" disabled class="bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded disabled:opacity-50">Copy Text</button>
+      </div>
+    </form>
+
+    <label for="output" class="block font-bold mt-6 mb-2">Generated clinical note:</label>
+    <textarea id="output" rows="10" class="w-full border p-3 rounded font-mono" readonly></textarea>
+    <p id="status" role="status" aria-live="polite" class="mt-2 text-sm"></p>
+  </main>
+
+  <script>
+    const form = document.getElementById('arterial-form');
+    const output = document.getElementById('output');
+    const copyButton = document.getElementById('copy');
+    const status = document.getElementById('status');
+    const valueOf = id => document.getElementById(id).value.trim();
+
+    document.getElementById('line_used').addEventListener('change', () => {
+      const other = valueOf('line_used') === 'other';
+      document.getElementById('other_line_field').hidden = !other;
+      document.getElementById('other_line').disabled = !other;
+      document.getElementById('other_line').required = other;
+    });
+
+    document.getElementById('location').addEventListener('change', () => {
+      const other = valueOf('location') === 'other';
+      document.getElementById('other_location_field').hidden = !other;
+      document.getElementById('other_location').disabled = !other;
+      document.getElementById('other_location').required = other;
+    });
+
+    form.addEventListener('input', () => {
+      output.value = '';
+      copyButton.disabled = true;
+      status.textContent = '';
+    });
+
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      const artery = valueOf('location') === 'other' ? valueOf('other_location') : valueOf('location');
+      const arteryName = /\bartery$/i.test(artery) ? artery : `${artery} artery`;
+      const volume = valueOf('local_volume');
+      const line = valueOf('line_used') === 'other' ? valueOf('other_line') : valueOf('line_used');
+      const uss = form.querySelector('input[name="uss"]:checked')?.value || 'Not recorded';
+      output.value = `Arterial line inserted ${valueOf('side')} ${arteryName}\n\n` +
+        `Operator: ${valueOf('operator') || 'Not recorded'}\n` +
+        `Line used: ${line || 'Not recorded'}\n` +
+        `1% local: ${volume !== '' ? `${volume} ml 1% lidocaine` : 'Not recorded'}\n` +
+        `USS: ${uss}\n` +
+        (document.getElementById('antt_chlorhexidine').checked ? 'ANTT + chlorhexidine used\n' : '') +
+        `LOT number of line: ${valueOf('lot_number') || 'Not recorded'}`;
+      copyButton.disabled = false;
+      status.textContent = 'Clinical note generated.';
+    });
+
+    copyButton.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(output.value);
+        status.textContent = 'Clinical note copied to the clipboard.';
+      } catch {
+        output.focus();
+        output.select();
+        status.textContent = 'Could not copy automatically. The note is selected; use your browser’s copy command.';
+      }
+    });
+  </script>
+</body>
+</html>
