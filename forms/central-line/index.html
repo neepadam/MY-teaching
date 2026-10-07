@@ -7,6 +7,11 @@
   <style>
     :root { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; color: #183044; background: #eef3f7; color-scheme: light; }
     * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    .antt-heading { justify-content: space-between; }
+    .select-all-button { width: auto; padding: 8px 12px; background: #eaf3fa; color: #005eb8; }
+    .select-all-button:hover { background: #d9eaf7; }
+    #complications_comments { min-height: 100px; }
     body { margin: 0; }
     .page-header { background: #003b65; color: white; padding: 30px 24px 38px; }
     .header-inner, main { max-width: 1240px; margin: auto; }
@@ -114,7 +119,7 @@
     </div>
   </div>
 
-    
+
       </section>
     <!-- BEFORE THE PROCEDURE -->
     <section class="section-card">
@@ -152,18 +157,16 @@
       </div>
 
       <div>
-        <div class="font-medium">Is there a coagulopathy?</div>
+        <div class="font-medium">Coagulation/platelets and anti-coagulants checked?</div>
         <div class="flex gap-4 mt-1">
           <label class="choice"><input type="checkbox" name="coag" value="Yes" onchange="onlyOne(this)"><span>Yes</span></label>
-          <label class="choice"><input type="checkbox" name="coag" value="No" onchange="onlyOne(this)"><span>No</span></label>
         </div>
       </div>
 
       <div>
-        <div class="font-medium">Known drug allergies?</div>
+        <div class="font-medium">Drug allergies checked?</div>
         <div class="flex gap-4 mt-1">
           <label class="choice"><input type="checkbox" name="allergies" value="Yes" onchange="onlyOne(this)"><span>Yes</span></label>
-          <label class="choice"><input type="checkbox" name="allergies" value="No" onchange="onlyOne(this)"><span>No</span></label>
         </div>
       </div>
 
@@ -178,8 +181,8 @@
       <div>
         <div class="font-medium">Is help required?</div>
         <div class="flex gap-4 mt-1">
-          <label class="choice"><input type="checkbox" name="help" value="Yes" onchange="onlyOne(this)"><span>Yes</span></label>
           <label class="choice"><input type="checkbox" name="help" value="No" onchange="onlyOne(this)"><span>No</span></label>
+          <label class="choice"><input type="checkbox" name="help" value="Yes" onchange="onlyOne(this)"><span>Yes</span></label>
         </div>
       </div>
 
@@ -282,7 +285,7 @@
           <label class="choice"><input type="checkbox" name="pneumo" value="N/A" onchange="onlyOne(this)"><span>N/A</span></label>
         </div>
       </div>
-      
+
 <div class="text-sm mt-1 font-bold text-red-600">
   Correct placement should be checked using at least two of the following methods
 </div>
@@ -329,7 +332,7 @@
 
   <!-- Location of line insertion -->
 
-  
+
 <div>
   <div class="font-medium">Location line inserted:</div>
   <div class="flex flex-col gap-1 mt-1">
@@ -348,7 +351,7 @@
 </div>
 
 
-  
+
   <!-- Indication -->
   <div>
     <div class="font-medium">Indication for insertion:</div>
@@ -373,13 +376,6 @@
     </div>
   </div>
 
-  <!-- Line LOT number -->
-  
-<div>
-  <label class="font-medium" for="lot_number">LOT number:</label>
-  <input type="text" id="lot_number" class="w-full border p-2 rounded" placeholder="Enter LOT number">
-</div>
-
   <!-- Lumens -->
   <div>
     <div class="font-medium">Number of lumens:</div>
@@ -391,6 +387,13 @@
       <label class="choice"><input type="checkbox" name="lumens" value="5" onchange="onlyOne(this)"><span>5</span></label>
     </div>
   </div>
+
+  <!-- Line LOT number -->
+
+<div>
+  <label class="font-medium" for="lot_number">LOT number:</label>
+  <input type="text" id="lot_number" class="w-full border p-2 rounded" placeholder="Enter LOT number">
+</div>
 
   <!-- Side -->
   <div>
@@ -428,7 +431,7 @@
     <label class="choice"><input type="checkbox" name="us_used_multi" value="Not used"><span>Not used</span></label>
   </div>
 </div>
-  
+
   <!-- Length of line and at skin -->
 
   <div>
@@ -448,16 +451,11 @@
   <input id="attempts" type="number" class="border p-2 rounded w-32">
 </div>
 
-<div>
-  <div class="font-medium">Complications:</div>
-  <div class="flex gap-4 mt-1">
-    <label class="choice"><input type="checkbox" name="complications" value="Yes" onchange="onlyOne(this)"><span>Yes</span></label>
-    <label class="choice"><input type="checkbox" name="complications" value="No" onchange="onlyOne(this)"><span>No</span></label>
-  </div>
-</div>
-
   <div>
-  <div class="font-medium">ANTT:</div>
+  <div class="flex antt-heading">
+    <div class="font-medium">ANTT:</div>
+    <button type="button" class="select-all-button" onclick="selectAllAntt()">Select all</button>
+  </div>
   <div class="flex flex-col gap-1 mt-1">
     <label class="choice"><input type="checkbox" name="antt" value="Hand hygiene"><span>Hand hygiene</span></label>
     <label class="choice"><input type="checkbox" name="antt" value="Theatre hat"><span>Theatre hat</span></label>
@@ -473,7 +471,19 @@
   <input id="antt_reason" type="text" class="border p-2 rounded w-full">
 </div>
 
-  
+
+<div>
+  <div class="font-medium">Complications:</div>
+  <div class="flex gap-4 mt-1">
+    <label class="choice"><input type="checkbox" name="complications" value="No" onchange="onlyOne(this); updateComplications()"><span>No</span></label>
+    <label class="choice"><input type="checkbox" name="complications" value="Yes" onchange="onlyOne(this); updateComplications()"><span>Yes</span></label>
+  </div>
+  <div id="complications_comments_field" hidden class="mt-2">
+    <label for="complications_comments" class="font-medium">Complication comments:</label>
+    <textarea id="complications_comments" rows="3" disabled placeholder="Describe complications and management"></textarea>
+  </div>
+</div>
+
 </div>
 
 
@@ -512,6 +522,16 @@ function onlyOne(checkbox) {
   group.forEach(box => {
     if (box !== checkbox) box.checked = false;
   });
+}
+
+function selectAllAntt() {
+  document.getElementsByName('antt').forEach(box => { box.checked = true; });
+}
+
+function updateComplications() {
+  const show = getValue('complications') === 'Yes';
+  document.getElementById('complications_comments_field').hidden = !show;
+  document.getElementById('complications_comments').disabled = !show;
 }
 
 // get selected checkbox value
@@ -556,12 +576,12 @@ output += `Procedure Date: ${ukDate}\n`;
 
   // Line type
   output += `• Central line type: ${getValue("linetype2")}\n`;
-  
-  // LOT nunber
-  output += `LOT number: ${document.getElementById('lot_number').value}\n\n`;
 
   // Lumens
   output += `• Number of lumens: ${getValue("lumens")}\n`;
+
+  // LOT nunber
+  output += `LOT number: ${document.getElementById('lot_number').value}\n\n`;
 
   // Side
   output += `• Side: ${getValue("side")}\n`;
@@ -590,9 +610,6 @@ output += `• Anatomical site: ${anatomicalSite}\n`;
   // Attempts
   output += `• Number of attempts: ${document.getElementById("attempts").value}\n`;
 
-  // Complications
-  output += `• Complications: ${getValue("complications")}\n`;
-
   // ANTT
   const antt_list = Array.from(document.querySelectorAll('input[name="antt"]:checked'))
                          .map(cb => cb.value)
@@ -604,20 +621,27 @@ output += `• Anatomical site: ${anatomicalSite}\n`;
     output += `• ANTT exception reason: ${antt_reason}\n`;
   }
 
+  // Complications
+  output += `• Complications: ${getValue("complications")}\n`;
+  const complicationsComments = document.getElementById('complications_comments').value.trim();
+  if (getValue('complications') === 'Yes' && complicationsComments) {
+    output += `• Complication comments: ${complicationsComments}\n`;
+  }
+
   output += "\n\n\n\n";
 
 // === LINE INSERTION DETAILS ===
   output += "=== SAFETY CHECKLIST ===\n";
 
-  
+
   // BEFORE THE PROCEDURE
   output += "=== BEFORE THE PROCEDURE ===\n";
   output += `• Patient identity checked: ${getValue("identity")}\n`;
   output += `• Consent completed: ${getValue("consent")}\n`;
   output += `• Equipment available: ${getValue("equipment")}\n`;
   output += `• Correct line type/size: ${getValue("linetype")}\n`;
-  output += `• Coagulopathy present: ${getValue("coag")}\n`;
-  output += `• Drug allergies: ${getValue("allergies")}\n`;
+  output += `• Coagulation/platelets and anti-coagulants checked: ${getValue("coag")}\n`;
+  output += `• Drug allergies checked: ${getValue("allergies")}\n`;
   output += `• Infection control: ${getValue("infection")}\n`;
   output += `• Help required: ${getValue("help")}\n\n`;
 
@@ -648,7 +672,7 @@ output += `• Anatomical site: ${anatomicalSite}\n`;
   const arterialGas = document.getElementById("arterial_gas")?.value || "";
   output += `• Paired gases taken: Venous ${venousGas ? venousGas + " mmHg" : "N/A"}, Arterial ${arterialGas ? arterialGas + " mmHg" : "N/A"}\n\n`;
 
-  
+
   // Final
   document.getElementById("output").value = output;
 }
@@ -658,7 +682,7 @@ function copyText() {
   navigator.clipboard.writeText(document.getElementById("output").value);
 }
 </script>
-  
+
 <script>
   window.addEventListener('DOMContentLoaded', () => {
     const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
