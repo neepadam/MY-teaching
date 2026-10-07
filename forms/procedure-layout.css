@@ -9,7 +9,7 @@
     .back-link { color: #cce4f5; font-size: 14px; text-decoration: none; }
     .back-link:hover { text-decoration: underline; }
     .eyebrow { margin: 30px 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #a9d4f0; }
-    h1 { margin: 0; font-size: clamp(30px, 5vw, 42px); letter-spacing: -.035em; line-height: 1.15; }
+    h1 { margin: 0; font-size: clamp(30px, 5vw, 42px); font-weight: 700; letter-spacing: -.035em; line-height: 1.15; }
     .intro { color: #d0e2ef; margin: 12px 0 0; line-height: 1.6; }
     main { padding: 28px 24px 48px; }
     .workspace { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 24px; align-items: start; }
@@ -54,7 +54,7 @@
     .choice input:focus-visible + span { outline: 3px solid #005eb8; outline-offset: 3px; }
     .other-choice { padding: 10px 12px; border: 1px solid #cbd7e1; border-radius: 8px; background: #f8fafc; font-size: 13px; }
     .other-choice:has(input[type="checkbox"]:checked) { background: #dcfce7; border-color: #15803d; }
-    button { font: inherit; font-size: 14px; font-weight: 600; border: 0; border-radius: 8px; padding: 14px 18px; cursor: pointer; width: 100%; }
+    button { font: inherit; font-size: 14px; font-weight: 600; line-height: normal; min-height: 44px; border: 0; border-radius: 8px; padding: 14px 18px; cursor: pointer; width: 100%; }
     button:focus-visible, .back-link:focus-visible { outline: 3px solid #ffcf33; outline-offset: 3px; }
     .generate-button { background: #005eb8; color: white; }
     .generate-button:hover { background: #004b93; }
