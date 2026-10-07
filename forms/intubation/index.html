@@ -11,13 +11,17 @@
 <body>
   <header class="page-header">
     <div class="header-inner">
-      <h1>Intubation Checklist + Clinical Note Generator</h1>
+      <a href="../index.html" class="back-link">← Procedure forms</a>
+      <p class="eyebrow">Bedside procedures · Clinical documentation</p>
+      <h1>Intubation</h1>
+      <p class="intro">Complete the procedure checklist and generate a clinical note.</p>
     </div>
   </header>
   <main>
     <div class="workspace">
     <div class="checklist">
     <section class="section-card">
+    <h2 class="section-heading">Procedure details</h2>
     <!-- Free text fields -->
     <div class="details-grid">
       <div>
@@ -280,11 +284,11 @@
 
       <div>
         <div class="font-medium">Pre-oxygenation technique:</div>
-        <div class="flex flex-col gap-1">
+        <div class="technique-options">
           <label class="choice"><input type="checkbox" name="preox" value="Water's circuit"><span class="choice-box">Water's circuit</span></label>
           <label class="choice"><input type="checkbox" name="preox" value="NIV/CPAP"><span class="choice-box">NIV/CPAP</span></label>
           <label class="choice"><input type="checkbox" name="preox" value="Nasal cannula"><span class="choice-box">Nasal cannula</span></label>
-          <div class="flex items-center gap-2">
+          <div class="technique-other">
             <label class="choice"><input type="checkbox" name="preox" value="Other"><span class="choice-box">Other:</span></label>
             <input type="text" id="preox_other" placeholder="Specify" class="border p-2 rounded w-full">
           </div>
@@ -298,11 +302,11 @@
 
       <div>
         <div class="font-medium">Laryngoscope used:</div>
-        <div class="flex flex-col gap-1">
+        <div class="technique-options">
           <label class="choice"><input type="checkbox" name="laryngoscope" value="Mac 3"><span class="choice-box">Mac 3</span></label>
           <label class="choice"><input type="checkbox" name="laryngoscope" value="Mac 4"><span class="choice-box">Mac 4</span></label>
           <label class="choice"><input type="checkbox" name="laryngoscope" value="Video-laryngoscope"><span class="choice-box">Video-laryngoscope</span></label>
-          <div class="flex items-center gap-2">
+          <div class="technique-other">
             <label class="choice"><input type="checkbox" name="laryngoscope" value="Other"><span class="choice-box">Other:</span></label>
             <input type="text" id="laryngoscope_other" placeholder="Specify" class="border p-2 rounded w-full">
           </div>
@@ -387,6 +391,8 @@
     </div>
     <!-- OUTPUT -->
     <aside class="note-panel" aria-label="Generated clinical note">
+      <h2 class="note-heading"><label for="output">Clinical note</label></h2>
+      <p class="note-hint">Review the generated note, then copy it to your clinical record.</p>
       <textarea id="output" class="w-full h-80 border p-3 rounded font-mono"
                 readonly></textarea>
 

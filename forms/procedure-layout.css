@@ -72,3 +72,8 @@
     textarea:not(#output) { min-height: 100px; font: inherit; font-size: 14px; }
     .section-content > .font-bold { padding-bottom: 10px; color: #003b65; border-bottom: 2px solid #dce5ed; }
     .choice { display: inline-block; margin-top: 8px; margin-right: 4px; vertical-align: top; }
+    .technique-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+    .technique-options .choice { display: block; margin: 0; }
+    .technique-options .choice-box { height: 100%; min-height: 52px; }
+    .technique-other { grid-column: 1 / -1; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: stretch; }
+    @media (max-width: 480px) { .technique-options { grid-template-columns: 1fr; } .technique-other { grid-template-columns: 1fr; } }
