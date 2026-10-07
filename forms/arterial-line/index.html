@@ -64,8 +64,7 @@
         </div>
       </fieldset>
       <div>
-        <label for="local_volume" class="block font-medium">Local: volume of 1% lidocaine (ml)</label>
-        <input type="number" id="local_volume" min="0" step="any" class="w-full border p-2 rounded" placeholder="Volume in ml">
+        <label><input type="checkbox" id="local_administered"> Local anaesthetic administered</label>
       </div>
       <div>
         <label for="lot_number" class="block font-medium">LOT number:</label>
@@ -113,13 +112,12 @@
       event.preventDefault();
       const artery = valueOf('location') === 'other' ? valueOf('other_location') : valueOf('location');
       const arteryName = /\bartery$/i.test(artery) ? artery : `${artery} artery`;
-      const volume = valueOf('local_volume');
       const line = valueOf('line_used') === 'other' ? valueOf('other_line') : valueOf('line_used');
       const uss = form.querySelector('input[name="uss"]:checked')?.value || 'Not recorded';
       output.value = `Arterial line inserted ${valueOf('side')} ${arteryName}\n\n` +
         `Operator: ${valueOf('operator') || 'Not recorded'}\n` +
         `Line used: ${line || 'Not recorded'}\n` +
-        `1% local: ${volume !== '' ? `${volume} ml 1% lidocaine` : 'Not recorded'}\n` +
+        (document.getElementById('local_administered').checked ? 'Local anaesthetic administered\n' : '') +
         `USS: ${uss}\n` +
         (document.getElementById('antt_chlorhexidine').checked ? 'ANTT + chlorhexidine used\n' : '') +
         `LOT number of line: ${valueOf('lot_number') || 'Not recorded'}`;
@@ -140,5 +138,4 @@
   </script>
 </body>
 </html>
-
 
