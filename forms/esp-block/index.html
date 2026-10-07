@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ESP Block Checklist + Clinical Note Generator</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../form-styles.css">
 </head>
 <body class="bg-gray-100 p-4 sm:p-6">
-  <main class="mx-auto max-w-4xl rounded bg-white p-6 shadow">
-    <h1 class="mb-6 text-3xl font-bold">ESP Block Checklist + Clinical Note Generator</h1>
+  <main class="clinical-shell mx-auto max-w-4xl rounded bg-white p-6 shadow">
+    <h1 class="clinical-title mb-6 text-3xl font-bold">ESP Block Checklist + Clinical Note Generator</h1>
 
     <div class="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
       <label class="font-medium">Procedure Date:
@@ -28,20 +29,20 @@
       </label>
     </div>
 
-    <h2 class="mt-4 bg-red-600 p-2 text-xl font-bold text-white">BEFORE THE PROCEDURE</h2>
+    <h2 class="clinical-section-title mt-4 bg-red-600 p-2 text-xl font-bold text-white">BEFORE THE PROCEDURE</h2>
     <div class="mt-4 space-y-5">
-      <fieldset><legend class="font-medium">Team members introduce themselves and allocate roles</legend><label><input type="radio" name="teamIntro" value="Yes"> Yes</label></fieldset>
-      <fieldset><legend class="font-medium">Patient identity checked?</legend><label><input type="radio" name="identity" value="Yes"> Yes</label></fieldset>
-      <fieldset><legend class="font-medium">Appropriate consent completed?</legend><label><input type="radio" name="consent" value="Yes"> Yes</label></fieldset>
-      <fieldset><legend class="font-medium">Procedure + site confirmed by patient/consent?</legend><label><input type="radio" name="siteConfirm" value="Yes"> Yes</label></fieldset>
-      <fieldset><legend class="font-medium">Site marked &amp; checked against imaging/consent?</legend><label><input type="radio" name="siteMarked" value="Yes"> Yes</label></fieldset>
-      <fieldset><legend class="font-medium">Operator discussed plan (sedation/analgesia/FiO₂)?</legend><label><input type="radio" name="planDiscussed" value="Yes"> Yes</label></fieldset>
-      <fieldset><legend class="font-medium">Known drug allergies?</legend><div class="flex gap-5"><label><input type="radio" name="allergies" value="Yes"> Yes</label><label><input type="radio" name="allergies" value="No"> No</label></div></fieldset>
-      <fieldset><legend class="font-medium">Coagulopathy? (drugs/labs)</legend><div class="flex gap-5"><label><input type="radio" name="coagulopathy" value="Yes"> Yes</label><label><input type="radio" name="coagulopathy" value="No"> No</label></div></fieldset>
-      <fieldset><legend class="font-medium">Any contraindications?</legend><div class="flex gap-5"><label><input type="radio" name="contraindications" value="Yes"> Yes</label><label><input type="radio" name="contraindications" value="No"> No</label></div></fieldset>
+      <fieldset><legend class="font-medium">Team members introduce themselves and allocate roles</legend><label class="clinical-choice"><input type="radio" name="teamIntro" value="Yes"><span class="clinical-choice-box">Yes</span></label></fieldset>
+      <fieldset><legend class="font-medium">Patient identity checked?</legend><label class="clinical-choice"><input type="radio" name="identity" value="Yes"><span class="clinical-choice-box">Yes</span></label></fieldset>
+      <fieldset><legend class="font-medium">Appropriate consent completed?</legend><label class="clinical-choice"><input type="radio" name="consent" value="Yes"><span class="clinical-choice-box">Yes</span></label></fieldset>
+      <fieldset><legend class="font-medium">Procedure + site confirmed by patient/consent?</legend><label class="clinical-choice"><input type="radio" name="siteConfirm" value="Yes"><span class="clinical-choice-box">Yes</span></label></fieldset>
+      <fieldset><legend class="font-medium">Site marked &amp; checked against imaging/consent?</legend><label class="clinical-choice"><input type="radio" name="siteMarked" value="Yes"><span class="clinical-choice-box">Yes</span></label></fieldset>
+      <fieldset><legend class="font-medium">Operator discussed plan (sedation/analgesia/FiO₂)?</legend><label class="clinical-choice"><input type="radio" name="planDiscussed" value="Yes"><span class="clinical-choice-box">Yes</span></label></fieldset>
+      <fieldset><legend class="font-medium">Known drug allergies?</legend><div class="flex gap-5"><label class="clinical-choice"><input type="radio" name="allergies" value="Yes"><span class="clinical-choice-box">Yes</span></label><label class="clinical-choice"><input type="radio" name="allergies" value="No"><span class="clinical-choice-box">No</span></label></div></fieldset>
+      <fieldset><legend class="font-medium">Coagulopathy? (drugs/labs)</legend><div class="flex gap-5"><label class="clinical-choice"><input type="radio" name="coagulopathy" value="Yes"><span class="clinical-choice-box">Yes</span></label><label class="clinical-choice"><input type="radio" name="coagulopathy" value="No"><span class="clinical-choice-box">No</span></label></div></fieldset>
+      <fieldset><legend class="font-medium">Any contraindications?</legend><div class="flex gap-5"><label class="clinical-choice"><input type="radio" name="contraindications" value="Yes"><span class="clinical-choice-box">Yes</span></label><label class="clinical-choice"><input type="radio" name="contraindications" value="No"><span class="clinical-choice-box">No</span></label></div></fieldset>
     </div>
 
-    <h2 class="mt-8 bg-purple-600 p-2 text-xl font-bold text-white">PROCEDURE DETAILS</h2>
+    <h2 class="clinical-section-title mt-8 bg-purple-600 p-2 text-xl font-bold text-white">PROCEDURE DETAILS</h2>
     <div class="mt-4 space-y-5">
       <label class="block font-medium">Indication for the procedure:
         <textarea id="indication" rows="2" placeholder="e.g. Analgesia for rib fractures" class="mt-1 w-full rounded border p-2 font-normal"></textarea>
@@ -49,22 +50,22 @@
       <fieldset>
         <legend class="font-medium">Aseptic technique used:</legend>
         <div class="mt-1 flex flex-col gap-1">
-          <label><input type="checkbox" name="aseptic" value="Sterile gloves"> Sterile gloves</label>
-          <label><input type="checkbox" name="aseptic" value="Hat &amp; mask"> Hat &amp; mask</label>
-          <label><input type="checkbox" name="aseptic" value="Sterile drape"> Sterile drape</label>
-          <label><input type="checkbox" name="aseptic" value="0.5% chlorhexidine"> 0.5% chlorhexidine</label>
+          <label class="clinical-choice"><input type="checkbox" name="aseptic" value="Sterile gloves"><span class="clinical-choice-box">Sterile gloves</span></label>
+          <label class="clinical-choice"><input type="checkbox" name="aseptic" value="Hat &amp; mask"><span class="clinical-choice-box">Hat &amp; mask</span></label>
+          <label class="clinical-choice"><input type="checkbox" name="aseptic" value="Sterile drape"><span class="clinical-choice-box">Sterile drape</span></label>
+          <label class="clinical-choice"><input type="checkbox" name="aseptic" value="0.5% chlorhexidine"><span class="clinical-choice-box">0.5% chlorhexidine</span></label>
         </div>
       </fieldset>
-      <fieldset><legend class="font-medium">Procedure performed under:</legend><div class="flex flex-wrap gap-5"><label><input type="radio" name="anaesthesiaState" value="GA"> GA</label><label><input type="radio" name="anaesthesiaState" value="Sedation"> Sedation</label><label><input type="radio" name="anaesthesiaState" value="Awake"> Awake</label></div></fieldset>
-      <fieldset><legend class="font-medium">Position:</legend><div class="flex gap-5"><label><input type="radio" name="position" value="Lateral"> Lateral</label><label><input type="radio" name="position" value="Sitting"> Sitting</label></div></fieldset>
-      <fieldset><legend class="font-medium">Prep/stop/block</legend><div class="flex gap-5"><label><input type="radio" name="prepStopBlock" value="Yes"> Yes</label><label><input type="radio" name="prepStopBlock" value="No"> No</label></div></fieldset>
-      <fieldset><legend class="font-medium">USS</legend><div class="flex gap-5"><label><input type="radio" name="uss" value="Yes"> Yes</label><label><input type="radio" name="uss" value="No"> No</label></div></fieldset>
+      <fieldset><legend class="font-medium">Procedure performed under:</legend><div class="flex flex-wrap gap-5"><label class="clinical-choice"><input type="radio" name="anaesthesiaState" value="GA"><span class="clinical-choice-box">GA</span></label><label class="clinical-choice"><input type="radio" name="anaesthesiaState" value="Sedation"><span class="clinical-choice-box">Sedation</span></label><label class="clinical-choice"><input type="radio" name="anaesthesiaState" value="Awake"><span class="clinical-choice-box">Awake</span></label></div></fieldset>
+      <fieldset><legend class="font-medium">Position:</legend><div class="flex gap-5"><label class="clinical-choice"><input type="radio" name="position" value="Lateral"><span class="clinical-choice-box">Lateral</span></label><label class="clinical-choice"><input type="radio" name="position" value="Sitting"><span class="clinical-choice-box">Sitting</span></label></div></fieldset>
+      <fieldset><legend class="font-medium">Prep/stop/block</legend><div class="flex gap-5"><label class="clinical-choice"><input type="radio" name="prepStopBlock" value="Yes"><span class="clinical-choice-box">Yes</span></label><label class="clinical-choice"><input type="radio" name="prepStopBlock" value="No"><span class="clinical-choice-box">No</span></label></div></fieldset>
+      <fieldset><legend class="font-medium">USS</legend><div class="flex gap-5"><label class="clinical-choice"><input type="radio" name="uss" value="Yes"><span class="clinical-choice-box">Yes</span></label><label class="clinical-choice"><input type="radio" name="uss" value="No"><span class="clinical-choice-box">No</span></label></div></fieldset>
       <fieldset>
         <legend class="font-medium">Local anaesthetic to skin:</legend>
         <div class="mt-1 flex flex-wrap gap-5">
-          <label><input type="radio" name="skinLocalAnaesthetic" value="None"> None</label>
-          <label><input type="radio" name="skinLocalAnaesthetic" value="Lidocaine 1%"> Lidocaine 1%</label>
-          <label><input type="radio" name="skinLocalAnaesthetic" value="Lidocaine 2%"> Lidocaine 2%</label>
+          <label class="clinical-choice"><input type="radio" name="skinLocalAnaesthetic" value="None"><span class="clinical-choice-box">None</span></label>
+          <label class="clinical-choice"><input type="radio" name="skinLocalAnaesthetic" value="Lidocaine 1%"><span class="clinical-choice-box">Lidocaine 1%</span></label>
+          <label class="clinical-choice"><input type="radio" name="skinLocalAnaesthetic" value="Lidocaine 2%"><span class="clinical-choice-box">Lidocaine 2%</span></label>
         </div>
         <label class="mt-3 block font-medium">Volume:
           <input type="text" id="skinLocalAnaestheticVolume" placeholder="e.g. 5 mL" class="mt-1 w-full rounded border p-2 font-normal">
@@ -76,7 +77,7 @@
       <label class="block font-medium">Local anaesthetic:
         <textarea id="localAnaesthetic" rows="2" placeholder="e.g. volume, type, strength" class="mt-1 w-full rounded border p-2 font-normal"></textarea>
       </label>
-      <fieldset><legend class="font-medium">Catheter inserted:</legend><div class="flex gap-5"><label><input type="radio" name="catheter" value="Yes"> Yes</label><label><input type="radio" name="catheter" value="No"> No</label></div></fieldset>
+      <fieldset><legend class="font-medium">Catheter inserted:</legend><div class="flex gap-5"><label class="clinical-choice"><input type="radio" name="catheter" value="Yes"><span class="clinical-choice-box">Yes</span></label><label class="clinical-choice"><input type="radio" name="catheter" value="No"><span class="clinical-choice-box">No</span></label></div></fieldset>
       <div id="catheterWardPrompt" class="hidden space-y-4 rounded border border-amber-300 bg-amber-50 p-4">
         <label class="block font-medium">Length secured at the skin:
           <input type="text" id="catheterSecuredLength" placeholder="e.g. 10 cm" class="mt-1 w-full rounded border p-2 font-normal">
@@ -85,7 +86,7 @@
           <textarea id="catheterWardComment" rows="2" class="mt-1 w-full rounded border p-2 font-normal"></textarea>
         </label>
       </div>
-      <fieldset><legend class="font-medium">Difficult procedure?</legend><div class="flex gap-5"><label><input type="radio" name="difficultProcedure" value="Yes"> Yes</label><label><input type="radio" name="difficultProcedure" value="No"> No</label></div></fieldset>
+      <fieldset><legend class="font-medium">Difficult procedure?</legend><div class="flex gap-5"><label class="clinical-choice"><input type="radio" name="difficultProcedure" value="Yes"><span class="clinical-choice-box">Yes</span></label><label class="clinical-choice"><input type="radio" name="difficultProcedure" value="No"><span class="clinical-choice-box">No</span></label></div></fieldset>
       <label class="block font-medium">Any other comments:
         <textarea id="otherComments" rows="3" placeholder="e.g. Please document any challenges and whether good spread of local anaesthetic was seen" class="mt-1 w-full rounded border p-2 font-normal"></textarea>
       </label>
@@ -98,7 +99,7 @@
     <p id="status" class="mt-2 min-h-6 text-sm text-gray-600" aria-live="polite"></p>
 
     <section id="outputSection" class="mt-6 hidden" aria-labelledby="outputHeading">
-      <h2 id="outputHeading" class="text-xl font-bold">Generated clinical note</h2>
+      <h2 id="outputHeading" class="clinical-section-title text-xl font-bold">Generated clinical note</h2>
       <div id="output" class="mt-3 min-h-64 rounded border bg-gray-50 p-5 leading-7"></div>
       <button id="copyBottom" type="button" class="mt-3 rounded bg-green-600 px-4 py-2 font-semibold text-white hover:bg-green-700">Copy</button>
       <p class="mt-3 text-sm text-gray-700">Paste this note into the patient PPM record and set the title as <strong>“ESP block”</strong>.</p>

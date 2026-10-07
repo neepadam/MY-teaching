@@ -4,18 +4,20 @@
 <meta charset="UTF-8">
 <title>FUSIC-Heart Echo Note Generator</title>
 <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../form-styles.css">
 </head>
 
 <body class="bg-gray-100 p-6">
 
-<div class="max-w-4xl mx-auto bg-white shadow p-6 rounded">
+<div class="clinical-shell max-w-4xl mx-auto bg-white shadow p-6 rounded">
 
-<h1 class="text-3xl font-bold mb-6">
+<h1 class="clinical-title text-3xl font-bold mb-6">
 FUSIC-Heart Echo → Clinical Note Generator
 </h1>
 
 <!-- SCAN DETAILS -->
-<h2 class="text-xl font-bold bg-blue-600 text-white p-2">SCAN DETAILS</h2>
+<h2 class="clinical-section-title text-xl font-bold bg-blue-600 text-white p-2">SCAN DETAILS</h2>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 
@@ -27,8 +29,8 @@ FUSIC-Heart Echo → Clinical Note Generator
   <div>
     <label class="font-medium">FUSIC-Heart Accredited?</label>
     <div class="flex gap-4 mt-1">
-      <label><input type="checkbox" name="fusic" value="Yes" onchange="onlyOne(this)"> Yes</label>
-      <label><input type="checkbox" name="fusic" value="No" onchange="onlyOne(this)"> No</label>
+      <label class="clinical-choice"><input type="checkbox" name="fusic" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
+      <label class="clinical-choice"><input type="checkbox" name="fusic" value="No" onchange="onlyOne(this)"><span class="clinical-choice-box">No</span></label>
     </div>
   </div>
 
@@ -40,16 +42,16 @@ FUSIC-Heart Echo → Clinical Note Generator
 </div>
 
 <!-- PHYSIOLOGY -->
-<h2 class="text-xl font-bold bg-gray-700 text-white p-2 mt-6">PHYSIOLOGICAL STATUS</h2>
+<h2 class="clinical-section-title text-xl font-bold bg-gray-700 text-white p-2 mt-6">PHYSIOLOGICAL STATUS</h2>
 
 <div class="grid grid-cols-1 gap-4 mt-4">
 
   <div>
     <div class="font-medium">Ventilation</div>
     <div class="flex gap-4 mt-1">
-      <label><input type="checkbox" name="vent" value="IPPV" onchange="onlyOne(this)"> IPPV</label>
-      <label><input type="checkbox" name="vent" value="PSV" onchange="onlyOne(this)"> PSV</label>
-      <label><input type="checkbox" name="vent" value="Spontaneous" onchange="onlyOne(this)"> Spontaneous</label>
+      <label class="clinical-choice"><input type="checkbox" name="vent" value="IPPV" onchange="onlyOne(this)"><span class="clinical-choice-box">IPPV</span></label>
+      <label class="clinical-choice"><input type="checkbox" name="vent" value="PSV" onchange="onlyOne(this)"><span class="clinical-choice-box">PSV</span></label>
+      <label class="clinical-choice"><input type="checkbox" name="vent" value="Spontaneous" onchange="onlyOne(this)"><span class="clinical-choice-box">Spontaneous</span></label>
     </div>
   </div>
 
@@ -63,14 +65,14 @@ FUSIC-Heart Echo → Clinical Note Generator
 </div>
 
 <!-- VIEWS -->
-<h2 class="text-xl font-bold bg-purple-600 text-white p-2 mt-6">VIEWS OBTAINED</h2>
+<h2 class="clinical-section-title text-xl font-bold bg-purple-600 text-white p-2 mt-6">VIEWS OBTAINED</h2>
 
 <div class="mt-4 flex flex-col gap-1">
-  <label><input type="checkbox" name="views" value="PLAX"> PLAX</label>
-  <label><input type="checkbox" name="views" value="PSAX"> PSAX</label>
-  <label><input type="checkbox" name="views" value="A4C"> A4C</label>
-  <label><input type="checkbox" name="views" value="Subcostal"> Subcostal</label>
-  <label><input type="checkbox" name="views" value="IVC"> IVC</label>
+  <label class="clinical-choice"><input type="checkbox" name="views" value="PLAX"><span class="clinical-choice-box">PLAX</span></label>
+  <label class="clinical-choice"><input type="checkbox" name="views" value="PSAX"><span class="clinical-choice-box">PSAX</span></label>
+  <label class="clinical-choice"><input type="checkbox" name="views" value="A4C"><span class="clinical-choice-box">A4C</span></label>
+  <label class="clinical-choice"><input type="checkbox" name="views" value="Subcostal"><span class="clinical-choice-box">Subcostal</span></label>
+  <label class="clinical-choice"><input type="checkbox" name="views" value="IVC"><span class="clinical-choice-box">IVC</span></label>
   <label class="flex gap-2 items-center">
     <input type="checkbox" name="views" value="Other"> Other
     <input id="views_other" class="border p-1 rounded w-48">
@@ -78,16 +80,16 @@ FUSIC-Heart Echo → Clinical Note Generator
 </div>
 
 <!-- IMAGE QUALITY -->
-<h2 class="text-xl font-bold bg-yellow-500 text-black p-2 mt-6">IMAGE QUALITY</h2>
+<h2 class="clinical-section-title text-xl font-bold bg-yellow-500 text-black p-2 mt-6">IMAGE QUALITY</h2>
 
 <div class="flex gap-4 mt-3">
-  <label><input type="checkbox" name="iq" value="Good" onchange="onlyOne(this)"> Good</label>
-  <label><input type="checkbox" name="iq" value="Acceptable" onchange="onlyOne(this)"> Acceptable</label>
-  <label><input type="checkbox" name="iq" value="Poor" onchange="onlyOne(this)"> Poor</label>
+  <label class="clinical-choice"><input type="checkbox" name="iq" value="Good" onchange="onlyOne(this)"><span class="clinical-choice-box">Good</span></label>
+  <label class="clinical-choice"><input type="checkbox" name="iq" value="Acceptable" onchange="onlyOne(this)"><span class="clinical-choice-box">Acceptable</span></label>
+  <label class="clinical-choice"><input type="checkbox" name="iq" value="Poor" onchange="onlyOne(this)"><span class="clinical-choice-box">Poor</span></label>
 </div>
 
 <!-- FINDINGS -->
-<h2 class="text-xl font-bold bg-indigo-600 text-white p-2 mt-6">FINDINGS</h2>
+<h2 class="clinical-section-title text-xl font-bold bg-indigo-600 text-white p-2 mt-6">FINDINGS</h2>
 
 <div class="grid grid-cols-1 gap-4 mt-4">
 
@@ -117,20 +119,20 @@ document.write(findings.map(f => `
 </div>
 
 <!-- FREE TEXT -->
-<h2 class="text-xl font-bold bg-gray-800 text-white p-2 mt-6">ADDITIONAL FINDINGS</h2>
+<h2 class="clinical-section-title text-xl font-bold bg-gray-800 text-white p-2 mt-6">ADDITIONAL FINDINGS</h2>
 <textarea id="extra" class="w-full border p-2 rounded mt-2 h-24"></textarea>
 
 <!-- DISCUSSION -->
 <div class="mt-4">
   <label class="font-medium">Discussed with supervisor?</label>
   <div class="flex gap-4 mt-1">
-    <label><input type="checkbox" name="disc" value="Yes" onchange="onlyOne(this)"> Yes</label>
-    <label><input type="checkbox" name="disc" value="No" onchange="onlyOne(this)"> No</label>
+    <label class="clinical-choice"><input type="checkbox" name="disc" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
+    <label class="clinical-choice"><input type="checkbox" name="disc" value="No" onchange="onlyOne(this)"><span class="clinical-choice-box">No</span></label>
   </div>
 </div>
 
 <!-- CONCLUSION -->
-<h2 class="text-xl font-bold bg-green-600 text-white p-2 mt-6">
+<h2 class="clinical-section-title text-xl font-bold bg-green-600 text-white p-2 mt-6">
 Conclusion / Suggested Actions
 </h2>
 

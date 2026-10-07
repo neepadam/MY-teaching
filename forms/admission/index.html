@@ -4,15 +4,17 @@
 <meta charset="UTF-8">
 <title>ICU Admission Note Generator</title>
 <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../form-styles.css">
 </head>
 
 <body class="bg-gray-100 p-6">
 
-<div class="max-w-4xl mx-auto bg-white shadow p-6 rounded">
-<h1 class="text-3xl font-bold mb-6">ICU Admission Note Generator</h1>
+<div class="clinical-shell max-w-4xl mx-auto bg-white shadow p-6 rounded">
+<h1 class="clinical-title text-3xl font-bold mb-6">ICU Admission Note Generator</h1>
 
 <!-- RESPONSIBILITY -->
-<h2 class="text-xl font-bold bg-blue-600 text-white p-2 mt-6 rounded">
+<h2 class="clinical-section-title text-xl font-bold bg-blue-600 text-white p-2 mt-6 rounded">
   RESPONSIBILITY
 </h2>
 
@@ -36,9 +38,9 @@
   <!-- Referring aware -->
 <label class="block font-semibold mb-1">Referring consultant aware?</label>
 <div class="flex gap-4">
-  <label><input type="radio" name="ref_aware" value="Yes"> Yes</label>
-  <label><input type="radio" name="ref_aware" value="No"> No</label>
-  <label><input type="radio" name="ref_aware" value="Unknown"> Unknown</label>
+  <label class="clinical-choice"><input type="radio" name="ref_aware" value="Yes"><span class="clinical-choice-box">Yes</span></label>
+  <label class="clinical-choice"><input type="radio" name="ref_aware" value="No"><span class="clinical-choice-box">No</span></label>
+  <label class="clinical-choice"><input type="radio" name="ref_aware" value="Unknown"><span class="clinical-choice-box">Unknown</span></label>
 </div>
 
   <!-- ICM consultant -->
@@ -50,9 +52,9 @@
   <!-- ICM aware -->
 <label class="block font-semibold mb-1">ICM consultant aware?</label>
 <div class="flex gap-4">
-  <label><input type="radio" name="icu_aware" value="Yes"> Yes</label>
-  <label><input type="radio" name="icu_aware" value="No"> No</label>
-  <label><input type="radio" name="icu_aware" value="Unknown"> Unknown</label>
+  <label class="clinical-choice"><input type="radio" name="icu_aware" value="Yes"><span class="clinical-choice-box">Yes</span></label>
+  <label class="clinical-choice"><input type="radio" name="icu_aware" value="No"><span class="clinical-choice-box">No</span></label>
+  <label class="clinical-choice"><input type="radio" name="icu_aware" value="Unknown"><span class="clinical-choice-box">Unknown</span></label>
 </div>
 
   <!-- Admitting practitioner -->
@@ -76,7 +78,7 @@
 </div>
 
 <!-- ICNARC -->
-<h2 class="text-xl font-bold bg-purple-600 text-white p-2 mt-6">ICNARC / AUDIT</h2>
+<h2 class="clinical-section-title text-xl font-bold bg-purple-600 text-white p-2 mt-6">ICNARC / AUDIT</h2>
 
 <p class="mt-2 text-sm text-red-700 font-semibold">
   This information is collected nationally. It is imperative that this data is recorded on the admission document.
@@ -134,7 +136,7 @@
 
 </div>
 <!-- PRE ADMISSION OBSERVATIONS -->
-<h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-6">PRE ADMISSION OBSERVATIONS</h2>
+<h2 class="clinical-section-title text-xl font-bold bg-red-600 text-white p-2 mt-6">PRE ADMISSION OBSERVATIONS</h2>
 
 <p class="mt-2 text-sm bg-yellow-200 border-2 border-yellow-500 p-3 rounded font-semibold">
   Please document the last recorded observations prior to the delivery of any critical care expertise.
@@ -223,7 +225,7 @@
 </div>
 
 <!-- CHECKS -->
-<h2 class="text-xl font-bold bg-green-600 text-white p-2 mt-6">CHECKS</h2>
+<h2 class="clinical-section-title text-xl font-bold bg-green-600 text-white p-2 mt-6">CHECKS</h2>
 <div class="mt-4 space-y-3">
 
   <label class="block">
@@ -241,7 +243,7 @@
 </div>
 
 <!-- CLINICAL -->
-<h2 class="text-xl font-bold bg-gray-700 text-white p-2 mt-6">CLINICAL</h2>
+<h2 class="clinical-section-title text-xl font-bold bg-gray-700 text-white p-2 mt-6">CLINICAL</h2>
 <textarea id="allergies" placeholder="Allergies" class="w-full border p-2 mt-2"></textarea>
 <textarea id="diagnosis" placeholder="ICU Diagnosis" class="w-full border p-2 mt-2"></textarea>
 <textarea id="presenting" placeholder="Presenting complaint" class="w-full border p-2 mt-2"></textarea>
@@ -249,7 +251,7 @@
 <input id="frailty" placeholder="Frailty (CFS score)" class="border p-2 rounded mt-2">
 
 <!-- EXAMINATION -->
-<h2 class="text-xl font-bold bg-gray-700 text-white p-2 mt-6">EXAMINATION</h2>
+<h2 class="clinical-section-title text-xl font-bold bg-gray-700 text-white p-2 mt-6">EXAMINATION</h2>
 
 <div class="mt-4 space-y-3">
 
@@ -325,7 +327,7 @@
 
 </div>
   
-<h2 class="text-xl font-bold bg-indigo-600 text-white p-2 mt-6">PLAN</h2>
+<h2 class="clinical-section-title text-xl font-bold bg-indigo-600 text-white p-2 mt-6">PLAN</h2>
 
 <div class="mt-4">
   <label class="block text-sm font-semibold">Plan</label>

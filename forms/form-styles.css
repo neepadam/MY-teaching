@@ -1,0 +1,165 @@
+/* Shared presentation for the clinical forms; section colours remain local. */
+body:has(.clinical-shell) {
+  background: #eef3f7;
+  color: #183044;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  padding: 28px 24px 48px;
+}
+.clinical-shell {
+  max-width: 1040px;
+  padding: 28px;
+  background: transparent;
+  border-radius: 16px;
+  box-shadow: none;
+}
+.clinical-shell .clinical-title {
+  margin: -28px -28px 28px;
+  padding: 32px 28px;
+  background: #003b65;
+  color: white;
+  border-radius: 16px;
+  font-size: clamp(26px, 4vw, 38px);
+  line-height: 1.25;
+  letter-spacing: -.03em;
+}
+.clinical-shell .clinical-section-title {
+  margin-top: 26px;
+  margin-bottom: 0;
+  padding: 17px 22px;
+  border-radius: 12px 12px 0 0;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: .025em;
+}
+.clinical-shell .clinical-section-title + div {
+  margin-top: 0;
+  margin-bottom: 22px;
+  padding: 22px;
+  background: white;
+  border: 1px solid #dce5ed;
+  border-top: 0;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 5px 20px #18304406;
+}
+.clinical-shell > .grid,
+.clinical-shell > div.grid,
+.clinical-shell > div.space-y-4 {
+  padding: 22px;
+  background: white;
+  border: 1px solid #dce5ed;
+  border-radius: 12px;
+}
+.clinical-shell details {
+  background: white;
+  border: 1px solid #dce5ed;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px #18304406;
+}
+.clinical-shell summary {
+  padding: 17px 22px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.clinical-shell input:not([type="checkbox"]):not([type="radio"]),
+.clinical-shell select,
+.clinical-shell textarea {
+  min-width: 0;
+  max-width: 100%;
+  border: 1px solid #cbd7e1;
+  border-radius: 8px;
+  background: white;
+  padding: 11px 12px;
+  color: #183044;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.clinical-shell input:not([type="checkbox"]):not([type="radio"]),
+.clinical-shell select { min-height: 44px; }
+.clinical-shell input:focus,
+.clinical-shell select:focus,
+.clinical-shell textarea:focus {
+  outline: 3px solid #005eb829;
+  border-color: #005eb8;
+}
+.clinical-shell input[type="checkbox"],
+.clinical-shell input[type="radio"] { accent-color: #15803d; }
+.clinical-shell .clinical-choice { position: relative; cursor: pointer; }
+.clinical-shell .clinical-choice > input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.clinical-shell .clinical-choice-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid #cbd7e1;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #42596b;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+  transition: background .15s, border-color .15s;
+}
+.clinical-shell .clinical-choice-box::before { content: '+'; color: #7b8c9b; }
+.clinical-shell .clinical-choice:hover .clinical-choice-box { border-color: #8398aa; }
+.clinical-shell .clinical-choice input:checked + .clinical-choice-box {
+  background: #dcfce7;
+  border-color: #15803d;
+  color: #14532d;
+}
+.clinical-shell .clinical-choice input:checked + .clinical-choice-box::before {
+  content: '✓';
+  color: #15803d;
+}
+.clinical-shell .clinical-choice input:focus-visible + .clinical-choice-box {
+  outline: 3px solid #005eb8;
+  outline-offset: 3px;
+}
+.clinical-shell .clinical-choice input:disabled + .clinical-choice-box {
+  opacity: .5;
+  cursor: default;
+}
+.clinical-shell .flex:has(> .clinical-choice) { flex-wrap: wrap; gap: 10px; }
+.clinical-shell button {
+  min-height: 44px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.clinical-shell button:focus-visible,
+.clinical-shell summary:focus-visible {
+  outline: 3px solid #ffcf33;
+  outline-offset: 3px;
+}
+.clinical-shell #output {
+  border: 1px solid #dce5ed;
+  border-radius: 12px;
+  background: white;
+  padding: 22px;
+  line-height: 1.8;
+  box-shadow: 0 5px 20px #18304406;
+}
+.clinical-shell textarea#output { background: #f8fafc; }
+@media (max-width: 600px) {
+  body:has(.clinical-shell) { padding: 18px 12px 30px; }
+  .clinical-shell { padding: 0; }
+  .clinical-shell .clinical-title { margin: 0 0 22px; padding: 26px 20px; }
+  .clinical-shell .clinical-section-title,
+  .clinical-shell summary { padding: 16px 18px; }
+  .clinical-shell .clinical-section-title + div { padding: 18px; }
+  .clinical-shell #output { padding: 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .clinical-shell .clinical-choice-box { transition: none; }
+}

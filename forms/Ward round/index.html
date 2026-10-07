@@ -7,13 +7,14 @@
   <title>ICU Daily Ward Round Note Generator</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../form-styles.css">
 </head>
 
 <body class="bg-gray-100 p-4 md:p-6">
 
-  <div class="max-w-5xl mx-auto bg-white shadow-lg p-5 md:p-8 rounded-lg">
+  <div class="clinical-shell max-w-5xl mx-auto bg-white shadow-lg p-5 md:p-8 rounded-lg">
 
-    <h1 class="text-3xl font-bold mb-2">
+    <h1 class="clinical-title text-3xl font-bold mb-2">
       ICU Daily Ward Round → Clinical Note Generator
     </h1>
 
@@ -423,8 +424,8 @@
         <div>
           <div class="font-medium mb-2">Cardiovascular support:</div>
           <div class="flex gap-6">
-            <label><input type="radio" name="cardiovascular_support_required" value="Yes" onchange="toggleCardiovascularSupport()"> Yes</label>
-            <label><input type="radio" name="cardiovascular_support_required" value="No" onchange="toggleCardiovascularSupport()"> No</label>
+            <label class="clinical-choice"><input type="radio" name="cardiovascular_support_required" value="Yes" onchange="toggleCardiovascularSupport()"><span class="clinical-choice-box">Yes</span></label>
+            <label class="clinical-choice"><input type="radio" name="cardiovascular_support_required" value="No" onchange="toggleCardiovascularSupport()"><span class="clinical-choice-box">No</span></label>
           </div>
           <div id="cardiovascular_support_details" class="mt-3 hidden">
             <label for="cardiovascular_support" class="block font-medium mb-1">Support details:</label>
@@ -859,8 +860,8 @@
           <div>
             <div class="font-medium mb-2">Fever &gt;38°C in last 24 hours:</div>
             <div class="flex gap-6">
-              <label><input type="radio" name="fever_24h" value="Yes" onchange="toggleHighestTemperature()"> Yes</label>
-              <label><input type="radio" name="fever_24h" value="No" onchange="toggleHighestTemperature()"> No</label>
+              <label class="clinical-choice"><input type="radio" name="fever_24h" value="Yes" onchange="toggleHighestTemperature()"><span class="clinical-choice-box">Yes</span></label>
+              <label class="clinical-choice"><input type="radio" name="fever_24h" value="No" onchange="toggleHighestTemperature()"><span class="clinical-choice-box">No</span></label>
             </div>
             <div id="highest_temperature_container" class="mt-3 hidden">
               <label for="highest_temperature" class="block font-medium mb-1">Highest temperature in last 24 hours:</label>
@@ -941,9 +942,9 @@
         <div class="font-medium">VTE prophylaxis reviewed</div>
 
         <div class="flex gap-5 flex-wrap">
-          <label><input type="radio" name="vte" value="Yes"> Yes</label>
-          <label><input type="radio" name="vte" value="No"> No</label>
-          <label><input type="radio" name="vte" value="N/A"> N/A</label>
+          <label class="clinical-choice"><input type="radio" name="vte" value="Yes"><span class="clinical-choice-box">Yes</span></label>
+          <label class="clinical-choice"><input type="radio" name="vte" value="No"><span class="clinical-choice-box">No</span></label>
+          <label class="clinical-choice"><input type="radio" name="vte" value="N/A"><span class="clinical-choice-box">N/A</span></label>
         </div>
       </div>
 
@@ -952,9 +953,9 @@
         <div class="font-medium">PPI reviewed</div>
 
         <div class="flex gap-5 flex-wrap">
-          <label><input type="radio" name="ppi" value="Yes"> Yes</label>
-          <label><input type="radio" name="ppi" value="No"> No</label>
-          <label><input type="radio" name="ppi" value="N/A"> N/A</label>
+          <label class="clinical-choice"><input type="radio" name="ppi" value="Yes"><span class="clinical-choice-box">Yes</span></label>
+          <label class="clinical-choice"><input type="radio" name="ppi" value="No"><span class="clinical-choice-box">No</span></label>
+          <label class="clinical-choice"><input type="radio" name="ppi" value="N/A"><span class="clinical-choice-box">N/A</span></label>
         </div>
       </div>
 
@@ -963,9 +964,9 @@
         <div class="font-medium">Sedation hold considered</div>
 
         <div class="flex gap-5 flex-wrap">
-          <label><input type="radio" name="sedation_hold" value="Yes"> Yes</label>
-          <label><input type="radio" name="sedation_hold" value="No"> No</label>
-          <label><input type="radio" name="sedation_hold" value="N/A"> N/A</label>
+          <label class="clinical-choice"><input type="radio" name="sedation_hold" value="Yes"><span class="clinical-choice-box">Yes</span></label>
+          <label class="clinical-choice"><input type="radio" name="sedation_hold" value="No"><span class="clinical-choice-box">No</span></label>
+          <label class="clinical-choice"><input type="radio" name="sedation_hold" value="N/A"><span class="clinical-choice-box">N/A</span></label>
         </div>
       </div>
 
@@ -974,9 +975,9 @@
         <div class="font-medium">Extubation readiness assessed</div>
 
         <div class="flex gap-5 flex-wrap">
-          <label><input type="radio" name="extubation" value="Yes"> Yes</label>
-          <label><input type="radio" name="extubation" value="No"> No</label>
-          <label><input type="radio" name="extubation" value="N/A"> N/A</label>
+          <label class="clinical-choice"><input type="radio" name="extubation" value="Yes"><span class="clinical-choice-box">Yes</span></label>
+          <label class="clinical-choice"><input type="radio" name="extubation" value="No"><span class="clinical-choice-box">No</span></label>
+          <label class="clinical-choice"><input type="radio" name="extubation" value="N/A"><span class="clinical-choice-box">N/A</span></label>
         </div>
       </div>
 
@@ -985,9 +986,9 @@
         <div class="font-medium">Lines still required</div>
 
         <div class="flex gap-5 flex-wrap">
-          <label><input type="radio" name="lines_required" value="Yes"> Yes</label>
-          <label><input type="radio" name="lines_required" value="No"> No</label>
-          <label><input type="radio" name="lines_required" value="N/A"> N/A</label>
+          <label class="clinical-choice"><input type="radio" name="lines_required" value="Yes"><span class="clinical-choice-box">Yes</span></label>
+          <label class="clinical-choice"><input type="radio" name="lines_required" value="No"><span class="clinical-choice-box">No</span></label>
+          <label class="clinical-choice"><input type="radio" name="lines_required" value="N/A"><span class="clinical-choice-box">N/A</span></label>
         </div>
       </div>
 
@@ -1048,7 +1049,7 @@
     <!-- FORMATTED OUTPUT -->
     <div class="mt-8">
 
-      <h2 class="text-xl font-bold mb-3">
+      <h2 class="clinical-section-title text-xl font-bold mb-3">
         Formatted Preview
       </h2>
 

@@ -4,12 +4,14 @@
   <meta charset="UTF-8">
   <title>Intubation Checklist + Clinical Note Generator</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../form-styles.css">
 </head>
 
 <body class="bg-gray-100 p-6">
 
-  <div class="max-w-4xl mx-auto bg-white shadow p-6 rounded">
-    <h1 class="text-3xl font-bold mb-6">Intubation Checklist + Clinical Note Generator</h1>
+  <div class="clinical-shell max-w-4xl mx-auto bg-white shadow p-6 rounded">
+    <h1 class="clinical-title text-3xl font-bold mb-6">Intubation Checklist + Clinical Note Generator</h1>
 
     <!-- Free text fields -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -36,193 +38,193 @@
     </div>
 
     <!-- BEFORE THE PROCEDURE -->
-    <h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-4">BEFORE THE PROCEDURE</h2>
+    <h2 class="clinical-section-title text-xl font-bold bg-red-600 text-white p-2 mt-4">BEFORE THE PROCEDURE</h2>
     <div class="grid grid-cols-1 gap-4 mt-4">
 
       <div class="font-bold text-lg mt-2">Planning</div>
 
       <div>
         <div class="font-medium">Patient identity checked?</div>
-        <label><input type="checkbox" name="identity" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="identity" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
       <div>
         <div class="font-medium">Patient position optimised?</div>
-        <label><input type="checkbox" name="positionOptimised" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="positionOptimised" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
       <div>
         <div class="font-medium">Are spinal precautions required?</div>
-        <label><input type="checkbox" name="spinalPrecautions" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        <label><input type="checkbox" name="spinalPrecautions" value="No" onchange="onlyOne(this)"> No</label>
+        <label class="clinical-choice"><input type="checkbox" name="spinalPrecautions" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="spinalPrecautions" value="No" onchange="onlyOne(this)"><span class="clinical-choice-box">No</span></label>
       </div>
 
       <div>
         <div class="font-medium">Pre-oxygenation plan?</div>
-        <label><input type="checkbox" name="preoxygenation" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="preoxygenation" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
       <div>
         <div class="font-medium">Cricoid pressure?</div>
-        <label><input type="checkbox" name="cricoid" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        <label><input type="checkbox" name="cricoid" value="No" onchange="onlyOne(this)"> No</label>
+        <label class="clinical-choice"><input type="checkbox" name="cricoid" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="cricoid" value="No" onchange="onlyOne(this)"><span class="clinical-choice-box">No</span></label>
       </div>
 
       <div>
         <div class="font-medium">Is an NG tube required?</div>
-        <label><input type="checkbox" name="ngRequired" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        <label><input type="checkbox" name="ngRequired" value="No" onchange="onlyOne(this)"> No</label>
+        <label class="clinical-choice"><input type="checkbox" name="ngRequired" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="ngRequired" value="No" onchange="onlyOne(this)"><span class="clinical-choice-box">No</span></label>
       </div>
 
       <div>
         <div class="font-medium">NG tube aspirated?</div>
-        <label><input type="checkbox" name="ngAspirated" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        <label><input type="checkbox" name="ngAspirated" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        <label class="clinical-choice"><input type="checkbox" name="ngAspirated" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="ngAspirated" value="N/A" onchange="onlyOne(this)"><span class="clinical-choice-box">N/A</span></label>
       </div>
 
       <div>
         <div class="font-medium">Known drug allergies?</div>
-        <label><input type="checkbox" name="drugAllergies" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        <label><input type="checkbox" name="drugAllergies" value="No" onchange="onlyOne(this)"> No</label>
+        <label class="clinical-choice"><input type="checkbox" name="drugAllergies" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="drugAllergies" value="No" onchange="onlyOne(this)"><span class="clinical-choice-box">No</span></label>
       </div>
 
       <div>
         <div class="font-medium">Adequate venous access available?</div>
-        <label><input type="checkbox" name="venousAccess" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="venousAccess" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
       <div class="font-bold text-lg mt-4">Equipment & Drugs</div>
 
       <div><div class="font-medium">Monitoring attached? (ECG, SpO₂, BP, EtCO₂)</div>
-        <label><input type="checkbox" name="monitoring" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="monitoring" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
       <div><div class="font-medium">Manual ventilation device available?</div>
-        <label><input type="checkbox" name="ventDevice" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="ventDevice" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
       <div><div class="font-medium">Suction available?</div>
-        <label><input type="checkbox" name="suction" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="suction" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
       <div><div class="font-medium">Laryngoscopes available?</div>
-        <label><input type="checkbox" name="laryngoscopes" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="laryngoscopes" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
       <div><div class="font-medium">Endotracheal tube(s) available?</div>
-        <label><input type="checkbox" name="ett" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="ett" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
       <div><div class="font-medium">Bougie available?</div>
-        <label><input type="checkbox" name="bougie" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="bougie" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
       <div><div class="font-medium">Oropharyngeal airways available?</div>
-        <label><input type="checkbox" name="opa" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="opa" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
       <div><div class="font-medium">Supraglottic airway available?</div>
-        <label><input type="checkbox" name="sga" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="sga" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
       <div><div class="font-medium">Difficult Airway Trolley location noted?</div>
-        <label><input type="checkbox" name="dat" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="dat" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
       <div><div class="font-medium">Drugs ready (induction, muscle relaxant, emergency)?</div>
-        <label><input type="checkbox" name="drugsReady" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="drugsReady" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
       <div class="font-bold text-lg mt-4">Team</div>
 
       <div>
         <div class="font-medium">Location of senior help known?</div>
-        <label><input type="checkbox" name="seniorHelp" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        <label><input type="checkbox" name="seniorHelp" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        <label class="clinical-choice"><input type="checkbox" name="seniorHelp" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="seniorHelp" value="N/A" onchange="onlyOne(this)"><span class="clinical-choice-box">N/A</span></label>
       </div>
 
       <div>
         <div class="font-medium">Tasks allocated?</div>
-        <label><input type="checkbox" name="tasksAllocated" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="tasksAllocated" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
     </div>
 
     <!-- TIME OUT -->
-    <h2 class="text-xl font-bold bg-yellow-400 text-black p-2 mt-8">TIME OUT</h2>
+    <h2 class="clinical-section-title text-xl font-bold bg-yellow-400 text-black p-2 mt-8">TIME OUT</h2>
     <div class="grid grid-cols-1 gap-4 mt-4">
 
       <div>
         <div class="font-medium">Verbal confirmation between team members before start of procedure</div>
-        <label><input type="checkbox" name="teamConfirm" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="teamConfirm" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
       <div>
         <div class="font-medium">Difficult airway anticipated?</div>
-        <label><input type="checkbox" name="difficultAirway" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        <label><input type="checkbox" name="difficultAirway" value="No" onchange="onlyOne(this)"> No</label>
+        <label class="clinical-choice"><input type="checkbox" name="difficultAirway" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="difficultAirway" value="No" onchange="onlyOne(this)"><span class="clinical-choice-box">No</span></label>
       </div>
 
       <div>
         <div class="font-medium">If yes, plans discussed</div>
-        <label><input type="checkbox" name="airwayPlans" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="airwayPlans" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
       <div>
         <div class="font-medium">Any other concerns about the procedure (e.g. cardiovascular instability)?</div>
-        <label><input type="checkbox" name="otherConcerns" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        <label><input type="checkbox" name="otherConcerns" value="No" onchange="onlyOne(this)"> No</label>
+        <label class="clinical-choice"><input type="checkbox" name="otherConcerns" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="otherConcerns" value="No" onchange="onlyOne(this)"><span class="clinical-choice-box">No</span></label>
       </div>
 
       <div>
         <div class="font-medium">If yes, plans discussed</div>
-        <label><input type="checkbox" name="concernPlans" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="concernPlans" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
     </div>
 
     <!-- SIGN OUT -->
-    <h2 class="text-xl font-bold bg-green-600 text-white p-2 mt-8">SIGN OUT</h2>
+    <h2 class="clinical-section-title text-xl font-bold bg-green-600 text-white p-2 mt-8">SIGN OUT</h2>
     <div class="grid grid-cols-1 gap-4 mt-4">
 
       <div>
         <div class="font-medium">Endotracheal position confirmed with CO₂ trace</div>
-        <label><input type="checkbox" name="co2Confirm" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="co2Confirm" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
       <div>
         <div class="font-medium">Tube depth checked (bilateral air entry)</div>
-        <label><input type="checkbox" name="airEntry" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="airEntry" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
       <div>
         <div class="font-medium">ETT secured?</div>
-        <label><input type="checkbox" name="ettSecured" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="ettSecured" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
       <div>
         <div class="font-medium">Cuff pressure checked?</div>
-        <label><input type="checkbox" name="cuffPressure" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="cuffPressure" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
       <div>
         <div class="font-medium">Ventilator settings appropriate?</div>
-        <label><input type="checkbox" name="ventSettings" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="ventSettings" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
       <div>
         <div class="font-medium">Analgesia and sedation started?</div>
-        <label><input type="checkbox" name="analgSed" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="analgSed" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
       <div>
         <div class="font-medium">Chest X-Ray required?</div>
-        <label><input type="checkbox" name="cxrRequired" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        <label><input type="checkbox" name="cxrRequired" value="No" onchange="onlyOne(this)"> No</label>
+        <label class="clinical-choice"><input type="checkbox" name="cxrRequired" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="cxrRequired" value="No" onchange="onlyOne(this)"><span class="clinical-choice-box">No</span></label>
       </div>
 
       <div>
         <div class="font-medium">Procedure documented in patient records?</div>
-        <label><input type="checkbox" name="documentation" value="Yes" onchange="onlyOne(this)"> Yes</label>
+        <label class="clinical-choice"><input type="checkbox" name="documentation" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
       </div>
 
     </div>
@@ -268,11 +270,11 @@
       <div>
         <div class="font-medium">Pre-oxygenation technique:</div>
         <div class="flex flex-col gap-1">
-          <label><input type="checkbox" name="preox" value="Water's circuit"> Water's circuit</label>
-          <label><input type="checkbox" name="preox" value="NIV/CPAP"> NIV/CPAP</label>
-          <label><input type="checkbox" name="preox" value="Nasal cannula"> Nasal cannula</label>
+          <label class="clinical-choice"><input type="checkbox" name="preox" value="Water's circuit"><span class="clinical-choice-box">Water's circuit</span></label>
+          <label class="clinical-choice"><input type="checkbox" name="preox" value="NIV/CPAP"><span class="clinical-choice-box">NIV/CPAP</span></label>
+          <label class="clinical-choice"><input type="checkbox" name="preox" value="Nasal cannula"><span class="clinical-choice-box">Nasal cannula</span></label>
           <div class="flex items-center gap-2">
-            <label><input type="checkbox" name="preox" value="Other"> Other:</label>
+            <label class="clinical-choice"><input type="checkbox" name="preox" value="Other"><span class="clinical-choice-box">Other:</span></label>
             <input type="text" id="preox_other" placeholder="Specify" class="border p-2 rounded w-full">
           </div>
         </div>
@@ -286,11 +288,11 @@
       <div>
         <div class="font-medium">Laryngoscope used:</div>
         <div class="flex flex-col gap-1">
-          <label><input type="checkbox" name="laryngoscope" value="Mac 3"> Mac 3</label>
-          <label><input type="checkbox" name="laryngoscope" value="Mac 4"> Mac 4</label>
-          <label><input type="checkbox" name="laryngoscope" value="Video-laryngoscope"> Video-laryngoscope</label>
+          <label class="clinical-choice"><input type="checkbox" name="laryngoscope" value="Mac 3"><span class="clinical-choice-box">Mac 3</span></label>
+          <label class="clinical-choice"><input type="checkbox" name="laryngoscope" value="Mac 4"><span class="clinical-choice-box">Mac 4</span></label>
+          <label class="clinical-choice"><input type="checkbox" name="laryngoscope" value="Video-laryngoscope"><span class="clinical-choice-box">Video-laryngoscope</span></label>
           <div class="flex items-center gap-2">
-            <label><input type="checkbox" name="laryngoscope" value="Other"> Other:</label>
+            <label class="clinical-choice"><input type="checkbox" name="laryngoscope" value="Other"><span class="clinical-choice-box">Other:</span></label>
             <input type="text" id="laryngoscope_other" placeholder="Specify" class="border p-2 rounded w-full">
           </div>
         </div>
@@ -313,8 +315,8 @@
 
       <div>
         <div class="font-medium">Route:</div>
-        <label><input type="checkbox" name="route" value="Oral" onchange="onlyOne(this)"> Oral</label>
-        <label><input type="checkbox" name="route" value="Nasal" onchange="onlyOne(this)"> Nasal</label>
+        <label class="clinical-choice"><input type="checkbox" name="route" value="Oral" onchange="onlyOne(this)"><span class="clinical-choice-box">Oral</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="route" value="Nasal" onchange="onlyOne(this)"><span class="clinical-choice-box">Nasal</span></label>
       </div>
 
       <!-- DRUGS -->

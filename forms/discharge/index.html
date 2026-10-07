@@ -5,16 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ICU Discharge Summary Generator</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../form-styles.css">
 </head>
 
 <body class="bg-gray-100 p-4 sm:p-6">
-  <main class="max-w-4xl mx-auto bg-white shadow p-5 sm:p-6 rounded">
-    <h1 class="text-3xl font-bold mb-2">ICU Discharge Summary Generator</h1>
+  <main class="clinical-shell max-w-4xl mx-auto bg-white shadow p-5 sm:p-6 rounded">
+    <h1 class="clinical-title text-3xl font-bold mb-2">ICU Discharge Summary Generator</h1>
     <p class="text-gray-600 mb-6">Complete the sections below to generate a formatted ICU discharge summary.</p>
 
     <form id="discharge-form" class="space-y-6" onsubmit="generateNote(event)">
       <section>
-        <h2 class="text-xl font-bold bg-blue-900 text-white p-2 rounded">ICU ADMISSION DETAILS</h2>
+        <h2 class="clinical-section-title text-xl font-bold bg-blue-900 text-white p-2 rounded">ICU ADMISSION DETAILS</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-3">
           <div>
             <label for="admission-date" class="block font-semibold mb-1">Admission date</label>
@@ -42,31 +43,31 @@
       </section>
 
       <section>
-        <h2 class="text-xl font-bold bg-gray-700 text-white p-2 rounded">PAST MEDICAL HISTORY</h2>
+        <h2 class="clinical-section-title text-xl font-bold bg-gray-700 text-white p-2 rounded">PAST MEDICAL HISTORY</h2>
         <label for="past-medical-history" class="sr-only">Past medical history</label>
         <textarea id="past-medical-history" rows="5" placeholder="Relevant past medical history and co-morbidities" class="w-full border p-2 mt-3 rounded"></textarea>
       </section>
 
       <section>
-        <h2 class="text-xl font-bold bg-teal-700 text-white p-2 rounded">ICU DIAGNOSIS</h2>
+        <h2 class="clinical-section-title text-xl font-bold bg-teal-700 text-white p-2 rounded">ICU DIAGNOSIS</h2>
         <label for="icu-diagnosis" class="sr-only">ICU diagnosis</label>
         <textarea id="icu-diagnosis" rows="4" class="w-full border p-2 mt-3 rounded"></textarea>
       </section>
 
       <section>
-        <h2 class="text-xl font-bold bg-blue-600 text-white p-2 rounded">REASON FOR ADMISSION TO ICU</h2>
+        <h2 class="clinical-section-title text-xl font-bold bg-blue-600 text-white p-2 rounded">REASON FOR ADMISSION TO ICU</h2>
         <label for="admission-reason" class="sr-only">Reason for admission to ICU</label>
         <textarea id="admission-reason" rows="5" placeholder="For example: respiratory compromise requiring respiratory support; hypotension requiring cardiovascular support; need for enhanced monitoring; or other indication for ICU admission" class="w-full border p-2 mt-3 rounded"></textarea>
       </section>
 
       <section>
-        <h2 class="text-xl font-bold bg-sky-700 text-white p-2 rounded">EVENTS ON ICU</h2>
+        <h2 class="clinical-section-title text-xl font-bold bg-sky-700 text-white p-2 rounded">EVENTS ON ICU</h2>
         <label for="icu-events" class="sr-only">Events on ICU</label>
         <textarea id="icu-events" rows="6" placeholder="Include a brief overview of events leading up to and during the ICU stay, highlighting significant events" class="w-full border p-2 mt-3 rounded"></textarea>
       </section>
 
       <section>
-        <h2 class="text-xl font-bold bg-purple-600 text-white p-2 rounded">TREATMENTS ON ICU</h2>
+        <h2 class="clinical-section-title text-xl font-bold bg-purple-600 text-white p-2 rounded">TREATMENTS ON ICU</h2>
         <fieldset class="mt-3 border rounded p-4">
           <legend class="font-bold px-1">Respiratory support</legend>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -112,31 +113,31 @@
       </section>
 
       <section>
-        <h2 class="text-xl font-bold bg-amber-600 text-white p-2 rounded">ONGOING ISSUES</h2>
+        <h2 class="clinical-section-title text-xl font-bold bg-amber-600 text-white p-2 rounded">ONGOING ISSUES</h2>
         <label for="ongoing-issues" class="sr-only">Ongoing issues</label>
         <textarea id="ongoing-issues" rows="6" placeholder="Active problems, outstanding investigations and required follow-up" class="w-full border p-2 mt-3 rounded"></textarea>
       </section>
 
       <section>
-        <h2 class="text-xl font-bold bg-cyan-700 text-white p-2 rounded">OUTSTANDING TASKS</h2>
+        <h2 class="clinical-section-title text-xl font-bold bg-cyan-700 text-white p-2 rounded">OUTSTANDING TASKS</h2>
         <label for="outstanding-tasks" class="sr-only">Outstanding tasks</label>
         <textarea id="outstanding-tasks" rows="5" placeholder="Outstanding investigations, referrals, results to chase and follow-up actions (include who is responsible where possible)" class="w-full border p-2 mt-3 rounded"></textarea>
       </section>
 
       <section>
-        <h2 class="text-xl font-bold bg-emerald-700 text-white p-2 rounded">MEDICATIONS FOR REVIEW ON DISCHARGE</h2>
+        <h2 class="clinical-section-title text-xl font-bold bg-emerald-700 text-white p-2 rounded">MEDICATIONS FOR REVIEW ON DISCHARGE</h2>
         <label for="medications-review" class="sr-only">Medications for review on discharge</label>
         <textarea id="medications-review" rows="5" placeholder="For example: antipsychotic or sedative medication requiring review/tapering; usual medication stopped on ICU that may need restarting; anticoagulation; insulin; steroid or analgesia plans; dose changes; monitoring requirements" class="w-full border p-2 mt-3 rounded"></textarea>
       </section>
 
       <section>
-        <h2 class="text-xl font-bold bg-lime-700 text-white p-2 rounded">MICROBIOLOGY PLAN</h2>
+        <h2 class="clinical-section-title text-xl font-bold bg-lime-700 text-white p-2 rounded">MICROBIOLOGY PLAN</h2>
         <label for="microbiology-plan" class="sr-only">Microbiology plan</label>
         <textarea id="microbiology-plan" rows="5" placeholder="Current antimicrobials, indication, culture results, outstanding samples, stop/review dates and required microbiology follow-up" class="w-full border p-2 mt-3 rounded"></textarea>
       </section>
 
       <section>
-        <h2 class="text-xl font-bold bg-indigo-600 text-white p-2 rounded">RE-ADMISSION / ESCALATION STATUS</h2>
+        <h2 class="clinical-section-title text-xl font-bold bg-indigo-600 text-white p-2 rounded">RE-ADMISSION / ESCALATION STATUS</h2>
         <label for="escalation-status" class="block font-semibold mt-3 mb-1">Re-admission and escalation status</label>
         <select id="escalation-status" class="border p-2 rounded w-full">
           <option value="">Select status</option>
@@ -152,7 +153,7 @@
       </section>
 
       <section>
-        <h2 class="text-xl font-bold bg-red-600 text-white p-2 rounded">RESUSCITATION STATUS</h2>
+        <h2 class="clinical-section-title text-xl font-bold bg-red-600 text-white p-2 rounded">RESUSCITATION STATUS</h2>
         <label for="resuscitation-status" class="block font-semibold mt-3 mb-1">Current resuscitation status</label>
         <select id="resuscitation-status" class="border p-2 rounded w-full">
           <option value="">Select status</option>

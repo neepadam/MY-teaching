@@ -4,12 +4,14 @@
   <meta charset="UTF-8">
   <title>Lumbar Puncture Checklist Generator</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../form-styles.css">
 </head>
 
 <body class="bg-gray-100 p-6">
 
-<div class="max-w-4xl mx-auto bg-white shadow p-6 rounded">
-  <h1 class="text-3xl font-bold mb-6">Lumbar Puncture Checklist → Clinical Note Generator</h1>
+<div class="clinical-shell max-w-4xl mx-auto bg-white shadow p-6 rounded">
+  <h1 class="clinical-title text-3xl font-bold mb-6">Lumbar Puncture Checklist → Clinical Note Generator</h1>
 
   <!-- BASIC DETAILS -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -32,7 +34,7 @@
   </div>
 
   <!-- BEFORE PROCEDURE -->
-  <h2 class="text-xl font-bold bg-red-600 text-white p-2 mt-4">BEFORE THE PROCEDURE</h2>
+  <h2 class="clinical-section-title text-xl font-bold bg-red-600 text-white p-2 mt-4">BEFORE THE PROCEDURE</h2>
 
   <div class="space-y-4 mt-4">
     <div>
@@ -43,33 +45,33 @@
     <div>
       <div class="font-medium">Imaging reviewed?</div>
       <div class="flex gap-4">
-        <label><input type="checkbox" name="imaging" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        <label><input type="checkbox" name="imaging" value="No" onchange="onlyOne(this)"> No</label>
-        <label><input type="checkbox" name="imaging" value="N/A" onchange="onlyOne(this)"> N/A</label>
+        <label class="clinical-choice"><input type="checkbox" name="imaging" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="imaging" value="No" onchange="onlyOne(this)"><span class="clinical-choice-box">No</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="imaging" value="N/A" onchange="onlyOne(this)"><span class="clinical-choice-box">N/A</span></label>
       </div>
     </div>
 
     <div>
       <div class="font-medium">Contraindications checked?</div>
       <div class="flex gap-4">
-        <label><input type="checkbox" name="contra" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        <label><input type="checkbox" name="contra" value="No" onchange="onlyOne(this)"> No</label>
+        <label class="clinical-choice"><input type="checkbox" name="contra" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="contra" value="No" onchange="onlyOne(this)"><span class="clinical-choice-box">No</span></label>
       </div>
     </div>
 
     <div>
       <div class="font-medium">Drug chart checked for anti-coagulants?</div>
       <div class="flex gap-4">
-        <label><input type="checkbox" name="anticoag" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        <label><input type="checkbox" name="anticoag" value="No" onchange="onlyOne(this)"> No</label>
+        <label class="clinical-choice"><input type="checkbox" name="anticoag" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="anticoag" value="No" onchange="onlyOne(this)"><span class="clinical-choice-box">No</span></label>
       </div>
     </div>
 
     <div>
       <div class="font-medium">Coagulation checked?</div>
       <div class="flex gap-4">
-        <label><input type="checkbox" name="coag" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        <label><input type="checkbox" name="coag" value="No" onchange="onlyOne(this)"> No</label>
+        <label class="clinical-choice"><input type="checkbox" name="coag" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="coag" value="No" onchange="onlyOne(this)"><span class="clinical-choice-box">No</span></label>
       </div>
       <div class="flex gap-4 mt-2">
         <input id="inr" placeholder="INR" class="border p-2 rounded w-32">
@@ -79,54 +81,54 @@
   </div>
 
   <!-- CONSENT -->
-  <h2 class="text-xl font-bold bg-yellow-400 text-black p-2 mt-8">CONSENT</h2>
+  <h2 class="clinical-section-title text-xl font-bold bg-yellow-400 text-black p-2 mt-8">CONSENT</h2>
 
   <div class="space-y-4 mt-4">
     <div>
       <div class="font-medium">Patient has capacity?</div>
       <div class="flex gap-4">
-        <label><input type="checkbox" name="capacity" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        <label><input type="checkbox" name="capacity" value="No" onchange="onlyOne(this)"> No</label>
+        <label class="clinical-choice"><input type="checkbox" name="capacity" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="capacity" value="No" onchange="onlyOne(this)"><span class="clinical-choice-box">No</span></label>
       </div>
     </div>
 
     <div>
       <div class="font-medium">Consent discussion completed?</div>
       <div class="flex gap-4">
-        <label><input type="checkbox" name="consent" value="Yes" onchange="onlyOne(this)"> Yes</label>
-        <label><input type="checkbox" name="consent" value="Best interests" onchange="onlyOne(this)"> Best interests</label>
+        <label class="clinical-choice"><input type="checkbox" name="consent" value="Yes" onchange="onlyOne(this)"><span class="clinical-choice-box">Yes</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="consent" value="Best interests" onchange="onlyOne(this)"><span class="clinical-choice-box">Best interests</span></label>
       </div>
     </div>
   </div>
 
   <!-- PROCEDURE -->
-  <h2 class="text-xl font-bold bg-purple-600 text-white p-2 mt-8">PROCEDURE DETAILS</h2>
+  <h2 class="clinical-section-title text-xl font-bold bg-purple-600 text-white p-2 mt-8">PROCEDURE DETAILS</h2>
 
   <div class="space-y-4 mt-4">
     <div>
       <div class="font-medium">Aseptic technique used:</div>
       <div class="flex flex-col gap-1">
-        <label><input type="checkbox" name="aseptic" value="Sterile gown & gloves"> Sterile gown & gloves</label>
-        <label><input type="checkbox" name="aseptic" value="Hat & mask"> Hat & mask</label>
-        <label><input type="checkbox" name="aseptic" value="Sterile drape"> Sterile drape</label>
-        <label><input type="checkbox" name="aseptic" value="Chlorhexidine"> 0.5% chlorhexidine</label>
+        <label class="clinical-choice"><input type="checkbox" name="aseptic" value="Sterile gown & gloves"><span class="clinical-choice-box">Sterile gown & gloves</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="aseptic" value="Hat & mask"><span class="clinical-choice-box">Hat & mask</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="aseptic" value="Sterile drape"><span class="clinical-choice-box">Sterile drape</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="aseptic" value="Chlorhexidine"><span class="clinical-choice-box">0.5% chlorhexidine</span></label>
       </div>
     </div>
 
     <div>
       <div class="font-medium">Position:</div>
       <div class="flex gap-4">
-        <label><input type="checkbox" name="position" value="Lateral" onchange="onlyOne(this)"> Lateral</label>
-        <label><input type="checkbox" name="position" value="Sitting" onchange="onlyOne(this)"> Sitting</label>
+        <label class="clinical-choice"><input type="checkbox" name="position" value="Lateral" onchange="onlyOne(this)"><span class="clinical-choice-box">Lateral</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="position" value="Sitting" onchange="onlyOne(this)"><span class="clinical-choice-box">Sitting</span></label>
       </div>
     </div>
 
     <div>
       <div class="font-medium">Level:</div>
       <div class="flex gap-4">
-        <label><input type="checkbox" name="level" value="L2/3" onchange="onlyOne(this)"> L2/3</label>
-        <label><input type="checkbox" name="level" value="L3/4" onchange="onlyOne(this)"> L3/4</label>
-        <label><input type="checkbox" name="level" value="L4/5" onchange="onlyOne(this)"> L4/5</label>
+        <label class="clinical-choice"><input type="checkbox" name="level" value="L2/3" onchange="onlyOne(this)"><span class="clinical-choice-box">L2/3</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="level" value="L3/4" onchange="onlyOne(this)"><span class="clinical-choice-box">L3/4</span></label>
+        <label class="clinical-choice"><input type="checkbox" name="level" value="L4/5" onchange="onlyOne(this)"><span class="clinical-choice-box">L4/5</span></label>
       </div>
     </div>
 
@@ -147,7 +149,7 @@
   </div>
 
   <!-- SAMPLES -->
-  <h2 class="text-xl font-bold bg-green-600 text-white p-2 mt-8">CSF SAMPLES SENT</h2>
+  <h2 class="clinical-section-title text-xl font-bold bg-green-600 text-white p-2 mt-8">CSF SAMPLES SENT</h2>
 
   <div class="space-y-3 mt-4">
 
@@ -159,11 +161,11 @@
       </div>
     </div>
 
-    <label><input type="checkbox" name="samples" value="MC&S"> MC&amp;S</label>
-    <label><input type="checkbox" name="samples" value="Virology"> Virology</label>
-    <label><input type="checkbox" name="samples" value="Protein"> Protein</label>
-    <label><input type="checkbox" name="samples" value="Glucose"> Glucose</label>
-    <label><input type="checkbox" name="samples" value="Xanthochromia"> Xanthochromia</label>
+    <label class="clinical-choice"><input type="checkbox" name="samples" value="MC&S"><span class="clinical-choice-box">MC&amp;S</span></label>
+    <label class="clinical-choice"><input type="checkbox" name="samples" value="Virology"><span class="clinical-choice-box">Virology</span></label>
+    <label class="clinical-choice"><input type="checkbox" name="samples" value="Protein"><span class="clinical-choice-box">Protein</span></label>
+    <label class="clinical-choice"><input type="checkbox" name="samples" value="Glucose"><span class="clinical-choice-box">Glucose</span></label>
+    <label class="clinical-choice"><input type="checkbox" name="samples" value="Xanthochromia"><span class="clinical-choice-box">Xanthochromia</span></label>
 
     <label class="flex items-center gap-2">
       <input type="checkbox" name="samples" value="Other">
@@ -173,7 +175,7 @@
   </div>
 
   <!-- COMMENTS -->
-  <h2 class="text-xl font-bold bg-gray-700 text-white p-2 mt-8">ADDITIONAL COMMENTS</h2>
+  <h2 class="clinical-section-title text-xl font-bold bg-gray-700 text-white p-2 mt-8">ADDITIONAL COMMENTS</h2>
   <textarea id="comments" class="w-full border p-3 rounded mt-4" rows="4"></textarea>
 
   <!-- GENERATE -->
