@@ -5,6 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Arterial Line → Clinical Note Generator</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .option-toggle { display: block; position: relative; cursor: pointer; }
+    .option-toggle input {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+    .option-box {
+      display: flex; align-items: center; gap: 12px; min-height: 56px;
+      padding: 14px 16px; border: 2px solid #d1d5db; border-radius: 10px;
+      background: #f9fafb; color: #374151; font-weight: 600;
+      transition: background .15s, border-color .15s, color .15s;
+    }
+    .option-box::before {
+      content: '+'; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+      background: #e5e7eb; color: #4b5563; font-size: 18px;
+    }
+    .option-toggle:hover .option-box { border-color: #9ca3af; }
+    .option-toggle input:checked + .option-box {
+      background: #dcfce7; border-color: #15803d; color: #14532d;
+    }
+    .option-toggle input:checked + .option-box::before {
+      content: '✓'; background: #15803d; color: white;
+    }
+    .option-toggle input:focus-visible + .option-box {
+      outline: 3px solid #005eb8; outline-offset: 3px;
+    }
+  </style>
 </head>
 <body class="bg-gray-100 p-6">
   <main class="max-w-4xl mx-auto bg-white shadow p-6 rounded">
@@ -53,18 +81,19 @@
         <label for="other_location" class="block font-medium">Other artery:</label>
         <input type="text" id="other_location" disabled class="w-full border p-2 rounded" placeholder="Enter artery name">
       </div>
-      <div>
-        <label><input type="checkbox" id="antt_chlorhexidine"> ANTT + chlorhexidine used</label>
-      </div>
-      <fieldset>
-        <legend class="font-medium">USS used:</legend>
-        <div class="flex gap-5">
-          <label><input type="radio" name="uss" value="Yes"> Yes</label>
-          <label><input type="radio" name="uss" value="No"> No</label>
-        </div>
-      </fieldset>
-      <div>
-        <label><input type="checkbox" id="local_administered"> Local anaesthetic administered</label>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <label class="option-toggle">
+          <input type="checkbox" id="antt_chlorhexidine">
+          <span class="option-box">ANTT + chlorhexidine used</span>
+        </label>
+        <label class="option-toggle">
+          <input type="checkbox" id="uss_used">
+          <span class="option-box">USS used</span>
+        </label>
+        <label class="option-toggle sm:col-span-2">
+          <input type="checkbox" id="local_administered">
+          <span class="option-box">Local anaesthetic administered</span>
+        </label>
       </div>
       <div>
         <label for="lot_number" class="block font-medium">LOT number:</label>
@@ -113,12 +142,11 @@
       const artery = valueOf('location') === 'other' ? valueOf('other_location') : valueOf('location');
       const arteryName = /\bartery$/i.test(artery) ? artery : `${artery} artery`;
       const line = valueOf('line_used') === 'other' ? valueOf('other_line') : valueOf('line_used');
-      const uss = form.querySelector('input[name="uss"]:checked')?.value || 'Not recorded';
       output.value = `Arterial line inserted ${valueOf('side')} ${arteryName}\n\n` +
         `Operator: ${valueOf('operator') || 'Not recorded'}\n` +
         `Line used: ${line || 'Not recorded'}\n` +
         (document.getElementById('local_administered').checked ? 'Local anaesthetic administered\n' : '') +
-        `USS: ${uss}\n` +
+        (document.getElementById('uss_used').checked ? 'USS used\n' : '') +
         (document.getElementById('antt_chlorhexidine').checked ? 'ANTT + chlorhexidine used\n' : '') +
         `LOT number of line: ${valueOf('lot_number') || 'Not recorded'}`;
       copyButton.disabled = false;
@@ -138,4 +166,3 @@
   </script>
 </body>
 </html>
-
