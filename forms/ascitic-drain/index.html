@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Ascitic Drain → Clinical Note Generator</title><style>
+    :root { color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; color: #183044; background: #eef3f7; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    [hidden] { display: none !important; }
+    .page-header { background: #003b65; color: white; padding: 30px 24px 38px; }
+    .header-inner, main { max-width: 1120px; margin: auto; }
+    .back-link { color: #cce4f5; font-size: 14px; text-decoration: none; }
+    .back-link:hover { text-decoration: underline; }
+    .eyebrow { margin: 30px 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #a9d4f0; }
+    h1 { margin: 0; font-size: clamp(30px, 5vw, 42px); letter-spacing: -.035em; line-height: 1.15; }
+    .intro { color: #d0e2ef; margin: 12px 0 0; line-height: 1.6; }
+    main { padding: 28px 24px 48px; }
+    .workspace { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    .form-panel, .note-panel { background: white; border: 1px solid #dce5ed; border-radius: 16px; box-shadow: 0 5px 20px #18304406; overflow: hidden; }
+    .form-section { padding: 24px; }
+    .form-section + .form-section { border-top: 1px solid #e7edf2; }
+    .section-heading { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .step { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 8px; background: #eaf3fa; color: #005eb8; font-size: 12px; font-weight: 700; }
+    h2 { font-size: 17px; margin: 0; letter-spacing: -.02em; }
+    .fields { display: grid; gap: 18px; }
+    .field-label { display: block; margin-bottom: 8px; font-size: 13px; font-weight: 600; }
+    input[type="text"], select { width: 100%; min-height: 46px; border: 1px solid #cbd7e1; border-radius: 8px; padding: 11px 12px; font: inherit; font-size: 14px; color: #183044; background: white; }
+    input::placeholder, textarea::placeholder { color: #7b8c9b; }
+    input[type="text"]:focus, select:focus, textarea:focus { outline: 3px solid #005eb829; border-color: #005eb8; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .hint { font-size: 13px; color: #667b8c; line-height: 1.5; margin: -8px 0 18px; }
+    .toggle-grid { display: grid; gap: 10px; }
+    .form-actions { padding: 20px 24px; border-top: 1px solid #e7edf2; background: #f9fbfd; }
+    button { font: inherit; font-size: 14px; font-weight: 600; border: 0; border-radius: 8px; padding: 13px 18px; cursor: pointer; }
+    button:focus-visible, .back-link:focus-visible { outline: 3px solid #ffcf33; outline-offset: 3px; }
+    .generate-button { width: 100%; background: #005eb8; color: white; }
+    .generate-button:hover { background: #004b93; }
+    .note-panel { position: sticky; top: 24px; }
+    .note-header { padding: 24px 24px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .note-badge { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; background: #eef3f7; color: #5c7386; padding: 6px 9px; border-radius: 5px; }
+    .note-body { padding: 0 24px 24px; }
+    .note-body .hint { margin: 0 0 18px; }
+    textarea { display: block; width: 100%; min-height: 310px; resize: vertical; border: 1px solid #e0e8ef; border-radius: 10px; background: #f8fafc; padding: 18px; color: #243c50; font: 14px/1.8 ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .copy-button { width: 100%; margin-top: 16px; background: #15803d; color: white; }
+    .copy-button:hover { background: #166534; }
+    .copy-button:disabled { background: #e7edf2; color: #8393a0; cursor: default; }
+    #status { font-size: 13px; color: #526b7e; line-height: 1.5; margin: 12px 0 0; min-height: 20px; }
+    @media (max-width: 800px) { .workspace { grid-template-columns: 1fr; } .note-panel { position: static; } }
+    @media (max-width: 480px) { main { padding: 18px 12px 30px; } .page-header { padding: 24px 20px 30px; } .form-section, .note-header { padding: 20px; } .note-body { padding: 0 20px 20px; } .field-row { grid-template-columns: 1fr; } }
+    @media (prefers-reduced-motion: reduce) { .option-box { transition: none !important; } }
+
+    .option-toggle { display: block; position: relative; cursor: pointer; }
+    .option-toggle input {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+    .option-box {
+      display: flex; align-items: center; gap: 12px; min-height: 56px;
+      padding: 14px 16px; border: 2px solid #d1d5db; border-radius: 10px;
+      background: #f9fafb; color: #374151; font-weight: 600;
+      transition: background .15s, border-color .15s, color .15s;
+    }
+    .option-box::before {
+      content: '+'; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+      background: #e5e7eb; color: #4b5563; font-size: 18px;
+    }
+    .option-toggle:hover .option-box { border-color: #9ca3af; }
+    .option-toggle input:checked + .option-box {
+      background: #dcfce7; border-color: #15803d; color: #14532d;
+    }
+    .option-toggle input:checked + .option-box::before {
+      content: '✓'; background: #15803d; color: white;
+    }
+    .option-toggle input:focus-visible + .option-box {
+      outline: 3px solid #005eb8; outline-offset: 3px;
+    }
+  
+input[type="number"], input[type="date"], input[type="time"], input[type="datetime-local"] { width:100%; min-height:46px; border:1px solid #cbd7e1; border-radius:8px; padding:11px 12px; font:inherit; background:white; color:#183044; }
+.fields textarea { min-height:90px; font:inherit; background:white; }
+fieldset { border:1px solid #dce5ed; border-radius:8px; padding:16px; margin:0; min-width:0; }
+.sample-option { display:block; padding:8px 0; font-size:14px; }
+</style></head><body><header class="page-header"><div class="header-inner"><a href="../index.html" class="back-link">← Procedure forms</a><p class="eyebrow">Bedside procedures · Clinical documentation</p><h1>Ascitic drain</h1><p class="intro">Ascitic drain insertion and diagnostic tap · MY ACE adult critical care template</p></div></header><main><div class="workspace"><form id="ascitic-form" class="form-panel"><section class="form-section" aria-labelledby="section-1"><div class="section-heading"><span class="step">01</span><h2 id="section-1">Patient and team</h2></div>
+<div class="fields">
+<div><label class="field-label" for="f-1-0">Patient name</label>
+<input type="text" id="f-1-0" name="f-1-0" data-label="Patient name">
+</div>
+<div><label class="field-label" for="f-1-1">Date of birth</label>
+<input type="text" id="f-1-1" name="f-1-1" data-label="Date of birth">
+</div>
+<div><label class="field-label" for="f-1-2">Hospital number</label>
+<input type="text" id="f-1-2" name="f-1-2" data-label="Hospital number">
+</div>
+<div><label class="field-label" for="f-1-3">Procedure date</label>
+<input type="date" id="f-1-3" name="f-1-3" data-label="Procedure date">
+</div>
+<div><label class="field-label" for="f-1-4">Time started</label>
+<input type="time" id="f-1-4" name="f-1-4" data-label="Time started">
+</div>
+<div><label class="field-label" for="f-1-5">Time completed</label>
+<input type="time" id="f-1-5" name="f-1-5" data-label="Time completed">
+</div>
+<div><label class="field-label" for="f-1-6">Operator</label>
+<input type="text" id="f-1-6" name="f-1-6" data-label="Operator">
+</div>
+<div><label class="field-label" for="f-1-7">Assistant / bedside nurse</label>
+<input type="text" id="f-1-7" name="f-1-7" data-label="Assistant / bedside nurse">
+</div>
+<div><label class="field-label" for="f-1-8">Supervisor</label>
+<input type="text" id="f-1-8" name="f-1-8" data-label="Supervisor">
+</div>
+</div></section><section class="form-section" aria-labelledby="section-2"><div class="section-heading"><span class="step">02</span><h2 id="section-2">Before the procedure</h2></div>
+<div class="fields">
+<div><label class="field-label" for="f-2-0">Patient identity checked</label>
+<select id="f-2-0" name="f-2-0" data-label="Patient identity checked"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-2-1">Paper consent documented and reviewed</label>
+<select id="f-2-1" name="f-2-1" data-label="Paper consent documented and reviewed"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-2-2">Ascites confirmed and relevant imaging reviewed</label>
+<select id="f-2-2" name="f-2-2" data-label="Ascites confirmed and relevant imaging reviewed"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-2-3">Safe insertion site identified with ultrasound</label>
+<select id="f-2-3" name="f-2-3" data-label="Safe insertion site identified with ultrasound"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-2-4">If no safe ultrasound site identified, why not?</label>
+<textarea id="f-2-4" name="f-2-4" data-label="If no safe ultrasound site identified, why not?" rows="3"></textarea>
+</div>
+<div><label class="field-label" for="f-2-5">Senior help available</label>
+<select id="f-2-5" name="f-2-5" data-label="Senior help available"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-2-6">Roles allocated</label>
+<select id="f-2-6" name="f-2-6" data-label="Roles allocated"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-2-7">Equipment and correct drain type / size available</label>
+<select id="f-2-7" name="f-2-7" data-label="Equipment and correct drain type / size available"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-2-8">Allergies checked</label>
+<select id="f-2-8" name="f-2-8" data-label="Allergies checked"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-2-9">Bleeding risk and antithrombotic medicines reviewed</label>
+<select id="f-2-9" name="f-2-9" data-label="Bleeding risk and antithrombotic medicines reviewed"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-2-10">Latest INR and date / time</label>
+<input type="text" id="f-2-10" name="f-2-10" data-label="Latest INR and date / time">
+</div>
+<div><label class="field-label" for="f-2-11">Latest platelets and date / time</label>
+<input type="text" id="f-2-11" name="f-2-11" data-label="Latest platelets and date / time">
+</div>
+<div><label class="field-label" for="f-2-12">eMeds reviewed for anticoagulant / antiplatelet drugs</label>
+<select id="f-2-12" name="f-2-12" data-label="eMeds reviewed for anticoagulant / antiplatelet drugs"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-2-13">Albumin requirement assessed</label>
+<select id="f-2-13" name="f-2-13" data-label="Albumin requirement assessed"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-2-14">Albumin prescribed and available if indicated</label>
+<select id="f-2-14" name="f-2-14" data-label="Albumin prescribed and available if indicated"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-2-15">Sample containers and laboratory requests ready</label>
+<select id="f-2-15" name="f-2-15" data-label="Sample containers and laboratory requests ready"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-2-16">ANTT precautions</label>
+<select id="f-2-16" name="f-2-16" data-label="ANTT precautions"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-2-17">Additional help or specialist input required</label>
+<select id="f-2-17" name="f-2-17" data-label="Additional help or specialist input required"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-2-18">Concerns, mitigation and senior advice / decision</label>
+<textarea id="f-2-18" name="f-2-18" data-label="Concerns, mitigation and senior advice / decision" rows="3"></textarea>
+</div>
+</div></section><section class="form-section" aria-labelledby="section-3"><div class="section-heading"><span class="step">03</span><h2 id="section-3">Time out</h2></div>
+<p class="hint">Pause immediately before skin puncture; repeat if the procedure or site changes.</p>
+<div class="fields">
+<div><label class="field-label" for="f-3-0">Verbal confirmation between team members before start</label>
+<select id="f-3-0" name="f-3-0" data-label="Verbal confirmation between team members before start"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-3-1">All team members happy with consent and planned procedure</label>
+<select id="f-3-1" name="f-3-1" data-label="All team members happy with consent and planned procedure"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-3-2">All equipment available</label>
+<select id="f-3-2" name="f-3-2" data-label="All equipment available"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-3-3">Patient position optimal</label>
+<select id="f-3-3" name="f-3-3" data-label="Patient position optimal"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-3-4">Operator to confirm guidewire removed if used</label>
+<select id="f-3-4" name="f-3-4" data-label="Operator to confirm guidewire removed if used"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-3-5">Time-out concerns</label>
+<textarea id="f-3-5" name="f-3-5" data-label="Time-out concerns" rows="3"></textarea>
+</div>
+</div></section><section class="form-section" aria-labelledby="section-4"><div class="section-heading"><span class="step">04</span><h2 id="section-4">Procedure details</h2></div>
+<div class="fields">
+<div><label class="field-label" for="f-4-0">Procedure intended</label>
+<select id="f-4-0" name="f-4-0" data-label="Procedure intended"><option value="">Not recorded</option><option>Diagnostic tap</option><option>Therapeutic drainage</option><option>Diagnostic and therapeutic</option></select>
+</div>
+<div><label class="field-label" for="f-4-1">Indication</label>
+<select id="f-4-1" name="f-4-1" data-label="Indication"><option value="">Not recorded</option><option>Diagnostic evaluation</option><option>Suspected SBP or infection</option><option>Symptomatic or tense ascites</option><option>Respiratory compromise</option><option>Other</option></select>
+</div>
+<div><label class="field-label" for="f-4-2">Indication details</label>
+<textarea id="f-4-2" name="f-4-2" data-label="Indication details" rows="3"></textarea>
+</div>
+<div><label class="field-label" for="f-4-3">Ascites aetiology</label>
+<select id="f-4-3" name="f-4-3" data-label="Ascites aetiology"><option value="">Not recorded</option><option>Cirrhosis</option><option>Malignancy</option><option>Cardiac</option><option>Other</option><option>Uncertain</option></select>
+</div>
+<div><label class="field-label" for="f-4-4">Aetiology details</label>
+<input type="text" id="f-4-4" name="f-4-4" data-label="Aetiology details">
+</div>
+<div><label class="field-label" for="f-4-5">Procedure outcome</label>
+<select id="f-4-5" name="f-4-5" data-label="Procedure outcome"><option value="">Not recorded</option><option>Successful</option><option>Unsuccessful</option></select>
+</div>
+<div><label class="field-label" for="f-4-6">Drain type / manufacturer</label>
+<input type="text" id="f-4-6" name="f-4-6" data-label="Drain type / manufacturer">
+</div>
+<div><label class="field-label" for="f-4-7">Drain size (Fr)</label>
+<input type="number" id="f-4-7" name="f-4-7" data-label="Drain size (Fr)" min="0" step="any">
+</div>
+<div><label class="field-label" for="f-4-8">LOT number</label>
+<input type="text" id="f-4-8" name="f-4-8" data-label="LOT number">
+</div>
+<div><label class="field-label" for="f-4-9">Insertion technique</label>
+<select id="f-4-9" name="f-4-9" data-label="Insertion technique"><option value="">Not recorded</option><option>Catheter over needle</option><option>Seldinger</option><option>Other</option><option>Tap only</option></select>
+</div>
+<div><label class="field-label" for="f-4-10">Other technique details</label>
+<input type="text" id="f-4-10" name="f-4-10" data-label="Other technique details">
+</div>
+<div><label class="field-label" for="f-4-11">Side</label>
+<select id="f-4-11" name="f-4-11" data-label="Side"><option value="">Not recorded</option><option>Left</option><option>Right</option><option>Midline</option></select>
+</div>
+<div><label class="field-label" for="f-4-12">Insertion site</label>
+<input type="text" id="f-4-12" name="f-4-12" data-label="Insertion site">
+</div>
+<div><label class="field-label" for="f-4-13">Patient position</label>
+<select id="f-4-13" name="f-4-13" data-label="Patient position"><option value="">Not recorded</option><option>Supine</option><option>Lateral</option><option>Head up</option></select>
+</div>
+<div><label class="field-label" for="f-4-14">Ultrasound imaging used</label>
+<select id="f-4-14" name="f-4-14" data-label="Ultrasound imaging used"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-4-15">If ultrasound not used, why not?</label>
+<textarea id="f-4-15" name="f-4-15" data-label="If ultrasound not used, why not?" rows="3"></textarea>
+</div>
+<div><label class="field-label" for="f-4-16">Maximum ascitic depth (cm)</label>
+<input type="number" id="f-4-16" name="f-4-16" data-label="Maximum ascitic depth (cm)" min="0" step="any">
+</div>
+<div><label class="field-label" for="f-4-17">Sedated</label>
+<select id="f-4-17" name="f-4-17" data-label="Sedated"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-4-18">Sedation details</label>
+<input type="text" id="f-4-18" name="f-4-18" data-label="Sedation details">
+</div>
+<div><label class="field-label" for="f-4-19">Local anaesthetic administered</label>
+<select id="f-4-19" name="f-4-19" data-label="Local anaesthetic administered"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-4-20">Local anaesthetic drug</label>
+<input type="text" id="f-4-20" name="f-4-20" data-label="Local anaesthetic drug">
+</div>
+<div><label class="field-label" for="f-4-21">Local anaesthetic concentration (%)</label>
+<input type="number" id="f-4-21" name="f-4-21" data-label="Local anaesthetic concentration (%)" min="0" step="any">
+</div>
+<div><label class="field-label" for="f-4-22">Local anaesthetic volume (mL)</label>
+<input type="number" id="f-4-22" name="f-4-22" data-label="Local anaesthetic volume (mL)" min="0" step="any">
+</div>
+<div><label class="field-label" for="f-4-23">Local anaesthetic total dose (mg)</label>
+<input type="number" id="f-4-23" name="f-4-23" data-label="Local anaesthetic total dose (mg)" min="0" step="any">
+</div>
+<div><label class="field-label" for="f-4-24">Number of skin puncture attempts</label>
+<input type="number" id="f-4-24" name="f-4-24" data-label="Number of skin puncture attempts" min="0" step="1">
+</div>
+<div><label class="field-label" for="f-4-25">Ascitic fluid appearance</label>
+<select id="f-4-25" name="f-4-25" data-label="Ascitic fluid appearance"><option value="">Not recorded</option><option>Clear or straw coloured</option><option>Cloudy</option><option>Blood stained</option><option>Frank blood</option><option>Pus</option><option>Milky</option><option>No fluid obtained</option></select>
+</div>
+<div><label class="field-label" for="f-4-26">Volume removed at procedure completion (mL)</label>
+<input type="number" id="f-4-26" name="f-4-26" data-label="Volume removed at procedure completion (mL)" min="0" step="any">
+</div>
+<fieldset data-label="Samples obtained and sent"><legend class="field-label">Samples obtained and sent</legend>
+<label class="sample-option"><input type="checkbox" name="samples" value="Cell count and differential"> Cell count and differential</label>
+<label class="sample-option"><input type="checkbox" name="samples" value="Culture in blood culture bottles"> Culture in blood culture bottles</label>
+<label class="sample-option"><input type="checkbox" name="samples" value="Total protein"> Total protein</label>
+<label class="sample-option"><input type="checkbox" name="samples" value="Ascitic albumin with paired serum albumin"> Ascitic albumin with paired serum albumin</label>
+<label class="sample-option"><input type="checkbox" name="samples" value="Cytology"> Cytology</label>
+<label class="sample-option"><input type="checkbox" name="samples" value="No samples"> No samples</label>
+<label class="sample-option"><input type="checkbox" name="samples" value="Other"> Other</label>
+</fieldset>
+<div><label class="field-label" for="f-4-28">Other sample details</label>
+<input type="text" id="f-4-28" name="f-4-28" data-label="Other sample details">
+</div>
+<div><label class="field-label" for="f-4-29">Drain fixation</label>
+<input type="text" id="f-4-29" name="f-4-29" data-label="Drain fixation">
+</div>
+<div><label class="field-label" for="f-4-30">Complications</label>
+<select id="f-4-30" name="f-4-30" data-label="Complications"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-4-31">Complication details / treatment / escalation</label>
+<textarea id="f-4-31" name="f-4-31" data-label="Complication details / treatment / escalation" rows="3"></textarea>
+</div>
+<div><label class="field-label" for="f-4-32">Additional procedure comments</label>
+<textarea id="f-4-32" name="f-4-32" data-label="Additional procedure comments" rows="3"></textarea>
+</div>
+</div></section><section class="form-section" aria-labelledby="section-5"><div class="section-heading"><span class="step">05</span><h2 id="section-5">Sign out</h2></div><p class="hint">Albumin guidance from the supplied template: BSG/BASL recommends albumin after removal of more than 5 L at 8 g per litre of total ascites removed. Consider the same dose below 5 L with acute-on-chronic liver failure or high risk of post-paracentesis AKI. With 20% albumin, this is 100 mL for every 2.5 litres drained.</p>
+<div class="fields">
+<div><label class="field-label" for="f-5-0">Drain secured, connected and dressing applied</label>
+<select id="f-5-0" name="f-5-0" data-label="Drain secured, connected and dressing applied"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-5-1">Guidewire removed and intact</label>
+<select id="f-5-1" name="f-5-1" data-label="Guidewire removed and intact"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-5-2">Needle / introducer removed and intact</label>
+<select id="f-5-2" name="f-5-2" data-label="Needle / introducer removed and intact"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-5-3">Samples sent to lab</label>
+<select id="f-5-3" name="f-5-3" data-label="Samples sent to lab"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-5-4">Immediate complications</label>
+<select id="f-5-4" name="f-5-4" data-label="Immediate complications"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-5-5">Immediate complication details</label>
+<textarea id="f-5-5" name="f-5-5" data-label="Immediate complication details" rows="3"></textarea>
+</div>
+<div><label class="field-label" for="f-5-6">Drainage volume / duration and removal deadline documented</label>
+<select id="f-5-6" name="f-5-6" data-label="Drainage volume / duration and removal deadline documented"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-5-7">Planned drainage volume (L)</label>
+<input type="number" id="f-5-7" name="f-5-7" data-label="Planned drainage volume (L)" min="0" step="any">
+</div>
+<div><label class="field-label" for="f-5-8">Planned drainage duration</label>
+<input type="text" id="f-5-8" name="f-5-8" data-label="Planned drainage duration">
+</div>
+<div><label class="field-label" for="f-5-9">Removal deadline</label>
+<input type="datetime-local" id="f-5-9" name="f-5-9" data-label="Removal deadline">
+</div>
+<div><label class="field-label" for="f-5-10">Albumin prescription and administration plan confirmed</label>
+<select id="f-5-10" name="f-5-10" data-label="Albumin prescription and administration plan confirmed"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-5-11">Albumin prescription and administration plan</label>
+<textarea id="f-5-11" name="f-5-11" data-label="Albumin prescription and administration plan" rows="3"></textarea>
+</div>
+<div><label class="field-label" for="f-5-12">Antithrombotic / VTE prophylaxis plan</label>
+<textarea id="f-5-12" name="f-5-12" data-label="Antithrombotic / VTE prophylaxis plan" rows="3"></textarea>
+</div>
+<div><label class="field-label" for="f-5-13">Verbal handover to bedside nurse completed</label>
+<select id="f-5-13" name="f-5-13" data-label="Verbal handover to bedside nurse completed"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+</div></section><section class="form-section" aria-labelledby="section-6"><div class="section-heading"><span class="step">06</span><h2 id="section-6">Drain removal record</h2></div>
+<p class="hint">Template reminder: drain should be removed within 6 hours of insertion. Complete this section when the drain is removed.</p>
+<div class="fields">
+<div><label class="field-label" for="f-6-0">Removal date / time</label>
+<input type="datetime-local" id="f-6-0" name="f-6-0" data-label="Removal date / time">
+</div>
+<div><label class="field-label" for="f-6-1">Removed by</label>
+<input type="text" id="f-6-1" name="f-6-1" data-label="Removed by">
+</div>
+<div><label class="field-label" for="f-6-2">Total ascites drained (L)</label>
+<input type="number" id="f-6-2" name="f-6-2" data-label="Total ascites drained (L)" min="0" step="any">
+</div>
+<div><label class="field-label" for="f-6-3">Total albumin administered (g)</label>
+<input type="number" id="f-6-3" name="f-6-3" data-label="Total albumin administered (g)" min="0" step="any">
+</div>
+<div><label class="field-label" for="f-6-4">Total albumin administered (mL)</label>
+<input type="number" id="f-6-4" name="f-6-4" data-label="Total albumin administered (mL)" min="0" step="any">
+</div>
+<div><label class="field-label" for="f-6-5">Albumin concentration (%)</label>
+<input type="number" id="f-6-5" name="f-6-5" data-label="Albumin concentration (%)" min="0" step="any">
+</div>
+<div><label class="field-label" for="f-6-6">Drain removed intact</label>
+<select id="f-6-6" name="f-6-6" data-label="Drain removed intact"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-6-7">Site checked and dressing applied</label>
+<select id="f-6-7" name="f-6-7" data-label="Site checked and dressing applied"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-6-8">Leakage or other complications</label>
+<select id="f-6-8" name="f-6-8" data-label="Leakage or other complications"><option value="">Not recorded</option><option>Yes</option><option>No</option><option>N/A</option></select>
+</div>
+<div><label class="field-label" for="f-6-9">Post-removal observations / complications / actions</label>
+<textarea id="f-6-9" name="f-6-9" data-label="Post-removal observations / complications / actions" rows="3"></textarea>
+</div>
+</div></section><div class="form-actions"><button type="submit" class="generate-button">Generate clinical note →</button></div></form>
+<aside class="note-panel" aria-labelledby="note-heading"><div class="note-header"><h2 id="note-heading"><label for="output">Clinical note</label></h2><span class="note-badge">Preview</span></div><div class="note-body"><p class="hint">Review the generated note, then copy it to your clinical record. Unanswered fields are shown as “Not recorded”.</p><textarea id="output" readonly rows="18" placeholder="Your note will appear here once you select Generate clinical note."></textarea><button type="button" id="copy" disabled class="copy-button">Copy note</button><p id="status" role="status" aria-live="polite"></p></div></aside></div></main>
+<script>
+const form = document.getElementById('ascitic-form');
+const output = document.getElementById('output');
+const copyButton = document.getElementById('copy');
+const status = document.getElementById('status');
+form.addEventListener('input', () => {
+  output.value = '';
+  copyButton.disabled = true;
+  status.textContent = '';
+});
+form.addEventListener('change', event => {
+  if (event.target.name !== 'samples' || !event.target.checked) return;
+  const noSamples = event.target.value === 'No samples';
+  form.querySelectorAll('[name="samples"]').forEach(input => {
+    if (input !== event.target && (noSamples || input.value === 'No samples')) input.checked = false;
+  });
+});
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  const lines = ['ASCITIC DRAIN INSERTION AND DIAGNOSTIC TAP'];
+  form.querySelectorAll('.form-section').forEach(section => {
+    const fields = [...section.querySelectorAll('[data-label]')];
+    if (section.querySelector('h2').textContent === 'Drain removal record' && !fields.some(field => field.value?.trim())) return;
+    lines.push('', section.querySelector('h2').textContent.toUpperCase());
+    fields.forEach(field => {
+      const value = field.tagName === 'FIELDSET'
+        ? [...field.querySelectorAll('input:checked')].map(input => input.value).join('; ')
+        : field.value.trim();
+      lines.push(`${field.dataset.label}: ${value || 'Not recorded'}`);
+    });
+  });
+  output.value = lines.join('\n');
+  copyButton.disabled = false;
+  status.textContent = 'Clinical note generated.';
+});
+copyButton.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(output.value);
+    status.textContent = 'Clinical note copied to the clipboard.';
+  } catch {
+    output.focus(); output.select();
+    status.textContent = 'Could not copy automatically. The note is selected; use your browser’s copy command.';
+  }
+});
+</script></body></html>
