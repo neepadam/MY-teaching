@@ -101,7 +101,14 @@ fieldset { border:1px solid #dce5ed; border-radius:8px; padding:16px; margin:0; 
 .rich-note p { margin:6px 0; white-space:pre-wrap; }
 .rich-note hr { border:0; border-top:1px solid #aabac7; margin:24px 0; }
 .rich-note:focus-visible { outline:3px solid #005eb8; outline-offset:3px; }
-</style></head><body><header class="page-header"><div class="header-inner"><a href="../index.html" class="back-link">← Procedure forms</a><p class="eyebrow">Bedside procedures · Clinical documentation</p><h1>Ascitic drain</h1><p class="intro">Ascitic drain insertion and diagnostic tap · MY ACE adult critical care template</p></div></header><main><div class="workspace"><form id="ascitic-form" class="form-panel"><section class="form-section" aria-labelledby="section-1"><div class="section-heading"><span class="step">01</span><h2 id="section-1">Insertion and team</h2></div>
+.procedure-tabs { display:flex; gap:10px; margin-bottom:20px; }
+.procedure-tab { flex:1; border:2px solid #005eb8; background:white; color:#005eb8; padding:15px; }
+.procedure-tab[aria-selected="true"] { background:#005eb8; color:white; }
+.tab-prompt { margin:0 0 20px; color:#526b7e; font-size:14px; }
+</style></head><body><header class="page-header"><div class="header-inner"><a href="../index.html" class="back-link">← Procedure forms</a><p class="eyebrow">Bedside procedures · Clinical documentation</p><h1>Ascitic drain</h1><p class="intro">Ascitic drain insertion and diagnostic tap · MY ACE adult critical care template</p></div></header><main><div class="procedure-tabs" role="tablist" aria-label="Ascitic drain procedure">
+<button type="button" role="tab" class="procedure-tab" id="tab-insertion" aria-controls="panel-insertion" aria-selected="false">Insertion</button>
+<button type="button" role="tab" class="procedure-tab" id="tab-removal" aria-controls="panel-removal" aria-selected="false" tabindex="-1">Removal</button>
+</div><p class="tab-prompt" id="tab-prompt">Select Insertion or Removal to open the form.</p><div class="workspace"><form id="ascitic-form" class="form-panel" hidden><div id="panel-insertion" role="tabpanel" aria-labelledby="tab-insertion" hidden><section class="form-section" aria-labelledby="section-1"><div class="section-heading"><span class="step">01</span><h2 id="section-1">Insertion and team</h2></div>
 <div class="fields">
 <div><label class="field-label" for="f-1-3">Insertion date</label>
 <input type="date" id="f-1-3" name="f-1-3" data-label="Insertion date">
@@ -285,8 +292,8 @@ fieldset { border:1px solid #dce5ed; border-radius:8px; padding:16px; margin:0; 
 <textarea id="f-5-12" name="f-5-12" data-label="Antithrombotic / VTE prophylaxis plan" rows="3"></textarea>
 </div>
 <fieldset class="choice-field" data-label="Verbal handover to bedside nurse completed"><legend class="field-label">Verbal handover to bedside nurse completed</legend><div class="choice-buttons"><label class="choice-button"><input type="radio" name="f-5-13" value="Yes"><span>Yes</span></label><label class="choice-button"><input type="radio" name="f-5-13" value="No"><span>No</span></label><label class="choice-button"><input type="radio" name="f-5-13" value="N/A"><span>N/A</span></label></div></fieldset>
-</div></section><div class="form-actions"><button type="submit" id="generate-insertion" class="generate-button">Generate drain insertion text →</button></div><section class="form-section" aria-labelledby="section-6"><div class="section-heading"><span class="step">06</span><h2 id="section-6">Drain removal record</h2></div>
-<p class="hint">Template reminder: drain should be removed within 6 hours of insertion. Complete this section when the drain is removed.</p>
+</div></section><div class="form-actions"><button type="submit" id="generate-insertion" class="generate-button">Generate drain insertion text →</button></div></div><div id="panel-removal" role="tabpanel" aria-labelledby="tab-removal" hidden><section class="form-section" aria-labelledby="section-6"><div class="section-heading"><span class="step">06</span><h2 id="section-6">Drain removal record</h2></div>
+<p class="hint">Drain should be removed within 6 hours of insertion. Complete this section when the drain is removed.</p>
 <div class="fields">
 <div><label class="field-label" for="f-6-0">Removal date / time</label>
 <input type="datetime-local" id="f-6-0" name="f-6-0" data-label="Removal date / time">
@@ -312,14 +319,46 @@ fieldset { border:1px solid #dce5ed; border-radius:8px; padding:16px; margin:0; 
 <div><label class="field-label" for="f-6-9">Post-removal observations / complications / actions</label>
 <textarea id="f-6-9" name="f-6-9" data-label="Post-removal observations / complications / actions" rows="3"></textarea>
 </div>
-</div></section><div class="form-actions"><button type="button" id="generate-removal" class="generate-button">Generate drain removal text →</button></div></form>
-<aside class="note-panel" aria-labelledby="note-heading"><div class="note-header"><h2 id="note-heading">Clinical note</h2><span class="note-badge">Preview</span></div><div class="note-body"><p class="hint">Review the generated note, then copy it to your clinical record. Unanswered fields are shown as “Not recorded”.</p><div id="output" class="rich-note" role="region" aria-labelledby="note-heading" tabindex="0" data-placeholder="Your note will appear here once you generate insertion or removal text."></div><button type="button" id="copy" disabled class="copy-button">Copy note</button><p id="status" role="status" aria-live="polite"></p></div></aside></div></main>
+</div></section><div class="form-actions"><button type="button" id="generate-removal" class="generate-button">Generate drain removal text →</button></div></div></form>
+<aside id="note-panel" class="note-panel" aria-labelledby="note-heading" hidden><div class="note-header"><h2 id="note-heading">Clinical note</h2><span class="note-badge">Preview</span></div><div class="note-body"><p class="hint">Review the generated note, then copy it to your clinical record. Unanswered fields are shown as “Not recorded”.</p><div id="output" class="rich-note" role="region" aria-labelledby="note-heading" tabindex="0" data-placeholder="Your note will appear here once you generate insertion or removal text."></div><button type="button" id="copy" disabled class="copy-button">Copy note</button><p id="status" role="status" aria-live="polite"></p></div></aside></div></main>
 <script>
 const form = document.getElementById('ascitic-form');
 const output = document.getElementById('output');
 const copyButton = document.getElementById('copy');
 const status = document.getElementById('status');
 let plainNote = '';
+let activeTab = null;
+const tabs = ['insertion', 'removal'].map(kind => document.getElementById(`tab-${kind}`));
+function selectTab(kind) {
+  activeTab = kind;
+  tabs.forEach(tab => {
+    const selected = tab.id === `tab-${kind}`;
+    tab.setAttribute('aria-selected', String(selected));
+    tab.tabIndex = selected ? 0 : -1;
+    document.getElementById(tab.getAttribute('aria-controls')).hidden = !selected;
+  });
+  form.hidden = false;
+  document.getElementById('note-panel').hidden = false;
+  document.getElementById('tab-prompt').hidden = true;
+  output.replaceChildren();
+  plainNote = '';
+  copyButton.disabled = true;
+  status.textContent = '';
+}
+tabs.forEach((tab, index) => {
+  tab.addEventListener('click', () => selectTab(index === 0 ? 'insertion' : 'removal'));
+  tab.addEventListener('keydown', event => {
+    let next;
+    if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') next = 1 - index;
+    else if (event.key === 'Home') next = 0;
+    else if (event.key === 'End') next = tabs.length - 1;
+    else return;
+    event.preventDefault();
+    tabs.forEach((item, i) => { item.tabIndex = i === next ? 0 : -1; });
+    tabs[next].focus();
+  });
+});
+
 form.addEventListener('input', () => {
   output.replaceChildren();
   plainNote = '';
@@ -383,7 +422,7 @@ function generateNote(kind) {
 form.noValidate = true;
 form.addEventListener('submit', event => {
   event.preventDefault();
-  generateNote('insertion');
+  if (activeTab) generateNote(activeTab);
 });
 document.getElementById('generate-removal').addEventListener('click', () => generateNote('removal'));
 copyButton.addEventListener('click', async () => {
